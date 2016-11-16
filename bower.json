@@ -1,0 +1,11 @@
+{
+  "name": "jeopardy",
+  "description": "America's most fav quiz game",
+  "main": "index.js",
+  "authors": [
+    "srini"
+  ],
+  "license": "MIT",
+  "homepage": "https://github.com/stackroute/quizart-ui",
+  "private": true
+}
