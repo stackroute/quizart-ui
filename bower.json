@@ -1,11 +1,15 @@
 {
-  "name": "jeopardy",
-  "description": "America's most fav quiz game",
+  "name": "quiz-art",
+  "description": "development environment template, that can be used as a starting point for any react client-server",
   "main": "index.js",
   "authors": [
-    "srini"
+    "Nitin Verma"
   ],
   "license": "MIT",
-  "homepage": "https://github.com/stackroute/quizart-ui",
-  "private": true
+  "homepage": "https://github.com/12btcse1108/javascriptProject",
+  "private": true,
+  "dependencies": {
+    "react": "^15.3.2",
+    "babel": "^5.8.38"
+  }
 }

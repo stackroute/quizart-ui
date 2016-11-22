@@ -1,0 +1,31 @@
+.example-appear {
+   opacity: 0.01;
+}
+
+.example-appear.example-appear-active {
+   opacity: 1;
+   transition: opacity 500ms ease-in;
+}
+body{
+  background-color: #f0f0f0;
+  font-family: Roboto,Helvetica,Arial,sans-serif;
+}
+.focusingRow-appear{
+  opacity: 0.01;
+}
+.focusingRow-appear.focusingRow-appear-active{
+  opacity: 1;
+  transition: opacity 1000ms ease-in;
+}
+
+.slide{
+  animation: slide 1s ease-in forwards;
+}
+@@keyframes slide {
+  0%{
+    transform: translateX(0%);
+  }
+    100%{
+      transform: translateX(351px);
+    }
+}

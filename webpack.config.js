@@ -1,23 +1,34 @@
-const path = require('path');
-
-module.exports = {
-  devtool: 'cheap-eval-source-map',
-  entry: './client/app',
-  output: {
-    path: path.join('client','assets'),
-    publicPath: '/assets/',
-    filename: 'bundle.js'
+module.exports={
+  devtool: 'inline-source-map',
+  entry:'./client/client',
+  output:{
+    path:'client/assets/',
+    filename:'bundle.js',
+    publicPath: '/assets/'
   },
-  module: {
-    loaders: [{
-      loader: 'babel',
-      test: /\.jsx$/,
-      query: {
-        presets: ['es2015','stage-1','react']
+  module:
+  {
+    loaders:[{
+      loader:'babel',
+      test:/\.js$/,
+      exclude: /node_modules/,
+      query:{
+        presets:['es2015','react','stage-1']
       }
-    }]
+    },
+    {
+      test: /\.css$/,
+      loader: 'style!css?modules',
+      include: /flexboxgrid/
+    }
+  ]
   },
-  resolve: {
-    extensions: ['','.js','.jsx','/index','/index.js','/index.jsx']
+	resolve:{
+		extensions: ['','.js','.jsx','/index','/index.js','/index.jsx']
+	},
+  node: {
+    fs: 'empty',
+    net: 'empty',
+    tls: 'empty'
   }
 };
