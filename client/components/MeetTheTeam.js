@@ -31,86 +31,91 @@ const MemberPaper = () => (
     </div>
     <br/>
     <Grid>
-      <Row center="xs">
-        <Col xs={12} sm={12} md={12} lg={12}>
-          <Paper style={styles.style} zDepth={2} rounded={false}>
-            <Avatar src="./img/dhivya.jpg" size={"100"} style={styles.imageStyle} />
-            <h3>Dhivyalakshmi V</h3>
-            <Row>
-              <Col xs>
-                  <i className="fa fa-github" backgroundColor={blue500}/>
-            </Col>
-            <Col xs>
-              <i className="fa fa-linkedin"/>
-              </Col>
-            </Row>
+        <Row center="xs">
+          <Col xs={12} sm={12} md={12} lg={12}>
 
-          </Paper>
-          <Paper style={styles.style} zDepth={2} rounded={false} >
-            <Avatar src="./img/kirti.jpg" size={"100"} style={styles.imageStyle} />
-            <h3>Kirti Jalan</h3>
-            <Row>
-              <Col xs>
-                  <i className="fa fa-github" backgroundColor={blue500}/>
-            </Col>
-            <Col xs>
-              <i className="fa fa-linkedin"/>
+            <Paper style={styles.style} zDepth={2} rounded={false} >
+              <Avatar src="./img/srini.jpg" size={90} style={styles.imageStyle} />
+              <h3>Srinivasan</h3>
+              <Row>
+                <Col xs>
+                    <i className="fa fa-github" backgroundColor={blue500}/>
               </Col>
-            </Row>
+              <Col xs>
+                <i className="fa fa-linkedin"/>
+                </Col>
+              </Row>
+            </Paper>
+            <Paper style={styles.style} zDepth={2} rounded={false} >
+              <Avatar src="./img/vishant.jpg" size={90} style={styles.imageStyle} />
+              <h3>Vishant Sharma</h3>
+              <Row>
+                <Col xs>
+                    <i className="fa fa-github" backgroundColor={blue500}/>
+              </Col>
+              <Col xs>
+                <i className="fa fa-linkedin"/>
+                </Col>
+              </Row>
+            </Paper>
 
-          </Paper>
-          <Paper style={styles.style} zDepth={2} rounded={false} >
-            <Avatar src="./img/lal.jpg" size={"100"} style={styles.imageStyle} />
-            <h3>Lal Jose</h3>
-            <Row>
-              <Col xs>
-                  <i className="fa fa-github" backgroundColor={blue500}/>
-            </Col>
-            <Col xs>
-              <i className="fa fa-linkedin"/>
+            <Paper style={styles.style} zDepth={2} rounded={false} >
+              <Avatar src="./img/kirti.jpg" size={"90"} style={styles.imageStyle} />
+              <h3>Kirti Jalan</h3>
+              <Row>
+                <Col xs>
+                    <i className="fa fa-github" backgroundColor={blue500}/>
               </Col>
-            </Row>
+              <Col xs>
+                <i className="fa fa-linkedin"/>
+                </Col>
+              </Row>
 
-          </Paper>
-          <Paper style={styles.style} zDepth={2} rounded={false} >
-            <Avatar src="./img/nitin.jpg" size={"100"} style={styles.imageStyle} />
-            <h3>Nitin Verma</h3>
-            <Row>
-              <Col xs>
-                  <i className="fa fa-github" backgroundColor={blue500}/>
-            </Col>
-            <Col xs>
-              <i className="fa fa-linkedin"/>
+            </Paper>
+            <Paper style={styles.style} zDepth={2} rounded={false} >
+              <Avatar src="./img/nitin.jpg" size={90} style={styles.imageStyle} />
+              <h3>Nitin Verma</h3>
+              <Row>
+                <Col xs>
+                    <i className="fa fa-github" backgroundColor={blue500}/>
               </Col>
-            </Row>
-          </Paper>
-          <Paper style={styles.style} zDepth={2} rounded={false} >
-            <Avatar src="./img/srini.jpg" size={"100"} style={styles.imageStyle} />
-            <h3>Srinivasan</h3>
-            <Row>
               <Col xs>
-                  <i className="fa fa-github" backgroundColor={blue500}/>
-            </Col>
-            <Col xs>
-              <i className="fa fa-linkedin"/>
+                <i className="fa fa-linkedin"/>
+                </Col>
+              </Row>
+            </Paper>
+
+            <Paper style={styles.style} zDepth={2} rounded={false}>
+              <Avatar src="./img/dhivya.jpg" size={90} style={styles.imageStyle} />
+              <h3>Dhivyalakshmi V </h3>
+              <Row>
+                <Col xs>
+                    <i className="fa fa-github" backgroundColor={blue500}/>
               </Col>
-            </Row>
-          </Paper>
-          <Paper style={styles.style} zDepth={2} rounded={false} >
-            <Avatar src="./img/vishant.jpg" size={"100"} style={styles.imageStyle} />
-            <h3>Vishant Sharma</h3>
-            <Row>
               <Col xs>
-                  <i className="fa fa-github" backgroundColor={blue500}/>
-            </Col>
-            <Col xs>
-              <i className="fa fa-linkedin"/>
+                <i className="fa fa-linkedin"/>
+                </Col>
+              </Row>
+
+            </Paper>
+            <Paper style={styles.style} zDepth={2} rounded={false} >
+              <Avatar src="./img/lal.jpg" size={90} style={styles.imageStyle} />
+              <h3>Lal Jose</h3>
+              <Row>
+                <Col xs>
+                    <i className="fa fa-github" backgroundColor={blue500}/>
               </Col>
-            </Row>
-          </Paper>
-        </Col>
-      </Row>
-    </Grid>
+              <Col xs>
+                <i className="fa fa-linkedin"/>
+                </Col>
+              </Row>
+
+            </Paper>
+
+          </Col>
+        </Row>
+      </Grid>
+
 
   </div>
 );

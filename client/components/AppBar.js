@@ -49,9 +49,9 @@ export default class DrawerOpenRightExample extends React.Component {
     <AppBar style={styles}
       iconElementLeft = {
         <div>
-        <Link><FlatButton
-          label="Quick Play"
-        />
+
+        <Link to="JeopardyScoreBoard/">
+          <FlatButton label="Quick Play"/>
       </Link>
       </div>
       }

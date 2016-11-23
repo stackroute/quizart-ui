@@ -13,6 +13,7 @@ import LeaderBoardTable from './components/LeaderBoardTable';
 import QuestionPool from './components/QuestionPool2';
 import DisplayQuestions from './components/DisplayQuestions1'
 import JeopardyPlayLink from './components/JeopardyPlayLink';
+import JeopardyScoreBoard from './components/JeopardyScoreBoard';
 import PaperBoard from './components/PaperBoard';
 import MySlider from './components/MySlider';
 import Login from './components/Login';
@@ -38,6 +39,7 @@ render(){
           <Route path="displayquestions/" component={DisplayQuestions}></Route>
           <Route path="JeopardyPlayLink/" component={JeopardyPlayLink}></Route>
           <Route path="PaperBoard/" component={PaperBoard}></Route>
+
         </Route>
     </Router>
   );
@@ -46,6 +48,7 @@ render(){
     return (
     <Router key={2} history={hashHistory}>
         <Route path="/" checkedLoggedIn={this.checkedLoggedIn} component={DrawerOpenRightExample}/>
+        <Route path="JeopardyScoreBoard/" component={JeopardyScoreBoard}></Route>
     </Router>
   );
   }
