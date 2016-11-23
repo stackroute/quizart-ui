@@ -34,7 +34,7 @@ const MemberPaper = () => (
       <Row center="xs">
         <Col xs={12} sm={12} md={12} lg={12}>
           <Paper style={styles.style} zDepth={2} rounded={false}>
-            <Avatar src="./images/dhivya.jpg" size={"100"} style={styles.imageStyle} />
+            <Avatar src="./img/dhivya.jpg" size={"100"} style={styles.imageStyle} />
             <h3>Dhivyalakshmi V</h3>
             <Row>
               <Col xs>
@@ -47,7 +47,7 @@ const MemberPaper = () => (
 
           </Paper>
           <Paper style={styles.style} zDepth={2} rounded={false} >
-            <Avatar src="./images/kirti.jpg" size={"100"} style={styles.imageStyle} />
+            <Avatar src="./img/kirti.jpg" size={"100"} style={styles.imageStyle} />
             <h3>Kirti Jalan</h3>
             <Row>
               <Col xs>
@@ -60,7 +60,7 @@ const MemberPaper = () => (
 
           </Paper>
           <Paper style={styles.style} zDepth={2} rounded={false} >
-            <Avatar src="./images/lal.jpg" size={"100"} style={styles.imageStyle} />
+            <Avatar src="./img/lal.jpg" size={"100"} style={styles.imageStyle} />
             <h3>Lal Jose</h3>
             <Row>
               <Col xs>
@@ -73,7 +73,7 @@ const MemberPaper = () => (
 
           </Paper>
           <Paper style={styles.style} zDepth={2} rounded={false} >
-            <Avatar src="./images/nitin.jpg" size={"100"} style={styles.imageStyle} />
+            <Avatar src="./img/nitin.jpg" size={"100"} style={styles.imageStyle} />
             <h3>Nitin Verma</h3>
             <Row>
               <Col xs>
@@ -85,7 +85,7 @@ const MemberPaper = () => (
             </Row>
           </Paper>
           <Paper style={styles.style} zDepth={2} rounded={false} >
-            <Avatar src="./images/srini.jpg" size={"100"} style={styles.imageStyle} />
+            <Avatar src="./img/srini.jpg" size={"100"} style={styles.imageStyle} />
             <h3>Srinivasan</h3>
             <Row>
               <Col xs>
@@ -97,7 +97,7 @@ const MemberPaper = () => (
             </Row>
           </Paper>
           <Paper style={styles.style} zDepth={2} rounded={false} >
-            <Avatar src="./images/vishant.jpg" size={"100"} style={styles.imageStyle} />
+            <Avatar src="./img/vishant.jpg" size={"100"} style={styles.imageStyle} />
             <h3>Vishant Sharma</h3>
             <Row>
               <Col xs>

@@ -3,10 +3,10 @@ import {Card, CardActions, CardHeader, CardMedia, CardTitle, CardText} from 'mat
 import FlatButton from 'material-ui/FlatButton';
 import LoginComponent from './Login';
 
-const CardExampleWithAvatar = () => (
+const VideoElement = (props) => (
   <Card>
     <CardMedia
-      overlay={<LoginComponent/>}
+      overlay={<LoginComponent checkedLoggedIn={props.checkedLoggedIn}/>}
       overlayContainerStyle={{top:"30%", bottom:"10%"}}
       >
       <video width="100%" height="20%" autoPlay loop>
@@ -21,4 +21,4 @@ const CardExampleWithAvatar = () => (
   </Card>
 );
 
-export default CardExampleWithAvatar;
+export default VideoElement;

@@ -1,4 +1,5 @@
 import React from 'react';
+import {Link} from 'react-router';
 import AppBar from 'material-ui/AppBar';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import FlatButton from 'material-ui/FlatButton';
@@ -10,9 +11,28 @@ import FontIcon from 'material-ui/FontIcon';
 import {BottomNavigation, BottomNavigationItem} from 'material-ui/BottomNavigation';
 import Paper from 'material-ui/Paper';
 import Snackbar from 'material-ui/Snackbar';
+import VideoElement from './VideoElement';
+import MemberPaper from './MeetTheTeam';
+import JeopardyCategories from './JeopardyCategories';
+import AdaptiveChallenge from './AdaptiveChallenge';
+import ClassicalChallenge from './ClassicalChallenge';
+import {
+  blue300,
+  white,
+  indigo500,
+  orange200,
+  deepOrange300,
+  grey500,
+  pink400,
+  purple500,
+} from './../../node_modules/material-ui/styles/colors';
+import Footer from './Footer'
 const phoneIcon = <i className="material-icons">call</i>;
 const mailIcon = <i className="material-icons">mail</i>;
 
+const styles = {
+  background : indigo500
+}
 export default class DrawerOpenRightExample extends React.Component {
   constructor(props) {
     super(props);
@@ -22,13 +42,17 @@ export default class DrawerOpenRightExample extends React.Component {
   handleToggle = () => this.setState({open: !this.state.open});
 
   render() {
+
    return (
-    <AppBar
+     <div>
+     <div>
+    <AppBar style={styles}
       iconElementLeft = {
         <div>
-        <FlatButton
+        <Link><FlatButton
           label="Quick Play"
         />
+      </Link>
       </div>
       }
 
@@ -74,6 +98,13 @@ export default class DrawerOpenRightExample extends React.Component {
       </div>
       }
     />
+  <VideoElement checkedLoggedIn={this.props.route.checkedLoggedIn}/>
+  <MemberPaper/>
+  <Footer/>
+</div>
+<div id="content">
+</div>
+</div>
   );
 }
 

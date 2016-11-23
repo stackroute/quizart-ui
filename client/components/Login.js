@@ -29,7 +29,8 @@ class Login extends React.Component{
       this.changeLoginStatus = this.changeLoginStatus.bind(this);
   }
   changeLoginStatus(){
-    this.props.route.checkedLogged(true);
+    console.log(this.props);
+    this.props.checkedLoggedIn(true);
     this.props.router.replace('/');
   }
 render(){ return(

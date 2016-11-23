@@ -1,7 +1,7 @@
 import React from 'react';
 import {Row,Col,Grid} from 'react-flexbox-grid';
 
-const FooterComponent = () => (
+const Footer = () => (
   <Grid>
     <Row>
       <Col xs>
@@ -38,4 +38,4 @@ const FooterComponent = () => (
   </Grid>
 );
 
-export default FooterComponent;
+export default Footer;

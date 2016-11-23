@@ -16,13 +16,15 @@ import JeopardyPlayLink from './components/JeopardyPlayLink';
 import PaperBoard from './components/PaperBoard';
 import MySlider from './components/MySlider';
 import Login from './components/Login';
+import DrawerOpenRightExample from './components/AppBar';
+
 export default class App extends React.Component{
 constructor(props){
   super(props);
-  this.checkedLogged=this.checkedLogged.bind(this);
+  this.checkedLoggedIn=this.checkedLoggedIn.bind(this);
   this.state = {loggedIn:false};
 }
-checkedLogged(status){
+checkedLoggedIn(status){
   this.setState({loggedIn:status});
 }
 render(){
@@ -43,9 +45,7 @@ render(){
   else{
     return (
     <Router key={2} history={hashHistory}>
-        <Route path="/" component={NavigationBar}>
-          <IndexRoute checkedLogged={this.checkedLogged} component={Login}></IndexRoute>
-        </Route>
+        <Route path="/" checkedLoggedIn={this.checkedLoggedIn} component={DrawerOpenRightExample}/>
     </Router>
   );
   }

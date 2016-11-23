@@ -171,9 +171,6 @@ class NavigationBar extends React.Component{
         {this.props.children}
       </div>
     </div>
-    <div id="content">
-
-    </div>
   </div>
     );
   }
