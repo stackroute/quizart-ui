@@ -1,0 +1,64 @@
+{
+  "category": [
+    {
+      "imageUrl": "http://placehold.it/32x32",
+      "noOfGamesPlayed": 1270,
+      "name": "Sports"
+    },
+    {
+      "imageUrl": "http://placehold.it/32x32",
+      "noOfGamesPlayed": 8435,
+      "name": "Music"
+    },
+    {
+      "imageUrl": "http://placehold.it/32x32",
+      "noOfGamesPlayed": 7584,
+      "name": "Literature"
+    },
+    {
+      "imageUrl": "http://placehold.it/32x32",
+      "noOfGamesPlayed": 6898,
+      "name": "Politics"
+    },
+    {
+      "imageUrl": "http://placehold.it/32x32",
+      "noOfGamesPlayed": 9918,
+      "name": "Movies"
+    },
+    {
+      "imageUrl": "http://placehold.it/32x32",
+      "noOfGamesPlayed": 1669,
+      "name": "Science"
+    },
+    {
+      "imageUrl": "http://placehold.it/32x32",
+      "noOfGamesPlayed": 9548,
+      "name": "Aerospace"
+    },
+    {
+      "imageUrl": "http://placehold.it/32x32",
+      "noOfGamesPlayed": 7746,
+      "name": "Food"
+    },
+    {
+      "imageUrl": "http://placehold.it/32x32",
+      "noOfGamesPlayed": 7123,
+      "name": "Travel"
+    },
+    {
+      "imageUrl": "http://placehold.it/32x32",
+      "noOfGamesPlayed": 4221,
+      "name": "Geopolitics"
+    },
+    {
+      "imageUrl": "http://placehold.it/32x32",
+      "noOfGamesPlayed": 7425,
+      "name": "History"
+    },
+    {
+      "imageUrl": "http://placehold.it/32x32",
+      "noOfGamesPlayed": 5695,
+      "name": "CurrentAffairs"
+    }
+  ]
+}

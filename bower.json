@@ -1,0 +1,25 @@
+{
+  "name": "quizart-ui",
+  "description": "QuizRT UI Microservice",
+  "main": "index.js",
+  "authors": [
+    "Sagar Patke <sagarpatke@gmail.com>"
+  ],
+  "license": "MIT",
+  "keywords": [
+    "QuizRT"
+  ],
+  "homepage": "https://github.com/stackroute/quizart-ui",
+  "private": true,
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "client/bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "font-roboto": "^0.0.2"
+  }
+}
