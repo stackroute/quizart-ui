@@ -60,5 +60,40 @@
       "noOfGamesPlayed": 5695,
       "name": "CurrentAffairs"
     }
+  ],
+  "jeopardyScores" : [
+    {
+      "playerId": "58378774b40743c942b13180",
+      "totalScore": 6570,
+      "noOfCorrectAns": 19,
+      "noOfAttemptedQues": 15,
+      "avgTimeCorrectAns": "<ReferenceError: avgTimeCorrectAns is not defined>",
+      "picture": "http://placehold.it/32x32"
+    },
+    {
+      "playerId": "58378774b88407890c61cbfa",
+      "totalScore": 7042,
+      "noOfCorrectAns": 4,
+      "noOfAttemptedQues": 26,
+      "avgTimeCorrectAns": "<ReferenceError: avgTimeCorrectAns is not defined>",
+      "picture": "http://placehold.it/32x32"
+    },
+    {
+      "playerId": "583787741e4bd7232f18aa43",
+      "totalScore": 4865,
+      "noOfCorrectAns": 11,
+      "noOfAttemptedQues": 20,
+      "avgTimeCorrectAns": "<ReferenceError: avgTimeCorrectAns is not defined>",
+      "picture": "http://placehold.it/32x32"
+    },
+    {
+      "playerId": "58378774c84a4056c6fa142a",
+      "totalScore": 3075,
+      "noOfCorrectAns": 24,
+      "noOfAttemptedQues": 2,
+      "avgTimeCorrectAns": "<ReferenceError: avgTimeCorrectAns is not defined>",
+      "picture": "http://placehold.it/32x32"
+    }
   ]
+
 }
