@@ -6,6 +6,7 @@ import Divider from 'material-ui/Divider';
 import Avatar from 'material-ui/Avatar';
 import ContentInbox from 'material-ui/svg-icons/content/inbox';
 import {Link} from 'react-router';
+import NavigationBar from './NavigationBar'
 
 export default class NavBar extends React.Component {
   constructor() {
@@ -31,9 +32,8 @@ export default class NavBar extends React.Component {
     };
     return (
       <div>
-        <AppBar
-          title="QuizArt"
-          onLeftIconButtonTouchTap={this.handleDrawerOpen.bind(this)} />
+        <NavigationBar />
+          
         <Drawer
           open={this.state.isDrawerOpen}
           docked={false}
