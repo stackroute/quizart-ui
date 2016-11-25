@@ -1,8 +1,7 @@
 import React from 'react';
-
 import NavBar from '../components/NavBar';
+import DashboardMyChallenges from '../components/DashboardMyChallenges';
 import CategoriesDash from '../components/CategoriesDash';
-
 import MediaQuery from 'react-responsive';
 
 export default class DashboardView extends React.Component {
@@ -24,6 +23,22 @@ export default class DashboardView extends React.Component {
         </MediaQuery>
         <MediaQuery minDeviceWidth={1440}>
           <CategoriesDash limit={12} />
+        </MediaQuery>
+
+        <MediaQuery minDeviceWidth={1} maxDeviceWidth={479}>
+          <DashboardMyChallenges limit={3} />
+        </MediaQuery>
+        <MediaQuery minDeviceWidth={480} maxDeviceWidth={767}>
+          <DashboardMyChallenges limit={3} />
+        </MediaQuery>
+        <MediaQuery minDeviceWidth={768} maxDeviceWidth={1023}>
+          <DashboardMyChallenges limit={4} />
+        </MediaQuery>
+        <MediaQuery minDeviceWidth={1024} maxDeviceWidth={1439}>
+          <DashboardMyChallenges limit={6} />
+        </MediaQuery>
+        <MediaQuery minDeviceWidth={1440}>
+          <DashboardMyChallenges limit={12} />
         </MediaQuery>
       </div>
     );
