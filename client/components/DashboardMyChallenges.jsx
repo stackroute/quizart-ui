@@ -17,7 +17,6 @@ export default class CategoriesDash extends React.Component {
     this.state = {
       mychallenges: [],
     };
-    this.createChallenge=this.createChallenge.bind(this);
   }
 
   static get propTypes() {
@@ -32,9 +31,6 @@ export default class CategoriesDash extends React.Component {
       .end((err, res) => {
         this.setState({mychallenges: res.body});
       });
-  }
-  createChallenge(){
-
   }
   render() {
     const styles = {
@@ -62,7 +58,7 @@ export default class CategoriesDash extends React.Component {
             </Row>
             <Row center="xs">
               <Link to='allmychallenges'>
-              <FloatingActionButton mini={true} style={styles.moreChallenges} onClick={this.createChallenge}>
+              <FloatingActionButton mini={true} style={styles.moreChallenges}>
                 <NavigationExpandMore />
               </FloatingActionButton>
             </Link>

@@ -16,7 +16,7 @@ const style = {
 export default class CategoryIcon extends React.Component {
   constructor(props){
     super(props);
-    this.challengePlay=this.challengePlay.bind();
+    this.challengePlay=this.challengePlay.bind(this);
   }
   static get propTypes() {
     return {
@@ -26,12 +26,12 @@ export default class CategoryIcon extends React.Component {
   challengePlay()
   {
     ReactDOM.unmountComponentAtNode(document.getElementById('challengePlay'));
-    ReactDOM.render(<MuiThemeProvider><ChallengePlayDialog open={true} challenge={this.props.mychallenges}/></MuiThemeProvider>,document.getElementById('challengePlay'));
+    ReactDOM.render(<MuiThemeProvider><ChallengePlayDialog  challenge={this.props.mychallenges} open={true} /></MuiThemeProvider>,document.getElementById('challengePlay'));
   }
   render() {
     return (
         <div>
-        <Card  style={style.card} onClick={this.challengePlay} key={this.props.mychallenges.nameOfTheChallenge}>
+        <Card  style={style.card} onClick={()=>this.challengePlay(this)} key={this.props.mychallenges.nameOfTheChallenge}>
         <p><strong style={{color:'#3F51B5'}}>Name : {this.props.mychallenges.nameOfTheChallenge}</strong></p>
         <p>Duration : {this.props.mychallenges.durationInMins} </p>
       </Card>

@@ -10,6 +10,8 @@ import MenuItem from 'material-ui/MenuItem';
 import TimePicker from 'material-ui/TimePicker';
 import {Grid, Row, Col} from 'react-flexbox-grid';
 import CategoryDialog from './CategoryDialog';
+import superagent from 'superagent';
+
 const questions = [];
 for (let i = 15; i < 100; i++ ) {
   questions.push(<MenuItem value={i} key={i} primaryText={`${i}`} />);
@@ -48,13 +50,13 @@ const styles={
 export default class CreateChallengeForm extends React.Component {
   constructor(props) {
     super(props);
-    this.state={name:'',topic:'',question: 15,duration:10,right:10,wrong:5};
+    this.state={name:'',question: 15,duration:10,right:10,wrong:5};
    this.handleChange=this.handleChange.bind(this);
     this.handleDialog=this.handleDialog.bind(this);
+    this.handleCreate=this.handleCreate.bind(this);
   }
   handleChange(){
     this.setState({name:this.refs.name.getValue()});
-    console.log(this.refs.name.getValue());
   }
   handleQuestions = (event, index, question) => this.setState({question});
   handleTime = (event, index, duration) => this.setState({duration});
@@ -64,6 +66,12 @@ export default class CreateChallengeForm extends React.Component {
   {
     ReactDOM.unmountComponentAtNode(document.getElementById('topic'));
     ReactDOM.render(<MuiThemeProvider><CategoryDialog open={true}/></MuiThemeProvider>,document.getElementById('topic'));
+    this.setState({topic:this.props.category});
+  }
+
+  handleCreate()
+  {
+
   }
   render() {
     return (
@@ -151,7 +159,7 @@ export default class CreateChallengeForm extends React.Component {
           disableTouchRipple={true}
           disableFocusRipple={true}
           primary={true}
-          onTouchTap={this.handleNext}
+          onTouchTap={this.handleCreate}
           style={{marginRight: 12}}
         />
         </div>

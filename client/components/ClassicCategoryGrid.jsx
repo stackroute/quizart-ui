@@ -11,7 +11,8 @@ import StarBorder from 'material-ui/svg-icons/toggle/star-border';
 import Paper from 'material-ui/Paper';
 import superagent from 'superagent';
 
-var category=[];
+var category;
+var input;
 const styles = {
   root: {
     display: 'flex',
@@ -33,8 +34,6 @@ const styles = {
   textAlign: 'center',
 },
 };
-var input;
-
 export default class ChooseCategory extends React.Component{
 constructor(props) {
    super(props);
@@ -84,21 +83,18 @@ constructor(props){
   }
 handleClick(e) {
   e.preventDefault();
-  category.push(this.props.title);
+  category=this.props.title;
   this.setState(prevState => ({
     isSelected: !prevState.isSelected
   }));
+  console.log(category);
 }
   render(){
     return (
           <GridTile
           title={this.props.title}
-          actionIcon={<IconButton tooltip="Choose"
-          touch={true}
-          tooltipPosition="top-left"
-          onClick={this.handleClick}>
-          {this.state.isSelected ? <i className="material-icons" color={white}>star</i>:<StarBorder color="white"/>}
-          </IconButton>}>
+          onClick={this.handleClick}
+        >
           <img src={this.props.img} />
         </GridTile>
     );
