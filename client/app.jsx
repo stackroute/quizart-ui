@@ -12,7 +12,8 @@ import CreateChallengeView from './views/CreateChallengeView';
 import JeopardyView from './views/JeopardyView';
 import MyChallengeView from './views/MyChallengeView';
 import MyGamesView from './views/MyGamesView';
-
+import AllMyChallenges from './components/AllMyChallenges';
+import CreateChallengeForm from './components/CreateChallengeForm';
 ReactDOM.render(
   <MuiThemeProvider>
     <Router history={hashHistory}>
@@ -24,6 +25,8 @@ ReactDOM.render(
         <Route path="jeopardy" component={JeopardyView} />
         <Route path="myChallenge" component={MyChallengeView} />
         <Route path="myGames" component={MyGamesView} />
+       <Route path="allmychallenges" component={AllMyChallenges} />
+      <Route path="createchallenge" component={CreateChallengeForm} />
       </Route>
     </Router>
   </MuiThemeProvider>, document.getElementById('content')

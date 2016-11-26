@@ -5,13 +5,28 @@ import RaisedButton from 'material-ui/RaisedButton';
 import Paper from 'material-ui/Paper';
 import FlatButton from 'material-ui/FlatButton';
 import TextField from 'material-ui/TextField';
+import DropDownMenu from 'material-ui/DropDownMenu';
+import MenuItem from 'material-ui/MenuItem';
 import TimePicker from 'material-ui/TimePicker';
 import {Grid, Row, Col} from 'react-flexbox-grid';
-import QuestionsDropDown from './QuestionsDropDown';
-import RightAnswerDropDown from './RightAnswerDropDown';
-import WrongAnswerDropDown from './WrongAnswerDropDown';
-import TimeDropDown from './TimeDropDown';
 import CategoryDialog from './CategoryDialog';
+const questions = [];
+for (let i = 15; i < 100; i++ ) {
+  questions.push(<MenuItem value={i} key={i} primaryText={`${i}`} />);
+}
+const time = [];
+for (let j = 1; j < 60; j++ ) {
+  time.push(<MenuItem value={j} key={j} primaryText={`${j}`} />);
+}
+const rightans = [];
+for (let k = 5; k < 100; k++ ) {
+  rightans.push(<MenuItem value={k} key={k} primaryText={`${k}`} />);
+}
+const wrongans = [];
+for (let iter = 1; iter < 50; iter++ ) {
+  wrongans.push(<MenuItem value={iter} key={iter} primaryText={`${iter}`} />);
+}
+
 
 const styles={
   paper:{
@@ -33,9 +48,18 @@ const styles={
 export default class CreateChallengeForm extends React.Component {
   constructor(props) {
     super(props);
-    this.state = {value: ''};
+    this.state={name:'',topic:'',question: 15,duration:10,right:10,wrong:5};
+   this.handleChange=this.handleChange.bind(this);
     this.handleDialog=this.handleDialog.bind(this);
   }
+  handleChange(){
+    this.setState({name:this.refs.name.getValue()});
+    console.log(this.refs.name.getValue());
+  }
+  handleQuestions = (event, index, question) => this.setState({question});
+  handleTime = (event, index, duration) => this.setState({duration});
+  handleRightAnswer = (event, index, right) => this.setState({right});
+  handleWrongAnswer = (event, index, wrong) => this.setState({wrong});
   handleDialog()
   {
     ReactDOM.unmountComponentAtNode(document.getElementById('topic'));
@@ -59,7 +83,7 @@ export default class CreateChallengeForm extends React.Component {
        <Col  xs={12} sm={12} md={12} lg={12}>
 	      <div>
 		      <TextField ref='name'
-		      floatingLabelText="Name of the Challenge" value={this.state.value} onChange={this.handleChange} />
+		      floatingLabelText="Name of the Challenge"  onChange={this.handleChange} />
 	      </div>
       </Col>
     </Row>
@@ -82,30 +106,40 @@ export default class CreateChallengeForm extends React.Component {
 
     <Row style={styles.paddingStyles}>
      <Col xs={12} sm={12} md={12} lg={12}>
-	    <div>
 		    Number of Questions :
-		    <QuestionsDropDown />
-	    </div>
+        <DropDownMenu maxHeight={300} value={this.state.question} onChange={this.handleQuestions}>
+          {questions}
+        </DropDownMenu>
     </Col>
   </Row>
 
   <Row style={styles.paddingStyles}>
    <Col  xs={12} sm={12} md={12} lg={12}  >
  	 <div>
-     Duration of Challenge : <TimeDropDown/> mins
+     Duration of Challenge :
+     <DropDownMenu maxHeight={300} value={this.state.duration} onChange={this.handleTime}>
+         {time}
+       </DropDownMenu> mins
      </div>
      </Col>
    </Row>
 
       <Row style={styles.paddingStyles}>
        <Col xs={12} sm={12} md={12} lg={12}>
-      Score for RightAnswer: <RightAnswerDropDown/>
+      Score for RightAnswer:
+      <DropDownMenu maxHeight={300} value={this.state.right} onChange={this.handleRightAnswer}>
+        {rightans}
+      </DropDownMenu>
       </Col>
     </Row>
 
     <Row style={styles.paddingStyles}>
      <Col xs={12} sm={12} md={12} lg={12} >
-  <div>  Score for WrongAnswer:<WrongAnswerDropDown/></div>
+  <div>  Score for WrongAnswer:
+    <DropDownMenu maxHeight={300} value={this.state.wrong} onChange={this.handleWrongAnswer}>
+      {wrongans}
+    </DropDownMenu>
+    </div>
     </Col>
   </Row>
 

@@ -3,6 +3,7 @@ import {Table, TableBody,TableHeader, TableHeaderColumn, TableRow, TableRowColum
   from 'material-ui/Table';
 import {Grid, Row, Col} from 'react-flexbox-grid';
 import superagent from 'superagent';
+import { Link } from "react-router";
 import FloatingActionButton from 'material-ui/FloatingActionButton';
 import NavigationExpandMore from 'material-ui/svg-icons/navigation/expand-more';
 import darkBaseTheme from 'material-ui/styles/baseThemes/darkBaseTheme';
@@ -15,15 +16,8 @@ export default class CategoriesDash extends React.Component {
     super();
     this.state = {
       mychallenges: [],
-    //   fixedHeader: true,
-    //   stripedRows: false,
-    //   showRowHover: false,
-    //   selectable: true,
-    //   multiSelectable: false,
-    //   enableSelectAll: false,
-    //   deselectOnClickaway: true,
-    // displayRowCheckbox: false,
     };
+    this.createChallenge=this.createChallenge.bind(this);
   }
 
   static get propTypes() {
@@ -39,7 +33,9 @@ export default class CategoriesDash extends React.Component {
         this.setState({mychallenges: res.body});
       });
   }
+  createChallenge(){
 
+  }
   render() {
     const styles = {
       moreChallenges: {
@@ -47,7 +43,6 @@ export default class CategoriesDash extends React.Component {
         top: '20px'
       }
     };
-    // const challengeDisplay = this.state.mychallenges.slice(0,this.props.limit);
     const myChallengesDisplay= this.state.mychallenges.map((challenge) => {
       return (
 
@@ -66,9 +61,11 @@ export default class CategoriesDash extends React.Component {
           {myChallengesDisplay}
             </Row>
             <Row center="xs">
-              <FloatingActionButton mini={true} style={styles.moreChallenges} >
+              <Link to='allmychallenges'>
+              <FloatingActionButton mini={true} style={styles.moreChallenges} onClick={this.createChallenge}>
                 <NavigationExpandMore />
               </FloatingActionButton>
+            </Link>
             </Row>
           </Grid>
       </MuiThemeProvider>

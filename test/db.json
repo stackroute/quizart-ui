@@ -94,6 +94,250 @@
       "avgTimeCorrectAns": "<ReferenceError: avgTimeCorrectAns is not defined>",
       "picture": "http://placehold.it/32x32"
     }
-  ]
+  ],
+  "classicCategory":[
+  {
+    "imageUrl": "http://res.cloudinary.com/deaxb0msww/image/upload/v1480051932/quiztack/sports.png",
+    "title": "Sports"
+  },
+  {
+    "imageUrl": "http://res.cloudinary.com/deaxb0msww/image/upload/v1480051930/quiztack/politics.jpg",
+    "title": "Politics"
+  },
+  {
+    "imageUrl": "http://placehold.it/32x32",
+    "title": "CurrentAffairs"
+  },
+  {
+    "imageUrl": "http://placehold.it/32x32",
+    "title": "History"
+  },
+  {
+    "imageUrl": "http://placehold.it/32x32",
+    "title": "Geopolitics"
+  },
+  {
+    "imageUrl": "http://placehold.it/32x32",
+    "title": "Travel"
+  },
+  {
+    "imageUrl": "http://placehold.it/32x32",
+    "title": "Aerospace"
+  },
+  {
+    "imageUrl": "http://placehold.it/32x32",
+    "title": "Movies"
+  },
+  {
+    "imageUrl": "http://placehold.it/32x32",
+    "title": "Food"
+  },
+  {
+    "imageUrl": "http://placehold.it/32x32",
+    "title": "Cinema"
+  },
+  {
+    "imageUrl": "http://placehold.it/32x32",
+    "title": "Music"
+  },
+  {
+    "imageUrl": "http://placehold.it/32x32",
+    "title": "Literature"
+  },
+  {
+    "imageUrl": "http://placehold.it/32x32",
+    "title": "ForKids"
+  },
+  {
+    "imageUrl": "http://placehold.it/32x32",
+    "title": "Nanotechnology"
+  },
+  {
+    "imageUrl": "http://placehold.it/32x32",
+    "title": "BrainTeasers"
+  },
+  {
+    "imageUrl": "http://placehold.it/32x32",
+    "title": "WordPlay"
+  },
+  {
+    "imageUrl": "http://placehold.it/32x32",
+    "title": "People"
+  },
+  {
+    "imageUrl": "http://placehold.it/32x32",
+    "title": "Countries"
+  },
+  {
+    "imageUrl": "http://placehold.it/32x32",
+    "title": "PotLuck"
+  },
+  {
+    "imageUrl": "http://placehold.it/32x32",
+    "title": "MathQuiz"
+  }
+],
+"mychallenges":[
+  {
+    "nameOfTheChallenge": "eu",
+    "topic": "dolore",
+    "totalNoOfQuestions": 12,
+    "durationInMins": 33,
+    "scoreForRight": 7,
+    "scoreForWrong": 5
+  },
+  {
+    "nameOfTheChallenge": "officia",
+    "topic": "sunt",
+    "totalNoOfQuestions": 11,
+    "durationInMins": 34,
+    "scoreForRight": 6,
+    "scoreForWrong": 9
+  },
+  {
+    "nameOfTheChallenge": "aute",
+    "topic": "fugiat",
+    "totalNoOfQuestions": 11,
+    "durationInMins": 16,
+    "scoreForRight": 7,
+    "scoreForWrong": 10
+  },
+  {
+    "nameOfTheChallenge": "adipisicing",
+    "topic": "consequat",
+    "totalNoOfQuestions": 10,
+    "durationInMins": 39,
+    "scoreForRight": 10,
+    "scoreForWrong": 8
+  },
+  {
+    "nameOfTheChallenge": "ex",
+    "topic": "voluptate",
+    "totalNoOfQuestions": 19,
+    "durationInMins": 56,
+    "scoreForRight": 7,
+    "scoreForWrong": 5
+  },
+  {
+    "nameOfTheChallenge": "sint",
+    "topic": "exercitation",
+    "totalNoOfQuestions": 16,
+    "durationInMins": 10,
+    "scoreForRight": 10,
+    "scoreForWrong": 6
+  },
+  {
+    "nameOfTheChallenge": "proident",
+    "topic": "ullamco",
+    "totalNoOfQuestions": 10,
+    "durationInMins": 5,
+    "scoreForRight": 6,
+    "scoreForWrong": 5
+  },
+  {
+    "nameOfTheChallenge": "Lorem",
+    "topic": "culpa",
+    "totalNoOfQuestions": 16,
+    "durationInMins": 14,
+    "scoreForRight": 10,
+    "scoreForWrong": 8
+  },
+  {
+    "nameOfTheChallenge": "in",
+    "topic": "cupidatat",
+    "totalNoOfQuestions": 13,
+    "durationInMins": 44,
+    "scoreForRight": 10,
+    "scoreForWrong": 9
+  },
+  {
+    "nameOfTheChallenge": "est",
+    "topic": "anim",
+    "totalNoOfQuestions": 12,
+    "durationInMins": 44,
+    "scoreForRight": 6,
+    "scoreForWrong": 9
+  },
+  {
+    "nameOfTheChallenge": "sint",
+    "topic": "laborum",
+    "totalNoOfQuestions": 14,
+    "durationInMins": 17,
+    "scoreForRight": 5,
+    "scoreForWrong": 9
+  },
+  {
+    "nameOfTheChallenge": "anim",
+    "topic": "ipsum",
+    "totalNoOfQuestions": 15,
+    "durationInMins": 10,
+    "scoreForRight": 6,
+    "scoreForWrong": 10
+  },
+  {
+    "nameOfTheChallenge": "nostrud",
+    "topic": "esse",
+    "totalNoOfQuestions": 12,
+    "durationInMins": 17,
+    "scoreForRight": 9,
+    "scoreForWrong": 9
+  },
+  {
+    "nameOfTheChallenge": "reprehenderit",
+    "topic": "commodo",
+    "totalNoOfQuestions": 14,
+    "durationInMins": 57,
+    "scoreForRight": 7,
+    "scoreForWrong": 6
+  },
+  {
+    "nameOfTheChallenge": "adipisicing",
+    "topic": "eu",
+    "totalNoOfQuestions": 13,
+    "durationInMins": 58,
+    "scoreForRight": 6,
+    "scoreForWrong": 6
+  },
+  {
+    "nameOfTheChallenge": "nulla",
+    "topic": "officia",
+    "totalNoOfQuestions": 13,
+    "durationInMins": 12,
+    "scoreForRight": 7,
+    "scoreForWrong": 7
+  },
+  {
+    "nameOfTheChallenge": "et",
+    "topic": "cillum",
+    "totalNoOfQuestions": 10,
+    "durationInMins": 14,
+    "scoreForRight": 7,
+    "scoreForWrong": 10
+  },
+  {
+    "nameOfTheChallenge": "quis",
+    "topic": "laboris",
+    "totalNoOfQuestions": 17,
+    "durationInMins": 5,
+    "scoreForRight": 9,
+    "scoreForWrong": 5
+  },
+  {
+    "nameOfTheChallenge": "eiusmod",
+    "topic": "reprehenderit",
+    "totalNoOfQuestions": 15,
+    "durationInMins": 58,
+    "scoreForRight": 8,
+    "scoreForWrong": 8
+  },
+  {
+    "nameOfTheChallenge": "ex",
+    "topic": "et",
+    "totalNoOfQuestions": 20,
+    "durationInMins": 50,
+    "scoreForRight": 7,
+    "scoreForWrong": 5
+  }
+]
 
 }

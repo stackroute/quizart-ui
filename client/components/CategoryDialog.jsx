@@ -6,7 +6,6 @@ import FlatButton from 'material-ui/FlatButton';
 import RaisedButton from 'material-ui/RaisedButton';
 import ChooseCategory from './ClassicCategoryGrid';
 
-
 export default class CategoryDialog extends React.Component
 {
   constructor(props) {
@@ -21,7 +20,6 @@ export default class CategoryDialog extends React.Component
    this.setState(prevState => ({
      checked: !prevState.checked
     }));
-   requestSendTo=e.target.value;
     }
   handleClose = () => {
     this.setState({open: false});
