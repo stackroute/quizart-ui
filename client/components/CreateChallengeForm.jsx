@@ -71,7 +71,7 @@ export default class CreateChallengeForm extends React.Component {
 
   handleCreate()
   {
-
+    alert("your challenge has been created successfully!!");
   }
   render() {
     return (

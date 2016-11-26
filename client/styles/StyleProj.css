@@ -1,0 +1,68 @@
+
+.Points
+{
+  font-size: 1.7em;
+} 
+body
+{
+  overflow: hidden;
+  background-color:darkgray;
+}
+.ScoreBoard
+{
+  font-size: 1.2em;
+
+}
+.ScaledCard
+{
+  /*-webkit-transform : rotateY(-180deg)  scale(5.8) ;
+   -ms-transform     : rotateY(-180deg) scale(5.8) ; */
+   -webkit-transition-duration: '1s'; /* Safari */
+    transition-duration: 1s !important;
+    transform  :  rotateY(-180deg) scale(8.7,8.7) ;
+    transform :translate('-50%','-50%')!important;
+    margin-left:0 !important;
+    margin-top:0 !important;
+    position: absolute;
+}
+
+@media (max-width: 480px) {
+.Topics h4
+{
+  font-size: 0.8em;
+}
+.Points
+{
+  font-size: 0.8em;
+}
+.ScoreBoard
+{
+  font-size: 0.7em;
+}
+}
+@media (max-width: 768px) {
+  
+.Topics h4
+{
+  font-size: 0.5em;
+}
+.Points
+{
+  font-size: 0.8em;
+}
+.ScoreBoard
+{
+  font-size: 0.7em;
+}
+}
+
+@media (width: 768px) { 
+
+.ScoreBoard
+{
+  font-size: 1.5em;
+} 
+}
+
+
+  

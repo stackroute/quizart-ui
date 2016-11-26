@@ -140,6 +140,18 @@ handleDrawerClose() {
                 </ListItem>
               </Link>
               <Divider/>
+              <Link to="gamePlayJeopardy/">
+                <ListItem key={11} onTouchTap={this.handleClose}>
+                  Play Jeopardy
+                </ListItem>
+              </Link>
+              <Divider/>
+                <Link to="gamePlay/">
+                <ListItem key={11} onTouchTap={this.handleClose}>
+                  Play Challenge
+                </ListItem>
+              </Link>
+              <Divider/>
               <Link to="myGames/">
                 <ListItem key={11} onTouchTap={this.handleClose}>
                   My Games
@@ -156,10 +168,10 @@ handleDrawerClose() {
         <ToolbarGroup>
         <Row>
           <div style={styles.iconStyles}>
-          <IconMenu
+          <Link to='/'><IconMenu
             iconStyle={{color:white}}
             iconButtonElement={<IconButton><ActionDashboard /></IconButton>}
-            anchorOrigin={{horizontal: 'middle', vertical: 'top'}}
+            anchorOrigin={{horizomntal: 'middle', vertical: 'top'}}
             targetOrigin={{horizontal: 'middle', vertical: 'bottom'}}
 
 
@@ -168,6 +180,7 @@ handleDrawerClose() {
       >
 
       </IconMenu>
+      </Link>
 
 
             <IconMenu

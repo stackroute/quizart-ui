@@ -2,6 +2,7 @@ import React from 'react';
 import Paper from 'material-ui/Paper';
 import CategoryIcon from './CategoryIcon';
 import {Grid, Row, Col} from 'react-flexbox-grid';
+import {Link} from 'react-router';
 import superagent from 'superagent';
 import FloatingActionButton from 'material-ui/FloatingActionButton';
 import NavigationExpandMore from 'material-ui/svg-icons/navigation/expand-more';
@@ -54,9 +55,11 @@ export default class CategoriesDash extends React.Component {
               {categoryTiles}
             </Row>
             <Row center="xs">
+              <Link to="jeopardyBoard/">
               <FloatingActionButton mini={true} style={styles.moreCategories} >
                 <NavigationExpandMore />
               </FloatingActionButton>
+              </Link>
             </Row>
           </Grid>
         </Paper>

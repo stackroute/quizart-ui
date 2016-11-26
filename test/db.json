@@ -1,65 +1,88 @@
 {
+  
   "category": [
     {
-      "imageUrl": "http://placehold.it/32x32",
+      "imageUrl": "http://res.cloudinary.com/deaxb0msww/image/upload/v1480054392/sports_tp2auj.png",
       "noOfGamesPlayed": 1270,
       "name": "Sports"
     },
     {
-      "imageUrl": "http://placehold.it/32x32",
+      "imageUrl": "http://res.cloudinary.com/deaxb0msww/image/upload/v1480055154/music_eofpyc.png",
       "noOfGamesPlayed": 8435,
       "name": "Music"
     },
     {
-      "imageUrl": "http://placehold.it/32x32",
+      "imageUrl": "http://res.cloudinary.com/deaxb0msww/image/upload/v1480051920/quiztack/books.png",
       "noOfGamesPlayed": 7584,
       "name": "Literature"
     },
     {
-      "imageUrl": "http://placehold.it/32x32",
+      "imageUrl": "http://res.cloudinary.com/deaxb0msww/image/upload/v1480057030/politics_og9usc.png",
       "noOfGamesPlayed": 6898,
       "name": "Politics"
     },
     {
-      "imageUrl": "http://placehold.it/32x32",
+      "imageUrl": "http://res.cloudinary.com/deaxb0msww/image/upload/v1480051927/quiztack/movie.png",
       "noOfGamesPlayed": 9918,
       "name": "Movies"
     },
     {
-      "imageUrl": "http://placehold.it/32x32",
+      "imageUrl": "http://res.cloudinary.com/deaxb0msww/image/upload/v1480051931/quiztack/Science.png",
       "noOfGamesPlayed": 1669,
       "name": "Science"
     },
     {
-      "imageUrl": "http://placehold.it/32x32",
+      "imageUrl": "http://res.cloudinary.com/deaxb0msww/image/upload/v1480051926/quiztack/med.png",
       "noOfGamesPlayed": 9548,
-      "name": "Aerospace"
+      "name": "Medicine"
     },
     {
-      "imageUrl": "http://placehold.it/32x32",
+      "imageUrl": "http://res.cloudinary.com/deaxb0msww/image/upload/v1480054788/food_epfsw7.png",
       "noOfGamesPlayed": 7746,
       "name": "Food"
     },
     {
-      "imageUrl": "http://placehold.it/32x32",
+      "imageUrl": "http://res.cloudinary.com/deaxb0msww/image/upload/v1480051932/quiztack/t.png",
       "noOfGamesPlayed": 7123,
       "name": "Travel"
     },
     {
-      "imageUrl": "http://placehold.it/32x32",
+      "imageUrl": "http://res.cloudinary.com/deaxb0msww/image/upload/v1480051934/quiztack/tv.png",
       "noOfGamesPlayed": 4221,
-      "name": "Geopolitics"
+      "name": "TV Series"
     },
     {
-      "imageUrl": "http://placehold.it/32x32",
+      "imageUrl": "http://res.cloudinary.com/deaxb0msww/image/upload/v1480058291/history_qiffpw.png",
       "noOfGamesPlayed": 7425,
       "name": "History"
     },
     {
-      "imageUrl": "http://placehold.it/32x32",
+      "imageUrl": "http://res.cloudinary.com/deaxb0msww/image/upload/v1480051925/quiztack/globe.png",
       "noOfGamesPlayed": 5695,
       "name": "CurrentAffairs"
     }
+  ],
+  "topic":[
+   {
+       "question": "For which of the following disciplines is Nobel Prize awarded?",
+       "options": [
+           "Physics and Chemistry",
+           "Physiology or Medicine",
+           "Literature, Peace and Economics",
+           "All of the above"
+       ],
+       "correctOption": "All of the above"
+   },
+    {
+        "question": "WWW stands for?",
+       "options": [
+           "World Whole Web",
+           "Wide World Web",
+           "Web World Wide",
+           "World Wide Web"
+       ],
+       "correctOption": "World Wide Web"
+   }
   ],
   "jeopardyScores" : [
     {
@@ -96,86 +119,86 @@
     }
   ],
   "classicCategory":[
-  {
-    "imageUrl": "http://res.cloudinary.com/deaxb0msww/image/upload/v1480051932/quiztack/sports.png",
-    "title": "Sports"
-  },
-  {
-    "imageUrl": "http://res.cloudinary.com/deaxb0msww/image/upload/v1480051930/quiztack/politics.jpg",
-    "title": "Politics"
-  },
-  {
-    "imageUrl": "http://placehold.it/32x32",
-    "title": "CurrentAffairs"
-  },
-  {
-    "imageUrl": "http://placehold.it/32x32",
-    "title": "History"
-  },
-  {
-    "imageUrl": "http://placehold.it/32x32",
-    "title": "Geopolitics"
-  },
-  {
-    "imageUrl": "http://placehold.it/32x32",
-    "title": "Travel"
-  },
-  {
-    "imageUrl": "http://placehold.it/32x32",
-    "title": "Aerospace"
-  },
-  {
-    "imageUrl": "http://placehold.it/32x32",
-    "title": "Movies"
-  },
-  {
-    "imageUrl": "http://placehold.it/32x32",
-    "title": "Food"
-  },
-  {
-    "imageUrl": "http://placehold.it/32x32",
-    "title": "Cinema"
-  },
-  {
-    "imageUrl": "http://placehold.it/32x32",
-    "title": "Music"
-  },
-  {
-    "imageUrl": "http://placehold.it/32x32",
-    "title": "Literature"
-  },
-  {
-    "imageUrl": "http://placehold.it/32x32",
-    "title": "ForKids"
-  },
-  {
-    "imageUrl": "http://placehold.it/32x32",
-    "title": "Nanotechnology"
-  },
-  {
-    "imageUrl": "http://placehold.it/32x32",
-    "title": "BrainTeasers"
-  },
-  {
-    "imageUrl": "http://placehold.it/32x32",
-    "title": "WordPlay"
-  },
-  {
-    "imageUrl": "http://placehold.it/32x32",
-    "title": "People"
-  },
-  {
-    "imageUrl": "http://placehold.it/32x32",
-    "title": "Countries"
-  },
-  {
-    "imageUrl": "http://placehold.it/32x32",
-    "title": "PotLuck"
-  },
-  {
-    "imageUrl": "http://placehold.it/32x32",
-    "title": "MathQuiz"
-  }
+ {
+   "imageUrl": "http://res.cloudinary.com/deaxb0msww/image/upload/v1480051932/quiztack/sports.png",
+   "title": "Sports"
+ },
+ {
+   "imageUrl": "http://res.cloudinary.com/deaxb0msww/image/upload/v1480051930/quiztack/politics.jpg",
+   "title": "Politics"
+ },
+ {
+   "imageUrl": "http://res.cloudinary.com/deaxb0msww/image/upload/v1480051931/quiztack/Science.png",
+   "title": "Science"
+ },
+ {
+   "imageUrl": "http://res.cloudinary.com/deaxb0msww/image/upload/v1480051930/quiztack/people.jpg",
+   "title": "People"
+ },
+ {
+   "imageUrl": "http://res.cloudinary.com/deaxb0msww/image/upload/v1480051922/quiztack/businees.jpg",
+   "title": "businees"
+ },
+ {
+   "imageUrl": "http://res.cloudinary.com/deaxb0msww/image/upload/v1480051929/quiztack/nano.jpg",
+   "title": "Nanotechnology"
+ },
+ {
+   "imageUrl": "http://res.cloudinary.com/deaxb0msww/image/upload/v1480051931/quiztack/robotics.jpg",
+   "title": "Robotics"
+ },
+ {
+   "imageUrl": "http://res.cloudinary.com/deaxb0msww/image/upload/v1480051921/quiztack/cinema.jpg",
+   "title": "Movies"
+ },
+ {
+   "imageUrl": "http://res.cloudinary.com/deaxb0msww/image/upload/v1480051928/quiztack/food.jpg",
+   "title": "Food"
+ },
+ {
+   "imageUrl": "http://res.cloudinary.com/deaxb0msww/image/upload/v1480051937/quiztack/world.png",
+   "title": "World"
+ },
+ {
+   "imageUrl": "http://res.cloudinary.com/deaxb0msww/image/upload/v1480051928/quiztack/music.png",
+   "title": "Music"
+ },
+ {
+   "imageUrl": "http://res.cloudinary.com/deaxb0msww/image/upload/v1480051931/quiztack/robotics.jpg",
+   "title": "Literature"
+ },
+ {
+   "imageUrl": "http://res.cloudinary.com/deaxb0msww/image/upload/v1480051928/quiztack/kidsquiz.png",
+   "title": "ForKids"
+ },
+ {
+   "imageUrl": "http://res.cloudinary.com/deaxb0msww/image/upload/v1480051929/quiztack/nature.jpg",
+   "title": "Nature"
+ },
+ {
+   "imageUrl": "http://res.cloudinary.com/deaxb0msww/image/upload/v1480051929/quiztack/newtrends.jpg",
+   "title": "NewTrends"
+ },
+ {
+   "imageUrl": "http://res.cloudinary.com/deaxb0msww/image/upload/v1480051935/quiztack/wordplay.png",
+   "title": "WordPlay"
+ },
+ {
+   "imageUrl": "http://res.cloudinary.com/deaxb0msww/image/upload/v1480051924/quiztack/geography.jpg",
+   "title": "Geography"
+ },
+ {
+   "imageUrl": "http://res.cloudinary.com/deaxb0msww/image/upload/v1480051924/quiztack/countries.jpg",
+   "title": "Countries"
+ },
+ {
+   "imageUrl": "http://res.cloudinary.com/deaxb0msww/image/upload/v1480051931/quiztack/potluck.png",
+   "title": "PotLuck"
+ },
+ {
+   "imageUrl": "http://res.cloudinary.com/deaxb0msww/image/upload/v1480051923/quiztack/colours.jpg",
+   "title": "Colours"
+ }
 ],
 "mychallenges":[
   {
@@ -337,6 +360,85 @@
     "durationInMins": 50,
     "scoreForRight": 7,
     "scoreForWrong": 5
+  }
+],
+  "jeopardyScores" : [
+    {
+      "playerId": "58378774b40743c942b13180",
+      "totalScore": 6570,
+      "noOfCorrectAns": 10,
+      "noOfAttemptedQues": 15,
+      "avgTimeCorrectAns": 6,
+      "picture": "http://res.cloudinary.com/deaxb0msww/image/upload/v1480050265/quiztack/avt1.png",
+      "coins" : "http://res.cloudinary.com/deaxb0msww/image/upload/v1480051923/quiztack/coin2.png"
+    },
+    {
+      "playerId": "58378774b88407890c61cbfa",
+      "totalScore": 7042,
+      "noOfCorrectAns": 5,
+      "noOfAttemptedQues": 26,
+      "avgTimeCorrectAns": 5,
+      "picture": "http://res.cloudinary.com/deaxb0msww/image/upload/v1480051921/quiztack/avt2.png",
+      "coins":"http://res.cloudinary.com/deaxb0msww/image/upload/v1480051922/quiztack/coin1.png"
+    },
+    {
+      "playerId": "583787741e4bd7232f18aa43",
+      "totalScore": 4865,
+      "noOfCorrectAns": 11,
+      "noOfAttemptedQues": 20,
+      "avgTimeCorrectAns": 7,
+      "picture": "http://res.cloudinary.com/deaxb0msww/image/upload/v1480051920/quiztack/avt3.png",
+      "coins":"http://res.cloudinary.com/deaxb0msww/image/upload/v1480051923/quiztack/coin3.png"
+    }
+  ],
+  "myGamesJeopardy":[
+  {
+    "serial": 0,
+    "category": "cillum",
+    "score": 516,
+    "position": 1,
+    "noOfGamesPlayed": 10,
+    "playedDate": "2016-07-15"
+  },
+  {
+    "serial": 1,
+    "category": "esse",
+    "score": 297,
+    "position": 1,
+    "noOfGamesPlayed": 9,
+    "playedDate": "2016-04-17"
+  },
+  {
+    "serial": 2,
+    "category": "in",
+    "score": 7774,
+    "position": 3,
+    "noOfGamesPlayed": 7,
+    "playedDate": "2016-11-16"
+  },
+  {
+    "serial": 3,
+    "category": "sunt",
+    "score": 5509,
+    "position": 1,
+    "noOfGamesPlayed": 7,
+    "playedDate": "2016-11-04"
+  },
+  {
+    "serial": 4,
+    "category": "irure",
+    "score": 4575,
+    "position": 3,
+    "noOfGamesPlayed": 10,
+    "playedDate": "2016-01-31"
+  },
+  {
+    "serial": 5,
+    "category": "reprehenderit",
+    "score": 7939,
+    "position": 2,
+    "noOfGamesPlayed": 8,
+    "playedDate": "2016-06-27"
   }
 ]
 

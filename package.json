@@ -32,6 +32,7 @@
     "react-router": "^3.0.0",
     "react-superagent": "^1.1.1",
     "react-svg-gauge": "^1.0.4",
+    "react-swipeable-views": "^0.8.0",
     "react-tap-event-plugin": "^2.0.1",
     "style-loader": "^0.13.1",
     "superagent": "^3.0.0",

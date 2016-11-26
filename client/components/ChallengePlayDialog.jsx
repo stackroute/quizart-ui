@@ -2,6 +2,7 @@ import React  from 'react';
 import Dialog from 'material-ui/Dialog';
 import FlatButton from 'material-ui/FlatButton';
 import RaisedButton from 'material-ui/RaisedButton';
+import {Link} from 'react-router';
 
 export default class ChallengePlayDialog extends React.Component
 {
@@ -12,7 +13,6 @@ export default class ChallengePlayDialog extends React.Component
     checked:false,
   };
  this.handleChange=this.handleChange.bind(this);
-this.challengePlay=this.challengePlay.bind(this);
 }
   handleChange(e) {
    this.setState(prevState => ({
@@ -22,10 +22,7 @@ this.challengePlay=this.challengePlay.bind(this);
   handleClose = () => {
     this.setState({open: false});
   };
-  challengePlay()
-  {
-    alert("play starts");
-  }
+  
 
   render() {
     const actions = [
@@ -33,10 +30,13 @@ this.challengePlay=this.challengePlay.bind(this);
         label="Cancel"
         primary={true}
         onTouchTap={this.handleClose}/>,
-      <FlatButton
+     
+        <Link to="gamePlay/"> 
+        <FlatButton
         label="Play"
         primary={true}
-        onTouchTap={this.challengePlay}/>,
+        />
+        </Link>,
       ];
 
     return (
