@@ -35,7 +35,7 @@ const styles={
 export default class CreateChallengeForm extends React.Component {
   constructor(props) {
     super(props);
-    this.state={name:'',question: 15,durationInMins:'',durationInSecs:'',right:'',wrong:''};
+    this.state={name:'',question: 15,durationInMins:'',durationInSecs:'',right:'',wrong:'',isOpenDialog:false};
    this.handleChange=this.handleChange.bind(this);
     this.handleDialog=this.handleDialog.bind(this);
     this.handleCreate=this.handleCreate.bind(this);
@@ -50,8 +50,9 @@ export default class CreateChallengeForm extends React.Component {
   handleQuestions = (event, index, question) => this.setState({question});
   handleDialog()
   {
-    ReactDOM.unmountComponentAtNode(document.getElementById('topic'));
-    ReactDOM.render(<MuiThemeProvider><CategoryDialog open={true}/></MuiThemeProvider>,document.getElementById('topic'));
+    this.setState({
+      isOpenDialog: true
+    });
   }
 
   handleCreate()
@@ -93,7 +94,7 @@ export default class CreateChallengeForm extends React.Component {
           style={{marginLeft:'-100px'}}/>
 	      </div>
 	      </Col>
-        <div id='topic'></div>
+        <div>{this.state.isOpenDialog?<CategoryDialog open={true}/>:null}</div>
     </Row>
 
 

@@ -15,7 +15,6 @@ export default class CategoryDialog extends React.Component
     checked:false,
     categoryselect:this.props.category,
   };
-    console.log("category const"+this.state.categoryselect);
  this.handleChange=this.handleChange.bind(this);
 }
   handleChange(e) {
@@ -28,7 +27,6 @@ export default class CategoryDialog extends React.Component
   };
 
   render() {
-      console.log("category close"+this.state.categoryselect);
     const actions = [
       <FlatButton
         label="Cancel"

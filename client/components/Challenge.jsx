@@ -20,6 +20,7 @@ cardtext:{
 export default class CategoryIcon extends React.Component {
   constructor(props){
     super(props);
+      this.state = { isOpenDialog: false };
     this.challengePlay=this.challengePlay.bind(this);
   }
   static get propTypes() {
@@ -27,24 +28,27 @@ export default class CategoryIcon extends React.Component {
     mychallenges: React.PropTypes.object.isRequired
     };
   }
-  challengePlay()
-  {
-    ReactDOM.unmountComponentAtNode(document.getElementById('challengePlay'));
-    ReactDOM.render(<MuiThemeProvider><ChallengePlayDialog  challenge={this.props.mychallenges} open={true} /></MuiThemeProvider>,document.getElementById('challengePlay'));
+  challengePlay(){
+    this.setState({
+      isOpenDialog: true
+    });
   }
   render() {
     return (
         <div>
         <Card  style={style.card} onClick={()=>this.challengePlay(this)} key={this.props.mychallenges.nameOfTheChallenge}>
           <CardMedia>
-      <img src={this.props.mychallenges.imageUrl} />
-    </CardMedia>
-    <CardText style={style.cardtext}>
-    <p><strong>{this.props.mychallenges.nameOfTheChallenge}</strong></p>
-    <p><small>{this.props.mychallenges.durationInMins}mins {this.props.mychallenges.durationInSecs}secs </small></p>
-    </CardText>
+              <img src={this.props.mychallenges.imageUrl} />
+          </CardMedia>
+          <CardText style={style.cardtext}>
+          <p><strong>{this.props.mychallenges.nameOfTheChallenge}</strong></p>
+          <p><small>{this.props.mychallenges.durationInMins}mins {this.props.mychallenges.durationInSecs}secs </small></p>
+          </CardText>
       </Card>
-      <div id='challengePlay'></div></div>
+      <div>
+        {this.state.isOpenDialog ? <ChallengePlayDialog  challenge={this.props.mychallenges} open={true} /> : null}
+      </div>
+    </div>
   )
 }
 }

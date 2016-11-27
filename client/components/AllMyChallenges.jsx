@@ -41,14 +41,14 @@ export default class AllMyChallenges extends React.Component {
 
       <MuiThemeProvider muiTheme={getMuiTheme(darkBaseTheme)}>
         <Paper>
-          <Grid>
-            <Row center="xs" >
+          <Grid center="xs">
+            <Row center="xs">
               <h2>My Challenges</h2>
             </Row>
-            <Row >
+            <Row center="xs">
           {myChallengesDisplay}
             </Row>
-            <Row >
+            <Row>
             <Link to='createchallenge'>
               <FloatingActionButton style={styles.createChallenges}>
                 <Add/>

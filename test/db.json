@@ -120,7 +120,7 @@
   ],
   "classicCategory":[
  {
-   "imageUrl": "http://res.cloudinary.com/deaxb0msww/image/upload/v1480051932/quiztack/sports.png",
+   "imageUrl": "https://drive.google.com/open?id=0ByWCP1d6-fkea2lLVmNodk1LT1U",
    "title": "Sports"
  },
  {
@@ -209,7 +209,7 @@
     "durationInSecs": 24,
     "scoreForRight": 3,
     "scoreForWrong": -5,
-    "imageUrl": "http://res.cloudinary.com/deaxb0msww/image/upload/v1480051932/quiztack/sports.png"
+    "imageUrl": "http://res.cloudinary.com/deaxb0msww/image/upload/v1480051929/quiztack/newtrends.jpg"
   },
   {
     "nameOfTheChallenge": "esse",

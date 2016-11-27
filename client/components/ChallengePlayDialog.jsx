@@ -3,6 +3,7 @@ import Dialog from 'material-ui/Dialog';
 import FlatButton from 'material-ui/FlatButton';
 import RaisedButton from 'material-ui/RaisedButton';
 import {Link} from 'react-router';
+import Challenge from './Challenge';
 export default class ChallengePlayDialog extends React.Component
 {
   constructor(props) {

@@ -57,8 +57,6 @@ constructor(props) {
   }
 
  render(){
-   if(category.length>0)
-  <CategoryDialog category={category}/>
     return(
       <div style={styles.root}>
         <GridList
@@ -77,8 +75,6 @@ constructor(props) {
   );
   }
 }
-
-
 class GridTileInternal extends React.Component {
 constructor(props){
   super(props);
@@ -87,19 +83,18 @@ constructor(props){
   }
 handleClick(e) {
   e.preventDefault();
-  category.push(this.props.title);
   this.setState(prevState => ({
     isSelected: !prevState.isSelected
   }));
+  category.push(this.props.title);
 }
   render(){
     return (
           <GridTile
           title={this.props.title}
           onClick={this.handleClick}
-          actionIcon={<IconButton tooltip="Choose"
+          actionIcon={<IconButton
           touch={true}
-          tooltipPosition="top-left"
           onClick={this.handleClick}>
           {this.state.isSelected ? <StarBorder color="green"/>:<StarBorder color="white"/>}
           </IconButton>}>
