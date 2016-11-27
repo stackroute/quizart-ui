@@ -10,8 +10,10 @@ import Search from 'material-ui/svg-icons/action/search';
 import StarBorder from 'material-ui/svg-icons/toggle/star-border';
 import Paper from 'material-ui/Paper';
 import superagent from 'superagent';
+import CreateChallengeForm from './CreateChallengeForm';
+import CategoryDialog from './CategoryDialog'
 
-var category;
+var category=[];
 var input;
 const styles = {
   root: {
@@ -38,7 +40,7 @@ export default class ChooseCategory extends React.Component{
 constructor(props) {
    super(props);
    this.state={classicCategory:[]};
-   }
+}
 
    static get propTypes() {
     return {
@@ -55,6 +57,8 @@ constructor(props) {
   }
 
  render(){
+   if(category.length>0)
+  <CategoryDialog category={category}/>
     return(
       <div style={styles.root}>
         <GridList
@@ -83,18 +87,22 @@ constructor(props){
   }
 handleClick(e) {
   e.preventDefault();
-  category=this.props.title;
+  category.push(this.props.title);
   this.setState(prevState => ({
     isSelected: !prevState.isSelected
   }));
-  console.log(category);
 }
   render(){
     return (
           <GridTile
           title={this.props.title}
           onClick={this.handleClick}
-        >
+          actionIcon={<IconButton tooltip="Choose"
+          touch={true}
+          tooltipPosition="top-left"
+          onClick={this.handleClick}>
+          {this.state.isSelected ? <i className="material-icons" color={white}>star</i>:<StarBorder color="white"/>}
+          </IconButton>}>
           <img src={this.props.img} />
         </GridTile>
     );

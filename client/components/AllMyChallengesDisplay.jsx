@@ -1,12 +1,13 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import Card from 'material-ui/Card';
+import {Card, CardMedia, CardTitle,CardText} from 'material-ui/Card';
 import {Grid, Row, Col} from 'react-flexbox-grid';
 const style = {
   card:{
-    width:100,
-    height:150,
-    marginLeft:30,
+    width:200,
+    height:250,
+    marginLeft:90,
+    marginBottom:60,
     textAlign: 'center',
 }
 };
@@ -23,11 +24,15 @@ export default class AllMyChallengesDisplay extends React.Component {
   render() {
     return (
         <div>
-        <Card  style={style.card} onClick={this.challengePlay} key={this.props.mychallenges.nameOfTheChallenge}>
-        <p><strong style={{color:'#3F51B5'}}>Name : {this.props.mychallenges.nameOfTheChallenge}</strong></p>
-        <p>Topic : {this.props.mychallenges.topic}</p>
-        <p>Duration : {this.props.mychallenges.durationInMins} </p>
-      </Card>
+      <Card style={style.card} onClick={this.challengePlay} key={this.props.mychallenges.nameOfTheChallenge}>
+            <CardMedia
+        overlay={<CardTitle title={this.props.mychallenges.nameOfTheChallenge} subtitle={this.props.mychallenges.topic}/>}>
+        <img src={this.props.mychallenges.imageUrl} />
+      </CardMedia>
+      <CardText>
+          <p>{this.props.mychallenges.durationInMins}mins  {this.props.mychallenges.durationInSecs}secs</p>
+    </CardText>
+        </Card>
       </div>
   )
 }

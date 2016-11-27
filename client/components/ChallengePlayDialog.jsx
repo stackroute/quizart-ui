@@ -3,7 +3,6 @@ import Dialog from 'material-ui/Dialog';
 import FlatButton from 'material-ui/FlatButton';
 import RaisedButton from 'material-ui/RaisedButton';
 import {Link} from 'react-router';
-
 export default class ChallengePlayDialog extends React.Component
 {
   constructor(props) {
@@ -22,7 +21,6 @@ export default class ChallengePlayDialog extends React.Component
   handleClose = () => {
     this.setState({open: false});
   };
-  
 
   render() {
     const actions = [
@@ -30,8 +28,8 @@ export default class ChallengePlayDialog extends React.Component
         label="Cancel"
         primary={true}
         onTouchTap={this.handleClose}/>,
-     
-        <Link to="gamePlay/"> 
+
+        <Link to="gamePlay/">
         <FlatButton
         label="Play"
         primary={true}

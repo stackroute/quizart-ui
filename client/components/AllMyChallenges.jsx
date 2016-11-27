@@ -2,6 +2,7 @@ import React from 'react';
 import {Table, TableBody,TableHeader, TableHeaderColumn, TableRow, TableRowColumn}
   from 'material-ui/Table';
 import { Link } from "react-router";
+import Paper from 'material-ui/Paper';
 import {Grid, Row, Col} from 'react-flexbox-grid';
 import superagent from 'superagent';
 import FloatingActionButton from 'material-ui/FloatingActionButton';
@@ -37,7 +38,9 @@ export default class AllMyChallenges extends React.Component {
       );
     });
     return (
+
       <MuiThemeProvider muiTheme={getMuiTheme(darkBaseTheme)}>
+        <Paper>
           <Grid>
             <Row center="xs" >
               <h2>My Challenges</h2>
@@ -53,6 +56,7 @@ export default class AllMyChallenges extends React.Component {
             </Link>
             </Row>
           </Grid>
+          </Paper>
       </MuiThemeProvider>
     );
   }

@@ -56,15 +56,19 @@ const styles = {
     margin:0,
     color: white
   }
-
 }
 
 
 class NavigationBar extends React.Component{
-
 constructor() {
   super();
   this.state = { isDrawerOpen: false };
+}
+
+static get contextTypes(){
+  return{
+    router: React.PropTypes.object.isRequired
+  };
 }
 
 handleDrawerOpen() {
@@ -78,38 +82,37 @@ handleDrawerClose() {
   render(props){
     return (
       <div>
-      <div>
         <div>
-      <Toolbar style={styles.navbarStyle}>
-        <ToolbarGroup>
           <div>
-          <NavigationMenu style={styles.iconStyles}
-            onTouchTap={this.handleDrawerOpen.bind(this)}
-          />
-
-          <Drawer
-            open={this.state.isDrawerOpen}
-            docked={false}
-            onRequestChange={this.handleDrawerClose.bind(this)} >
-            <List>
-              <ListItem key={1} onTouchTap={this.handleClose} style={{textAlign:'center'}}>User Name</ListItem>
-              <Divider/>
-              <ListItem key={2} onTouchTap={this.handleClose}> {
-                <div style={{textAlign:'center'}}>
-                <img src="http://res.cloudinary.com/deaxb0msww/image/upload/v1480050265/quiztack/avt1.png"
-                style={{width:'100%'}}/>
-                <br />
-                <span style={styles.rankStyle}>Rank: 12</span>
-                <br />
-                <Avatar src = "https://upload.wikimedia.org/wikipedia/en/thumb/4/41/Flag_of_India.svg/255px-Flag_of_India.svg.png"/>
-                </div>
-                }
-              </ListItem>
-              <Divider/>
-              <ListItem key={3} onTouchTap={this.handleClose} primaryText="My Profile" nestedItems={[
-                <ListItem key={4}
-                  primaryText="Change Password"
-                  leftIcon={<ContentInbox />}
+            <Toolbar style={styles.navbarStyle}>
+              <ToolbarGroup>
+              <div>
+                <NavigationMenu style={styles.iconStyles}
+                  onTouchTap={this.handleDrawerOpen.bind(this)}
+                />
+              <Drawer
+                open={this.state.isDrawerOpen}
+                docked={false}
+                onRequestChange={this.handleDrawerClose.bind(this)} >
+                <List>
+                  <ListItem key={1} onTouchTap={this.handleClose} style={{textAlign:'center'}}>User Name</ListItem>
+                  <Divider/>
+                  <ListItem key={2} onTouchTap={this.handleClose}> {
+                    <div style={{textAlign:'center'}}>
+                      <img src="http://res.cloudinary.com/deaxb0msww/image/upload/v1480050265/quiztack/avt1.png"
+                        style={{width:'100%'}}/>
+                      <br />
+                      <span style={styles.rankStyle}>Rank: 12</span>
+                      <br />
+                      <Avatar src = "https://upload.wikimedia.org/wikipedia/en/thumb/4/41/Flag_of_India.svg/255px-Flag_of_India.svg.png"/>
+                      </div>
+                    }
+                  </ListItem>
+                  <Divider/>
+                  <ListItem key={3} onTouchTap={this.handleClose} primaryText="My Profile" nestedItems={[
+                    <ListItem key={4}
+                      primaryText="Change Password"
+                      leftIcon={<ContentInbox />}
                   initiallyOpen={true}
                   primaryTogglesNestedList={true}
                     />,
@@ -128,35 +131,35 @@ handleDrawerClose() {
                 ]}>
                 </ListItem>
               <Divider/>
-              <Link to="createChallenge/">
-                <ListItem key={9} onTouchTap={this.handleClose}>
+
+                <ListItem key={9} onTouchTap={() => this.context.router.push('/createChallenge')}>
                   Create Challenges
                 </ListItem>
-              </Link>
+
               <Divider/>
-              <Link to="myChallenge/">
-                <ListItem key={10} onTouchTap={this.handleClose}>
+
+                <ListItem key={10} onTouchTap={() => this.context.router.push('/myChallenge')}>
                   My Challenges
                 </ListItem>
-              </Link>
+
               <Divider/>
-              <Link to="gamePlayJeopardy/">
-                <ListItem key={11} onTouchTap={this.handleClose}>
+
+                <ListItem key={11} onTouchTap={() => this.context.router.push('/gamePlayJeopardy')}>
                   Play Jeopardy
                 </ListItem>
-              </Link>
+
               <Divider/>
-                <Link to="gamePlay/">
-                <ListItem key={11} onTouchTap={this.handleClose}>
+
+                <ListItem key={12} onTouchTap={() => this.context.router.push('/gamePlay')}>
                   Play Challenge
                 </ListItem>
-              </Link>
+
               <Divider/>
-              <Link to="myGames/">
-                <ListItem key={11} onTouchTap={this.handleClose}>
+
+                <ListItem key={13} onTouchTap={() => this.context.router.push('/myGames')}>
                   My Games
                 </ListItem>
-              </Link>
+
               <Divider/>
             </List>
           </Drawer>
@@ -253,11 +256,6 @@ handleDrawerClose() {
 
         </MenuItem>
       </IconMenu>
-
-
-
-
-
 
           <IconMenu
             iconStyle={{color:white}}

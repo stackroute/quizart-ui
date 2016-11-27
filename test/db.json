@@ -1,5 +1,5 @@
 {
-  
+
   "category": [
     {
       "imageUrl": "http://res.cloudinary.com/deaxb0msww/image/upload/v1480054392/sports_tp2auj.png",
@@ -202,164 +202,204 @@
 ],
 "mychallenges":[
   {
-    "nameOfTheChallenge": "eu",
-    "topic": "dolore",
-    "totalNoOfQuestions": 12,
-    "durationInMins": 33,
-    "scoreForRight": 7,
-    "scoreForWrong": 5
+    "nameOfTheChallenge": "ette",
+    "topic": "officia",
+    "totalNoOfQuestions": 85,
+    "durationInMins": 15,
+    "durationInSecs": 24,
+    "scoreForRight": 3,
+    "scoreForWrong": -5,
+    "imageUrl": "http://res.cloudinary.com/deaxb0msww/image/upload/v1480051932/quiztack/sports.png"
   },
   {
-    "nameOfTheChallenge": "officia",
-    "topic": "sunt",
-    "totalNoOfQuestions": 11,
-    "durationInMins": 34,
+    "nameOfTheChallenge": "esse",
+    "topic": "incididunt",
+    "totalNoOfQuestions": 85,
+    "durationInMins": 23,
+    "durationInSecs": 51,
     "scoreForRight": 6,
-    "scoreForWrong": 9
+    "scoreForWrong": -6,
+    "imageUrl": "http://res.cloudinary.com/deaxb0msww/image/upload/v1480051924/quiztack/geography.jpg"
   },
   {
-    "nameOfTheChallenge": "aute",
-    "topic": "fugiat",
-    "totalNoOfQuestions": 11,
-    "durationInMins": 16,
-    "scoreForRight": 7,
-    "scoreForWrong": 10
-  },
-  {
-    "nameOfTheChallenge": "adipisicing",
-    "topic": "consequat",
-    "totalNoOfQuestions": 10,
-    "durationInMins": 39,
-    "scoreForRight": 10,
-    "scoreForWrong": 8
-  },
-  {
-    "nameOfTheChallenge": "ex",
-    "topic": "voluptate",
-    "totalNoOfQuestions": 19,
-    "durationInMins": 56,
-    "scoreForRight": 7,
-    "scoreForWrong": 5
-  },
-  {
-    "nameOfTheChallenge": "sint",
-    "topic": "exercitation",
-    "totalNoOfQuestions": 16,
-    "durationInMins": 10,
-    "scoreForRight": 10,
-    "scoreForWrong": 6
-  },
-  {
-    "nameOfTheChallenge": "proident",
-    "topic": "ullamco",
-    "totalNoOfQuestions": 10,
-    "durationInMins": 5,
-    "scoreForRight": 6,
-    "scoreForWrong": 5
-  },
-  {
-    "nameOfTheChallenge": "Lorem",
-    "topic": "culpa",
-    "totalNoOfQuestions": 16,
-    "durationInMins": 14,
-    "scoreForRight": 10,
-    "scoreForWrong": 8
-  },
-  {
-    "nameOfTheChallenge": "in",
-    "topic": "cupidatat",
-    "totalNoOfQuestions": 13,
-    "durationInMins": 44,
-    "scoreForRight": 10,
-    "scoreForWrong": 9
-  },
-  {
-    "nameOfTheChallenge": "est",
-    "topic": "anim",
-    "totalNoOfQuestions": 12,
-    "durationInMins": 44,
-    "scoreForRight": 6,
-    "scoreForWrong": 9
-  },
-  {
-    "nameOfTheChallenge": "sint",
-    "topic": "laborum",
-    "totalNoOfQuestions": 14,
-    "durationInMins": 17,
-    "scoreForRight": 5,
-    "scoreForWrong": 9
-  },
-  {
-    "nameOfTheChallenge": "anim",
-    "topic": "ipsum",
+    "nameOfTheChallenge": "mollit",
+    "topic": "deserunt",
     "totalNoOfQuestions": 15,
-    "durationInMins": 10,
-    "scoreForRight": 6,
-    "scoreForWrong": 10
-  },
-  {
-    "nameOfTheChallenge": "nostrud",
-    "topic": "esse",
-    "totalNoOfQuestions": 12,
-    "durationInMins": 17,
-    "scoreForRight": 9,
-    "scoreForWrong": 9
+    "durationInMins": 34,
+    "durationInSecs": 60,
+    "scoreForRight": 3,
+    "scoreForWrong": -3,
+    "imageUrl": "http://res.cloudinary.com/deaxb0msww/image/upload/v1480051931/quiztack/robotics.jpg"
   },
   {
     "nameOfTheChallenge": "reprehenderit",
-    "topic": "commodo",
-    "totalNoOfQuestions": 14,
-    "durationInMins": 57,
-    "scoreForRight": 7,
-    "scoreForWrong": 6
+    "topic": "eu",
+    "totalNoOfQuestions": 60,
+    "durationInMins": 50,
+    "durationInSecs": 5,
+    "scoreForRight": 6,
+    "scoreForWrong": -1,
+    "imageUrl": "http://res.cloudinary.com/deaxb0msww/image/upload/v1480051931/quiztack/potluck.png"
   },
   {
-    "nameOfTheChallenge": "adipisicing",
-    "topic": "eu",
-    "totalNoOfQuestions": 13,
-    "durationInMins": 58,
+    "nameOfTheChallenge": "in",
+    "topic": "dolor",
+    "totalNoOfQuestions": 40,
+    "durationInMins": 29,
+    "durationInSecs": 19,
+    "scoreForRight": 4,
+    "scoreForWrong": -9,
+    "imageUrl": "http://res.cloudinary.com/deaxb0msww/image/upload/v1480051921/quiztack/cinema.jpg"
+  },
+  {
+    "nameOfTheChallenge": "in",
+    "topic": "irure",
+    "totalNoOfQuestions": 25,
+    "durationInMins": 20,
+    "durationInSecs": 54,
+    "scoreForRight": 7,
+    "scoreForWrong": -5,
+    "imageUrl": "http://res.cloudinary.com/deaxb0msww/image/upload/v1480051928/quiztack/food.jpg"
+  },
+  {
+    "nameOfTheChallenge": "esse",
+    "topic": "cupidatat",
+    "totalNoOfQuestions": 80,
+    "durationInMins": 25,
+    "durationInSecs": 33,
+    "scoreForRight": 4,
+    "scoreForWrong": -6,
+    "imageUrl": "http://res.cloudinary.com/deaxb0msww/image/upload/v1480051929/quiztack/nature.jpg"
+  },
+  {
+    "nameOfTheChallenge": "mollit",
+    "topic": "ex",
+    "totalNoOfQuestions": 60,
+    "durationInMins": 47,
+    "durationInSecs": 31,
     "scoreForRight": 6,
-    "scoreForWrong": 6
+    "scoreForWrong": -8,
+    "imageUrl": "http://res.cloudinary.com/deaxb0msww/image/upload/v1480051937/quiztack/world.png"
   },
   {
     "nameOfTheChallenge": "nulla",
-    "topic": "officia",
-    "totalNoOfQuestions": 13,
-    "durationInMins": 12,
-    "scoreForRight": 7,
-    "scoreForWrong": 7
-  },
-  {
-    "nameOfTheChallenge": "et",
-    "topic": "cillum",
-    "totalNoOfQuestions": 10,
-    "durationInMins": 14,
-    "scoreForRight": 7,
-    "scoreForWrong": 10
-  },
-  {
-    "nameOfTheChallenge": "quis",
-    "topic": "laboris",
-    "totalNoOfQuestions": 17,
-    "durationInMins": 5,
-    "scoreForRight": 9,
-    "scoreForWrong": 5
-  },
-  {
-    "nameOfTheChallenge": "eiusmod",
-    "topic": "reprehenderit",
-    "totalNoOfQuestions": 15,
-    "durationInMins": 58,
+    "topic": "culpa",
+    "totalNoOfQuestions": 60,
+    "durationInMins": 7,
+    "durationInSecs": 27,
     "scoreForRight": 8,
-    "scoreForWrong": 8
+    "scoreForWrong": -5,
+    "imageUrl":"http://res.cloudinary.com/deaxb0msww/image/upload/v1480051931/quiztack/potluck.png"
   },
   {
-    "nameOfTheChallenge": "ex",
-    "topic": "et",
-    "totalNoOfQuestions": 20,
-    "durationInMins": 50,
+    "nameOfTheChallenge": "excepteur",
+    "topic": "sunt",
+    "totalNoOfQuestions": 50,
+    "durationInMins": 56,
+    "durationInSecs": 12,
+    "scoreForRight": 6,
+    "scoreForWrong": -3,
+    "imageUrl": "http://res.cloudinary.com/deaxb0msww/image/upload/v1480051930/quiztack/politics.jpg"
+  },
+  {
+    "nameOfTheChallenge": "officia",
+    "topic": "irure",
+    "totalNoOfQuestions": 95,
+    "durationInMins": 15,
+    "durationInSecs": 20,
+    "scoreForRight": 2,
+    "scoreForWrong": -1,
+    "imageUrl": "http://res.cloudinary.com/deaxb0msww/image/upload/v1480051928/quiztack/music.png"
+  },
+  {
+    "nameOfTheChallenge": "labore",
+    "topic": "est",
+    "totalNoOfQuestions": 95,
+    "durationInMins": 60,
+    "durationInSecs": 29,
+    "scoreForRight": 3,
+    "scoreForWrong": -1,
+    "imageUrl": "http://res.cloudinary.com/deaxb0msww/image/upload/v1480051929/quiztack/newtrends.jpg"
+  },
+  {
+    "nameOfTheChallenge": "deserunt",
+    "topic": "ut",
+    "totalNoOfQuestions": 15,
+    "durationInMins": 17,
+    "durationInSecs": 34,
+    "scoreForRight": 10,
+    "scoreForWrong": -6,
+    "imageUrl": "http://res.cloudinary.com/deaxb0msww/image/upload/v1480051935/quiztack/wordplay.png"
+  },
+  {
+    "nameOfTheChallenge": "qui",
+    "topic": "officia",
+    "totalNoOfQuestions": 35,
+    "durationInMins": 36,
+    "durationInSecs": 35,
     "scoreForRight": 7,
-    "scoreForWrong": 5
+    "scoreForWrong": -3,
+    "imageUrl":null
+  },
+  {
+    "nameOfTheChallenge": "culpa",
+    "topic": "dolore",
+    "totalNoOfQuestions": 35,
+    "durationInMins": 52,
+    "durationInSecs": 45,
+    "scoreForRight": 7,
+    "scoreForWrong": -2,
+    "imageUrl":null
+  },
+  {
+    "nameOfTheChallenge": "ad",
+    "topic": "ut",
+    "totalNoOfQuestions": 35,
+    "durationInMins": 60,
+    "durationInSecs": 29,
+    "scoreForRight": 9,
+    "scoreForWrong": -5,
+    "imageUrl": "http://res.cloudinary.com/deaxb0msww/image/upload/v1480051928/quiztack/kidsquiz.png"
+  },
+  {
+    "nameOfTheChallenge": "duis",
+    "topic": "elit",
+    "totalNoOfQuestions": 70,
+    "durationInMins": 7,
+    "durationInSecs": 30,
+    "scoreForRight": 10,
+    "scoreForWrong": -8,
+    "imageUrl": "http://res.cloudinary.com/deaxb0msww/image/upload/v1480051931/quiztack/potluck.png"
+  },
+  {
+    "nameOfTheChallenge": "pariatur",
+    "topic": "ex",
+    "totalNoOfQuestions": 70,
+    "durationInMins": 39,
+    "durationInSecs": 18,
+    "scoreForRight": 9,
+    "scoreForWrong": -8,
+    "imageUrl":null
+  },
+  {
+    "nameOfTheChallenge": "incididunt",
+    "topic": "mollit",
+    "totalNoOfQuestions": 30,
+    "durationInMins": 39,
+    "durationInSecs": 58,
+    "scoreForRight": 6,
+    "scoreForWrong": -7,
+    "imageUrl":null
+  },
+  {
+    "nameOfTheChallenge": "laborum",
+    "topic": "aliquip",
+    "totalNoOfQuestions": 50,
+    "durationInMins": 17,
+    "durationInSecs": 16,
+    "scoreForRight": 1,
+    "scoreForWrong": -8,
+    "imageUrl": "http://res.cloudinary.com/deaxb0msww/image/upload/v1480051924/quiztack/countries.jpg"
   }
 ],
   "jeopardyScores" : [
