@@ -101,7 +101,7 @@ handleClick(e) {
           touch={true}
           tooltipPosition="top-left"
           onClick={this.handleClick}>
-          {this.state.isSelected ? <i className="material-icons" color={white}>star</i>:<StarBorder color="white"/>}
+          {this.state.isSelected ? <StarBorder color="green"/>:<StarBorder color="white"/>}
           </IconButton>}>
           <img src={this.props.img} />
         </GridTile>

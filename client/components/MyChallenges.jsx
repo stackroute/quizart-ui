@@ -60,7 +60,7 @@ export default class CategoriesDash extends React.Component {
             <Row center="xs" >
               <h2>My Challenges</h2>
             </Row>
-            <Row >
+            <Row center="xs">
           {myChallengesDisplay}
             </Row>
             <Row center="xs">
