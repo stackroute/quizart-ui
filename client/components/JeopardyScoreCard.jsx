@@ -27,7 +27,6 @@ export default class JeopardyScoreCard extends React.Component{
         backgroundColor: "white"
       },
     };
-    // console.log({this.props.jeopardyScores.noOfCorrectAns})
     var correctAns = this.props.jeopardyScores.noOfCorrectAns
     var totalAttempted = this.props.jeopardyScores.noOfAttemptedQues
     var avgTimeCorrectAns = this.props.jeopardyScores.avgTimeCorrectAns
@@ -40,25 +39,15 @@ export default class JeopardyScoreCard extends React.Component{
         <Grid>
         <Row>
           <Col xs={3} sm={3} md={3} lg={3}><Avatar src={this.props.jeopardyScores.picture} size={90}/></Col>
-          <Col xs={3} sm={3} md={3} lg={3}> {this.props.jeopardyScores.totalScore} <img src={this.props.jeopardyScores.coins} style={styles.coinStyle} /></Col>
+          <Col xs={3} sm={3} md={3} lg={3}> {this.props.jeopardyScores.totalScore}</Col>
           <Col xs={3} sm={3} md={3} lg={3}>
             <div>
-               <Gauge
-               value={Math.round(accuracy)}
-               width={100}
-               height={80}
-               label=""
-               color="blue" />
+               <Gauge value={Math.round(accuracy)} width={100} height={80} label="" color="blue" />
            </div>
            </Col>
            <Col xs={3} sm={3} md={3} lg={3}>
            <div>
-              <Gauge
-              value={Math.round(confidence)}
-              width={100}
-              height={80}
-              label=""
-              color="green" />
+              <Gauge value={Math.round(confidence)} width={100} height={80} label="" color="green" />
           </div>
           </Col>
         </Row>
