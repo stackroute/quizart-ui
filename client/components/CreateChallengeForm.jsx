@@ -8,7 +8,10 @@ import TextField from 'material-ui/TextField';
 import DropDownMenu from 'material-ui/DropDownMenu';
 import MenuItem from 'material-ui/MenuItem';
 import {Grid, Row, Col} from 'react-flexbox-grid';
-import CategoryDialog from './CategoryDialog';
+// import ChooseTopic from './ChooseTopic';
+import ChooseCategory from './ChooseCategory';
+import MediaQuery from 'react-responsive';
+import Dialog from 'material-ui/Dialog';
 import superagent from 'superagent';
 
 const questions = [];
@@ -35,9 +38,10 @@ const styles={
 export default class CreateChallengeForm extends React.Component {
   constructor(props) {
     super(props);
-    this.state={name:'',question: 15,durationInMins:'',durationInSecs:'',right:'',wrong:'',isOpenDialog:false};
-   this.handleChange=this.handleChange.bind(this);
-    this.handleDialog=this.handleDialog.bind(this);
+    this.state={name:'',question: 15,durationInMins:'',durationInSecs:'',right:'',wrong:'',isChooseTopicDialogOpen:false};
+    this.handleChange=this.handleChange.bind(this);
+    this.handleDialogOpen=this.handleDialogOpen.bind(this);
+    this.handleDialogClose=this.handleDialogClose.bind(this);
     this.handleCreate=this.handleCreate.bind(this);
   }
   handleChange(){
@@ -48,10 +52,17 @@ export default class CreateChallengeForm extends React.Component {
     this.setState({wrong:this.refs.wrong.getValue()});
   }
   handleQuestions = (event, index, question) => this.setState({question});
-  handleDialog()
+  handleDialogOpen()
   {
     this.setState({
-      isOpenDialog: true
+      isChooseTopicDialogOpen: true
+    });
+  }
+
+  handleDialogClose() {
+    console.log('Close Requested');
+    this.setState({
+      isChooseTopicDialogOpen: false
     });
   }
 
@@ -59,9 +70,91 @@ export default class CreateChallengeForm extends React.Component {
   {
     alert("Challenge is Created Successfully!!!");
   }
+
   render() {
+    const action = [
+      <FlatButton
+        label="Cancel"
+        secondary={true}
+        onTouchTap={this.handleDialogClose}/>,
+      <FlatButton
+        label="OK"
+        primary={true} />
+    ];
+
     return (
-      <Grid >
+      <div>
+        <Dialog
+          open={this.state.isChooseTopicDialogOpen}
+          actions={action}
+          repositionOnUpdate={true}
+          onRequestClose={this.handleDialogClose} >
+          <MediaQuery minDeviceWidth={1} maxDeviceWidth={479}>
+            <ChooseCategory limit={1} />
+          </MediaQuery>
+          <MediaQuery minDeviceWidth={480} maxDeviceWidth={767}>
+            <ChooseCategory limit={1} />
+          </MediaQuery>
+          <MediaQuery minDeviceWidth={768} maxDeviceWidth={1023}>
+            <ChooseCategory limit={3} />
+          </MediaQuery>
+          <MediaQuery minDeviceWidth={1024} maxDeviceWidth={1439}>
+            <ChooseCategory limit={5} />
+          </MediaQuery>
+          <MediaQuery minDeviceWidth={1440}>
+            <ChooseCategory limit={5} />
+          </MediaQuery>
+        </Dialog>
+        <Row center="xs">
+          <Col xs={10} sm={10} md={8} lg={6}>
+            <Paper>
+              <h1>Create Classic Challenge</h1>
+              <form>
+                <TextField
+                  floatingLabelText="Name of the Challenge"
+                  onChange={this.handleChange} />
+                <br />
+                Topics: <FlatButton
+                label={"Choose the Topic"}
+                primary={true}
+                onTouchTap={this.handleDialogOpen} />
+                <br />
+                Number of Questions :
+                <DropDownMenu maxHeight={300} value={this.state.question} onChange={this.handleQuestions}>
+                  {questions}
+                </DropDownMenu>
+                <br />
+                <TextField ref='min'
+                  floatingLabelText="DurationInMins"  onChange={this.handleChange}/>
+                <TextField ref='secs'
+                  floatingLabelText="DurationInSecs"  onChange={this.handleChange}/>
+                <br />
+                <TextField ref='right'
+                  floatingLabelText="Score For RightAnswer"  onChange={this.handleChange} />
+                <br />
+                <TextField ref='wrong'
+                  floatingLabelText="Score For WrongAnswer"  onChange={this.handleChange} />
+                <br />
+                <input type="file" />
+                <br />
+                <FlatButton
+                  label={"Create"}
+                  primary={true}
+                  onTouchTap={this.handleCreate}
+                  style={{marginRight: 12}}
+                />
+              </form>
+            </Paper>
+          </Col>
+        </Row>
+      </div>
+    );
+  }
+
+  /*render() {
+    return (
+
+      <Grid>
       <Paper style={styles.paper} zDepth={3} rounded={false} >
       <Row>
        <Col xs={12} sm={12} md={12} lg={12}>
@@ -94,7 +187,7 @@ export default class CreateChallengeForm extends React.Component {
           style={{marginLeft:'-100px'}}/>
 	      </div>
 	      </Col>
-        <div>{this.state.isOpenDialog?<CategoryDialog open={true}/>:null}</div>
+        FIXME: <div>{this.state.isChooseTopicDialogOpen?<CategoryDialog open={true}/>:null}</div>
     </Row>
 
 
@@ -163,5 +256,5 @@ export default class CreateChallengeForm extends React.Component {
         </Paper>
       </Grid>
     );
-  }
+  }*/
 }
