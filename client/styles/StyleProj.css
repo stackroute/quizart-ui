@@ -1,105 +1,101 @@
 .Points
 {
-  font-size: 1.7em;
-}
+ font-size: 1.7em;
+} 
 body
 {
-  background-color:darkgray;
+ background-color:darkgray;
 }
 .ScoreBoard
 {
-  font-size: 1.2em;
+ font-size: 1.2em;
 
 }
 .ScaledCard
 {
-  /*-webkit-transform : rotateY(-180deg)  scale(5.8) ;
-   -ms-transform     : rotateY(-180deg) scale(5.8) ; */
-   -webkit-transition-duration: '1s'; /* Safari */
-    transition-duration: 1s !important;
-    transform  :  rotateY(-180deg) scale(8.7,8.7) ;
-    transform :translate('-50%','-50%')!important;
-    margin-left:0 !important;
-    margin-top:0 !important;
-    position: absolute;
+ /*-webkit-transform : rotateY(-180deg)  scale(5.8) ;
+  -ms-transform     : rotateY(-180deg) scale(5.8) ; */
+  -webkit-transition-duration: '1s'; /* Safari */
+   transition-duration: 1s !important;
+   transform  :  rotateY(-180deg) scale(8.7,8.7) ;
+   transform :translate('-50%','-50%')!important;
+   margin-left:0 !important;
+   margin-top:0 !important;
+   position: absolute;
 }
 
 @media (max-width: 480px) {
 .Questions h4
 {
-  font-size: 0.5em;
-  text-align: 'left';
-  padding-left: 10%;
-  color:#1A237E;
-  margin:10;
-  text-justify: inter-word;
-  text-align: justify;
+ font-size: 0.5em;
+ text-align: 'left';
+ padding-left: 10%;
+ color:#1A237E ;
+ margin:10;
+ text-justify: inter-word;
+ text-align: justify;
 }
 .Topics h4
 {
-  font-size: 0.8em;
+ font-size: 0.8em;
 }
 .Points
 {
-  font-size: 0.8em;
+ font-size: 0.8em;
 }
 .ScoreBoard
 {
-  font-size: 0.7em;
+ font-size: 0.7em;
 }
 }
 @media (max-width: 768px) {
 .Questions h4
 {
-  font-size: 0.8em;
-  text-align:'center';
-  padding-left: 20%;
-  color:#1A237E;
-  margin:15;
+ font-size: 0.8em;
+ text-align:'center';
+ padding-left: 20%;
+ color:#1A237E ;
+ margin:15;
 }
 .Topics h4
 {
-  font-size: 0.5em;
+ font-size: 0.5em;
 }
 .Points
 {
-  font-size: 0.8em;
+ font-size: 0.8em;
 }
 .ScoreBoard
 {
-  font-size: 0.7em;
+ font-size: 0.7em;
 }
 }
 
-@media (max-width: 1024 px) {
+@media (max-width: 1024 px) { 
 .Questions h4
 {
-  font-size: 1em;
-  text-align:'center';
-  padding-left: 30%;
-  color:#1A237E;
-  margin:20;
+ font-size: 1.1em;
+ text-align:'center';
+ padding-left: 30%;
+ color:#1A237E ;
+ margin:20;
 }
-@media (width: 768px) {
-
-
 .ScoreBoard
 {
-  font-size: 1.5em;
+ font-size: 1.5em;
+} 
 }
-}
-
 @media (min-width: 1200px) {
 .Questions h4
 {
-  font-size: 1em;
-  padding-left: 35%;
-  text-align:'center';
-  color:#1A237E;
-  margin:20;
+ font-size: 1.1em;
+ padding-left: 35%;
+ text-align:'center';
+ color:#1A237E ;
+ margin:20;
 }
 .ScoreBoard
 {
-  font-size: 1.5em;
-}
+ font-size: 1.5em;
+} 
 }
