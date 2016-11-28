@@ -1,9 +1,11 @@
+
 .Points
 {
   font-size: 1.7em;
-}
+} 
 body
 {
+  overflow: scroll;
   background-color:darkgray;
 }
 .ScoreBoard
@@ -71,7 +73,7 @@ body
 }
 }
 
-@media (max-width: 1024 px) {
+@media (max-width: 1024 px) { 
 .Questions h4
 {
   font-size: 1em;
@@ -80,15 +82,11 @@ body
   color:#1A237E;
   margin:20;
 }
-@media (width: 768px) {
-
-
 .ScoreBoard
 {
   font-size: 1.5em;
+} 
 }
-}
-
 @media (min-width: 1200px) {
 .Questions h4
 {
@@ -101,5 +99,7 @@ body
 .ScoreBoard
 {
   font-size: 1.5em;
+} 
 }
-}
+
+  
