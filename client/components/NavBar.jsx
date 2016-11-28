@@ -14,6 +14,12 @@ export default class NavBar extends React.Component {
     this.state = { isDrawerOpen: false };
   }
 
+  static get contextTypes() {
+    return{
+      router: React.PropTypes.object.isRequired,
+    };
+  }
+
   handleDrawerOpen() {
     this.setState({isDrawerOpen: true});
   }
@@ -33,7 +39,7 @@ export default class NavBar extends React.Component {
     return (
       <div>
         <NavigationBar />
-          
+
         <Drawer
           open={this.state.isDrawerOpen}
           docked={false}
@@ -87,11 +93,11 @@ export default class NavBar extends React.Component {
               </ListItem>
             </Link>
             <Divider/>
-            <Link to="myGames/">
-              <ListItem key={11} onTouchTap={this.handleClose}>
+
+              <ListItem key={11} onTouchTap={() => this.context.router.push('/myGames')}>
                 My Games
               </ListItem>
-            </Link>
+          
             <Divider/>
           </List>
         </Drawer>

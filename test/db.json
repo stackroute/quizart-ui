@@ -1,5 +1,4 @@
 {
-  
   "category": [
     {
       "imageUrl": "http://res.cloudinary.com/deaxb0msww/image/upload/v1480054392/sports_tp2auj.png",
@@ -393,52 +392,46 @@
   ],
   "myGamesJeopardy":[
   {
-    "serial": 0,
     "category": "cillum",
     "score": 516,
     "position": 1,
     "noOfGamesPlayed": 10,
-    "playedDate": "2016-07-15"
+    "playedDate": "50 minutes ago"
   },
   {
-    "serial": 1,
     "category": "esse",
     "score": 297,
     "position": 1,
     "noOfGamesPlayed": 9,
-    "playedDate": "2016-04-17"
+    "playedDate": "a day ago"
   },
   {
-    "serial": 2,
     "category": "in",
     "score": 7774,
     "position": 3,
     "noOfGamesPlayed": 7,
-    "playedDate": "2016-11-16"
+    "playedDate": "3 days ago"
   },
   {
-    "serial": 3,
     "category": "sunt",
     "score": 5509,
     "position": 1,
     "noOfGamesPlayed": 7,
-    "playedDate": "2016-11-04"
+    "playedDate": "a week ago"
   },
   {
-    "serial": 4,
     "category": "irure",
     "score": 4575,
     "position": 3,
     "noOfGamesPlayed": 10,
-    "playedDate": "2016-01-31"
+    "playedDate": "3 weeks ago"
   },
   {
-    "serial": 5,
     "category": "reprehenderit",
     "score": 7939,
     "position": 2,
     "noOfGamesPlayed": 8,
-    "playedDate": "2016-06-27"
+    "playedDate": "2 months ago"
   }
 ]
 
