@@ -34,6 +34,13 @@ const styles = {
   padding: '10px 10px 10px 10px',
   textAlign: 'center',
 },
+selected: {
+   borderStyle: 'solid',
+   borderColor: 'green',
+ },
+ notSelected: {
+   borderStyle: 'none'
+ }
 };
 export default class ChooseCategory extends React.Component{
 constructor(props) {
@@ -85,11 +92,28 @@ handleClick(e) {
   this.setState(prevState => ({
     isSelected: !prevState.isSelected
   }));
-  category.push(this.props.title);
 }
   render(){
+    if(this.state.isSelected)
+    {
+    if(this.state.isSelected)
+    category.push(this.props.title);
     return (
-          <GridTile
+          <GridTile style={styles.selected}
+          title={this.props.title}
+          onClick={this.handleClick}
+          actionIcon={<IconButton
+          touch={true}
+          onClick={this.handleClick}>
+          {this.state.isSelected ? <StarBorder color="green"/>:<StarBorder color="white"/>}
+          </IconButton>}>
+          <img src={this.props.img} />
+        </GridTile>
+    );
+  }
+    else
+    return (
+          <GridTile style={styles.unSelected}
           title={this.props.title}
           onClick={this.handleClick}
           actionIcon={<IconButton

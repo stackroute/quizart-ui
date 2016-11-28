@@ -74,12 +74,9 @@ export default class CreateChallengeForm extends React.Component {
   render() {
     const action = [
       <FlatButton
-        label="Cancel"
+        label="Close"
         secondary={true}
-        onTouchTap={this.handleDialogClose}/>,
-      <FlatButton
-        label="OK"
-        primary={true} />
+        onTouchTap={this.handleDialogClose}/>
     ];
 
     return (
@@ -183,6 +180,7 @@ export default class CreateChallengeForm extends React.Component {
 	        disableTouchRipple={true}
 	        disableFocusRipple={true}
 	        primary={true}
+          disabled={this.state.disableButton}
 	        onTouchTap={this.handleDialog}
           style={{marginLeft:'-100px'}}/>
 	      </div>
