@@ -24,7 +24,7 @@ export default class AllMyChallengesDisplay extends React.Component {
   render() {
     var imgurl;
     if(this.props.mychallenges.imageUrl==null)
-      imgurl="http://res.cloudinary.com/deaxb0msww/image/upload/v1480051922/quiztack/circles.jpg"
+      imgurl="http://res.cloudinary.com/deaxb0msww/image/upload/v1480260112/thumbsup_emclkx.png"
       else {
         imgurl=this.props.mychallenges.imageUrl;
       }

@@ -4,7 +4,6 @@
 }
 body
 {
-  overflow: scroll;
   background-color:darkgray;
 }
 .ScoreBoard
@@ -81,11 +80,15 @@ body
   color:#1A237E;
   margin:20;
 }
+@media (width: 768px) {
+
+
 .ScoreBoard
 {
   font-size: 1.5em;
 }
 }
+
 @media (min-width: 1200px) {
 .Questions h4
 {
