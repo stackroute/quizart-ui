@@ -2,10 +2,10 @@
 .Points
 {
   font-size: 1.7em;
-} 
+}
 body
 {
-  overflow: hidden;
+
   background-color:darkgray;
 }
 .ScoreBoard
@@ -41,7 +41,7 @@ body
 }
 }
 @media (max-width: 768px) {
-  
+
 .Topics h4
 {
   font-size: 0.5em;
@@ -56,13 +56,10 @@ body
 }
 }
 
-@media (width: 768px) { 
+@media (width: 768px) {
 
 .ScoreBoard
 {
   font-size: 1.5em;
-} 
 }
-
-
-  
+}

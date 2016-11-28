@@ -35,7 +35,7 @@ const styles={
 export default class CreateChallengeForm extends React.Component {
   constructor(props) {
     super(props);
-    this.state={name:'',question: 15,durationInMins:'',durationInSecs:'',right:'',wrong:'',isOpenDialog:false};
+    this.state={name:'',question: 15,durationInMins:'',durationInSecs:'',right:'',wrong:'',isOpenDialog:false,disableButton:false,disableText:true};
    this.handleChange=this.handleChange.bind(this);
     this.handleDialog=this.handleDialog.bind(this);
     this.handleCreate=this.handleCreate.bind(this);
@@ -61,7 +61,7 @@ export default class CreateChallengeForm extends React.Component {
   }
   render() {
     return (
-      <Grid >
+      <Grid>
       <Paper style={styles.paper} zDepth={3} rounded={false} >
       <Row>
        <Col xs={12} sm={12} md={12} lg={12}>
@@ -90,6 +90,7 @@ export default class CreateChallengeForm extends React.Component {
 	        disableTouchRipple={true}
 	        disableFocusRipple={true}
 	        primary={true}
+          disabled={this.state.disableButton}
 	        onTouchTap={this.handleDialog}
           style={{marginLeft:'-100px'}}/>
 	      </div>
