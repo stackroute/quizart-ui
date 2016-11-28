@@ -62,27 +62,90 @@
     }
   ],
   "topic":[
-   {
-       "question": "For which of the following disciplines is Nobel Prize awarded?",
-       "options": [
-           "Physics and Chemistry",
-           "Physiology or Medicine",
-           "Literature, Peace and Economics",
-           "All of the above"
-       ],
-       "correctOption": "All of the above"
-   },
-    {
-        "question": "WWW stands for?",
-       "options": [
-           "World Whole Web",
-           "Wide World Web",
-           "Web World Wide",
-           "World Wide Web"
-       ],
-       "correctOption": "World Wide Web"
-   }
+{
+    "question": "For which of the following disciplines is Nobel Prize awarded?",
+    "options": [
+        "Physics and Chemistry",
+        "Physiology or Medicine",
+        "Literature, Peace and Economics",
+        "All of the above"
+    ],
+    "image":"http://res.cloudinary.com/deaxb0msww/image/upload/v1480077584/nobelprize_nf4q0k.png",
+    "correctOption": "All of the above"
+},
+ {
+     "question": "WWW stands for?",
+    "options": [
+        "World Whole Web",
+        "Wide World Web",
+        "Web World Wide",
+        "World Wide Web"
+    ],
+    "image":"http://res.cloudinary.com/deaxb0msww/image/upload/v1480077581/www_j80fke.png",
+
+    "correctOption": "World Wide Web"
+},
+ {
+  "question": "Which of the following are components of Central Processing Unit (CPU) ?",
+  "options": [
+  "Arithmetic logic unit, Mouse",
+  "Arithmetic logic unit, Control unit",
+  "Arithmetic logic unit, Integrated Circuits",
+  "Control Unit, Monitor"
   ],
+  "image":null,
+  "correctOption": "Arithmetic logic unit, Control unit"
+
+},
+ {
+     "question": "Who are you?",
+  "options": [
+  "A",
+  "B",
+  "C",
+  "All of the above"
+  ],
+
+  "image":"http://res.cloudinary.com/deaxb0msww/image/upload/v1480077577/whoareu_zcfufc.png",
+  "correctOption": "B"
+},
+ {
+     "question": "WWW stands for?",
+    "options": [
+        "World Whole Web",
+        "Wide World Web",
+        "Web World Wide",
+        "World Wide Web"
+    ],
+    "image":"http://res.cloudinary.com/deaxb0msww/image/upload/v1480077581/www_j80fke.png",
+
+    "correctOption": "World Wide Web"
+},
+{
+  "question": "Which of the following are components of Central Processing Unit (CPU) ?",
+  "options": [
+  "Arithmetic logic unit, Mouse",
+  "Arithmetic logic unit, Control unit",
+  "Arithmetic logic unit, Integrated Circuits",
+  "Control Unit, Monitor"
+  ],
+  "image":null,
+  "correctOption": "Arithmetic logic unit, Control unit"
+
+},
+ {
+     "question": "Who are you?",
+  "options": [
+  "A",
+  "B",
+  "C",
+  "All of the above"
+  ],
+
+  "image":"http://res.cloudinary.com/deaxb0msww/image/upload/v1480077577/whoareu_zcfufc.png",
+  "correctOption": "B"
+}
+],
   "classicCategory":[
  {
    "imageUrl": "https://drive.google.com/open?id=0ByWCP1d6-fkea2lLVmNodk1LT1U",

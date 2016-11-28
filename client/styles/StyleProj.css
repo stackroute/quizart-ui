@@ -1,11 +1,10 @@
-
 .Points
 {
   font-size: 1.7em;
-} 
+}
 body
 {
-  overflow: hidden;
+  overflow: scroll;
   background-color:darkgray;
 }
 .ScoreBoard
@@ -27,6 +26,16 @@ body
 }
 
 @media (max-width: 480px) {
+.Questions h4
+{
+  font-size: 0.5em;
+  text-align: 'left';
+  padding-left: 10%;
+  color:#1A237E;
+  margin:10;
+  text-justify: inter-word;
+  text-align: justify;
+}
 .Topics h4
 {
   font-size: 0.8em;
@@ -41,7 +50,14 @@ body
 }
 }
 @media (max-width: 768px) {
-  
+.Questions h4
+{
+  font-size: 0.8em;
+  text-align:'center';
+  padding-left: 20%;
+  color:#1A237E;
+  margin:15;
+}
 .Topics h4
 {
   font-size: 0.5em;
@@ -56,13 +72,31 @@ body
 }
 }
 
-@media (width: 768px) { 
-
+@media (max-width: 1024 px) {
+.Questions h4
+{
+  font-size: 1em;
+  text-align:'center';
+  padding-left: 30%;
+  color:#1A237E;
+  margin:20;
+}
 .ScoreBoard
 {
   font-size: 1.5em;
-} 
 }
-
-
-  
+}
+@media (min-width: 1200px) {
+.Questions h4
+{
+  font-size: 1em;
+  padding-left: 35%;
+  text-align:'center';
+  color:#1A237E;
+  margin:20;
+}
+.ScoreBoard
+{
+  font-size: 1.5em;
+}
+}
