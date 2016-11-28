@@ -7,7 +7,7 @@ export default class CreateChallenge extends React.Component {
     return (
       <div>
         <NavBar />
-      <CreateChallengeForm />
+        <CreateChallengeForm />
       </div>
     );
   }

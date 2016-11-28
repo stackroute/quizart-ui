@@ -10,10 +10,7 @@ import Search from 'material-ui/svg-icons/action/search';
 import StarBorder from 'material-ui/svg-icons/toggle/star-border';
 import Paper from 'material-ui/Paper';
 import superagent from 'superagent';
-import CreateChallengeForm from './CreateChallengeForm';
-import CategoryDialog from './CategoryDialog'
 
-var category=[];
 var input;
 const styles = {
   root: {
@@ -46,22 +43,13 @@ selected: {
 export default class ChooseCategory extends React.Component{
 constructor(props) {
    super(props);
-   this.state={classicCategory:[]};
+   this.state={classicCategory:this.props.topic}
 }
-
-   static get propTypes() {
-    return {
-      limit: React.PropTypes.number.isRequired
-    };
-  }
-
-   componentDidMount() {
-    superagent
-      .get('http://localhost:3000/classicCategory')
-      .end((err, res) => {
-        this.setState({classicCategory: res.body});
-      });
-  }
+static get propTypes() {
+ return {
+   limit: React.PropTypes.number.isRequired
+ };
+}
 
  render(){
     return(
@@ -72,9 +60,10 @@ constructor(props) {
           style={styles.gridList}>
           {this.state.classicCategory.map((tile) => (
             <GridTileInternal
+              topic={tile}
               key={tile.title}
-              title={tile.title}
-              img={tile.imageUrl} >
+              onSelect={this.props.onSelect}
+              onDeselect={this.props.onDeselect}>
             </GridTileInternal>
           ))}
         </GridList>
@@ -93,36 +82,40 @@ handleClick(e) {
   this.setState(prevState => ({
     isSelected: !prevState.isSelected
   }));
+  const isSelected = this.state.isSelected;
+  if(isSelected) {
+    this.props.onDeselect(this.props.topic);
+  } else {
+    this.props.onSelect(this.props.topic);
+  }
 }
   render(){
     if(this.state.isSelected)
     {
-    if(this.state.isSelected)
-    category.push(this.props.title);
     return (
           <GridTile style={styles.selected}
-          title={this.props.title}
+          title={this.props.topic.title}
           onClick={this.handleClick}
           actionIcon={<IconButton
           touch={true}
           onClick={this.handleClick}>
           {this.state.isSelected ? <StarBorder color="green"/>:<StarBorder color="white"/>}
           </IconButton>}>
-          <img src={this.props.img} />
+          <img src={this.props.topic.imageUrl} />
         </GridTile>
     );
   }
     else
     return (
           <GridTile style={styles.unSelected}
-          title={this.props.title}
+          title={this.props.topic.title}
           onClick={this.handleClick}
           actionIcon={<IconButton
           touch={true}
           onClick={this.handleClick}>
           {this.state.isSelected ? <StarBorder color="green"/>:<StarBorder color="white"/>}
           </IconButton>}>
-          <img src={this.props.img} />
+          <img src={this.props.topic.imageUrl} />
         </GridTile>
     );
   }
