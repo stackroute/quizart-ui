@@ -13,6 +13,7 @@ export default class CategoryDialog extends React.Component
   this.state = {
     open: this.props.open,
     checked:false,
+    categoryselect:this.props.category,
   };
  this.handleChange=this.handleChange.bind(this);
 }

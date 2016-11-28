@@ -4,13 +4,19 @@ import {Table, TableBody,TableHeader, TableHeaderColumn, TableRow, TableRowColum
 import {Grid, Row, Col} from 'react-flexbox-grid';
 import superagent from 'superagent';
 import { Link } from "react-router";
+import Paper from 'material-ui/Paper';
 import FloatingActionButton from 'material-ui/FloatingActionButton';
 import NavigationExpandMore from 'material-ui/svg-icons/navigation/expand-more';
 import darkBaseTheme from 'material-ui/styles/baseThemes/darkBaseTheme';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import getMuiTheme from 'material-ui/styles/getMuiTheme';
-import DashboardChallenges from './DashboardChallenges';
+import Challenge from './Challenge';
 
+const styles={
+  paper:{
+    width:window.innerWidth,
+  }
+}
 export default class CategoriesDash extends React.Component {
   constructor() {
     super();
@@ -42,18 +48,19 @@ export default class CategoriesDash extends React.Component {
     const myChallengesDisplay= this.state.mychallenges.map((challenge) => {
       return (
 
-        <Col xs={4} sm={3} md={2} lg={1} key={challenge.name}>
-          <DashboardChallenges mychallenges={challenge}/>
+        <Col xs={4} sm={2} md={2} lg={1} key={challenge.name}>
+          <Challenge mychallenges={challenge}/>
         </Col>
       );
     });
     return (
       <MuiThemeProvider muiTheme={getMuiTheme(darkBaseTheme)}>
+          <Paper style={styles.paper}>
           <Grid>
             <Row center="xs" >
               <h2>My Challenges</h2>
             </Row>
-            <Row >
+            <Row center="xs">
           {myChallengesDisplay}
             </Row>
             <Row center="xs">
@@ -64,6 +71,7 @@ export default class CategoriesDash extends React.Component {
             </Link>
             </Row>
           </Grid>
+          </Paper>
       </MuiThemeProvider>
     );
   }
