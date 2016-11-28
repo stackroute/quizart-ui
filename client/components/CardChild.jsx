@@ -16,7 +16,6 @@ export default class CardChild extends React.Component
   }
 
 
-
   handleClick()
   {
   	if(this.state.content=='*')
