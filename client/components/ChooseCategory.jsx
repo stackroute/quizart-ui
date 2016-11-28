@@ -11,7 +11,6 @@ import StarBorder from 'material-ui/svg-icons/toggle/star-border';
 import Paper from 'material-ui/Paper';
 import superagent from 'superagent';
 import CreateChallengeForm from './CreateChallengeForm';
-import CategoryDialog from './CategoryDialog'
 
 var category=[];
 var input;

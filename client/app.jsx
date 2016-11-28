@@ -29,12 +29,12 @@ ReactDOM.render(
         <Route path="createChallenge" component={CreateChallengeView} />
         <Route path="jeopardyBoard" component={JeopardyView} />
         <Route path="myChallenge" component={MyChallengeView} />
-       <Route path="allMyChallenges" component={MyChallengeView} />
-       <Route path="myGames" component={MyGamesView} />
-       <Route path="gamePlayJeopardy" component={JeopardyGameView} />
+        <Route path="allMyChallenges" component={MyChallengeView} />
+        <Route path="myGames" component={MyGamesView} />
+        <Route path="gamePlayJeopardy" component={JeopardyGameView} />
         <Route path="jeopScoreComponent" component={JeopardyScoreCard} />
         <Route path="JeopardyScores" component={JeopardyScoreView} />
-      <Route path="createchallenge" component={CreateChallengeForm} />
+        {/*<Route path="createchallenge" component={CreateChallengeForm} />*/}
       </Route>
     </Router>
   </MuiThemeProvider>, document.getElementById('content')
