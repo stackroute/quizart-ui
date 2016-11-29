@@ -1,84 +1,148 @@
 import React from  'react';
 import superagent from 'superagent';
 import {Card, CardTitle, CardText} from 'material-ui/Card';
-import Timer from './TimerV';
+import TimerSpeed from './Timer';
 import FloatingActionButton from 'material-ui/FloatingActionButton';
 import {grey900,blue300} from './../../node_modules/material-ui/styles/colors';
 import {ListItem} from 'material-ui/List';
-
+import Paper from 'material-ui/Paper';
+import {Grid,Row,Col} from 'react-flexbox-grid';
+import MediaQuery from 'react-responsive';
+import BottomPlayerBoard from './BottomPlayerBoard';
+var blocks = [0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15];
 var options=[];
 export default class JeopardyGameplay extends React.Component {
-  constructor() {
-    super();
-    this.state = {
-      topic: [],
-      choice:''
-    };
-    this.handleClick=this.handleClick.bind(this);
-  }
-  static get propTypes() {
-    return {
-      limit: React.PropTypes.number.isRequired
-    };
-  }
+    constructor() {
+        super();
+        this.state = {
+            i: 0,
+            topic: [],
+            timelimit:1000,
+            colour: '#1A237E',
+            choice:'',
+            content:<FloatingActionButton
+            backgroundColor={grey900}
+            iconStyle={{height:90,width:90}}
+            onClick={this.handleClick.bind(this)}>
+            <div> <h4 color="white"> BUZZER </h4> </div>
+            </FloatingActionButton>,
+        };
+        this.handleClick=this.handleClick.bind(this);
+        this.handleOnClick = this.handleOnClick.bind(this);
+    }
+    static get propTypes() {
+        return {
+            limit: React.PropTypes.number.isRequired
+        };
+    }
+    handleOnClick(e)
+    {
+        //console.log(e.target.nodeName);
+        this.state.topic.map((topics) => {
+        //  console.log(e.target.innerText);
+            for (let option=0; option < topics.options.length; option++)
+            {
+                e.target.parentElement.childNodes[option].disabled = true;
+                if(e.target.parentElement.childNodes[option].innerText === topics.correctOption)
+                {
+                    e.target.parentElement.childNodes[option].style.backgroundColor = "green";
+                }
+            }
+            if(e.target.innerText !== topics.correctOption)
+            {
+                e.target.style.backgroundColor = "red";
+            }
 
-  handleClick()
-  {
-  	if(this.state.choice=='')
-  	{
-      this.state.topic.map((topics => {
-      for(var i=0;i<topics.options.length;i++)
-      	{
-      		options.push(<ListItem primaryText={topics.options[i]}/>);
- 
-      	}
-    }));
-  }
+        });
 
-      this.setState({choice:options});
-  }
-  componentDidMount() {
+        let indexQ = this.state.i;
+        indexQ++;
+        this.setState({i : indexQ});
+        let questions = this.state.topic;
+        for(indexQ=0; indexQ<=this.state.i; indexQ++)
+        {
+            if(indexQ == this.state.i)
+            {
+                document.getElementById("ques").innerText = questions[indexQ].question;
+            }
+        }
+    }
+
+    handleClick()
+    {
+
+    //      this.state.topic.map((topics => {
+    //          if(topics.options[i] === topics.correctOption)
+    //  {
+    //      console.log("hello Vishant!");
+    //   options.push(<ListItem primaryText={topics.options[i]} style={backgroundColor:'red'}/>);
+    //  }
+    // }
+    if(this.state.choice=='')
+    {
+        this.state.topic.map((topics => {
+            for(var i=0;i<topics.options.length;i++)
+            {
+                options.push(<button onTouchTap={this.handleOnClick}
+                    style={{width: '90%', margin: '2px',textAlign:'center',
+                    backgroundColor:this.state.colour,color:'white',
+                    padding: '10px 10px 10px 10px',
+                    borderTopLeftRadius:'70px' ,borderTopRightRadius: '70px',
+                    borderBottomLeftRadius: '70px',borderBottomRightRadius: '70px',
+                    cursor: 'pointer',
+                    outline: '70px 70px 70px 70px'
+                }}>
+                {topics.options[i]}
+                </button>);
+            }
+        }));
+    }
+    this.setState({choice:options});
+    this.setState({content:''});
+}
+componentDidMount() {
     superagent
-      .get('http://localhost:3000/topic?_limit=' + this.props.limit)
-      .end((err, res) => {
+    .get('http://localhost:3000/topic?_limit=' + this.props.limit)
+    .end((err, res) => {
         this.setState({topic: res.body});
-      });
-  }
-  render() {
+    });
+}
+render() {
     const styles = {
-      height: 180,
-  	  width: 180
-      }
-    
-
+        height: 180,
+        width: 180
+    }
     const topicStruct =  this.state.topic.map((topics => {
-      return (
-      	
-      	<CardTitle title={topics.question}/>
-
-
-      );
+        for(let indexQ=0; indexQ<=this.state.i; indexQ++)
+        {
+            if(indexQ == this.state.i)
+            {
+                return (
+                    <CardTitle id="ques" title={topics.question}/>
+                    );
+            }
+        }
     }));
-
-
     return (
-    <div>
-    <center>
-  		<Card style={{width:'80%',height:'60vh',backgroundColor:blue300}}>
-	    {topicStruct}
-		    <CardText>
-	    		<FloatingActionButton backgroundColor={grey900} iconStyle={styles} onClick={this.handleClick}>
-	      			<div style={{paddingTop:'25%' ,color: "white"}}> <h1> BUZZER </h1> </div>
-	    		</FloatingActionButton>
-	    		{this.state.choice}
-		     </CardText>
-     	      <Timer/>  
-        </Card>
- 	    </center>
-      
-	
-	  </div>
-   
-    );
-  }
+        <div>
+        {/*<MediaQuery minDeviceWidth={1} maxDeviceWidth={479}>
+        <div>
+        <Grid>
+    <Row center='xs'>*/}
+    <Card style={{width:'80%',height:'60vh',backgroundColor:blue300}}>
+    {topicStruct}
+    <CardText >
+    {this.state.choice}
+    </CardText>
+    {this.state.content}
+{/*<Row>*/}
+<TimerSpeed timeLimit={this.state.timelimit} blocks={blocks}/>
+<BottomPlayerBoard/>
+{/*</Row>*/}
+</Card>
+             {/*</Row>
+             </Grid>
+            */}          </div>
+            );
+}
 }
