@@ -3,12 +3,12 @@ import AppBar from 'material-ui/AppBar';
 import Drawer from 'material-ui/Drawer';
 import {List, ListItem} from 'material-ui/List';
 import Divider from 'material-ui/Divider';
+import Dialog from 'material-ui/Dialog';
 import Avatar from 'material-ui/Avatar';
 import ContentInbox from 'material-ui/svg-icons/content/inbox';
 import {Link} from 'react-router';
-
-// import NavigationBar from './NavigationBar'
-
+import DisplayDialoge from './DialogAlertForGamePlayStart';
+import FlatButton from 'material-ui/FlatButton';
 import IconMenu from 'material-ui/IconMenu';
 import MenuItem from 'material-ui/MenuItem';
 import IconButton from 'material-ui/IconButton';
@@ -34,7 +34,14 @@ export default class NavBar extends React.Component {
   constructor() {
     super();
     this.state = { isDrawerOpen: false };
+    this.state={open:false};
   }
+   handleOpen =() => {
+   this.setState({open:true});
+ };
+    handleClose =() => {
+        this.setState({open:false});
+    };
   static get contextTypes() {
    return{
      router: React.PropTypes.object.isRequired,
@@ -49,6 +56,19 @@ export default class NavBar extends React.Component {
   }
   
   render() {
+    const actions = [
+         <FlatButton
+                           label="Back"
+                           primary={true}
+                           onTouchTap={this.handleClose}/>,
+
+                         <Link to="gamePlay/">
+                         <FlatButton
+                           label="Start Challenge"
+                           primary={true} />
+                           </Link>
+                           ];
+
     const styles = {
       title:{
         cursor:'pointer',
@@ -179,8 +199,14 @@ export default class NavBar extends React.Component {
                 </ListItem>
 
               <Divider/>
+                  <Dialog
+                    title={"On clicking on Start Challenge you will statr to play Challenge"}
+                    actions={actions}
+                    modal={true}
+                    open={this.state.open} style={{backgroundColor:'black'}} bodyStyle={{color:'#3F51B5'}}>
+                  </Dialog>
 
-                <ListItem key={12} onTouchTap={() => this.context.router.push('/gamePlay')}>
+                <ListItem key={12} onTouchTap={() => this.handleOpen(this)}>
                   Play Challenge
                 </ListItem>
 

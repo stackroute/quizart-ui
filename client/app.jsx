@@ -34,7 +34,6 @@ ReactDOM.render(
         <Route path="gamePlayJeopardy" component={JeopardyGameView} />
         <Route path="jeopScoreComponent" component={JeopardyScoreCard} />
         <Route path="JeopardyScores" component={JeopardyScoreView} />
-        {/*<Route path="createchallenge" component={CreateChallengeForm} />*/}
       </Route>
     </Router>
   </MuiThemeProvider>, document.getElementById('content')
