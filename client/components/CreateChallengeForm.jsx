@@ -70,13 +70,6 @@ this.disableButton = this.disableButton.bind(this);
     }));
   }
 
-submitForm(data) {
- alert(JSON.stringify(data, null, 4));
-}
-
-notifyFormError(data) {
- console.error('Form error:', data);
-}
   handleDialogOpen()
   {
     this.setState({
@@ -96,6 +89,12 @@ notifyFormError(data) {
     this.setState({
       isChooseTopicDialogOpen: false
     });
+    if(deselectCategory.length==0)
+    for(var i in selectCategory)
+      {
+      select.push(selectCategory[i].title);
+    }
+      else {
   for(var i in selectCategory)
     {
       for(var j in deselectCategory)
@@ -104,6 +103,7 @@ notifyFormError(data) {
             select.push(selectCategory[i].title);
       }
     }
+  }
     this.setState({SelectedTopics:select});
     this.setState({disableTopicSelect:true});
   }
@@ -138,7 +138,6 @@ notifyFormError(data) {
   }
 
   render() {
-      console.log(this.state.SelectedTopics);
     const action = [
       <FlatButton
         label="Close"
@@ -239,6 +238,8 @@ notifyFormError(data) {
            value={this.state.wrong}
            onChange={this.onWrongAnswer.bind(this)}/>
            <br />
+          <input type="file" />
+          <br />
              <FlatButton
                label={"Create"}
                primary={true}
