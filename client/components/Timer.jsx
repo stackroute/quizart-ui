@@ -1,16 +1,17 @@
 import React from 'react'
 import Paper from 'material-ui/Paper'
+import ScorecardAdaptive from './ScorecardAdaptive'
 import {redA700, deepOrange400, teal500, blue500, grey900,pinkA200,blue900} from './../../node_modules/material-ui/styles/colors';
 /*-----------------------------------End of importing--------------------------------------------------*/
 /*-----------------------------------Start Timer progress for count time-------------------------------*/
 const styles2 = {
  height: 15,
  width: 10,
- margin: 3,
+ margin: 2,
  textAlign: 'center',
  display: 'inline-block',
 }
-var timer=1000;
+var timer=0;
 class TimerSpeed extends React.Component
 {
  constructor(props){

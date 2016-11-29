@@ -8,7 +8,6 @@ import FloatingActionButton from 'material-ui/FloatingActionButton';
 import Divider from 'material-ui/Divider';
 import {tile400} from 'material-ui/styles/colors';
 import Avatar from 'material-ui/Avatar';
-
 import SocialShare from 'material-ui/svg-icons/social/share';
 import darkBaseTheme from 'material-ui/styles/baseThemes/darkBaseTheme';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
@@ -16,6 +15,7 @@ import getMuiTheme from 'material-ui/styles/getMuiTheme';
 import MediaQuery from 'react-responsive';
 
 
+var winOrNot='';
 const styles={
 
 raisedButtonStyles : {
@@ -44,6 +44,18 @@ open: false
 };
 handleOpen = () =>{
 this.setState({open:true});
+var percentage=(this.props.score/this.props.numberOfQuestions)*100;
+if(percentage>50)
+{
+  winOrNot="Congratulations!! you won";
+}
+else
+{
+  winOrNot="Sorry!! you loss";
+}
+console.log(percentage);
+console.log(winOrNot);
+
 };
 
 handleClose = () =>{
@@ -71,7 +83,7 @@ return(
 <div>
 <FlatButton label="Submit " primary={true} onTouchTap={this.handleOpen} style={styles.raisedButtonStyles}/>
 <Dialog
-title="Congratulations!! you win"
+title={winOrNot}
 titleStyle = { {textAlign : 'center'}}
 actions={actions}
 autoDetectWindowHeight = {true}
@@ -97,7 +109,7 @@ open={this.state.open}
       <Divider />
       <ListItem secondaryText={<p><span style={{color: '#00bcd4'}}> Rank: </span></p>} hoverColor="transparent"/>
       <Divider />
-      <ListItem  secondaryText={<p><span style={{color: '#00bcd4'}}> Score: </span></p>} hoverColor="transparent" />
+      <ListItem  secondaryText={<p><span style={{color: '#00bcd4'}}> Score: <span style={{fontSize: '15px' , color: 'white' ,marginLeft: '14px'}}> {this.props.score}</span> </span></p>} hoverColor="transparent" />
       <Divider />
       <ListItem secondaryText={<p><span style={{color: '#00bcd4'}}> Categories: </span></p>}  hoverColor="transparent"/>
       <Divider />
@@ -108,6 +120,10 @@ open={this.state.open}
     <div className="shareButton">
     <Row>
     <List>
+
+      <ListItem
+      secondaryText={<p><span style={{color: '#00bcd4'}}> Share: </span></p>} />
+
       <ListItem
       secondaryText={<p><span style={{color: '#00bcd4'}}> Share: </span></p>}
       hoverColor="transparent"/>
@@ -147,7 +163,6 @@ open={this.state.open}
     </RaisedButton>
     </Row>
     </MediaQuery>
-
 
   </Col>
 </Row>

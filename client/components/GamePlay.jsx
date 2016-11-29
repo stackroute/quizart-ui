@@ -14,7 +14,8 @@ import React from 'react';
  import Divider from 'material-ui/Divider';
  import superagent from 'superagent';
  import ScorecardAdaptive from './ScorecardAdaptive'
- // import appbar from './appbar';
+
+
  import TimerSpeed from './Timer';
  import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
  <link rel="stylesheet" href="./styles/StyleProj.css"/>
@@ -104,8 +105,10 @@ var blocks = [0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15];
 }
 /*-----------------------------------------handdling event Next------------------------------------------------------*/
 handleChange(e) {
-this.setState( {questionNumber:this.state.questionNumber+1});
-this.setState( {color1:'#1A237E',color2:'#1A237E',color3:'#1A237E',color4:'#1A237E',able:false,opacity:1});
+
+    this.setState( {questionNumber:this.state.questionNumber+1});
+    this.setState( {color1:'#1A237E',color2:'#1A237E',color3:'#1A237E',color4:'#1A237E',able:false,opacity:1});
+
 }
 /*-----------------------------------------componentDidMount------------------------------------------------------*/
 componentDidMount() {
@@ -116,11 +119,18 @@ superagent
 .end((err, res) => {
  this.setState({topic: res.body});
 });
+
 }
 /*-----------------------------------------componentWillMount------------------------------------------------------*/
 componentWillUnmount() {
 return 0;
 }
+
+
+
+
+
+
 /*-----------------------------------------render function------------------------------------------------------*/
 render()
 {
@@ -193,7 +203,7 @@ optionArray=TopicOptionsForCheck;
   {TopicOptions[this.state.questionNumber]}
   <Row center="xs">
   <Col xs={6} sm={6} md={6} lg={6}>
-  <ScorecardAdaptive />
+  <ScorecardAdaptive score={this.state.result} numberOfQuestions={numberOfQuestions}/>
   </Col>
   <Col xs={6} sm={6} md={6} lg={6}>
   <FlatButton label="Next >>" secondary={true} onTouchTap={() => this.handleChange()} style={{textAlign:'right', marginTop:'20px'}}/>

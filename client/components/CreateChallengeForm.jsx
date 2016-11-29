@@ -21,7 +21,7 @@ for (let i = 15; i < 100; i=i+5 ) {
 }
 const errorMessages= {
   wordsError: "Please only use letters",
-  numericError: "Please enter less than 100",
+  numericError: "Please enter numbers",
 } ;
 const styles={
   paper:{

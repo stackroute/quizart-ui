@@ -54,7 +54,7 @@ export default class CategoriesDash extends React.Component {
               {categoryTiles}
             </Row>
             <Row center="xs">
-              <Link to="jeopardyBoard/">
+              <Link to="moreCategories/">
               <FloatingActionButton mini={true} style={styles.moreCategories} >
                 <NavigationExpandMore />
               </FloatingActionButton>
