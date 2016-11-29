@@ -12,6 +12,7 @@ import JeopardyGameplay from './JeopardyGameplay';
      display: 'inline-block', 
      backgroundColor: red500
   }
+  var timer=0;
 class Timer extends React.Component
 {
   constructor(props){

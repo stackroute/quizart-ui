@@ -14,31 +14,31 @@ export default class ChallengeGamePlayView extends React.Component {
         <MediaQuery minDeviceWidth={1} maxDeviceWidth={479}>
         <div>
           <GamePlay />
-          <ScorecardMobileComponent />
+          
         </div>
         </MediaQuery>
         <MediaQuery minDeviceWidth={480} maxDeviceWidth={767}>
         <div>
           <GamePlay />
-          <ScorecardMobileComponent />
+          
         </div>
         </MediaQuery>
         <MediaQuery minDeviceWidth={768} maxDeviceWidth={1023}>
         <div>
           <GamePlay />
-          <ScorecardAdaptive />
+         
         </div>
         </MediaQuery>
         <MediaQuery minDeviceWidth={1024} maxDeviceWidth={1439}>
         <div>
           <GamePlay />
-          <ScorecardAdaptive />
+          
         </div>
         </MediaQuery>
         <MediaQuery minDeviceWidth={1440}>
         <div>
           <GamePlay />
-          <ScorecardAdaptive />
+          
         </div>
         </MediaQuery>
       </div>
