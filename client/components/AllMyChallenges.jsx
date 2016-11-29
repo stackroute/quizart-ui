@@ -34,16 +34,17 @@ export default class AllMyChallenges extends React.Component {
         position: 'fixed', right: 100, bottom: 100
       }
     };
+    var id=0;
     const myChallengesDisplay= this.state.mychallenges.map((challenge) => {
       return (
-          <AllMyChallengesDisplay mychallenges={challenge}/>
+          <AllMyChallengesDisplay mychallenges={challenge} key={++id}/>
       );
     });
     return (
 
       <MuiThemeProvider muiTheme={getMuiTheme(darkBaseTheme)}>
         <Paper>
-          <Grid center="xs">
+          <Grid>
             <Row center="xs">
               <h2>My Challenges</h2>
             </Row>

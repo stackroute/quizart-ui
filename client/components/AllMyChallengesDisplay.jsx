@@ -38,7 +38,7 @@ export default class AllMyChallengesDisplay extends React.Component {
       }
     return (
         <div>
-      <Card style={style.card} onClick={this.challengePlay} key={this.props.mychallenges.nameOfTheChallenge}>
+      <Card style={style.card} onClick={this.challengePlay} >
             <CardMedia
         overlay={<CardTitle title={this.props.mychallenges.nameOfTheChallenge} subtitle={this.props.mychallenges.topic}/>}>
         <img src={imgurl}/>

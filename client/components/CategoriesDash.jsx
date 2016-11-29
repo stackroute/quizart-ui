@@ -39,7 +39,6 @@ export default class CategoriesDash extends React.Component {
         top: '20px'
       }
     };
-
     const categoryTiles = this.state.categories ? this.state.categories.map((category) => {
       return (
         <Col xs={4} sm={3} md={2} lg={1} key={category.name}>
