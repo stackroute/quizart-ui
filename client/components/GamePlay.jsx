@@ -14,6 +14,8 @@ import React from 'react';
  import Divider from 'material-ui/Divider';
  import superagent from 'superagent';
  import ScorecardAdaptive from './ScorecardAdaptive'
+
+
  import TimerSpeed from './Timer';
  import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
  <link rel="stylesheet" href="./styles/StyleProj.css"/>

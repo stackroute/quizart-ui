@@ -12,11 +12,12 @@ import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import getMuiTheme from 'material-ui/styles/getMuiTheme';
 import AllMyChallengesDisplay from './AllMyChallengesDisplay';
 
+
 export default class AllMyChallenges extends React.Component {
   constructor() {
     super();
     this.state = {
-      mychallenges: [],
+      mychallenges: []
     };
   }
   componentDidMount() {
@@ -26,22 +27,24 @@ export default class AllMyChallenges extends React.Component {
         this.setState({mychallenges: res.body});
       });
   }
+
   render() {
     const styles = {
       createChallenges: {
         position: 'fixed', right: 100, bottom: 100
       }
     };
+    var id=0;
     const myChallengesDisplay= this.state.mychallenges.map((challenge) => {
       return (
-          <AllMyChallengesDisplay mychallenges={challenge}/>
+          <AllMyChallengesDisplay mychallenges={challenge} key={++id}/>
       );
     });
     return (
 
       <MuiThemeProvider muiTheme={getMuiTheme(darkBaseTheme)}>
         <Paper>
-          <Grid center="xs">
+          <Grid>
             <Row center="xs">
               <h2>My Challenges</h2>
             </Row>
