@@ -12,11 +12,12 @@ import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import getMuiTheme from 'material-ui/styles/getMuiTheme';
 import AllMyChallengesDisplay from './AllMyChallengesDisplay';
 
+
 export default class AllMyChallenges extends React.Component {
   constructor() {
     super();
     this.state = {
-      mychallenges: [],
+      mychallenges: []
     };
   }
   componentDidMount() {
@@ -26,6 +27,7 @@ export default class AllMyChallenges extends React.Component {
         this.setState({mychallenges: res.body});
       });
   }
+
   render() {
     const styles = {
       createChallenges: {

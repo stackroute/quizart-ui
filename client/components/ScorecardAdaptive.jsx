@@ -1,7 +1,7 @@
 import React from 'react';
 import Dialog from 'material-ui/Dialog';
 import FlatButton from 'material-ui/FlatButton';
-import RaisedButton from 'material-ui/RaisedButton';
+// import RaisedButton from 'material-ui/RaisedButton';
 import {Row, Col, Grid} from 'react-flexbox-grid';
 import {List, ListItem} from 'material-ui/List';
 import FloatingActionButton from 'material-ui/FloatingActionButton';
@@ -60,7 +60,7 @@ return(
 <MuiThemeProvider muiTheme={getMuiTheme(darkBaseTheme)}>
 <Row center='xs'>
 <div>
-<RaisedButton label="Scorecard " onTouchTap={this.handleOpen} style={styles.raisedButtonStyles}/>
+<FlatButton label="Submit " primary={true} onTouchTap={this.handleOpen} style={styles.raisedButtonStyles}/>
 <Dialog
 title="Congratulations!! you win"
 titleStyle = { {textAlign : 'center'}}

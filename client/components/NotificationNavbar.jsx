@@ -1,63 +1,60 @@
 import React from 'react';
 import {List, ListItem} from './../../node_modules/material-ui/List';
 import Avatar from './../../node_modules/material-ui/Avatar';
+
+import superagent from 'superagent';
 import RaisedButton from './../../node_modules/material-ui/RaisedButton';
 import Divider from './../../node_modules/material-ui/Divider';
 import Subheader from './../../node_modules/material-ui/Subheader';
-import {indigo500} from './../../node_modules/material-ui/styles/colors'
+import {indigo500} from './../../node_modules/material-ui/styles/colors';
+import {Row, Grid, Col} from 'react-flexbox-grid';
+
+import Notification from './Notification';
 
 
-const styles={
-  listStyle:{
-  width: 500,
-},
-imgStyle:{
-  height: 50,
-  width:50
-}
 
-}
+var data=[];
 
 class NotificationList extends React.Component{
-  render(){
-    return(
-      <List style={styles.listStyle}>
-        <Subheader>Notifications</Subheader>
-          <Divider />
-        <ListItem
-          primaryText="Brunch this weekend?"
-          secondaryText={<p>I&apos;ll be in your neighborhood doing errands this weekend. Do you want to grab brunch?</p>}
-          secondaryTextLines={1}
-          leftAvatar={<img src="hthttp://res.cloudinary.com/deaxb0msww/image/upload/v1480051934/quiztack/usericon.png" style={styles.imgStyle}/>}
-
-        />
-        <Divider />
-        <ListItem
-          primaryText="Brunch this weekend?"
-          secondaryText={<p>I&apos;ll be in your neighborhood doing errands this weekend. Do you want to grab brunch?</p>}
-          secondaryTextLines={1}
-          leftAvatar={<img src="http://res.cloudinary.com/deaxb0msww/image/upload/v1480051934/quiztack/usericon.png" style={styles.imgStyle}/>}
-        />
-        <Divider />
-        <ListItem
-          primaryText="Brunch this weekend?"
-          secondaryText={<p>I&apos;ll be in your neighborhood doing errands this weekend. Do you want to grab brunch?</p>}
-          secondaryTextLines={1}
-          leftAvatar={<img src="http://res.cloudinary.com/deaxb0msww/image/upload/v1480051934/quiztack/usericon.png" style={styles.imgStyle}/>}
-        />
-        <Divider />
-        <ListItem
-          primaryText="Brunch this weekend?"
-          secondaryText={<p>I&apos;ll be in your neighborhood doing errands this weekend. Do you want to grab brunch?</p>}
-          secondaryTextLines={1}
-          leftAvatar={<img src="http://res.cloudinary.com/deaxb0msww/image/upload/v1480051934/quiztack/usericon.png" style={styles.imgStyle}/>}
-        />
-        <Divider />
-        <Subheader style={{textAlign: 'center'}}>See All</Subheader>
-          <Divider />
-      </List>
-    );
+  constructor(){
+    super();
+    this.state={
+      announcements:[]
+    };
   }
+  static get propTypes(){
+    return {
+      limit: React.PropTypes.number.isRequired
+    };
+  }
+
+  componentDidMount(){
+
+    superagent
+  .get('http://localhost:3000/announcement?_limit='+this.props.limit)
+  .end((err, res) => {
+    this.setState({announcements: res.body});
+  });
+  
+
+  }
+  
+  render(){
+    console.log(this.props.limit);
+    const notificationItems= this.state.announcements ? this.state.announcements.map((notification) => {
+    return (
+        <Row center='xs'>
+            <Notification notification={notification} />
+        </Row>
+      );
+    }) :null ;
+    console.log(this.state.announcements);
+  return (
+    <Row >
+    {notificationItems}
+    </Row>
+    );
+}
 }
 
 

@@ -2,6 +2,7 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import {Card, CardMedia, CardTitle,CardText} from 'material-ui/Card';
 import {Grid, Row, Col} from 'react-flexbox-grid';
+import ChallengePlayDialog from './ChallengePlayDialog';
 const style = {
   card:{
     width:'200px',
@@ -14,11 +15,18 @@ const style = {
 export default class AllMyChallengesDisplay extends React.Component {
   constructor(props){
     super(props);
+    this.state = { isOpenDialog: false };
+  this.challengePlay=this.challengePlay.bind(this);
   }
   static get propTypes() {
     return {
     mychallenges: React.PropTypes.object.isRequired
     };
+  }
+  challengePlay(){
+    this.setState({
+      isOpenDialog: true
+    });
   }
 
   render() {
@@ -39,7 +47,10 @@ export default class AllMyChallengesDisplay extends React.Component {
           <p>{this.props.mychallenges.durationInMins}mins  {this.props.mychallenges.durationInSecs}secs</p>
     </CardText>
         </Card>
-      </div>
+
+      <div>
+        {this.state.isOpenDialog ? <ChallengePlayDialog  challenge={this.props.mychallenges} open={true} /> : null}
+      </div>  </div>
   )
 }
 }
