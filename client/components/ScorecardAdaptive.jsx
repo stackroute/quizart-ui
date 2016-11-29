@@ -13,10 +13,8 @@ import darkBaseTheme from 'material-ui/styles/baseThemes/darkBaseTheme';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import getMuiTheme from 'material-ui/styles/getMuiTheme';
 import MediaQuery from 'react-responsive';
-
 var winOrNot='';
 const styles={
-
 raisedButtonStyles : {
 marginTop : '20px'
 },
@@ -36,7 +34,6 @@ flatButtonStyles :{
 color:'white'
 }
 }
-
 export default class ScorecardAdaptive extends React.Component{
 state = {
 open: false
@@ -44,7 +41,7 @@ open: false
 handleOpen = () =>{
 this.setState({open:true});
 var percentage=(this.props.score/this.props.numberOfQuestions)*100;
-if(percentage>50)
+if(percentage>=50)
 {
   winOrNot="Congratulations!! you won";
 }
@@ -52,9 +49,6 @@ else
 {
   winOrNot="Sorry!! you loss";
 }
-console.log(percentage);
-console.log(winOrNot);
-
 };
 
 handleClose = () =>{
@@ -112,9 +106,7 @@ open={this.state.open}
       <Divider />
       <ListItem secondaryText={<p><span style={{color: '#00bcd4'}}> Categories: </span></p>}  hoverColor="transparent"/>
       <Divider />
-
     </List>
-
     <MediaQuery minDeviceWidth='1224px'>
     <div className="shareButton">
     <Row>
@@ -153,16 +145,12 @@ open={this.state.open}
       label="Share"
       labelPosition="after"
       secondry={true}
-      icon={<SocialShare />}
-    >
+      icon={<SocialShare />}>
     </RaisedButton>
     </Row>
     </MediaQuery>
-
-   
   </Col>
 </Row>
-
 </Dialog>
 </div>
 </Row>

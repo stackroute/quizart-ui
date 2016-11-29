@@ -14,8 +14,6 @@ import React from 'react';
  import Divider from 'material-ui/Divider';
  import superagent from 'superagent';
  import ScorecardAdaptive from './ScorecardAdaptive'
-
-
  import TimerSpeed from './Timer';
  import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
  <link rel="stylesheet" href="./styles/StyleProj.css"/>
@@ -110,7 +108,7 @@ handleChange(e) {
     this.setState( {color1:'#1A237E',color2:'#1A237E',color3:'#1A237E',color4:'#1A237E',able:false,opacity:1});
 
 }
-/*-----------------------------------------componentDidMount------------------------------------------------------*/
+/*-----------------------------------------componentDidMount--------------------------------------------------------*/
 componentDidMount() {
 timeLimit=(timeLimit*(60*1000))/15;
 this.setState({timeLimit: timeLimit});
@@ -126,12 +124,7 @@ componentWillUnmount() {
 return 0;
 }
 
-
-
-
-
-
-/*-----------------------------------------render function------------------------------------------------------*/
+/*-----------------------------------------render function---------------------------------------------------------*/
 render()
 {
 /*-------------------------------------Fetching Images Fron array topic---------------------------*/

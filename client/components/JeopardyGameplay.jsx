@@ -37,9 +37,7 @@ export default class JeopardyGameplay extends React.Component {
     }
     handleOnClick(e)
     {
-        //console.log(e.target.nodeName);
         this.state.topic.map((topics) => {
-        //  console.log(e.target.innerText);
             for (let option=0; option < topics.options.length; option++)
             {
                 e.target.parentElement.childNodes[option].disabled = true;
@@ -71,13 +69,6 @@ export default class JeopardyGameplay extends React.Component {
     handleClick()
     {
 
-    //      this.state.topic.map((topics => {
-    //          if(topics.options[i] === topics.correctOption)
-    //  {
-    //      console.log("hello Vishant!");
-    //   options.push(<ListItem primaryText={topics.options[i]} style={backgroundColor:'red'}/>);
-    //  }
-    // }
     if(this.state.choice=='')
     {
         this.state.topic.map((topics => {
@@ -104,7 +95,7 @@ componentDidMount() {
     superagent
     .get('http://localhost:3000/topic?_limit=' + this.props.limit)
     .end((err, res) => {
-        this.setState({topic: res.body});
+    this.setState({topic: res.body});
     });
 }
 render() {
@@ -124,25 +115,17 @@ render() {
         }
     }));
     return (
-        <div>
-        {/*<MediaQuery minDeviceWidth={1} maxDeviceWidth={479}>
-        <div>
-        <Grid>
-    <Row center='xs'>*/}
+    <div>
     <Card style={{width:'80%',height:'60vh',backgroundColor:blue300}}>
     {topicStruct}
     <CardText >
     {this.state.choice}
     </CardText>
     {this.state.content}
-{/*<Row>*/}
-<TimerSpeed timeLimit={this.state.timelimit} blocks={blocks}/>
-<BottomPlayerBoard/>
-{/*</Row>*/}
-</Card>
-             {/*</Row>
-             </Grid>
-            */}          </div>
+    <TimerSpeed timeLimit={this.state.timelimit} blocks={blocks}/>
+    <BottomPlayerBoard/>
+    </Card>
+  </div>
             );
 }
 }
