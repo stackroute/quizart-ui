@@ -14,19 +14,19 @@ export default class DisplayDialog extends React.Component
 		this.setState({open:false});
 	};
 	render()
-	{	const actions = [<FlatButton 
-		                   label="Bact to the Topic" 
-		                   primary={true} 
+	{	const actions = [<FlatButton
+		                   label="Bact to the Topic"
+		                   primary={true}
 		                   onTouchTap={this.handleClose}/>,
 
 						 <Link to="jeopardyBoard/">
-						 <FlatButton 
-						   label="Risk Jeopardy" 
+						 <FlatButton
+						   label="Risk Jeopardy"
 						   primary={true} />
 						   </Link>
 						   ];
 		return(
-			<Dialog 
+			<Dialog
 			title={"You have chosen "+this.props.category}
 			actions={actions}
 			modal={true}
