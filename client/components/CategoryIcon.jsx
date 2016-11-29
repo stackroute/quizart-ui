@@ -4,25 +4,40 @@ import Avatar from 'material-ui/Avatar';
 import {Grid,Row} from 'react-flexbox-grid';
 import ReactDOM from 'react-dom';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
-import DisplayDialog from './DialogAlert';
+import Dialog from 'material-ui/Dialog';
+import FlatButton from 'material-ui/FlatButton';
+import {Link} from 'react-router';
 
 export default class CategoryIcon extends React.Component {
+  constructor(props)
+	{
+		super(props);
+		this.state={open:false};
+	}
+  handleOpen =() => {
+    this.setState({open:true});
+  };
+	handleClose =() => {
+		this.setState({open:false});
+	};
  static get propTypes() {
    return {
      category: React.PropTypes.object.isRequired
    };
-    this.handleClickTopic=this.handleClickTopic.bind(this);
- }
-
- handleClickTopic()
- {
-   ReactDOM.unmountComponentAtNode(document.getElementById('selectedCategory'));
-  ReactDOM.render(<MuiThemeProvider><DisplayDialog category={this.props.categoryName} open={true}/>
-  </MuiThemeProvider>,document.getElementById('selectedCategory'));
 }
-
-
  render() {
+   const actions = [
+          <FlatButton
+ 		                   label="Bact to the Topic"
+ 		                   primary={true}
+ 		                   onTouchTap={this.handleClose}/>,
+
+ 						 <Link to="jeopardyBoard/">
+ 						 <FlatButton
+ 						   label="Risk Jeopardy"
+ 						   primary={true} />
+ 						   </Link>
+ 						   ];
    const styles={
      imgAva:{
        height:'80px',
@@ -38,9 +53,15 @@ export default class CategoryIcon extends React.Component {
    return (
 
      <div>
+       <Dialog
+       title={"You have chosen "+this.props.category.name}
+       actions={actions}
+       modal={true}
+       open={this.state.open}>
+       </Dialog>
      <Grid>
        <Row>
-         <Avatar style={styles.imgAva} src = {this.props.category.imageUrl} onClick={()=>this.handleClickTopic(this)}/>
+         <Avatar style={styles.imgAva} src = {this.props.category.imageUrl} onClick={()=>this.handleOpen(this)}/>
        </Row>
        <br/>
        <Row>
