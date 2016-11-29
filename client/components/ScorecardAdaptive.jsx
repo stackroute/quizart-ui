@@ -47,7 +47,7 @@ if(percentage>=50)
 }
 else
 {
-  winOrNot="Sorry!! you loss";
+  winOrNot="Sorry!! you lose";
 }
 };
 
@@ -111,8 +111,12 @@ open={this.state.open}
     <div className="shareButton">
     <Row>
     <List>
-      <ListItem 
-      secondaryText={<p><span style={{color: '#00bcd4'}}> Share: </span></p>} 
+
+      <ListItem
+      secondaryText={<p><span style={{color: '#00bcd4'}}> Share: </span></p>} />
+
+      <ListItem
+      secondaryText={<p><span style={{color: '#00bcd4'}}> Share: </span></p>}
       hoverColor="transparent"/>
     <FloatingActionButton
     mini={true}
