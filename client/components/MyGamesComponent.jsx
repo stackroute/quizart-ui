@@ -8,6 +8,8 @@ import SwipeableViews from 'react-swipeable-views';
 import {Tabs, Tab} from 'material-ui/Tabs';
 import {Link} from 'react-router';
 import FlatButton from 'material-ui/FlatButton';
+import JeopardyScoreCard from './JeopardyScoreCard';
+import Dialog from 'material-ui/Dialog';
 
 const styles = {
   headline: {
@@ -19,6 +21,11 @@ const styles = {
   slide: {
     padding: 10,
   },
+};
+
+const customContentStyle = {
+  width: '100%',
+  maxWidth: 'none',
 };
 
 export default class TabsExampleSwipeable extends React.Component {
@@ -37,10 +44,22 @@ export default class TabsExampleSwipeable extends React.Component {
       superagent
         .get('http://localhost:3000/myGamesJeopardy')
         .end((err, res) => {
-        console.log("Hellooo",res.body);
-          thisSelf.setState({myGamesJeopordyHistory: res.body});
+        thisSelf.setState({myGamesJeopordyHistory: res.body});
         });
+
   }
+
+  state = {
+      open: false,
+    };
+
+    handleOpen = () => {
+      this.setState({open: true});
+    };
+
+    handleClose = () => {
+      this.setState({open: false});
+    };
 
     handleChange = (value) => {
       this.setState({
@@ -49,23 +68,28 @@ export default class TabsExampleSwipeable extends React.Component {
     };
 
   render() {
+    const actions = [
+         <FlatButton
+           label="Cancel"
+           primary={true}
+           onTouchTap={this.handleClose}
+         />]
     const playerGameList = this.state.myGamesJeopordyHistory ? this.state.myGamesJeopordyHistory.map((myGamesJeopardy) => {
       return (
-        <Col xs={12} sm={12} md={12} lg={12} key={myGamesJeopardy.category}>
         <MuiThemeProvider >
-      <Paper>
-      <Table>
-      <TableBody
-        displayRowCheckbox = {false}>
-            <TableRowColumn>{myGamesJeopardy.category}</TableRowColumn>
-            <TableRowColumn>{myGamesJeopardy.score}</TableRowColumn>
-            <TableRowColumn>{myGamesJeopardy.position}</TableRowColumn>
-            <TableRowColumn>{myGamesJeopardy.playedDate}</TableRowColumn>
-</TableBody>
-            </Table>
-        </Paper>
+        <Table>
+          <TableBody
+            displayRowCheckbox = {false}
+            >
+          <TableRow
+            displayRowCheckbox = {false}
+            >
+                <TableRowColumn>{myGamesJeopardy.category}</TableRowColumn>
+                <TableRowColumn>{myGamesJeopardy.score}</TableRowColumn>
+                <TableRowColumn>{myGamesJeopardy.position}</TableRowColumn>
+                <TableRowColumn>{myGamesJeopardy.playedDate}</TableRowColumn>
+          </TableRow></TableBody></Table>
       </MuiThemeProvider >
-        </Col>
       );
     }) : null;
     return (
@@ -91,20 +115,20 @@ export default class TabsExampleSwipeable extends React.Component {
             displaySelectAll = {false}
             deselectOnClickaway = {false}
             showRowHover = {false}
-            stripedRows = {false}>
+            >
               <TableRow>
                 <TableHeaderColumn>Category</TableHeaderColumn>
                 <TableHeaderColumn>Score</TableHeaderColumn>
                 <TableHeaderColumn>Position</TableHeaderColumn>
-                <TableHeaderColumn>Last Played</TableHeaderColumn>
+                <TableHeaderColumn>Played</TableHeaderColumn>
               </TableRow>
             </TableHeader>
             <TableBody
             displayRowCheckbox = {false}
               deselectOnClickaway = {false}
               showRowHover = {false}
-              stripedRows = {false}>
-              <TableRow displaySelectAll={false}>
+              >
+              <TableRow>
                 {playerGameList}
               </TableRow>
             </TableBody>
@@ -112,6 +136,14 @@ export default class TabsExampleSwipeable extends React.Component {
           <Grid>
             <Row center="xs">
                 <Link to="JeopardyScores/"><FlatButton label="Jeopardy Score" primary={true} /></Link>
+                  {/* onTouchTap={this.handleOpen}/></Link> */}
+                  {/* <Dialog
+                   title="Dialog With Custom Width"
+                   actions={actions}
+                   modal={true}
+                   contentStyle={customContentStyle}
+                   open={this.state.open}
+                 > */}
             </Row>
           </Grid>
         </div>
@@ -129,7 +161,7 @@ export default class TabsExampleSwipeable extends React.Component {
                 <TableHeaderColumn>Topic</TableHeaderColumn>
                 <TableHeaderColumn>Name</TableHeaderColumn>
                 <TableHeaderColumn>Position</TableHeaderColumn>
-                <TableHeaderColumn>Last Played</TableHeaderColumn>
+                <TableHeaderColumn>Played</TableHeaderColumn>
               </TableRow>
             </TableHeader>
             <TableBody
@@ -141,7 +173,16 @@ export default class TabsExampleSwipeable extends React.Component {
           </Table>
           <Grid>
             <Row center="xs">
-                <Link to="JeopardyScores/"><FlatButton label="Jeopardy Score" primary={true} /></Link>
+              <FlatButton label="Jeopardy Score" primary={true} onTouchTap={this.handleOpen}/>
+                <Dialog
+          title="Jeopardy!"
+          actions={actions}
+          modal={true}
+          contentStyle={customContentStyle}
+          open={this.state.open}
+        >
+            <JeopardyScoreCard />
+        </Dialog>
             </Row>
           </Grid>
         </div>

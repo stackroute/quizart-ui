@@ -11,10 +11,20 @@ import RaisedButton from 'material-ui/RaisedButton';
 
 
 export default class JeopardyScoreCard extends React.Component{
-  static get propTypes() {
-    return {
-      jeopardyScores: React.PropTypes.object.isRequired
+  constructor() {
+    super();
+    this.state = {
+      playerInfoJeop: []
     };
+  }
+
+  componentDidMount() {
+      var thisSelf = this;
+      superagent
+        .get('http://localhost:3000/jeopardyScores')
+        .end((err, res) => {
+          thisSelf.setState({playerInfoJeop: res.body});
+        });
   }
 
   render(){
@@ -27,32 +37,68 @@ export default class JeopardyScoreCard extends React.Component{
         backgroundColor: "white"
       },
     };
-    var correctAns = this.props.jeopardyScores.noOfCorrectAns
-    var totalAttempted = this.props.jeopardyScores.noOfAttemptedQues
-    var avgTimeCorrectAns = this.props.jeopardyScores.avgTimeCorrectAns
-    var accuracy = (correctAns/totalAttempted)*100;
-    var confidence = (avgTimeCorrectAns/correctAns)*100;
-    // accuracy = Math.round(accuracy);
+
+    const playerScoreTiles = this.state.playerInfoJeop ? this.state.playerInfoJeop.map((jeopardyScores) => {
+      return (
+        <Col xs={12} sm={12} md={12} lg={12} key={jeopardyScores.totalScore}>
+          <MuiThemeProvider muiTheme={getMuiTheme(darkBaseTheme)}>
+
+            <Grid>
+            <Row middle="xs">
+              <Col xs={3} sm={3} md={3} lg={3}><Avatar src={jeopardyScores.picture} size={90}/></Col>
+              <Col xs={3} sm={3} md={3} lg={3}> {jeopardyScores.totalScore}</Col>
+              <Col xs={3} sm={3} md={3} lg={3}>
+                <div>
+                   <Gauge value={Math.round(jeopardyScores.accuracy)} width={100} height={80} label="" color="blue" />
+               </div>
+               </Col>
+               <Col xs={3} sm={3} md={3} lg={3}>
+               <div>
+                  <Gauge value={Math.round(jeopardyScores.confidence)} width={100} height={80} label="" color="green" />
+              </div>
+              </Col>
+            </Row>
+          </Grid>
+
+          </MuiThemeProvider>
+        </Col>
+      );
+    }) : null;
+
+
     return(
-      <MuiThemeProvider >
-      <Paper>
-        <Grid>
-        <Row>
-          <Col xs={3} sm={3} md={3} lg={3}><Avatar src={this.props.jeopardyScores.picture} size={90}/></Col>
-          <Col xs={3} sm={3} md={3} lg={3}> {this.props.jeopardyScores.totalScore}</Col>
-          <Col xs={3} sm={3} md={3} lg={3}>
-            <div>
-               <Gauge value={Math.round(accuracy)} width={100} height={80} label="" color="blue" />
-           </div>
-           </Col>
-           <Col xs={3} sm={3} md={3} lg={3}>
-           <div>
-              <Gauge value={Math.round(confidence)} width={100} height={80} label="" color="green" />
-          </div>
-          </Col>
+      <MuiThemeProvider>
+      <div>
+        <Paper>
+          <Grid className="container-fluid">
+              <Row center="xs" middle="xs">
+                <Col xs={3} sm={3} md={3} lg={3}>Player</Col>
+                <Col xs={3} sm={3} md={3} lg={3}>Score</Col>
+                <Col xs={3} sm={3} md={3} lg={3}> Accuracy</Col>
+                <Col xs={3} sm={3} md={3} lg={3}>Confidence</Col>
+              </Row>
+            <Row center="xs">
+                {playerScoreTiles}
+            </Row>
+            <Row center="xs"  middle="xs">
+          <Col>
+            <RaisedButton
+            label="REPLAY"
+            primary={true}
+            // icon={<i className="material-icons">replay</i>}
+          />
+        </Col>
+        <Col>
+          <RaisedButton
+          label="HOME"
+          secondary={true}
+          // icon={<i className="material-icons">home</i>}
+          />
+        </Col>
         </Row>
-      </Grid>
-      </Paper>
+          </Grid>
+        </Paper>
+      </div>
       </MuiThemeProvider>
     );
   }
