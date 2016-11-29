@@ -81,7 +81,7 @@ open={this.state.open}
       <Divider />
       <ListItem secondaryText={<p><span style={{color: '#00bcd4'}}> Rank: </span></p>} hoverColor="transparent"/>
       <Divider />
-      <ListItem  secondaryText={<p><span style={{color: '#00bcd4'}}> Score: </span></p>} hoverColor="transparent" />
+      <ListItem  secondaryText={<p><span style={{color: '#00bcd4'}}> Score: {this.props.score}</span></p>} hoverColor="transparent" />
       <Divider />
       <ListItem secondaryText={<p><span style={{color: '#00bcd4'}}> Categories: </span></p>}  hoverColor="transparent"/>
       <Divider />

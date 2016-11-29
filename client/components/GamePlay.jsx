@@ -203,7 +203,7 @@ optionArray=TopicOptionsForCheck;
   {TopicOptions[this.state.questionNumber]}
   <Row center="xs">
   <Col xs={6} sm={6} md={6} lg={6}>
-  <ScorecardAdaptive />
+  <ScorecardAdaptive score={this.state.result}/>
   </Col>
   <Col xs={6} sm={6} md={6} lg={6}>
   <FlatButton label="Next >>" secondary={true} onTouchTap={() => this.handleChange()} style={{textAlign:'right', marginTop:'20px'}}/>
