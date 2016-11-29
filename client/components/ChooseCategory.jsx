@@ -9,7 +9,6 @@ import TextField from 'material-ui/TextField';
 import Search from 'material-ui/svg-icons/action/search';
 import StarBorder from 'material-ui/svg-icons/toggle/star-border';
 import Paper from 'material-ui/Paper';
-import superagent from 'superagent';
 
 var input;
 const styles = {

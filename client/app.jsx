@@ -13,7 +13,7 @@ import JeopardyView from './views/JeopardyView';
 import MyChallengeView from './views/MyChallengeView';
 import AllMyChallenges from './components/AllMyChallenges';
 import CreateChallengeForm from './components/CreateChallengeForm';
-
+import MoreJeopardyCategoriesView from './views/MoreJeopardyCategoriesView';
 import MyGamesView from './views/MyGamesView';
 import JeopardyScoreView from './views/JeopardyScoreView';
 import JeopardyScoreCard from './components/JeopardyScoreCard';
@@ -28,6 +28,7 @@ ReactDOM.render(
         <Route path="gamePlay" component={ChallengeGamePlayView} />
         <Route path="createChallenge" component={CreateChallengeView} />
         <Route path="jeopardyBoard" component={JeopardyView} />
+        <Route path="morecategories" component={MoreJeopardyCategoriesView} />
         <Route path="myChallenge" component={MyChallengeView} />
         <Route path="allMyChallenges" component={MyChallengeView} />
         <Route path="myGames" component={MyGamesView} />
@@ -38,5 +39,3 @@ ReactDOM.render(
     </Router>
   </MuiThemeProvider>, document.getElementById('content')
 );
-
-
