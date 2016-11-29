@@ -8,6 +8,7 @@ import superagent from 'superagent';
 import Avatar from 'material-ui/Avatar';
 import Gauge from 'react-svg-gauge';
 import RaisedButton from 'material-ui/RaisedButton';
+import {Link} from 'react-router';
 
 
 export default class JeopardyScoreCard extends React.Component{
@@ -82,18 +83,21 @@ export default class JeopardyScoreCard extends React.Component{
             </Row>
             <Row center="xs"  middle="xs">
           <Col>
+            <Link to="jeopardyBoard/">
             <RaisedButton
             label="REPLAY"
             primary={true}
             // icon={<i className="material-icons">replay</i>}
           />
+        </Link>
         </Col>
         <Col>
+          <Link to="/">
           <RaisedButton
           label="HOME"
           secondary={true}
           // icon={<i className="material-icons">home</i>}
-          />
+        /></Link>
         </Col>
         </Row>
           </Grid>

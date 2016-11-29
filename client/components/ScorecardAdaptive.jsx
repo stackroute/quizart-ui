@@ -14,6 +14,7 @@ import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import getMuiTheme from 'material-ui/styles/getMuiTheme';
 import MediaQuery from 'react-responsive';
 
+
 var winOrNot='';
 const styles={
 
@@ -119,8 +120,12 @@ open={this.state.open}
     <div className="shareButton">
     <Row>
     <List>
-      <ListItem 
-      secondaryText={<p><span style={{color: '#00bcd4'}}> Share: </span></p>} 
+
+      <ListItem
+      secondaryText={<p><span style={{color: '#00bcd4'}}> Share: </span></p>} />
+
+      <ListItem
+      secondaryText={<p><span style={{color: '#00bcd4'}}> Share: </span></p>}
       hoverColor="transparent"/>
     <FloatingActionButton
     mini={true}
@@ -159,7 +164,6 @@ open={this.state.open}
     </Row>
     </MediaQuery>
 
-   
   </Col>
 </Row>
 
