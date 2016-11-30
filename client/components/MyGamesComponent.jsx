@@ -82,6 +82,7 @@ export default class TabsExampleSwipeable extends React.Component {
             displayRowCheckbox = {false}
             >
           <TableRow
+            style = {{borderBottom: "0.8px solid #cccccc"}}
             displayRowCheckbox = {false}
             >
                 <TableRowColumn>{myGamesJeopardy.category}</TableRowColumn>

@@ -17,7 +17,6 @@ export default class JeopardyGameplay extends React.Component {
         this.state = {
             i: 0,
             topic: [],
-            update: 'false',
             timelimit:1000,
             colour: '#1A237E',
             choice:'',
@@ -41,7 +40,6 @@ export default class JeopardyGameplay extends React.Component {
     }
     handleOnClick(e)
     {
-        //console.log(e.target.nodeName);
         this.state.topic.map((topics) => {
             for (let option=0; option < topics.options.length; option++)
             {
@@ -69,13 +67,16 @@ export default class JeopardyGameplay extends React.Component {
                 document.getElementById("ques").innerText = questions[indexQ].question;
             }
         }
-        this.setState({update: false});
+        
     }
 
     handleClick()
     {
 
+
     options = [];
+
+
     if(this.state.choice=='')
     {
         this.state.topic.map((topics => {
@@ -100,13 +101,13 @@ export default class JeopardyGameplay extends React.Component {
     this.setState({choice:options});
     this.setState({content:''});
 
-        this.setState({update: true});
+        
 }
 componentDidMount() {
     superagent
     .get('http://localhost:3000/topic?_limit=' + this.props.limit)
     .end((err, res) => {
-        this.setState({topic: res.body});
+    this.setState({topic: res.body});
     });
 }
 render() {
@@ -126,25 +127,29 @@ render() {
         }
     }));
     return (
-        <div>
+
+    <div>
         <center>
         
-    <Card style={{width:'90%',height:'80%',marginTop:-15,backgroundColor:blue300}}>
-    {topicStruct}
-    <CardText style={{padding:0}}>
-    {this.state.choice}
-    </CardText>
-    {this.state.content}
-    <TimerSpeed timeLimit={this.state.timelimit} blocks={blocks} update={this.state.updateTimer}/>
-{/*<Row>*/}
-{/*<TimerSpeed timeLimit={this.state.timelimit} blocks={blocks}/>
-<BottomPlayerBoard/>*/}
-{/*</Row>*/}
-</Card>
-</center>
-             {/*</Row>
-             </Grid>
-            */}          </div>
+        <Card style={{width:'90%',height:'80%',marginTop:-15,backgroundColor:blue300}}>
+
+                {topicStruct}
+                <CardText style={{padding:0}}>
+                    {this.state.choice}
+                 </CardText>
+                {this.state.content}
+                 <TimerSpeed timeLimit={this.state.timelimit} blocks={blocks}/>
+            
+            </Card>
+        </center>
+                   
+     
+
+    
+    <BottomPlayerBoard/>
+
+  </div>
+
             );
 }
 }
