@@ -192,11 +192,7 @@ export default class NavBar extends React.Component {
 
               <Divider/>
 
-                <ListItem key={11} onTouchTap={() => this.context.router.push('/gamePlayJeopardy')}>
-                  Play Jeopardy
-                </ListItem>
-
-              <Divider/>
+              
                   <Dialog
                     title={"On clicking on Start Challenge you will statr to play Challenge"}
                     actions={actions}
