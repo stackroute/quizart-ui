@@ -98,7 +98,7 @@ export default class NavBar extends React.Component {
     const userDetailsInfo = this.state.userDetailDrawer ? this.state.userDetailDrawer.map((userDetails) => {
       return (
 
-          <List style={{hoverColor:'transparent'}}>
+          <List key={0} style={{hoverColor:'transparent'}}>
               <ListItem key={1} onTouchTap={this.handleClose} style={{textAlign:'center'}}>{userDetails.userName}</ListItem>
               <Divider/>
               <ListItem key={2} onTouchTap={this.handleClose}> {
