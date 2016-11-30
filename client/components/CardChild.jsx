@@ -3,7 +3,11 @@ import ReactDOM from 'react-dom';
 import {Card, CardActions, CardHeader, CardMedia, CardTitle, CardText} from 'material-ui/Card';
 import GamePlay from './GamePlay';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
+import JeopardyGameplay from './JeopardyGameplay';
 
+
+var counter=0;
+var openedCards=0;
 export default class CardChild extends React.Component
 {
 
@@ -18,6 +22,12 @@ export default class CardChild extends React.Component
 
   handleClick()
   {
+    counter++;
+    
+    if(openedCards==29)
+    {
+      alert("opened all the cards");
+    }
   	if(this.state.content=='*')
   	{
 
@@ -27,12 +37,15 @@ export default class CardChild extends React.Component
   	if(this.state.cName=='NscaledCard')
   	{
   		this.setState({cName:'ScaledCard'});
-  		this.setState({content:''});
+  		this.setState({content:<JeopardyGameplay limit={1}/>});
   	}
   	else
+      if(this.state.cName=='ScaledCard' && counter==3)
   	{
+      openedCards++;
   		this.setState({cName:'NscaledCard'});
-  		this.setState({content:'*'});
+      counter=0;
+      this.setState({content:'*'});
   	}
   }
    
@@ -43,7 +56,7 @@ export default class CardChild extends React.Component
       width: this.props.cardWidth,
       height: this.props.cardHeight,
       marginLeft:15,
-      marginTop:10,
+      marginTop:7,
       display: 'inline-block',
       textAlign: "center",
       top: '44%',

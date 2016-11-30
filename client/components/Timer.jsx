@@ -4,9 +4,9 @@ import {redA700, deepOrange400, teal500, blue500, grey900,pinkA200,blue900} from
 /*-----------------------------------End of importing--------------------------------------------------*/
 /*-----------------------------------Start Timer progress for count time-------------------------------*/
 const styles2 = {
- height: 15,
- width: 10,
- margin: 3,
+ height: 5,
+ width: 5,
+ margin: 1,
  textAlign: 'center',
  display: 'inline-block',
 }
@@ -31,7 +31,9 @@ class TimerSpeed extends React.Component
     }.bind(this),timer)
   });
  }
- componentWillMount() {
+
+
+ componentWillUnmount() {
    clearInterval(this.state.interval);
  }
  render(){

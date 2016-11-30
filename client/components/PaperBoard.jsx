@@ -39,9 +39,11 @@ export default class PaperBoard extends React.Component
       backgroundColor:'#3498DB',
     };
     const divStyle = {
+
       marginBottom:10
 
     }
+    const CardPoints = {marginBottom:-10}
     const cardStyle = {
       width: this.state.windowWidth/9,
       height:'100%',
@@ -135,26 +137,15 @@ export default class PaperBoard extends React.Component
          </div>
       
       <Row center="xs">
-        <Col>
-      <div className="Cards100" style={divStyle}>
+       
+      <div className="Cards100" style={CardPoints}>
         {cards100}
         </div>
-    
-  
-    </Col>
-    </Row>
-    <Row center="xs">
-    <Col >
-     <BottomPlayerBoard />
-     </Col>
         </Row>
-       
-          
-        
-        </Grid> 
-
-        
-     
+        <Row center="xs" >
+            <BottomPlayerBoard />
+        </Row>
+        </Grid>     
   </div>
   );
   }

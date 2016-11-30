@@ -17,14 +17,18 @@ export default class JeopardyGameplay extends React.Component {
         this.state = {
             i: 0,
             topic: [],
+            update: 'false',
             timelimit:1000,
             colour: '#1A237E',
             choice:'',
-            content:<FloatingActionButton
+            content:
+            <FloatingActionButton
             backgroundColor={grey900}
-            iconStyle={{height:90,width:90}}
+            style={{width:0,height:0,marginLeft:-30,color:"grey"}}
+            iconStyle={{width:20,height:25}}
+            mini={true}
             onClick={this.handleClick.bind(this)}>
-            <div> <h4 color="white"> BUZZER </h4> </div>
+            <h4 color="white"> BUZZER </h4> 
             </FloatingActionButton>,
         };
         this.handleClick=this.handleClick.bind(this);
@@ -39,7 +43,6 @@ export default class JeopardyGameplay extends React.Component {
     {
         //console.log(e.target.nodeName);
         this.state.topic.map((topics) => {
-        //  console.log(e.target.innerText);
             for (let option=0; option < topics.options.length; option++)
             {
                 e.target.parentElement.childNodes[option].disabled = true;
@@ -66,39 +69,38 @@ export default class JeopardyGameplay extends React.Component {
                 document.getElementById("ques").innerText = questions[indexQ].question;
             }
         }
+        this.setState({update: false});
     }
 
     handleClick()
     {
 
-    //      this.state.topic.map((topics => {
-    //          if(topics.options[i] === topics.correctOption)
-    //  {
-    //      console.log("hello Vishant!");
-    //   options.push(<ListItem primaryText={topics.options[i]} style={backgroundColor:'red'}/>);
-    //  }
-    // }
+    options = [];
     if(this.state.choice=='')
     {
         this.state.topic.map((topics => {
             for(var i=0;i<topics.options.length;i++)
             {
                 options.push(<button onTouchTap={this.handleOnClick}
-                    style={{width: '90%', margin: '2px',textAlign:'center',
+                    style={{width: '50px', height:'10px',margin: '2px',textAlign:'center',
                     backgroundColor:this.state.colour,color:'white',
-                    padding: '10px 10px 10px 10px',
+                    padding: '3px 3px 3px 3px',
                     borderTopLeftRadius:'70px' ,borderTopRightRadius: '70px',
                     borderBottomLeftRadius: '70px',borderBottomRightRadius: '70px',
                     cursor: 'pointer',
-                    outline: '70px 70px 70px 70px'
+                    outline: '70px 70px 70px 70px',
+                    fontSize:'2px'
                 }}>
                 {topics.options[i]}
                 </button>);
+                <br/>
             }
         }));
     }
     this.setState({choice:options});
     this.setState({content:''});
+
+        this.setState({update: true});
 }
 componentDidMount() {
     superagent
@@ -118,28 +120,28 @@ render() {
             if(indexQ == this.state.i)
             {
                 return (
-                    <CardTitle id="ques" title={topics.question}/>
+                    <CardTitle titleStyle={{fontSize:'3px',marginTop:-10,lineHeight:'7px'}} style={{height:10,padding:0}}  title={topics.question}/>
                     );
             }
         }
     }));
     return (
         <div>
-        {/*<MediaQuery minDeviceWidth={1} maxDeviceWidth={479}>
-        <div>
-        <Grid>
-    <Row center='xs'>*/}
-    <Card style={{width:'80%',height:'60vh',backgroundColor:blue300}}>
+        <center>
+        
+    <Card style={{width:'90%',height:'80%',marginTop:-15,backgroundColor:blue300}}>
     {topicStruct}
-    <CardText >
+    <CardText style={{padding:0}}>
     {this.state.choice}
     </CardText>
     {this.state.content}
+    <TimerSpeed timeLimit={this.state.timelimit} blocks={blocks} update={this.state.updateTimer}/>
 {/*<Row>*/}
-<TimerSpeed timeLimit={this.state.timelimit} blocks={blocks}/>
-<BottomPlayerBoard/>
+{/*<TimerSpeed timeLimit={this.state.timelimit} blocks={blocks}/>
+<BottomPlayerBoard/>*/}
 {/*</Row>*/}
 </Card>
+</center>
              {/*</Row>
              </Grid>
             */}          </div>
