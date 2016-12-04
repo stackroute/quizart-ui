@@ -54,17 +54,15 @@ export default class Login extends React.Component {
   }
   submitForm(data) {
     console.log("in login js");
-    Request.post('http://localhost:8081/users/login')
+    Request.post('http://localhost:8081/users/login/login')
       .set('Content-type', 'application/json')
       .send({
-        email: data.email,
+        userName: data.email,
         password: data.password
       })
       .end((err, res) => {
         if (res.status===200) {
-          localStorage['verifyFriday'] = res.body.message;
-          this.props.router.replace('/');
-          this.props.route.checkLoggedIn(true);
+          console.log("200 status")
         } else {
           this.setState({
             err: res.body.message

@@ -47,6 +47,7 @@ router.post('/login',function(req,res){
   var password = req.body.password;
   console.log(" username:" + username);
   for(var i=0;i<=users.length;i++){
+    console.log(users[i].userName);
     if(username==users[i].userName){
       console.log("valid user");
     }else {
