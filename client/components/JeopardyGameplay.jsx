@@ -1,14 +1,14 @@
 import React from  'react';
 import superagent from 'superagent';
 import {Card, CardTitle, CardText} from 'material-ui/Card';
-import TimerSpeed from './Timer';
+import TimerSpeed from './TimerV';
 import FloatingActionButton from 'material-ui/FloatingActionButton';
 import {grey900,blue300} from './../../node_modules/material-ui/styles/colors';
 import {ListItem} from 'material-ui/List';
 import Paper from 'material-ui/Paper';
 import {Grid,Row,Col} from 'react-flexbox-grid';
 import MediaQuery from 'react-responsive';
-import BottomPlayerBoard from './BottomPlayerBoard';
+
 var blocks = [0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15];
 var options=[];
 export default class JeopardyGameplay extends React.Component {
@@ -27,7 +27,9 @@ export default class JeopardyGameplay extends React.Component {
             iconStyle={{width:20,height:25}}
             mini={true}
             onClick={this.handleClick.bind(this)}>
-            <h4 color="white"> BUZZER </h4> 
+            <div style={{color:'white',fontSize:'0.01em'}}> 
+            <small> BUZZER </small>
+            </div>
             </FloatingActionButton>,
         };
         this.handleClick=this.handleClick.bind(this);
@@ -146,7 +148,7 @@ render() {
      
 
     
-    <BottomPlayerBoard/>
+    
 
   </div>
 
