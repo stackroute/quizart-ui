@@ -43,13 +43,20 @@ router.post('/login',function(req,res){
   //check if users exists
   console.log("users");
   var username = req.body.userName;
+  var pwd = req.body.password;
   console.log("username is " , username);
   var password = req.body.password;
   console.log(" username:" + username);
-  for(var i=0;i<=users.length;i++){
+  for(var i=0;i<global.users.length;i++){
     console.log(users[i].userName);
     if(username==users[i].userName){
-      console.log("valid user");
+      if(pwd==users[i].password){
+        console.log("valid user");
+      }
+      else{
+        console.log("incorrect pwd . forgot password?");
+      }
+
     }else {
       console.log('invalid');
     }
