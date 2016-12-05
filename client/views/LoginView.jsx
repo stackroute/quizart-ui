@@ -7,7 +7,6 @@ export default class LoginView extends React.Component {
     return (
       <div>
         <NavBar />
-        <small>This is the Login View.</small>
         <Login/>
       </div>
     );

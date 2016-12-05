@@ -29,8 +29,8 @@ import {
 } from './../../node_modules/material-ui/styles/colors';
 
 export default class NavBar extends React.Component {
-  constructor() {
-    super();
+  constructor(props) {
+    super(props);
     this.state = { isDrawerOpen: false };
       this.state = {
         userDetailDrawer: []
@@ -154,7 +154,7 @@ export default class NavBar extends React.Component {
         <MenuItem primaryText="Change Picture" />
         <MenuItem primaryText="Change Password" />
         <MenuItem primaryText="Settings" />
-        <Link to ="/login"><MenuItem primaryText="Sign out" /></Link>
+        <MenuItem primaryText="Sign out" onTouchTap={() => this.context.router.push('/login')}/>
       </IconMenu>
 
         </div>
