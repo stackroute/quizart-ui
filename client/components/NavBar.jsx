@@ -154,7 +154,7 @@ export default class NavBar extends React.Component {
         <MenuItem primaryText="Change Picture" />
         <MenuItem primaryText="Change Password" />
         <MenuItem primaryText="Settings" />
-        <MenuItem primaryText="Sign out" />
+        <Link to ="/login"><MenuItem primaryText="Sign out" /></Link>
       </IconMenu>
 
         </div>
@@ -171,7 +171,7 @@ export default class NavBar extends React.Component {
         style={styles.navbarStyle}
       />
 
-       <Drawer containerStyle={{marginTop:'75px'}}
+       <Drawer
                 open={this.state.isDrawerOpen}
                 docked={false}
                 onRequestChange={this.handleDrawerClose.bind(this)} >

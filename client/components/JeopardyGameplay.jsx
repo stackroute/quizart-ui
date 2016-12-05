@@ -1,15 +1,17 @@
 import React from  'react';
 import superagent from 'superagent';
 import {Card, CardTitle, CardText} from 'material-ui/Card';
-import TimerSpeed from './Timer';
+import TimerSpeed from './TimerV';
 import FloatingActionButton from 'material-ui/FloatingActionButton';
 import {grey900,blue300} from './../../node_modules/material-ui/styles/colors';
 import {ListItem} from 'material-ui/List';
 import Paper from 'material-ui/Paper';
 import {Grid,Row,Col} from 'react-flexbox-grid';
 import MediaQuery from 'react-responsive';
-import BottomPlayerBoard from './BottomPlayerBoard';
-var blocks = [0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15];
+import TimerQuestions from './TimerQuestions';
+
+var blocksBuzzer = [0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15];
+var blocksQuestion = [0,1,2,3,4,5];
 var options=[];
 export default class JeopardyGameplay extends React.Component {
     constructor() {
@@ -24,11 +26,16 @@ export default class JeopardyGameplay extends React.Component {
             <FloatingActionButton
             backgroundColor={grey900}
             style={{width:0,height:0,marginLeft:-30,color:"grey"}}
-            iconStyle={{width:20,height:25}}
+            iconStyle={{width:20,height:20}}
             mini={true}
             onClick={this.handleClick.bind(this)}>
-            <h4 color="white"> BUZZER </h4> 
+            <div style={{color:'white',fontSize:'0.01em'}}>
+            <small> BUZZER </small>
+            </div>
             </FloatingActionButton>,
+            timer:
+            <TimerSpeed timeLimit={1000} blocks={blocksBuzzer}/>,
+
         };
         this.handleClick=this.handleClick.bind(this);
         this.handleOnClick = this.handleOnClick.bind(this);
@@ -67,7 +74,7 @@ export default class JeopardyGameplay extends React.Component {
                 document.getElementById("ques").innerText = questions[indexQ].question;
             }
         }
-        
+
     }
 
     handleClick()
@@ -100,8 +107,10 @@ export default class JeopardyGameplay extends React.Component {
     }
     this.setState({choice:options});
     this.setState({content:''});
+    // this.setState({timer:''})
+    this.setState({timer:'<TimerQuestions timeLimit={1000} blocks={blocksQuestion}/>'})
 
-        
+
 }
 componentDidMount() {
     superagent
@@ -122,6 +131,7 @@ render() {
             {
                 return (
                     <CardTitle titleStyle={{fontSize:'3px',marginTop:-10,lineHeight:'7px'}} style={{height:10,padding:0}}  title={topics.question}/>
+
                     );
             }
         }
@@ -130,7 +140,7 @@ render() {
 
     <div>
         <center>
-        
+
         <Card style={{width:'90%',height:'80%',marginTop:-15,backgroundColor:blue300}}>
 
                 {topicStruct}
@@ -138,15 +148,16 @@ render() {
                     {this.state.choice}
                  </CardText>
                 {this.state.content}
-                 <TimerSpeed timeLimit={this.state.timelimit} blocks={blocks}/>
-            
+                {this.state.timer}
+                 {/* <TimerSpeed timeLimit={this.state.timelimit} blocks={blocks}/> */}
+
             </Card>
         </center>
-                   
-     
 
-    
-    <BottomPlayerBoard/>
+
+
+
+
 
   </div>
 
