@@ -21,7 +21,7 @@ for (let i = 15; i < 100; i=i+5 ) {
 }
 const errorMessages= {
   wordsError: "Please only use letters",
-  numericError: "Please enter numbers",
+  numericError: "Please enter only numbers",
 } ;
 const styles={
   paper:{
@@ -43,10 +43,9 @@ var selectCategory=[],deselectCategory=[],select=[];
 export default class CreateChallengeForm extends React.Component {
   constructor(props) {
     super(props);
-    this.state={name:'',question: 15,durationInMins:'',durationInSecs:'',right:'',wrong:'',isChooseTopicDialogOpen:false,Topics:[],SelectedTopics:[],disableTopicSelect:false,canSubmit: false};
+    this.state={challenge:{},name:'',question: 15,durationInMins:'',durationInSecs:'',right:'',wrong:'',isChooseTopicDialogOpen:false,Topics:[],SelectedTopics:[],disableTopicSelect:false,canSubmit: false};
     this.handleDialogOpen=this.handleDialogOpen.bind(this);
     this.handleDialogClose=this.handleDialogClose.bind(this);
-    this.handleCreate=this.handleCreate.bind(this);
     this.enableButton = this.enableButton.bind(this);
 this.disableButton = this.disableButton.bind(this);
     this.handleTopicSelect=this.handleTopicSelect.bind(this);
@@ -108,9 +107,20 @@ this.disableButton = this.disableButton.bind(this);
     this.setState({disableTopicSelect:true});
   }
 
-  handleCreate()
+  handleSubmit()
   {
     alert("Challenge is Created Successfully!!!");
+    let newChallenge = {
+     name:this.state.name,
+     topic:this.state.SelectedTopics,
+     question:this.state.question,
+     durationInMins:this.state.durationInMins,
+     durationInSecs:this.state.durationInSecs,
+     right:this.state.right,
+     wrong:this.state.wrong,
+     img:"http://res.cloudinary.com/deaxb0msww/image/upload/v1480051921/quiztack/cinema.jpg"
+   };
+   this.setState({challenge:newChallenge})
   }
 
   onNameChange(e)
@@ -177,8 +187,8 @@ this.disableButton = this.disableButton.bind(this);
                 <Formsy.Form
               onValid={this.enableButton}
               onInvalid={this.disableButton}
-              onValidSubmit={this.submitForm}
-              onInvalidSubmit={this.notifyFormError}  >
+              onValidSubmit={this.handleSubmit.bind(this)}
+          >
 
               <FormsyText
                 type="text"
@@ -244,7 +254,7 @@ this.disableButton = this.disableButton.bind(this);
                label={"Create"}
                primary={true}
                disabled={!this.state.canSubmit}
-               onTouchTap={this.handleCreate}
+               onClick={this.handleSubmit.bind(this)}
                style={{marginRight: 12}}
              />
                </Formsy.Form>

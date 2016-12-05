@@ -12,12 +12,12 @@ import CreateChallengeView from './views/CreateChallengeView';
 import JeopardyView from './views/JeopardyView';
 import MyChallengeView from './views/MyChallengeView';
 import AllMyChallenges from './components/AllMyChallenges';
-import CreateChallengeForm from './components/CreateChallengeForm';
 import MoreJeopardyCategoriesView from './views/MoreJeopardyCategoriesView';
 import MyGamesView from './views/MyGamesView';
 import JeopardyScoreView from './views/JeopardyScoreView';
 import JeopardyScoreCard from './components/JeopardyScoreCard';
 import JeopardyGameView from './views/JeopardyGameView';
+import QuestionGeneratorView from './views/QuestionGeneratorView';
 
 ReactDOM.render(
   <MuiThemeProvider>
@@ -35,6 +35,7 @@ ReactDOM.render(
         <Route path="gamePlayJeopardy" component={JeopardyGameView} />
         <Route path="jeopScoreComponent" component={JeopardyScoreCard} />
         <Route path="JeopardyScores" component={JeopardyScoreView} />
+        <Route path="questionGenerator" component={QuestionGeneratorView} />
       </Route>
     </Router>
   </MuiThemeProvider>, document.getElementById('content')

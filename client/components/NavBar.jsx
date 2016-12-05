@@ -192,9 +192,9 @@ export default class NavBar extends React.Component {
 
               <Divider/>
 
-              
+
                   <Dialog
-                    title={"On clicking on Start Challenge you will statr to play Challenge"}
+                    title={"On clicking on Start Challenge you will start to play Challenge"}
                     actions={actions}
                     modal={true}
                     open={this.state.open} style={{backgroundColor:'black'}} bodyStyle={{color:'#3F51B5'}}>
@@ -212,6 +212,10 @@ export default class NavBar extends React.Component {
                 </ListItem>
 
               <Divider/>
+                <ListItem key={14} onTouchTap={() => this.context.router.push('/questionGenerator')}>
+                  Question Generator
+                </ListItem>
+                <Divider/>
             </List>
           </Drawer>
       </div>
