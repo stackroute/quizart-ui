@@ -19,11 +19,23 @@ import JeopardyScoreCard from './components/JeopardyScoreCard';
 import JeopardyGameView from './views/JeopardyGameView';
 import QuestionGeneratorView from './views/QuestionGeneratorView';
 
+function authCheck(nextState, replace) {
+    var retrievedObject = JSON.parse(localStorage.getItem('loginObj'));
+    console.log('retrievedObject: ', retrievedObject);
+    console.log(retrievedObject.login);
+    if(retrievedObject.login!="success"){
+      replace({
+          pathname: '/login',
+          state: { nextPathname: nextState.location.pathname }
+        })
+    }
+}
+
 ReactDOM.render(
   <MuiThemeProvider>
     <Router history={hashHistory}>
       <Route path="/">
-        <IndexRoute component={DashboardView} />
+        <IndexRoute component={DashboardView} onEnter={authCheck}/>
         <Route path="login" component={LoginView} />
         <Route path="gamePlay" component={ChallengeGamePlayView} />
         <Route path="createChallenge" component={CreateChallengeView} />

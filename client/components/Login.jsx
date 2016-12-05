@@ -70,9 +70,13 @@ export default class Login extends React.Component {
       .end((err, res) => {
         if (res.status===200) {
           console.log("200 status")
+          var loginObj = {'login':'success'};
+          localStorage.setItem('loginObj', JSON.stringify(loginObj));
           this.context.router.push('/');
           console.log(res.body.message);
         } else {
+          var loginObj = {'login':'fail'};
+          localStorage.setItem('loginObj', JSON.stringify(loginObj));
           this.setState({
             err: res.body.message
           });
