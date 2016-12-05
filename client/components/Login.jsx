@@ -13,6 +13,8 @@ import { Link } from 'react-router';
 import FlatButton from 'material-ui/FlatButton';
 import Dialog from 'material-ui/Dialog';
 import Request from 'superagent';
+import { browserHistory } from 'react-router';
+
 const errorMessages = {
   projectName: "Please enter only characters and number.",
   emailError: "Please enter a valid email",
@@ -52,6 +54,11 @@ export default class Login extends React.Component {
       canSubmit: false
     });
   }
+  static get contextTypes() {
+   return{
+     router: React.PropTypes.object.isRequired,
+   };
+ }
   submitForm(data) {
     console.log("in login js");
     Request.post('http://localhost:8081/users/login/login')
@@ -63,6 +70,8 @@ export default class Login extends React.Component {
       .end((err, res) => {
         if (res.status===200) {
           console.log("200 status")
+          this.context.router.push('/');
+          console.log(res.body.message);
         } else {
           this.setState({
             err: res.body.message
@@ -75,12 +84,7 @@ export default class Login extends React.Component {
     console.error('Form error:', data);
   }
   render() {
-    const imageSize = {
-      mystyle: {
-        height: 100,
-        width: 100
-      }
-    };
+
     return (
       <Grid>
         <Col xs={ 12 }>

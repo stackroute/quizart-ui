@@ -1,5 +1,9 @@
 var express = require('express'),
 router = express.Router();
+var bodyParser = require('body-parser');
+var jwt = require('jsonwebtoken');
+var authenticateToken = "";
+router.use(bodyParser.json());
 
 global.users=[
   {
@@ -45,24 +49,28 @@ router.post('/login',function(req,res){
   var username = req.body.userName;
   var pwd = req.body.password;
   console.log("username is " , username);
-  var password = req.body.password;
-  console.log(" username:" + username);
   for(var i=0;i<global.users.length;i++){
-    console.log(users[i].userName);
     if(username==users[i].userName){
       if(pwd==users[i].password){
         console.log("valid user");
+        authenticateToken=jwt.sign({user:username, name:users[i].userName,sub:'Quizztack',admin:true}, "QuizztackAdmin")
+        res.status(200).json({
+          message: authenticateToken,
+          error: false
+        });
       }
       else{
         console.log("incorrect pwd . forgot password?");
-      }
+        res.status(401).json({
+          message: "User Email or Password is Incorrect",
+          error: true
+        });
 
+      }
     }else {
       console.log('invalid');
-    }
-
-    // res.status().json({message:"",err:false});
   }
+}
 });
 
 module.exports = router;
