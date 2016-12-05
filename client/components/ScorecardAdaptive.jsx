@@ -148,7 +148,7 @@ open={this.state.open}
     <RaisedButton
       label="Share"
       labelPosition="after"
-      secondry={true}
+      secondary={true}
       icon={<SocialShare />}>
     </RaisedButton>
     </Row>

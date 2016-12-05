@@ -33,7 +33,6 @@ export default class DisplayDialog extends React.Component
 						 <Link to="jeopardyBoard/">
 						 <FlatButton
 						   label="Start"
-
 						   primary={true} />
 						   </Link>
 						   ];
