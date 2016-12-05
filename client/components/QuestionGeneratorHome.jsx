@@ -1,5 +1,5 @@
 import React from 'react';
-import Card from 'material-ui/Card';
+import {Card,CardTitle, CardText} from 'material-ui/Card';
 import TextField from 'material-ui/TextField';
 import {grey900} from 'material-ui/styles/colors';
 import RaisedButton from 'material-ui/RaisedButton';
@@ -183,18 +183,10 @@ export default class QuestionGeneratorHome extends React.Component
                 };
         return(
         <div>
-                <Card style={{height:90,width:"90%",margin:"auto"}}>
-                <MediaQuery query='(min-device-width: 1224px)'>
-                  <h1 style={{textAlign:"center",paddingTop:20}}>Enter a sample Question (E.g. Who won the first Noble Prize?)</h1>
-                 </MediaQuery>
-                  <MediaQuery query='(min-device-width: 1824px)'>
-                    <h1 style={{textAlign:"center",paddingTop:20,fontSize:20}}>Enter a sample Question (E.g. Who won the first Noble Prize?)</h1>
-                  </MediaQuery>
-                  <MediaQuery query='(max-width: 1224px)'>
-                    <h1 style={{textAlign:"center",paddingTop:20,fontSize:20}}>Enter a sample Question (E.g. Who won the first Noble Prize?)</h1>
-                  </MediaQuery>
-                </Card>
 
+                <Card style={{height:120,width:"90%",margin:"auto",textAlign:'center'}}>
+                  <CardTitle title="Enter a sample Question (E.g. Who won the first Noble Prize?)"/>
+                </Card>
                 <MediaQuery query='(min-device-width: 768px)'>
                 <TextField
                 hintText="Type your Question Here"
