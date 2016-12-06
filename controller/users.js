@@ -55,7 +55,7 @@ router.post('/login',function(req,res){
   //check if users exists
   var username = req.body.userName;
   var pwd = req.body.password;
-  // console.log("username is " , username);
+
   for(var i=0;i<global.users.length;i++){
     if(username==users[i].userName){
       if(pwd==users[i].password){

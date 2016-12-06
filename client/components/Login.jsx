@@ -97,7 +97,6 @@ export default class Login extends React.Component {
                          onInvalid={ this.disableButton }
                          onValidSubmit={ this.submitForm }
                          onInvalidSubmit={ this.notifyFormError }>
-              {/* <ActionAccountCircle style={ imageSize.mystyle }  */}
 
               <CardText>
                 <Row>

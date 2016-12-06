@@ -20,7 +20,6 @@ import JeopardyGameView from './views/JeopardyGameView';
 import QuestionGeneratorView from './views/QuestionGeneratorView';
 
 function authCheck(nextState, replace) {
-  //  var retrievedObject = JSON.parse(localStorage.getItem('loginObj'));
     if(!localStorage.token){
       replace({
           pathname: '/login',
@@ -30,8 +29,6 @@ function authCheck(nextState, replace) {
 }
 
 function loginCheck(nextState, replace) {
-   // var retrievedObject = JSON.parse(localStorage.getItem('loginObj'));
-
     if(localStorage.token){
       replace({
           pathname: '/',
