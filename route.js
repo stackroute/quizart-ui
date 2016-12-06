@@ -17,6 +17,7 @@ app.use(function(req, res, next) {
 
 
 app.use('/users/login',require('./controller/index.js'));
+app.use('/signin',require('./controller/index.js'));
 //app.use(express.static('./client/views'));
 
 //app.route('/users/login')login
