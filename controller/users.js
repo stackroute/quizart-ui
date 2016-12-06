@@ -53,15 +53,13 @@ global.users=[
 
 router.post('/login',function(req,res){
   //check if users exists
-  console.log("users");
   var username = req.body.userName;
   var pwd = req.body.password;
-  console.log("username is " , username);
+  // console.log("username is " , username);
   for(var i=0;i<global.users.length;i++){
     if(username==users[i].userName){
       if(pwd==users[i].password){
-        console.log("valid user");
-        authenticateToken=jwt.sign({user:username, name:users[i].userName,sub:'Quizztack',admin:true}, "QuizztackAdmin")
+        authenticateToken=jwt.sign({sub:users[i].id, role:users[i].role}, "QuizztackAdmin")
         res.status(200).json({
           message: authenticateToken,
           error: false
