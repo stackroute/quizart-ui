@@ -66,6 +66,12 @@ export default class NavBar extends React.Component {
     this.setState({isDrawerOpen: false});
   }
 
+  signOut(){
+    var loginObj = {'login':'fail'};
+    localStorage.setItem('loginObj', JSON.stringify(loginObj));
+    this.context.router.push('/login');
+  }
+
   render() {
     const actions = [
          <FlatButton
@@ -154,7 +160,7 @@ export default class NavBar extends React.Component {
         <MenuItem primaryText="Change Picture" />
         <MenuItem primaryText="Change Password" />
         <MenuItem primaryText="Settings" />
-        <MenuItem primaryText="Sign out" onTouchTap={() => this.context.router.push('/login')}/>
+        <MenuItem primaryText="Sign out" onTouchTap={this.signOut.bind(this)}/>
       </IconMenu>
 
         </div>

@@ -7,39 +7,47 @@ router.use(bodyParser.json());
 
 global.users=[
   {
-    "id":1,
+    "id":"adm01",
     "userName":"sagarpatke@gmail.com",
-    "password":"password"
+    "password":"password",
+    "role":"admin"
   },
   {
-    "id":2,
+    "id":"adm02",
     "userName":"neelanjansen@gmail.com",
-    "password":"password"
+    "password":"password",
+    "role":"admin"
   },
   {
     "id":3,
     "userName":"vishantsharma@gmail.com",
-    "password":"password"
+    "password":"password",
+    "role":"user"
   },{
     "id":4,
     "userName":"kirtijalan@gmail.com",
-    "password":"password"
+    "password":"password",
+    "role":"user"
   },{
     "id":5,
     "userName":"nitinverma@gmail.com",
-    "password":"password"
+    "password":"password",
+    "role":"user"
   },{
     "id":6,
     "userName":"dhivyalakshmi@gmail.com",
-    "password":"password"
+    "password":"password",
+    "role":"user"
   },{
     "id":7,
     "userName":"laljose@gmail.com",
-    "password":"password"
+    "password":"password",
+    "role":"user"
   },{
     "id":8,
     "userName":"srinivasan@gmail.com",
-    "password":"password"
+    "password":"password",
+    "role":"user"
   }
 ];
 

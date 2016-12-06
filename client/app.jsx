@@ -21,8 +21,6 @@ import QuestionGeneratorView from './views/QuestionGeneratorView';
 
 function authCheck(nextState, replace) {
     var retrievedObject = JSON.parse(localStorage.getItem('loginObj'));
-    console.log('retrievedObject: ', retrievedObject);
-    console.log(retrievedObject.login);
     if(retrievedObject.login!="success"){
       replace({
           pathname: '/login',
@@ -31,12 +29,23 @@ function authCheck(nextState, replace) {
     }
 }
 
+function loginCheck(nextState, replace) {
+    var retrievedObject = JSON.parse(localStorage.getItem('loginObj'));
+    if(retrievedObject.login=="success"){
+      replace({
+          pathname: '/',
+          state: { nextPathname: nextState.location.pathname }
+        })
+    }
+}
+
+
 ReactDOM.render(
   <MuiThemeProvider>
     <Router history={hashHistory}>
       <Route path="/">
         <IndexRoute component={DashboardView} onEnter={authCheck}/>
-        <Route path="login" component={LoginView} />
+        <Route path="login" component={LoginView} onEnter={loginCheck} />
         <Route path="gamePlay" component={ChallengeGamePlayView} />
         <Route path="createChallenge" component={CreateChallengeView} />
         <Route path="jeopardyBoard" component={JeopardyView} />
