@@ -69,8 +69,10 @@ export default class NavBar extends React.Component {
   signOut(){
     var loginObj = {'login':'fail'};
     localStorage.setItem('loginObj', JSON.stringify(loginObj));
+    delete localStorage.token;
     this.context.router.push('/login');
-  }
+
+      }
 
   render() {
     const actions = [

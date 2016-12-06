@@ -60,7 +60,7 @@ export default class Login extends React.Component {
    };
  }
   submitForm(data) {
-    console.log("in login js");
+    
     Request.post('http://localhost:8081/users/login/login')
       .set('Content-type', 'application/json')
       .send({
@@ -69,14 +69,10 @@ export default class Login extends React.Component {
       })
       .end((err, res) => {
         if (res.status===200) {
-          console.log("200 status")
-          var loginObj = {'login':'success'};
-          localStorage.setItem('loginObj', JSON.stringify(loginObj));
-          this.context.router.push('/');
-          console.log(res.body.message);
+          var token = res.body.message;
+          localStorage.setItem('token', JSON.stringify(token));
+          this.context.router.push('/'); 
         } else {
-          var loginObj = {'login':'fail'};
-          localStorage.setItem('loginObj', JSON.stringify(loginObj));
           this.setState({
             err: res.body.message
           });
