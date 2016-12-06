@@ -14,6 +14,7 @@ import FlatButton from 'material-ui/FlatButton';
 import Dialog from 'material-ui/Dialog';
 import Request from 'superagent';
 import { browserHistory } from 'react-router';
+import jwt_decode from 'jwt-decode';
 
 const errorMessages = {
   projectName: "Please enter only characters and number.",
@@ -60,7 +61,7 @@ export default class Login extends React.Component {
    };
  }
   submitForm(data) {
-    
+
     Request.post('http://localhost:8081/users/login/login')
       .set('Content-type', 'application/json')
       .send({
@@ -70,8 +71,9 @@ export default class Login extends React.Component {
       .end((err, res) => {
         if (res.status===200) {
           var token = res.body.message;
+          console.log(jwt_decode(token).role);
           localStorage.setItem('token', JSON.stringify(token));
-          this.context.router.push('/'); 
+          this.context.router.push('/');
         } else {
           this.setState({
             err: res.body.message

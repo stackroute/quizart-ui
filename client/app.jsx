@@ -18,6 +18,7 @@ import JeopardyScoreView from './views/JeopardyScoreView';
 import JeopardyScoreCard from './components/JeopardyScoreCard';
 import JeopardyGameView from './views/JeopardyGameView';
 import QuestionGeneratorView from './views/QuestionGeneratorView';
+import JeopardyCluesAdmin from './views/JeopardyCluesAdmin';
 
 function authCheck(nextState, replace) {
     if(!localStorage.token){
@@ -54,6 +55,7 @@ ReactDOM.render(
         <Route path="jeopScoreComponent" component={JeopardyScoreCard} onEnter={authCheck}/>
         <Route path="JeopardyScores" component={JeopardyScoreView} onEnter={authCheck}/>
         <Route path="questionGenerator" component={QuestionGeneratorView} onEnter={authCheck}/>
+        <Route path="jeopardyClues" component={JeopardyCluesAdmin} onEnter={authCheck}/>
       </Route>
     </Router>
   </MuiThemeProvider>, document.getElementById('content')
