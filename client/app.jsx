@@ -18,24 +18,44 @@ import JeopardyScoreView from './views/JeopardyScoreView';
 import JeopardyScoreCard from './components/JeopardyScoreCard';
 import JeopardyGameView from './views/JeopardyGameView';
 import QuestionGeneratorView from './views/QuestionGeneratorView';
+import JeopardyCluesAdmin from './views/JeopardyCluesAdmin';
+
+function authCheck(nextState, replace) {
+    if(!localStorage.token){
+      replace({
+          pathname: '/login',
+          state: { nextPathname: nextState.location.pathname }
+        })
+    }
+}
+
+function loginCheck(nextState, replace) {
+    if(localStorage.token){
+      replace({
+          pathname: '/',
+          state: { nextPathname: nextState.location.pathname }
+        })
+    }
+}
 
 ReactDOM.render(
   <MuiThemeProvider>
     <Router history={hashHistory}>
       <Route path="/">
-        <IndexRoute component={DashboardView} />
-        <Route path="login" component={LoginView} />
-        <Route path="gamePlay" component={ChallengeGamePlayView} />
-        <Route path="createChallenge" component={CreateChallengeView} />
-        <Route path="jeopardyBoard" component={JeopardyView} />
-        <Route path="morecategories" component={MoreJeopardyCategoriesView} />
-        <Route path="myChallenge" component={MyChallengeView} />
-        <Route path="allMyChallenges" component={MyChallengeView} />
-        <Route path="myGames" component={MyGamesView} />
-        <Route path="gamePlayJeopardy" component={JeopardyGameView} />
-        <Route path="jeopScoreComponent" component={JeopardyScoreCard} />
-        <Route path="JeopardyScores" component={JeopardyScoreView} />
-        <Route path="questionGenerator" component={QuestionGeneratorView} />
+        <IndexRoute component={DashboardView} onEnter={authCheck}/>
+        <Route path="login" component={LoginView} onEnter={loginCheck} />
+        <Route path="gamePlay" component={ChallengeGamePlayView} onEnter={authCheck}/>
+        <Route path="createChallenge" component={CreateChallengeView} onEnter={authCheck} />
+        <Route path="jeopardyBoard" component={JeopardyView} onEnter={authCheck}/>
+        <Route path="morecategories" component={MoreJeopardyCategoriesView} onEnter={authCheck}/>
+        <Route path="myChallenge" component={MyChallengeView} onEnter={authCheck}/>
+        <Route path="allMyChallenges" component={MyChallengeView} onEnter={authCheck}/>
+        <Route path="myGames" component={MyGamesView} onEnter={authCheck}/>
+        <Route path="gamePlayJeopardy" component={JeopardyGameView} onEnter={authCheck}/>
+        <Route path="jeopScoreComponent" component={JeopardyScoreCard} onEnter={authCheck}/>
+        <Route path="JeopardyScores" component={JeopardyScoreView} onEnter={authCheck}/>
+        <Route path="questionGenerator" component={QuestionGeneratorView} onEnter={authCheck}/>
+        <Route path="jeopardyClues" component={JeopardyCluesAdmin} onEnter={authCheck}/>
       </Route>
     </Router>
   </MuiThemeProvider>, document.getElementById('content')

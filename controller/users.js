@@ -7,53 +7,59 @@ router.use(bodyParser.json());
 
 global.users=[
   {
-    "id":1,
+    "id":"adm01",
     "userName":"sagarpatke@gmail.com",
-    "password":"password"
+    "password":"password",
+    "role":"admin"
   },
   {
-    "id":2,
+    "id":"adm02",
     "userName":"neelanjansen@gmail.com",
-    "password":"password"
+    "password":"password",
+    "role":"admin"
   },
   {
-    "id":3,
+    "id":"usr1",
     "userName":"vishantsharma@gmail.com",
-    "password":"password"
+    "password":"password",
+    "role":"user"
   },{
-    "id":4,
+    "id":"usr2",
     "userName":"kirtijalan@gmail.com",
-    "password":"password"
+    "password":"password",
+    "role":"user"
   },{
-    "id":5,
+    "id":"usr3",
     "userName":"nitinverma@gmail.com",
-    "password":"password"
+    "password":"password",
+    "role":"user"
   },{
-    "id":6,
+    "id":"usr4",
     "userName":"dhivyalakshmi@gmail.com",
-    "password":"password"
+    "password":"password",
+    "role":"user"
   },{
-    "id":7,
+    "id":"usr5",
     "userName":"laljose@gmail.com",
-    "password":"password"
+    "password":"password",
+    "role":"user"
   },{
-    "id":8,
+    "id":"usr6",
     "userName":"srinivasan@gmail.com",
-    "password":"password"
+    "password":"password",
+    "role":"user"
   }
 ];
 
 router.post('/login',function(req,res){
   //check if users exists
-  console.log("users");
   var username = req.body.userName;
   var pwd = req.body.password;
-  console.log("username is " , username);
+
   for(var i=0;i<global.users.length;i++){
     if(username==users[i].userName){
       if(pwd==users[i].password){
-        console.log("valid user");
-        authenticateToken=jwt.sign({user:username, name:users[i].userName,sub:'Quizztack',admin:true}, "QuizztackAdmin")
+        authenticateToken=jwt.sign({sub:users[i].id, role:users[i].role}, "QuizztackAdmin")
         res.status(200).json({
           message: authenticateToken,
           error: false

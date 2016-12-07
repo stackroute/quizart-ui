@@ -17,6 +17,8 @@ import Badge from 'material-ui/Badge';
 import NotificationsIcon from 'material-ui/svg-icons/social/notifications';
 import NotificationNavbar from './NotificationNavbar';
 import superagent from 'superagent';
+import jwt_decode from 'jwt-decode';
+
 import {
   blue300,
   white,
@@ -36,6 +38,7 @@ export default class NavBar extends React.Component {
         userDetailDrawer: []
       };
     this.state={open:false};
+    this.state = { isAdmin: false};
   }
    handleOpen =() => {
    this.setState({open:true});
@@ -61,24 +64,38 @@ export default class NavBar extends React.Component {
 
   handleDrawerOpen() {
     this.setState({isDrawerOpen: true});
+    if(jwt_decode(localStorage.token).role=="admin")
+    {
+      this.setState({isAdmin: true});
+      console.log("is Admin");
+    }
+    else{
+      console.log("not admin");
+    }
+
   }
   handleDrawerClose() {
     this.setState({isDrawerOpen: false});
   }
 
+  signOut(){
+    delete localStorage.token;
+    this.context.router.push('/login');
+    }
+
   render() {
     const actions = [
          <FlatButton
-                           label="Back"
-                           primary={true}
-                           onTouchTap={this.handleClose}/>,
+           label="Back"
+           primary={true}
+           onTouchTap={this.handleClose}/>,
 
-                         <Link to="gamePlay/">
-                         <FlatButton
-                           label="Start Challenge"
-                           primary={true} />
-                           </Link>
-                           ];
+         <Link to="gamePlay/">
+         <FlatButton
+           label="Start Challenge"
+           primary={true} />
+           </Link>
+           ];
 
     const styles = {
       title:{
@@ -94,6 +111,17 @@ export default class NavBar extends React.Component {
       },
 
     };
+
+
+    const adminRights = this.state.isAdmin ?
+      // return (
+              <ListItem key={15} onTouchTap={() => this.context.router.push('/jeopardyClues')}>
+                Jeopardy Clues
+              </ListItem>
+      // );
+    :
+              console.log("user");
+
 
     const userDetailsInfo = this.state.userDetailDrawer ? this.state.userDetailDrawer.map((userDetails) => {
       return (
@@ -154,7 +182,7 @@ export default class NavBar extends React.Component {
         <MenuItem primaryText="Change Picture" />
         <MenuItem primaryText="Change Password" />
         <MenuItem primaryText="Settings" />
-        <MenuItem primaryText="Sign out" onTouchTap={() => this.context.router.push('/login')}/>
+        <MenuItem primaryText="Sign out" onTouchTap={this.signOut.bind(this)}/>
       </IconMenu>
 
         </div>
@@ -178,20 +206,15 @@ export default class NavBar extends React.Component {
                 <List style={{hoverColor:'transparent'}}>
                   <ListItem key={1} onTouchTap={this.handleClose} style={{textAlign:'center'}}>{userDetailsInfo}</ListItem>
 
-
-
                 <ListItem key={9} onTouchTap={() => this.context.router.push('/createChallenge')}>
                   Create Challenges
                 </ListItem>
 
               <Divider/>
-
                 <ListItem key={10} onTouchTap={() => this.context.router.push('/myChallenge')}>
                   My Challenges
                 </ListItem>
-
               <Divider/>
-
 
                   <Dialog
                     title={"On clicking on Start Challenge you will start to play Challenge"}
@@ -206,7 +229,6 @@ export default class NavBar extends React.Component {
 
               <Divider/>
 
-
                 <ListItem key={13} onTouchTap={() => this.context.router.push('/myGames')}>
                   My Games
                 </ListItem>
@@ -216,6 +238,8 @@ export default class NavBar extends React.Component {
                   Question Generator
                 </ListItem>
                 <Divider/>
+                {adminRights}
+                {/* <ListItem key={15}>{adminRights}</ListItem> */}
             </List>
           </Drawer>
       </div>
