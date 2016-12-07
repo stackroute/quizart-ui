@@ -33,13 +33,13 @@ const styles = {
   }
 };
 var value=1;
-var optionArray=[],variableArray=[],finalMeaningArray=[],noofoptionsArray=[],selectedValue=[],index,selectedOptionValue=[];
-export default class TestSwipe extends React.Component
+var selectedValue=[],index,selectedOptionValue=[];
+export default class QuestionGeneratorHome extends React.Component
 {
     constructor(props)
     {
         super(props);
-        this.state={slideIndex: 0,enableVariable:true,enableOption:true,selectedFinalMeaning:'',enableVariableMeaning:true,enableOptionMeaning:true,enableFinal:true,enablenoofoptions:true,question:' ',qString:'',selectedOptionMeaning:[],variables:[],selectedVariable:[],options:[],selectedVariableMeaning:[],variableMeaning:'',optionMeaning:'',pString:[],noOfOptionsDisplay:[],noofoptions:''};
+        this.state={slideIndex: 0,enableVariable:true,enableOption:true,enableVariableMeaning:true,enableOptionMeaning:true,enableFinal:true,enablenoofoptions:true,question:' ',qString:'',selectedOptionMeaning:[],variables:[],selectedVariable:[],options:[],selectedVariableMeaning:[],selectedFinalMeaning:'',variableMeaning:'',optionMeaning:'',pString:[],noOfOptionsDisplay:[],noofoptions:''};
         this.handleSlide = this.handleSlide.bind(this);
         this.handleVariables = this.handleVariables.bind(this);
         this.handleInput = this.handleInput.bind(this);
@@ -49,7 +49,14 @@ export default class TestSwipe extends React.Component
     }
     handleVariables()
     {
-        this.setState({slideIndex:1});
+        value=1;
+        this.setState({slideIndex:value});
+        this.setState({selectedVariable:[]});
+        this.setState({selectedOption:[]});
+        this.setState({selectedVariableMeaning:[]});
+        this.setState({selectedOptionMeaning:[]});
+        console.log(this.state.selectedVariable);
+        console.log(this.state.selectedOption);
         var temp=[];
         this.state.question.split(" ").map(variable => temp.push(variable));
         this.setState({variables:temp});
