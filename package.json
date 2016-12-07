@@ -3,7 +3,10 @@
   "version": "0.1.0",
   "description": "QuizRT UI Microservice",
   "main": "index.js",
-  "dependencies": {},
+  "dependencies": {
+    "request": "^2.79.0",
+    "request-promise": "^4.1.1"
+  },
   "devDependencies": {
     "babel-core": "^6.18.2",
     "babel-eslint": "^7.1.0",
@@ -30,6 +33,7 @@
     "jsonwebtoken": "^7.1.9",
     "material-ui": "^0.16.4",
     "mocha": "^3.1.2",
+    "promise": "^7.1.1",
     "react": "^15.4.1",
     "react-dom": "^15.4.1",
     "react-flexbox-grid": "^0.10.2",
