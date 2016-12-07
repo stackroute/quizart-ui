@@ -1,13 +1,10 @@
 var express = require('express'),
 router = express.Router();
 var neo4j = require('neo4j-driver').v1;
-
 var driver = neo4j.driver("bolt://localhost", neo4j.auth.basic("neo4j", "Neo4j"));
 var session = driver.session();
 
 global.userData=[];
-
-console.log("helloKirti")
 
 router.post('/signin',function(req,res){
 
@@ -16,7 +13,7 @@ router.post('/signin',function(req,res){
 
 
   session
-    .run( "CREATE (a:Person {username:{name}, email:{email},password:{pass}}) return a",{name:req.body.userName, email:req.body.email, pass:req.body.password} )
+    .run( "CREATE (a:Person {username:{name}, email:{email},password:{pass}, role:{role}}) return a",{name:req.body.userName, email:req.body.email, pass:req.body.password, role:"user"} )
     .then( function( result ) {
       // console.log("user is created");
       session.close();

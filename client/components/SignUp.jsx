@@ -76,6 +76,7 @@ export default class SignUp extends React.Component {
         console.log(err)
         console.log(res)
         if (res.status===200) {
+          alert("You have been successfully signed in!")
         } else {
           this.setState({
             err: res.body.message
@@ -88,10 +89,9 @@ export default class SignUp extends React.Component {
     console.error('Form error:', data);
   }
   render() {
-
     return (
       <Grid>
-        <Col xs={ 12 }>
+        <Col xs={ 6 }>
         <Card
               zDepth={ 2 }
               style={ styles.loginStyle }>
@@ -103,6 +103,7 @@ export default class SignUp extends React.Component {
                          onInvalidSubmit={ this.notifyFormError }>
 
               <CardText>
+                  <Row center="xs"><h2>New User? </h2></Row>
                 <Row>
                   <Col
                        xs={ 12 }
