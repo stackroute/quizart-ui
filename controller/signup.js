@@ -18,7 +18,7 @@ router.post('/signin',function(req,res){
   session
     .run( "CREATE (a:Person {username:{name}, email:{email},password:{pass}}) return a",{name:req.body.userName, email:req.body.email, pass:req.body.password} )
     .then( function( result ) {
-      console.log("user is created");
+      // console.log("user is created");
       session.close();
       driver.close();
     })
