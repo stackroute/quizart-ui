@@ -70,10 +70,14 @@ export default class Login extends React.Component {
       })
       .end((err, res) => {
         if (res.status===200) {
+          if(res.body.isValid)
+          {
           var token = res.body.message;
+          console.log(jwt_decode(token));
           console.log(jwt_decode(token).role);
           localStorage.setItem('token', JSON.stringify(token));
           this.context.router.push('/');
+        }
         } else {
           this.setState({
             err: res.body.message
@@ -86,10 +90,9 @@ export default class Login extends React.Component {
     console.error('Form error:', data);
   }
   render() {
-
     return (
       <Grid>
-        <Col xs={ 12 }>
+        <Col xs={ 6 }>
         <Card
               zDepth={ 2 }
               style={ styles.loginStyle }>
@@ -101,6 +104,7 @@ export default class Login extends React.Component {
                          onInvalidSubmit={ this.notifyFormError }>
 
               <CardText>
+                <Row center="xs"><h2>Already a user?</h2> </Row>
                 <Row>
                   <Col
                        xs={ 12 }
