@@ -7,48 +7,38 @@ import {grey900,blue300} from './../../node_modules/material-ui/styles/colors';
 import {ListItem} from 'material-ui/List';
 import Paper from 'material-ui/Paper';
 import {Grid,Row,Col} from 'react-flexbox-grid';
-import MediaQuery from 'react-responsive';
-import TimerQuestions from './TimerQuestions';
 
-var blocksBuzzer = [0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15];
-var blocksQuestion = [0,1,2,3,4,5];
+
+
 var options=[];
 export default class JeopardyGameplay extends React.Component {
-    constructor() {
+    constructor() 
+    {
         super();
         this.state = {
-            i: 0,
-            topic: [],
-            timelimit:1000,
-            colour: '#1A237E',
+            screen: false,
             choice:'',
-            content:
-            <FloatingActionButton
-            backgroundColor={grey900}
-            style={{width:0,height:0,marginLeft:-30,color:"grey"}}
-            iconStyle={{width:20,height:20}}
-            mini={true}
-            onClick={this.handleClick.bind(this)}>
-            <div style={{color:'white',fontSize:'0.01em'}}>
-            <small> BUZZER </small>
-            </div>
-            </FloatingActionButton>,
-            timer:
-            <TimerSpeed timeLimit={1000} blocks={blocksBuzzer}/>,
-
+            topic: [],
+            i: 0,
         };
-        this.handleClick=this.handleClick.bind(this);
+        this.changeState=this.changeState.bind(this);
         this.handleOnClick = this.handleOnClick.bind(this);
     }
-    static get propTypes() {
-        return {
-            limit: React.PropTypes.number.isRequired
-        };
+
+    componentDidMount()
+    {
+        superagent
+        .get('http://localhost:3000/topic?_limit=' + this.props.limit)
+        .end((err, res) => {
+            this.setState({topic: res.body});
+        });
     }
+
     handleOnClick(e)
     {
         this.state.topic.map((topics) => {
-            for (let option=0; option < topics.options.length; option++)
+
+            for (let option=0; option <= topics.options.length; option++)
             {
                 e.target.parentElement.childNodes[option].disabled = true;
                 if(e.target.parentElement.childNodes[option].innerText === topics.correctOption)
@@ -62,36 +52,20 @@ export default class JeopardyGameplay extends React.Component {
             }
 
         });
-
-        let indexQ = this.state.i;
-        indexQ++;
-        this.setState({i : indexQ});
-        let questions = this.state.topic;
-        for(indexQ=0; indexQ<=this.state.i; indexQ++)
-        {
-            if(indexQ == this.state.i)
-            {
-                document.getElementById("ques").innerText = questions[indexQ].question;
-            }
-        }
-
     }
 
-    handleClick()
+    changeState()
     {
 
-
-    options = [];
-
-
-    if(this.state.choice=='')
-    {
+       options = [];
+       if(this.state.choice=='')
+       {
         this.state.topic.map((topics => {
             for(var i=0;i<topics.options.length;i++)
             {
                 options.push(<button onTouchTap={this.handleOnClick}
-                    style={{width: '50px', height:'10px',margin: '2px',textAlign:'center',
-                    backgroundColor:this.state.colour,color:'white',
+                    style={{width: '50px', height:'10px',margin: '1px',textAlign:'center',
+                    backgroundColor:'#1A237E',color:'white',
                     padding: '3px 3px 3px 3px',
                     borderTopLeftRadius:'70px' ,borderTopRightRadius: '70px',
                     borderBottomLeftRadius: '70px',borderBottomRightRadius: '70px',
@@ -101,66 +75,53 @@ export default class JeopardyGameplay extends React.Component {
                 }}>
                 {topics.options[i]}
                 </button>);
-                <br/>
             }
         }));
+         // <TimerSpeed timeLimit={1000} blocks={[0,1,2,3,4]} />;
     }
+    this.setState({screen:true});
     this.setState({choice:options});
-    this.setState({content:''});
-    // this.setState({timer:''})
-    this.setState({timer:'<TimerQuestions timeLimit={1000} blocks={blocksQuestion}/>'})
-
+    // <TimerSpeed timeLimit={1000} blocks={[0,1,2,3,4]} />;
 
 }
-componentDidMount() {
-    superagent
-    .get('http://localhost:3000/topic?_limit=' + this.props.limit)
-    .end((err, res) => {
-    this.setState({topic: res.body});
-    });
-}
+
 render() {
-    const styles = {
-        height: 180,
-        width: 180
-    }
+
+    const screenData = this.state.screen ?  
+   console.log('options'):
+    <div>
+    <img src="http://res.cloudinary.com/deaxb0msww/image/upload/v1480404062/buzzer_p754xp.png"
+    alt="Image Not Available"
+    style={{height:'20px',width:'20px',marginTop:'14px',cursor:'pointer'}}
+    onTouchTap = {this.changeState} />
+    <TimerSpeed timeLimit={1000} blocks={[0,1,2,3,4,5,6,7]} />
+    </div>
+
     const topicStruct =  this.state.topic.map((topics => {
         for(let indexQ=0; indexQ<=this.state.i; indexQ++)
         {
             if(indexQ == this.state.i)
             {
                 return (
-                    <CardTitle titleStyle={{fontSize:'3px',marginTop:-10,lineHeight:'7px'}} style={{height:10,padding:0}}  title={topics.question}/>
-
+                    <CardTitle titleStyle={{fontSize:'3px',marginTop:-10,lineHeight:'7px'}}
+                    style={{height:10,padding:0}}  
+                    title={topics.question}/>
                     );
             }
         }
     }));
     return (
-
-    <div>
+        <div>
         <center>
+        <Card style={{width:'90%',height:'90%',marginTop:-15,backgroundColor:blue300}}>
+        {topicStruct}       
+        {screenData}
+        {this.state.choice}
 
-        <Card style={{width:'90%',height:'80%',marginTop:-15,backgroundColor:blue300}}>
-
-                {topicStruct}
-                <CardText style={{padding:0}}>
-                    {this.state.choice}
-                 </CardText>
-                {this.state.content}
-                {this.state.timer}
-                 {/* <TimerSpeed timeLimit={this.state.timelimit} blocks={blocks}/> */}
-
-            </Card>
+        </Card>
         </center>
-
-
-
-
-
-
-  </div>
-
-            );
+        </div>
+        );
 }
 }
+
