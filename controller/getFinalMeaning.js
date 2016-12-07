@@ -198,6 +198,8 @@ function analyzeEntityAndReturnMostRelevantFields(dataToBeAnalyzedForRelevance,r
 
             tempObjForPQAndString["pNum"]=
                               tempStorageForKeys[counterForIteratingOverOnlyPandQ];
+            tempObjForPQAndString["qNum"]=
+                              qNum;
             tempObjForPQAndString["pString"]=
                               firstTempVarForKeyRunover;
             tempObjForPQAndString["qString"]=
@@ -220,6 +222,8 @@ function analyzeEntityAndReturnMostRelevantFields(dataToBeAnalyzedForRelevance,r
 
                 tempObjForPQAndString["pNum"]=
                                   tempStorageForKeys[counterForIteratingOverOnlyPandQ];
+                tempObjForPQAndString["qNum"]=
+                                              qNum;
                 tempObjForPQAndString["pString"]=
                                   firstTempVarForKeyRunover;
                 tempObjForPQAndString["qString"]=

@@ -13,5 +13,6 @@ router.use(require('./users'));
 router.use(require('./getVariableMeaning'));
 router.use(require('./getOptionMeaning'));
 router.use(require('./getFinalMeaning'));
+router.use(require('./generateQuestions'));
 
 module.exports = router;

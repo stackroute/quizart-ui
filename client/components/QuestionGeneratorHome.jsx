@@ -39,7 +39,7 @@ export default class QuestionGeneratorHome extends React.Component
     constructor(props)
     {
         super(props);
-        this.state={slideIndex: 0,enableVariable:true,enableOption:true,enableVariableMeaning:true,enableOptionMeaning:true,enableFinal:true,enablenoofoptions:true,question:' ',qString:'',selectedOptionMeaning:[],variables:[],selectedVariable:[],options:[],selectedVariableMeaning:[],selectedFinalMeaning:'',variableMeaning:'',optionMeaning:'',pString:[],noOfOptionsDisplay:[],noofoptions:''};
+        this.state={slideIndex: 0,enableVariable:true,enableOption:true,enableVariableMeaning:true,enableOptionMeaning:true,enableFinal:true,enablenoofoptions:true,question:' ',qStringForVariable:'',pIdForOption:'',pIdForVariable:'',qIDForVariable:'',selectedOptionMeaning:[],variables:[],selectedVariable:[],options:[],selectedVariableMeaning:[],selectedFinalMeaning:'',variableMeaning:'',optionMeaning:'',pString:[],noOfOptionsDisplay:[],noofoptions:''};
         this.handleSlide = this.handleSlide.bind(this);
         this.handleVariables = this.handleVariables.bind(this);
         this.handleInput = this.handleInput.bind(this);
@@ -163,7 +163,7 @@ export default class QuestionGeneratorHome extends React.Component
   }
   handleSelectedVariableMeaning=(variable,id)=>{
     this.setState({variableMeaning:variable});
-    this.setState({qString:id});
+    this.setState({qStringForVariable:id});
     this.setState({enableVariableMeaning:false});
   };
 
@@ -174,18 +174,13 @@ export default class QuestionGeneratorHome extends React.Component
     Request.post('http://localhost:8081/getFinalMeaning')
       .set('Content-type', 'application/json')
       .send({
-        id:this.state.qString
+        id:this.state.qStringForVariable
       })
       .end((err, res) => {
-          console.log("in res");
         if (res.status===200) {
-          console.log("in res");
-            console.log(res.body);
           for(var key in res.body)
           {
             tempString.push(res.body[key]);
-            console.log(res.body);
-            console.log(tempString);
         }
         this.setState({pString:tempString});
       }
@@ -194,8 +189,9 @@ export default class QuestionGeneratorHome extends React.Component
         }
       });
   }
-  handleSelectedOptionMeaning=(option)=>{
+  handleSelectedOptionMeaning=(option,id)=>{
     this.setState({optionMeaning:option});
+    this.setState({pIdForOption:id});
     this.setState({enableOptionMeaning:false});
   };
 handleNoofOptions=()=>{
@@ -208,15 +204,38 @@ handleNoofOptions=()=>{
   }
   this.setState({noOfOptionsDisplay:number})
 };
-handleSelectedFinalMeaning=(final)=>
+handleSelectedFinalMeaning=(pnum,qnum)=>
 {
+    this.setState({pIdForVariable:pnum});
+    this.setState({qIDForVariable:qnum});
     this.setState({enableFinal:false});
-    this.setState({selectedFinalMeaning:final});
 };
 handleSelectedNoofOptions=(no)=>{
   this.setState({enablenoofoptions:false});
   this.setState({noofoptions:no});
 };
+handleFinalMeaning=()=>{
+  value++;
+  this.setState({slideIndex:value});
+  var tempString=[];
+  Request.post('http://localhost:8081/generateQuestions')
+    .set('Content-type', 'application/json')
+    .send({
+      pIdForVariable:this.state.pIdForVariable,
+      qIDForVariable:this.state.qIDForVariable,
+      pIdForOption:this.state.pIdForOption,
+      numberOfQuestions:20,
+      numberofOptions:this.state.noofoptions
+    })
+    .end((err, res) => {
+      if (res.status===200) {
+      console.log("done");
+    }
+      else {
+        console.log("error");
+      }
+    });
+}
 
     render()
     {
@@ -263,8 +282,8 @@ handleSelectedNoofOptions=(no)=>{
                 <Card style={{height:80,width:"90%",margin:"auto"}}> <h4 style={{textAlign:"center",paddingTop:20}}>Ok! I got that.... Now Which of following best match " {this.state.selectedOption} " in Context of " {this.state.selectedVariable} "</h4></Card>
                 <List style={{margin:"0% 10% 0% 10%"}}>
                 {this.state.selectedOptionMeaning.map(data=>
-             <ListItem key={data.description} primaryText={data.label+"-"+data.description} onClick={() => { this.handleSelectedOptionMeaning(data.label+"-"+data.description) }} style={{backgroundColor:'#B3E5FC',margin:'5px',textAlign:'center',color:'#3F51B5'}}/>)}</List>
-     <RaisedButton label="Next" disabled={this.state.enableOptionMeaning} secondary={true} onClick={this.handleVariableMeaningDisplay} style={styles.buttonNext}/>
+             <ListItem key={data.description} primaryText={data.label+"-"+data.description} onClick={() => { this.handleSelectedOptionMeaning(data.label,data.id) }} style={{backgroundColor:'#B3E5FC',margin:'5px',textAlign:'center',color:'#3F51B5'}}/>)}</List>
+             <RaisedButton label="Next" disabled={this.state.enableOptionMeaning} secondary={true} onClick={this.handleVariableMeaningDisplay} style={styles.buttonNext}/>
                 </div>
 
                 <div>
@@ -272,7 +291,7 @@ handleSelectedNoofOptions=(no)=>{
                           </Card>
                           {this.state.pString.map(text=>
                             <List style={{margin:"0% 10% 0% 10%"}}>
-                              <ListItem key={text.pString+" - "+text.qString} primaryText={text.pString+" - "+text.qString}  onClick={() => { this.handleSelectedFinalMeaning(text.pString+" - "+text.qString) }} style={{backgroundColor:'#B3E5FC',margin:'5px',textAlign:'center',color:'#3F51B5'}}/></List>
+                              <ListItem key={text.pString+" - "+text.qString} primaryText={text.pString+" - "+text.qString}  onClick={() => { this.handleSelectedFinalMeaning(text.pNum,text.qNum) }} style={{backgroundColor:'#B3E5FC',margin:'5px',textAlign:'center',color:'#3F51B5'}}/></List>
                           )}
                                <RaisedButton label="Next" disabled={this.state.enableFinal} secondary={true} onClick={this.handleNoofOptions} style={styles.buttonNext}/>
                 </div>
@@ -283,7 +302,7 @@ handleSelectedNoofOptions=(no)=>{
                     <List style={{display: 'flex',flexDirection: 'row',flexWrap: "wrap",marginLeft:"5%"}}>
                     {this.state.noOfOptionsDisplay.map(i=><ListItem key={i} primaryText={i}  onClick={() => { this.handleSelectedNoofOptions(i) }}  style={{backgroundColor:'#B3E5FC',margin:'5px',textAlign:'center',color:'#3F51B5'}}/>)}
                       </List>
-                      <RaisedButton label="Next" disabled={this.state.enablenoofoptions} secondary={true} onClick={this.handleNoofOptions} style={styles.buttonNext}/>
+                      <RaisedButton label="Next" disabled={this.state.enablenoofoptions} secondary={true} onClick={this.handleFinalMeaning} style={styles.buttonNext}/>
                 </div>
 
                 </SwipeableViews>
