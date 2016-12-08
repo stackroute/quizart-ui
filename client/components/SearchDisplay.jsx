@@ -2,8 +2,9 @@ import React from 'react';
 import Paper from 'material-ui/Paper';
 import {Grid, Row, Col} from 'react-flexbox-grid';
 import {List, ListItem} from 'material-ui/List';
-import Divider from 'material-ui/Divider';
 import Subheader from 'material-ui/Subheader';
+import RaisedButton from 'material-ui/RaisedButton';
+import ContentSend from 'material-ui/svg-icons/content/send';
 
 const styles={
   paperStyle:{
@@ -21,10 +22,12 @@ imageStyle:{
 listStyle:{
   backgroundColor: '#F8BBD0',
   hoverColor:'#9FA8DA',
-  border: '.3px solid'
+  border: '.3px solid',
+  textAlign:'justify'
 }
 };
 var ListItems='';
+var ListItemsCommaCondition='';
 export default class SearchDisplay extends React.Component{
 
   constructor(props){
@@ -50,17 +53,20 @@ export default class SearchDisplay extends React.Component{
 
           var pattern= new RegExp(/.+?(( is))/ ,"i");
           var descriptionModification= clue.replace(pattern , "This is ");
-          var clueArr=descriptionModification.split(".");
+
+          var removeName= new RegExp(name,"g");
+          var descriptionModification= descriptionModification.replace(removeName , "________");
+          var clueArr=descriptionModification.split(/[.]/);
           clueArr.pop();
-          clueArr.map(function(element){
-           var commSep=element.split(',');
-           ListItems = commSep.map(function(element1){
+           ListItems = clueArr.map(function(element){
              element=element.trim();
+          //  var commSep=element.split(',');
+          //  ListItems = commSep.map(function(element){
             return (
-                <ListItem style={styles.listStyle} primaryText={element} />
+                <ListItem style={styles.listStyle} primaryText={element} leftIcon={<ContentSend />} />
 
             );
-          });
+          // });
           });
 
             }
@@ -68,18 +74,38 @@ export default class SearchDisplay extends React.Component{
 
         var pattern= new RegExp(/([^,]+)/ ,"i");
         var descriptionModification= clue.replace(pattern , "The "+des +" ");
+        var removeName= new RegExp(name,"g");
+        var descriptionModification= descriptionModification.replace(removeName , "________");
 
-        var clueArr=descriptionModification.split(".");
+        var clueArr=descriptionModification.split(/[.]/);
         clueArr.pop();
-        clueArr.map(function(element){
-         var commSep=element.split(',');
-         ListItems = commSep.map(function(element1){
-           element1=element1.trim();
-          return (
-            <ListItem style={styles.listStyle} primaryText={element1} />
+        ListItems = clueArr.map(function(element){
+          element=element.trim();
 
-          );
-        });
+          // if(element.length<=150){
+        return (
+              <ListItem style={styles.listStyle} primaryText={element} leftIcon={<ContentSend />} />
+
+            );
+        //   }
+        //
+        //   else if(element.length>150){
+        //     var commSep=element.split(',');
+        //     commSep.map(function(element1){
+        // return(
+        //       <ListItem style={styles.listStyle} primaryText={element1} leftIcon={<ContentSend />} />
+        //     );
+        //     });
+        //   }
+        //  var commSep=element.split(',');
+        //  ListItems = commSep.map(function(element){
+      //   else{
+      // return (
+      //       <ListItem style={styles.listStyle} primaryText={element} leftIcon={<ContentSend />} />
+      //
+      //     );
+      //   }
+        // });
         });
 
           }
@@ -142,12 +168,16 @@ export default class SearchDisplay extends React.Component{
       <p>{this.props.ElementObj.result.description}</p>
       {/* <p>{this.props.ElementObj.result.detailedDescription.articleBody}</p> */}
       <a href={this.props.ElementObj.result.detailedDescription.url} target="_blank">wikipedia</a>
-      <p>{descriptionModification}</p>
+      <p style={{textAlign:'justify'}}>{descriptionModification}</p>
+    </Col>
+  </Row>
+  <Row>
+    <Col xs={12} sm={12} md={12} lg={12}>
       <List>
         <Subheader inset={true}>Clues</Subheader>
-
         {ListItems}
       </List>
+       <RaisedButton label="Generate Options" secondary={true} />
     </Col>
     </Row>
     </div>
@@ -172,37 +202,41 @@ else {
 
       var pattern= new RegExp(/.+?(( is))/ ,"i");
       var descriptionModification= clue.replace(pattern , "This is ");
-      var clueArr=descriptionModification.split(".");
+      var removeName= new RegExp(name,"g");
+      var descriptionModification= descriptionModification.replace(removeName , "________");
+      var clueArr=descriptionModification.split(/[.]/);
       clueArr.pop();
-      clueArr.map(function(element){
-       var commSep=element.split(',');
-       ListItems = commSep.map(function(element1){
+      ListItems = clueArr.map(function(element){
+        element=element.trim();
+      //  var commSep=element.split(',');
+      //  ListItems = commSep.map(function(element1){
          element=element.trim();
         return (
-            <ListItem style={styles.listStyle} primaryText={element} />
+            <ListItem style={styles.listStyle} primaryText={element} leftIcon={<ContentSend />} />
 
         );
       });
-      });
+      // });
 
         }
   else if (commaPosition<=80  ) {
 
     var pattern= new RegExp(/([^,]+)/ ,"i");
     var descriptionModification= clue.replace(pattern , "The "+des +" ");
-
-    var clueArr=descriptionModification.split(".");
-    // clueArr.pop();
-    clueArr.map(function(element){
-     var commSep=element.split(',');
-     ListItems = commSep.map(function(element1){
-       element1=element1.trim();
+    var removeName= new RegExp(name,"g");
+    var descriptionModification= descriptionModification.replace(removeName , "________");
+    var clueArr=descriptionModification.split(/[.]/);
+    clueArr.pop();
+     ListItems = clueArr.map(function(element){
+    //  var commSep=element.split(',');
+    //  ListItems = commSep.map(function(element1){
+      element=element.trim();
       return (
-        <ListItem style={styles.listStyle} primaryText={element1} />
+        <ListItem style={styles.listStyle} primaryText={element} leftIcon={<ContentSend />} />
 
       );
     });
-    });
+    // });
 
       }
 
@@ -236,20 +270,24 @@ else {
   <div>
     <Row>
       <Col xs={12} sm={12} md={6} lg={6}>
-    <img src="./components/image.png" style={styles.imageStyle}/>
+    <img src="http://res.cloudinary.com/deaxb0msww/image/upload/v1481087596/Image-Not-Available_tcpeee.jpg" style={styles.imageStyle}/>
   </Col>
     <Col xs={12} sm={12} md={6} lg={6}>
     <h1>{this.props.ElementObj.result.name}</h1><br></br>
     <p>{this.props.ElementObj.result.description}</p>
     {/* <p>{this.props.ElementObj.result.detailedDescription.articleBody}</p> */}
     <a href={this.props.ElementObj.result.detailedDescription.url} target="_blank">wikipedia</a>
-    <p>{descriptionModification}</p>
+    <p style={{textAlign:'justify'}}>{descriptionModification}</p>
+  </Col>
+</Row>
+<Row>
+  <Col xs={12} sm={12} md={12} lg={12}>
     <List>
       <Subheader inset={true}>Clues</Subheader>
 
       {ListItems}
     </List>
-
+    <RaisedButton label="Generate Options" secondary={true} />
   </Col>
   </Row>
   </div>
