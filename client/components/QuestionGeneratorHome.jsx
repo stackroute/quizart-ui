@@ -240,7 +240,7 @@ handleFinalMeaning=()=>{
     render()
     {
         return(
-            <div>
+              <div>
                  <Card style={styles.card}>
                       <CardTitle title="Enter a sample Question (E.g. Who won the first Nobel Prize?)"/>
                   </Card>
