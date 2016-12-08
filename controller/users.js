@@ -5,7 +5,7 @@ var jwt = require('jsonwebtoken');
 var authenticateToken = "";
 router.use(bodyParser.json());
 var neo4j = require('neo4j-driver').v1;
-var driver = neo4j.driver("bolt://localhost", neo4j.auth.basic("neo4j", "Neo4j"));
+var driver = neo4j.driver("bolt://localhost", neo4j.auth.basic("neo4j", "password"));
 
 
 global.users=[
