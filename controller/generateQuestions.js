@@ -2,13 +2,31 @@ var express = require('express');
 var router = express.Router();
 var request = require('request');
 var bodyParser = require('body-parser');
+var wdk = require('wikidata-sdk');
 router.use(bodyParser.urlencoded({ extended: false }));
 router.use(bodyParser.json());
 router.post('/generateQuestions', function(req, res, next) {
-  var searchString=req.body.selectedOption;
-  var searchUri='https://www.wikidata.org/w/api.php?action=wbsearchentities&search='+searchString+'&type=property&language=en&format=json';
-  request(searchUri, function (error, response, body) {
+  var pIdForVariable=req.body.pIdForVariable;
+  var qIDForVariable=req.body.qIDForVariable;
+  var pIdForOption=req.body.pIdForOption;
+  var numberOfQuestionsRequired=req.body.numberOfQuestions;
+  var numberofOptions=req.body.numberofOptions;
+  var sparql = `
+  SELECT ?variable ?variableLabel ?optionLabel ?image
+  WHERE { ?variable wdt:${pIdForVariable} wd:${qIDForVariable} .
+         	?variable wdt:${pIdForOption} ?option .
+          ?variable wdt:P18 ?image
+
+        SERVICE wikibase:label {
+  		bd:serviceParam wikibase:language "en" .
+  	}
+
+  }LIMIT 10
+  `
+  var url = wdk.sparqlQuery(sparql);
+  request(url, function (error, response, body) {
     if (!error && response.statusCode == 200) {
+      console.log(body);
         res.send(body);
     }
   });

@@ -39,7 +39,7 @@ export default class QuestionGeneratorHome extends React.Component
     constructor(props)
     {
         super(props);
-        this.state={slideIndex: 0,enableVariable:true,enableOption:true,enableVariableMeaning:true,enableOptionMeaning:true,enableFinal:true,enablenoofoptions:true,question:' ',qStringForVariable:'',pIdForOption:'',pIdForVariable:'',qIDForVariable:'',selectedOptionMeaning:[],variables:[],selectedVariable:[],options:[],selectedVariableMeaning:[],selectedFinalMeaning:'',variableMeaning:'',optionMeaning:'',pString:[],noOfOptionsDisplay:[],noofoptions:''};
+        this.state={slideIndex: 0,prefix:'',suffix:'',generatedQuestions:[],enableVariable:true,enableOption:true,enableVariableMeaning:true,enableOptionMeaning:true,enableFinal:true,enablenoofoptions:true,question:' ',qStringForVariable:'',pIdForOption:'',pIdForVariable:'',qIDForVariable:'',selectedOptionMeaning:[],variables:[],selectedVariable:[],options:[],selectedVariableMeaning:[],selectedFinalMeaning:'',variableMeaning:'',optionMeaning:'',pString:[],noOfOptionsDisplay:[],noofoptions:''};
         this.handleSlide = this.handleSlide.bind(this);
         this.handleVariables = this.handleVariables.bind(this);
         this.handleInput = this.handleInput.bind(this);
@@ -50,13 +50,13 @@ export default class QuestionGeneratorHome extends React.Component
     handleVariables()
     {
         value=1;
+        selectedValue=[];
+        selectedOptionValue=[];
         this.setState({slideIndex:value});
         this.setState({selectedVariable:[]});
         this.setState({selectedOption:[]});
         this.setState({selectedVariableMeaning:[]});
         this.setState({selectedOptionMeaning:[]});
-        console.log(this.state.selectedVariable);
-        console.log(this.state.selectedOption);
         var temp=[];
         this.state.question.split(" ").map(variable => temp.push(variable));
         this.setState({variables:temp});
@@ -217,7 +217,41 @@ handleSelectedNoofOptions=(no)=>{
 handleFinalMeaning=()=>{
   value++;
   this.setState({slideIndex:value});
-  var tempString=[];
+  var count=0,pre,post;
+  var selected=this.state.selectedVariable.split(" ");
+  var question=this.state.question.split(" ");
+  console.log(selected.length);
+  console.log(selected[selected.length-1]);
+  if(selected.length>1)
+  {
+    console.log("hi");
+    var index=question.indexOf(selected[selected.length-1]);
+    console.log(index);
+    for(var iter=0;iter<index-1;iter++)
+    {
+      pre=pre+" "+question[iter];
+    }
+    for(var iter=index+1;iter<=question.length;iter++)
+    {
+    post=post+" "+question[iter];
+  }
+  }
+  else {
+      var index=question.indexOf(selected);
+      for(var iter=0;iter<index;iter++)
+      {
+        pre=pre+" "+question[iter];
+      }
+      for(var iter=index+1;iter<=question.length;iter++)
+      {
+      post=post+" "+question[iter];
+    }
+  }
+  console.log(pre);
+  console.log(post);
+  this.setState({prefix:pre});
+  this.setState({suffix:post});
+
   Request.post('http://localhost:8081/generateQuestions')
     .set('Content-type', 'application/json')
     .send({
@@ -228,8 +262,21 @@ handleFinalMeaning=()=>{
       numberofOptions:this.state.noofoptions
     })
     .end((err, res) => {
+      var questions=[];
       if (res.status===200) {
-      console.log("done");
+        if(res.body===null){
+    res.body = JSON.parse(res.text);
+    }
+    for(var arrayItem in res.body.results.bindings)
+    {
+      var tempQuestion={};
+      for(var value in res.body.results.bindings[arrayItem])
+      {
+        tempQuestion[value]=res.body.results.bindings[arrayItem][value].value;
+      }
+      questions.push(tempQuestion);
+    }
+    this.setState({generatedQuestions:questions});
     }
       else {
         console.log("error");
@@ -242,7 +289,7 @@ handleFinalMeaning=()=>{
         return(
               <div>
                  <Card style={styles.card}>
-                      <CardTitle title="Enter a sample Question (E.g. Who won the first Nobel Prize?)"/>
+                      <CardTitle title="Enter a sample Question (E.g. Sachin Tendulkar is from which country ?)"/>
                   </Card>
                   <TextField hintText="Type your Question Here" style={styles.questionField} onChange={this.handleInput}/>
                   <RaisedButton label="Done" secondary={true} onClick={this.handleVariables} style={styles.buttonDone}/>
@@ -304,6 +351,22 @@ handleFinalMeaning=()=>{
                       </List>
                       <RaisedButton label="Next" disabled={this.state.enablenoofoptions} secondary={true} onClick={this.handleFinalMeaning} style={styles.buttonNext}/>
                 </div>
+
+                <div>
+                  <Card style={{height:100,width:"90%",margin:"auto"}}> <h4 style={{textAlign:"center",paddingTop:20}}>Here Is Your Questions..</h4>
+                    </Card>
+              {this.state.generatedQuestions.map(data=> this.state.generatedQuestions(data).map(dataIter=>
+               <Card>
+                 <CardMedia>
+                  <img src={dataIter.image} />
+                </CardMedia>
+                <CardText>
+                    <p>pre+" "+{dataIter.variableLabel}+" "+post</p>
+                    <p> Option : {dataIter.optionLabel} </p>
+                </CardText>
+               </Card>
+             ))}
+               </div>
 
                 </SwipeableViews>
               </div>
