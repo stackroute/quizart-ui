@@ -53,7 +53,6 @@ console.log(clueArr);
       var isPosition= clue.search(/is /i);
       var commaPosition= clue.search(/,/i);
       var dotPosition= clue.search(/./i);
-      // console.log(isPosition);
       if(isPosition<=22){
 
           var pattern= new RegExp(/.+?(( is))/ ,"i");
@@ -65,10 +64,13 @@ console.log(clueArr);
           clueArr.pop();
            ListItems = clueArr.map(function(element){
              element=element.trim();
+
             return (
                 <ListItem style={styles.listStyle} primaryText={element} leftIcon={<ContentSend />} />
 
             );
+
+
 
           });
 
@@ -89,7 +91,10 @@ console.log(clueArr);
               <ListItem style={styles.listStyle} primaryText={element} leftIcon={<ContentSend />} />
 
             );
+
    
+
+
         });
 
           }
@@ -106,7 +111,6 @@ console.log(clueArr);
       <Col xs={12} sm={12} md={6} lg={6}>
       <h1>{this.props.ElementObj.result.name}</h1><br></br>
       <p>{this.props.ElementObj.result.description}</p>
-      {/* <p>{this.props.ElementObj.result.detailedDescription.articleBody}</p> */}
       <a href={this.props.ElementObj.result.detailedDescription.url} target="_blank">wikipedia</a>
       <p style={{textAlign:'justify'}}>{descriptionModification}</p>
     </Col>
@@ -138,6 +142,8 @@ else {
   var commaPosition= clue.search(/,/i);
   var dotPosition= clue.search(/./i);
 
+
+
   if(isPosition<=22){
 
       var pattern= new RegExp(/.+?(( is))/ ,"i");
@@ -155,8 +161,6 @@ else {
 
         );
       });
-      // });
-
         }
   else if (commaPosition<=80  ) {
 
@@ -168,6 +172,8 @@ else {
     clueArr.pop();
      ListItems = clueArr.map(function(element){
 
+
+
       element=element.trim();
       return (
         <ListItem style={styles.listStyle} primaryText={element} leftIcon={<ContentSend />} />
@@ -176,9 +182,12 @@ else {
     });
 
 
+
       }
 
 
+
+      }
 
   return(
       <Row center='xs'>
@@ -191,7 +200,6 @@ else {
     <Col xs={12} sm={12} md={6} lg={6}>
     <h1>{this.props.ElementObj.result.name}</h1><br></br>
     <p>{this.props.ElementObj.result.description}</p>
-    {/* <p>{this.props.ElementObj.result.detailedDescription.articleBody}</p> */}
     <a href={this.props.ElementObj.result.detailedDescription.url} target="_blank">wikipedia</a>
     <p style={{textAlign:'justify'}}>{descriptionModification}</p>
   </Col>
@@ -210,6 +218,7 @@ else {
   </Paper>
 </Row>
 );
+
 
 }
 }

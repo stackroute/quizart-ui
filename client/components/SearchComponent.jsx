@@ -34,11 +34,9 @@ export default class SearchComponent extends React.Component{
     <Paper style={styles} zDepth={1} >
       <form >
      <TextField
-      hintText="anything"
-      style={{width:'1000px'}}
+      style={{width:'95%'}}
       onChange={this.handleChange}
-      floatingLabelText="Search"
-      floatingLabelFixed={true}
+      floatingLabelText="Search Here"
       />
       <RaisedButton label="Search" primary={true} onClick={this.handleAPICall}/>
     </form>
