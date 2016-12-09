@@ -14,5 +14,5 @@ router.use(require('./getVariableMeaning'));
 router.use(require('./getOptionMeaning'));
 router.use(require('./getFinalMeaning'));
 router.use(require('./generateQuestions'));
-
+router.use(require('./generateClues'));
 module.exports = router;

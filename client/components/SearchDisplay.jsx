@@ -48,7 +48,6 @@ export default class SearchDisplay extends React.Component{
       var isPosition= clue.search(/is /i);
       var commaPosition= clue.search(/,/i);
       var dotPosition= clue.search(/./i);
-      // console.log(isPosition);
       if(isPosition<=22){
 
           var pattern= new RegExp(/.+?(( is))/ ,"i");
@@ -60,13 +59,11 @@ export default class SearchDisplay extends React.Component{
           clueArr.pop();
            ListItems = clueArr.map(function(element){
              element=element.trim();
-          //  var commSep=element.split(',');
-          //  ListItems = commSep.map(function(element){
+
             return (
                 <ListItem style={styles.listStyle} primaryText={element} leftIcon={<ContentSend />} />
 
             );
-          // });
           });
 
             }
@@ -82,78 +79,13 @@ export default class SearchDisplay extends React.Component{
         ListItems = clueArr.map(function(element){
           element=element.trim();
 
-          // if(element.length<=150){
         return (
               <ListItem style={styles.listStyle} primaryText={element} leftIcon={<ContentSend />} />
 
             );
-        //   }
-        //
-        //   else if(element.length>150){
-        //     var commSep=element.split(',');
-        //     commSep.map(function(element1){
-        // return(
-        //       <ListItem style={styles.listStyle} primaryText={element1} leftIcon={<ContentSend />} />
-        //     );
-        //     });
-        //   }
-        //  var commSep=element.split(',');
-        //  ListItems = commSep.map(function(element){
-      //   else{
-      // return (
-      //       <ListItem style={styles.listStyle} primaryText={element} leftIcon={<ContentSend />} />
-      //
-      //     );
-      //   }
-        // });
         });
 
           }
-
-
-
-      // else if (dotPosition<=22){
-      //   var pattern= new RegExp(/([^.]+)/ ,"i");
-      //
-      //   var nameSplit=name.split(" ");
-      //   var nameLastWord = nameSplit[nameSplit.length - 1];
-      //
-      //   var descriptionModification= clue.replace(pattern , "The "+des);
-      //   var clueArr=descriptionModification.split(".");
-      //   clueArr.pop();
-      //   clueArr.map(function(element){
-      //    var commSep=element.split(',');
-      //    ListItems = commSep.map(function(element1){
-      //      element1=element1.trim();
-      //     return (
-      //       <ListItem style={styles.listStyle} primaryText={element1} />
-      //
-      //     );
-      //   });
-      //   });
-      //
-      //     }
-
-
-
-
-
-      //   nameArr.map(function(element, j){
-       //
-      //     clueArr.map(function(element, i){
-      //     if(nameArr[j]==element)
-      //     {
-      //
-      //       clueArr.splice(i, nameLength,"This ",des," ");
-      //     }
-      //     });
-      //  });
-       //
-       //
-      //    var abc="";
-      //      clueArr.map(function(element, i){
-      //        abc+=element+" ";
-      //      });
 
     return(
       <Row center='xs'>
@@ -166,7 +98,6 @@ export default class SearchDisplay extends React.Component{
       <Col xs={12} sm={12} md={6} lg={6}>
       <h1>{this.props.ElementObj.result.name}</h1><br></br>
       <p>{this.props.ElementObj.result.description}</p>
-      {/* <p>{this.props.ElementObj.result.detailedDescription.articleBody}</p> */}
       <a href={this.props.ElementObj.result.detailedDescription.url} target="_blank">wikipedia</a>
       <p style={{textAlign:'justify'}}>{descriptionModification}</p>
     </Col>
@@ -197,7 +128,6 @@ else {
   var isPosition= clue.search(/is /i);
   var commaPosition= clue.search(/,/i);
   var dotPosition= clue.search(/./i);
-  // console.log(isPosition);
   if(isPosition<=22){
 
       var pattern= new RegExp(/.+?(( is))/ ,"i");
@@ -208,16 +138,13 @@ else {
       clueArr.pop();
       ListItems = clueArr.map(function(element){
         element=element.trim();
-      //  var commSep=element.split(',');
-      //  ListItems = commSep.map(function(element1){
+
          element=element.trim();
         return (
             <ListItem style={styles.listStyle} primaryText={element} leftIcon={<ContentSend />} />
 
         );
       });
-      // });
-
         }
   else if (commaPosition<=80  ) {
 
@@ -228,41 +155,13 @@ else {
     var clueArr=descriptionModification.split(/[.]/);
     clueArr.pop();
      ListItems = clueArr.map(function(element){
-    //  var commSep=element.split(',');
-    //  ListItems = commSep.map(function(element1){
       element=element.trim();
       return (
         <ListItem style={styles.listStyle} primaryText={element} leftIcon={<ContentSend />} />
 
       );
     });
-    // });
-
       }
-
-
-
-  // else if (dotPosition<=22){
-  //   var pattern= new RegExp(/([^.]+)/ ,"i");
-  //
-  //   var nameSplit=name.split(" ");
-  //   var nameLastWord = nameSplit[nameSplit.length - 1];
-  //
-  //   var descriptionModification= clue.replace(pattern , "The "+des);
-  //   var clueArr=descriptionModification.split(".");
-  //   clueArr.pop();
-  //   clueArr.map(function(element){
-  //    var commSep=element.split(',');
-  //    ListItems = commSep.map(function(element1){
-  //      element1=element1.trim();
-  //     return (
-  //       <ListItem style={styles.listStyle} primaryText={element1} />
-  //
-  //     );
-  //   });
-  //   });
-  //
-  //     }
 
   return(
       <Row center='xs'>
@@ -275,7 +174,6 @@ else {
     <Col xs={12} sm={12} md={6} lg={6}>
     <h1>{this.props.ElementObj.result.name}</h1><br></br>
     <p>{this.props.ElementObj.result.description}</p>
-    {/* <p>{this.props.ElementObj.result.detailedDescription.articleBody}</p> */}
     <a href={this.props.ElementObj.result.detailedDescription.url} target="_blank">wikipedia</a>
     <p style={{textAlign:'justify'}}>{descriptionModification}</p>
   </Col>
@@ -294,8 +192,6 @@ else {
   </Paper>
 </Row>
 );
-// var content= {this.props.ElementObj.result.detailedDescription.articleBody};
-// console.log(content);
 }
 }
 }
