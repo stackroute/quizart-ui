@@ -5,7 +5,7 @@ import {List, ListItem} from 'material-ui/List';
 import Subheader from 'material-ui/Subheader';
 import RaisedButton from 'material-ui/RaisedButton';
 import ContentSend from 'material-ui/svg-icons/content/send';
-
+import Request from 'superagent';
 const styles={
   paperStyle:{
   height: '100%',
@@ -32,7 +32,36 @@ export default class SearchDisplay extends React.Component{
 
   constructor(props){
     super(props);
+    this.handleTouchTab=this.handleTouchTab.bind(this);
   }
+<<<<<<< HEAD
+=======
+handleTouchTab(name,description,clueArr){
+console.log(name);
+console.log(description);
+console.log(clueArr);
+Request.post('http://localhost:8081/storeJeopardyClues')
+      .set('Content-Type', 'application/json')
+      .send({
+        "name": name,
+        "description": description,
+        "clueArr": clueArr
+      })
+      .end((err, res) => {
+        console.log(err)
+        console.log(res)
+        if (res.status===200) {
+          alert("The clues successfully stored in database")
+        } else {
+          this.setState({
+            err: res.body.message
+          });
+          return false;
+        }
+      });
+}
+
+
 
   render(){
     if(this.props.ElementObj.result.hasOwnProperty('image')){
@@ -94,21 +123,17 @@ export default class SearchDisplay extends React.Component{
       <img src={this.props.ElementObj.result.image.contentUrl} alt="image not Available" style={styles.imageStyle}></img>
       </Col>
       <Col xs={12} sm={12} md={6} lg={6}>
-      <h1>{this.props.ElementObj.result.name}</h1><br></br>
+      <h1 style={{margin:2,color:'#1A237E'}}>{this.props.ElementObj.result.name}</h1>
       <p>{this.props.ElementObj.result.description}</p>
       <a href={this.props.ElementObj.result.detailedDescription.url} target="_blank">wikipedia</a>
-      <p style={{textAlign:'justify'}}>{descriptionModification}</p>
+      <List>
+      <Subheader style={{textAlign:'left'}}>Clues:</Subheader>
+
+      {ListItems}
+    </List>
+ <RaisedButton label="Generate Options" secondary={true} onTouchTap={() => this.handleTouchTab(this.props.ElementObj.result.name,this.props.ElementObj.result.description,clueArr)}/>
     </Col>
   </Row>
-  <Row>
-    <Col xs={12} sm={12} md={12} lg={12}>
-      <List>
-        <Subheader inset={true}>Clues</Subheader>
-        {ListItems}
-      </List>
-       <RaisedButton label="Generate Options" secondary={true} />
-    </Col>
-    </Row>
     </div>
     </Paper>
   </Row>
@@ -170,22 +195,17 @@ else {
     <img src="http://res.cloudinary.com/deaxb0msww/image/upload/v1481087596/Image-Not-Available_tcpeee.jpg" style={styles.imageStyle}/>
   </Col>
     <Col xs={12} sm={12} md={6} lg={6}>
-    <h1>{this.props.ElementObj.result.name}</h1><br></br>
+    <h1 style={{margin:2,color:'#1A237E'}}>{this.props.ElementObj.result.name}</h1>
     <p>{this.props.ElementObj.result.description}</p>
     <a href={this.props.ElementObj.result.detailedDescription.url} target="_blank">wikipedia</a>
-    <p style={{textAlign:'justify'}}>{descriptionModification}</p>
-  </Col>
-</Row>
-<Row>
-  <Col xs={12} sm={12} md={12} lg={12}>
     <List>
-      <Subheader inset={true}>Clues</Subheader>
+      <Subheader style={{textAlign:'left'}}>Clues:</Subheader>
 
       {ListItems}
     </List>
-    <RaisedButton label="Generate Options" secondary={true} />
+ <RaisedButton label="Generate Options" secondary={true} onTouchTap={() => this.handleTouchTab(this.props.ElementObj.result.name,this.props.ElementObj.result.description,clueArr)}/>
   </Col>
-  </Row>
+</Row>
   </div>
   </Paper>
 </Row>

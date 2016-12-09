@@ -5,8 +5,8 @@ import Paper from 'material-ui/Paper';
 import RaisedButton from 'material-ui/RaisedButton';
 
 const styles={
-  height: 100,
-  width: 1500,
+  height: '100%',
+  width: '95%',
   textAlign: 'center',
   margin:'auto'
 
@@ -32,14 +32,14 @@ export default class SearchComponent extends React.Component{
     return(
       <div>
     <Paper style={styles} zDepth={1} >
-      <form >
+
      <TextField
-      style={{width:'95%'}}
+      style={{width:'85%'}}
       onChange={this.handleChange}
       floatingLabelText="Search Here"
       />
-      <RaisedButton label="Search" primary={true} onClick={this.handleAPICall}/>
-    </form>
+      <RaisedButton label="Search" primary={true} onClick={this.handleAPICall} style={{margin:'2%'}}/>
+
     </Paper>
     </div>
     );

@@ -19,5 +19,6 @@ app.use('/',require('./controller/index.js'));
 app.use('/',require('./controller/index.js'));
 app.use('/',require('./controller/index.js'));
 app.use('/signin',require('./controller/index.js'));
+app.use('/',require('./controller/index.js'));
 app.listen('8081',function(){
 });

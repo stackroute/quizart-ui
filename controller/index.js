@@ -15,4 +15,6 @@ router.use(require('./getOptionMeaning'));
 router.use(require('./getFinalMeaning'));
 router.use(require('./generateQuestions'));
 router.use(require('./generateClues'));
+router.use(require('./storeJeopardyClues'));
+
 module.exports = router;
