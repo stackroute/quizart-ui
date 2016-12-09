@@ -4,6 +4,7 @@
   "description": "QuizRT UI Microservice",
   "main": "index.js",
   "dependencies": {
+    "async": "^2.1.4",
     "jwt-decode": "^2.1.0",
     "neo4j-driver": "^1.0.4",
     "request": "^2.79.0",

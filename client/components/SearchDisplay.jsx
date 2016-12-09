@@ -32,11 +32,10 @@ export default class SearchDisplay extends React.Component{
 
   constructor(props){
     super(props);
-    this.handleTouchTab=this.handleTouchTab.bind(this);
+    this.handleTouchTap=this.handleTouchTap.bind(this);
   }
-<<<<<<< HEAD
-=======
-handleTouchTab(name,description,clueArr){
+
+handleTouchTap(name,description,clueArr){
 console.log(name);
 console.log(description);
 console.log(clueArr);
@@ -203,7 +202,7 @@ else {
 
       {ListItems}
     </List>
- <RaisedButton label="Generate Options" secondary={true} onTouchTap={() => this.handleTouchTab(this.props.ElementObj.result.name,this.props.ElementObj.result.description,clueArr)}/>
+ <RaisedButton label="Generate Options" secondary={true} onTouchTap={() => this.handleTouchTap(this.props.ElementObj.result.name,this.props.ElementObj.result.description,clueArr)}/>
   </Col>
 </Row>
   </div>

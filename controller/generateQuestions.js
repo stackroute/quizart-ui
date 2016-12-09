@@ -21,7 +21,7 @@ router.post('/generateQuestions', function(req, res, next) {
   		bd:serviceParam wikibase:language "en" .
   	}
 
-  }LIMIT 10
+  }
   `
   var url = wdk.sparqlQuery(sparql);
   request(url, function (error, response, body) {

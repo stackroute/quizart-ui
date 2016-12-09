@@ -24,7 +24,6 @@ export default class SearchComponent extends React.Component{
   }
   handleAPICall(event){
     var SearchValue=this.state.value;
-    console.log(SearchValue);
     this.props.onSearch(SearchValue);
   }
 

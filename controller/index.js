@@ -4,7 +4,7 @@ router = express.Router();
 
 router.use(function(req,res,next) {
   console.log(req.body);
-  console.log("Inside Middleware")
+  console.log("Inside Middleware");
   next();
 })
 router.use(require('./signup'));
@@ -16,5 +16,6 @@ router.use(require('./getFinalMeaning'));
 router.use(require('./generateQuestions'));
 router.use(require('./generateClues'));
 router.use(require('./storeJeopardyClues'));
-
+router.use(require('./generateJeopardyClues'));
+router.use(require('./generateSubject'));
 module.exports = router;
