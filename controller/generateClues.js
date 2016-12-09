@@ -6,7 +6,7 @@ router.use(bodyParser.urlencoded({ extended: false }));
 router.use(bodyParser.json());
 router.post('/generateClues', function(req, res, next) {
   var searchString=req.body.searchValue;
-  var searchUri='https://kgsearch.googleapis.com/v1/entities:search?query='+searchString+'&key=AIzaSyBIqOeykX5B6xGKC7xsZWmS86P81Zr12DY&limit=20&indent=True';
+  var searchUri='https://kgsearch.googleapis.com/v1/entities:search?query='+searchString+'&key=AIzaSyBIqOeykX5B6xGKC7xsZWmS86P81Zr12DY&limit=10&indent=True';
   request(searchUri, function (error, response, body) {
     if (!error && response.statusCode == 200) {
         res.send(body);

@@ -34,8 +34,6 @@ export default class SearchDisplay extends React.Component{
     super(props);
   }
 
-
-
   render(){
     if(this.props.ElementObj.result.hasOwnProperty('image')){
       var clue=this.props.ElementObj.result.detailedDescription.articleBody;
