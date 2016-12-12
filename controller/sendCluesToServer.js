@@ -21,7 +21,7 @@ router.post('/sendCluesToServer', function(req, res, next) {
     bd:serviceParam wikibase:language "en" .
   }
 
-}LIMIT 1
+}
 `
 var subjectList=[];
 var url = wdk.sparqlQuery(sparql);
@@ -56,16 +56,15 @@ request(url, function (error, response, body) {
       }
       else
       {
-        for(var data in results){
-
+        async.each(results, function(data, callback){
           var ListItems='';
           var ListItemsCommaCondition='';
-
-          var clue=results[data].detailedDescription.articleBody;
-          var name=results[data].name;
-          var des=results[data].description;
+          var clue=data.detailedDescription.articleBody;
+          var name=data.name;
+          var des=data.description;
           var nameArr=name.split(' ');
           var nameLength= nameArr.length;
+          var clue;
 
 
           var isPosition= clue.search(/is /i);
@@ -129,11 +128,26 @@ request(url, function (error, response, body) {
             var clueArr=descriptionModification.split(/\.\s/);
             if(clueArr.length>1){clueArr.pop();}
             else{}
+          clue=clueArr;
           }
+          console.log(name+" "+clueArr);
           session
-          .run("MERGE (p:Person {name:{name}})-[r:Described_By]->(clue:{clue}) return r",{name:results[data].name, clue:clueArr})
+          .run("MERGE (p:Person {name:{name}})-[:Described_By]->(c:clue{clue:{clue}}) return p",{name:data.name,clue:clueArr})
 
-        }
+        }, function(err)
+        {
+          if( err )
+          {
+            console.log('Failed to process');
+          }
+          else
+          {
+            session.close();
+            driver.close();
+              console.log("Done");
+          }
+        });
+          console.log("process Done");
       }
     });
   }
