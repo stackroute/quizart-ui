@@ -4,12 +4,11 @@ import {Card, CardTitle, CardText} from 'material-ui/Card';
 import TimerSpeed from './TimerV';
 import FloatingActionButton from 'material-ui/FloatingActionButton';
 import {grey900,blue300} from './../../node_modules/material-ui/styles/colors';
-import {ListItem} from 'material-ui/List';
 import Paper from 'material-ui/Paper';
 import MediaQuery from 'react-responsive';
 import {Row,Col} from 'react-flexbox-grid';
-
-
+import {List, ListItem} from 'material-ui/List';
+import RaisedButton from 'material-ui/RaisedButton'
 
 var options=[];
 export default class JeopardyGameplay extends React.Component {
@@ -21,6 +20,8 @@ export default class JeopardyGameplay extends React.Component {
             choice:'',
             topic: [],
             i: 0,
+            question:'',
+            options:[],
         };
         this.changeState=this.changeState.bind(this);
         this.handleOnClick = this.handleOnClick.bind(this);
@@ -28,10 +29,15 @@ export default class JeopardyGameplay extends React.Component {
 
     componentDidMount()
     {
+        console.log("component mounted");
         superagent
         .get('http://localhost:3000/topic?_limit=' + this.props.limit)
         .end((err, res) => {
+            console.log("processing");
             this.setState({topic: res.body});
+            this.state.topic.map((ques)=>
+                this.setState({question:ques.question})
+                );
         });
     }
 
@@ -63,19 +69,21 @@ export default class JeopardyGameplay extends React.Component {
         this.state.topic.map((topics => {
             for(var i=0;i<topics.options.length;i++)
             {
-                options.push(<button onTouchTap={this.handleOnClick}
-                    style={{width: '50%', height:'100%',margin: '1px',textAlign:'center',
-                    backgroundColor:'#1A237E',color:'white',
-                    padding: '2px 2px 2px 2px',
-                    borderTopLeftRadius:'20px' ,borderTopRightRadius: '20px',
-                    borderBottomLeftRadius: '20px',borderBottomRightRadius: '20px',
-                    cursor: 'pointer',
-                    outline: '30px 30px 30px 30px',
-                    fontSize:'2px'
-                }}>
-                {topics.options[i]}
-                </button>);
+                // options.push(<button onTouchTap={this.handleOnClick}
+                //     style={{width: '50%', height:'100%',margin: '1px',textAlign:'center',
+                //     backgroundColor:'#1A237E',color:'white',
+                //     padding: '2px 2px 2px 2px',
+                //    /* borderTopLeftRadius:'20px' ,borderTopRightRadius: '20px',
+                //     borderBottomLeftRadius: '20px',borderBottomRightRadius: '20px',*/
+                //     cursor: 'pointer',
+                //     outline: '30px 30px 30px 30px',
+                //     fontSize:'2px'
+                // }}>
+                options.push(topics.options[i]);
+
+                //</button>);
             }
+            this.setState({options:options});
         }));
          // <TimerSpeed timeLimit={1000} blocks={[0,1,2,3,4]} />;
     }
@@ -97,78 +105,85 @@ render() {
     <TimerSpeed timeLimit={1000} blocks={[0,1,2,3,4,5,6,7]} />
     </div>
 
-    const topicStruct =  this.state.topic.map((topics => {
-        for(let indexQ=0; indexQ<=this.state.i; indexQ++)
-        {
-            if(indexQ == this.state.i)
-            {
-                return (
-                    <div>
-        <Row >
-         <Col xs={12} sm={6} md={6} lg={6}>
-                     <MediaQuery minDeviceWidth='1224px'>
-                     <div className="cardTitle">
-                    <CardTitle titleStyle={{fontSize:'3px',width:'65px',margin:'2px',lineHeight:'4px'}}
-                    style={{height:10,padding:0}}  
-                    title={topics.question}/>
+    // const topicStruct =  this.state.topic.map((topics => {
+    //     for(let indexQ=0; indexQ<=this.state.i; indexQ++)
+    //     {
+    //         if(indexQ == this.state.i)
+    //         {
+    //     //         return (
+    //     //             <div>
+        
+    //     //              <MediaQuery minDeviceWidth='1224px'>
+    //     //              <div className="cardTitle">
+    //     //             <CardTitle titleStyle={{fontSize:'3px',width:'65px',margin:'2px',lineHeight:'4px'}}
+    //     //             style={{height:10,padding:0}}  
+    //     //             title={topics.question}/>
                    
-                </div>
-                </MediaQuery>
-                <MediaQuery maxDeviceWidth='1224px' className="cardTitle">
-                    <CardTitle titleStyle={{fontSize:'1.5px',marginBottom:10,lineHeight:'3px'}}
-                    style={{height:10,padding:0}}  
-                    title={topics.question}/>
-                </MediaQuery>
-                </Col>
-        </Row>
-        </div>
-         );
+    //     //         </div>
+    //     //         </MediaQuery>
+    //     //         <MediaQuery maxDeviceWidth='1224px' className="cardTitle">
+    //     //             <CardTitle titleStyle={{fontSize:'1.5px',marginBottom:10,lineHeight:'3px'}}
+    //     //             style={{height:10,padding:0}}  
+    //     //             title={topics.question}/>
+    //     //         </MediaQuery>
+                
+    //     // </div>
+    //     //  );
 
-            }
-        }
-    }));
+    //         }
+    //     }
+    // }));
     return (
         <div>
-        <Row center='xs'>
-         <Col xs={12} sm={6} md={6} lg={6}>
-          {/*<Row center='xs'> */}
 
           <MediaQuery minDeviceWidth={1} maxDeviceWidth={479}>
                <div className="some-class">
         <Card style={{width:'90%',height:'68px',marginTop:'-15px',marginLeft:'2px',backgroundColor:blue300}}>
-        {topicStruct}  
+         <CardTitle title={this.state.question} style={{padding:"0px"}} titleStyle={{fontSize:"2px",lineHeight:"2px",marginTop:"-10px"}}/>
         {screenData}
-        {this.state.choice}
+        {this.state.options}
+        
         </Card>
         </div>
             </MediaQuery>
             <MediaQuery minDeviceWidth={480} maxDeviceWidth={767}>
               <div className="some-class">
         <Card style={{width:'90%',height:'76px',marginTop:'0px',backgroundColor:blue300}}>
-        {topicStruct}       
+         <CardTitle title={this.state.question} style={{padding:"0px"}} titleStyle={{fontSize:"2px",lineHeight:"2px",marginTop:"-10px"}}/>
         {screenData}
-        {this.state.choice}
+        {this.state.options}
+        console.log(this.state.options);
         </Card>
         </div>
             </MediaQuery>
         <MediaQuery minDeviceWidth={768} maxDeviceWidth={1023}>
          <div className="some-class">
         <Card style={{width:'200%',height:'76px',marginTop:'4px', marginLeft:'-15px',backgroundColor:blue300}}>
-        <Row center="xs" style={{fontSize:"15px"}}>{topicStruct} </Row>      
+        <CardTitle title={this.state.question} style={{padding:"0px"}} titleStyle={{fontSize:"3px",lineHeight:"2px",marginTop:"-10px"}}/>
+        <Row center="xs" style={{fontSize:"15px"}}> </Row>      
         {screenData}
-        {this.state.choice}
+        {this.state.options}
+        console.log(this.state.options);
         </Card>
         </div>
         </MediaQuery>
         <MediaQuery minDeviceWidth={1024} className="some-class">
-         <Card style={{width:'90%',height:'65px',fontSize:'1px', backgroundColor:blue300, margin:'auto'}}>
-        {topicStruct}       
+         <Card style={{width:'90%',fontSize:'1px', backgroundColor:blue300, margin:'-7% auto'}}>
+          <CardTitle title={this.state.question} style={{padding:"0px"}} titleStyle={{fontSize:"3px",lineHeight:"4px",marginTop:"-10px"}}/>      
         {screenData}
-        {this.state.choice}
+        {this.state.options.map(i=> <button key={i} onTouchTap={this.handleOnClick}  label={i} style={{width:"30%",height:'100%',margin: '1px',textAlign:'center',
+        backgroundColor:'#1A237E',color:'white', padding: '2px 2px 2px 2px',borderTopLeftRadius:'20px' ,borderTopRightRadius: '20px',
+        borderBottomLeftRadius: '20px',borderBottomRightRadius: '20px', cursor: 'pointer', outline: '30px 30px 30px 30px',
+        fontSize:'2px'
+
+
+
+
+            }} />)}
+            
         </Card>
         </MediaQuery>
-        </Col>
-        </Row>
+
         </div>
         );
 }
