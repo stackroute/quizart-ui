@@ -4,7 +4,7 @@ var request = require('request');
 var bodyParser = require('body-parser');
 router.use(bodyParser.urlencoded({ extended: false }));
 router.use(bodyParser.json());
-router.post('/getVariableMeaning', function(req, res, next) {
+router.post('/getSubjectMeaning', function(req, res, next) {
   var searchString=req.body.selectedVariable;
   var searchUri='https://www.wikidata.org/w/api.php?action=wbsearchentities&search='+searchString+'&language=en&format=json';
   request(searchUri, function (error, response, body) {

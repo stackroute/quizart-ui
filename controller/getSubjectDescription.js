@@ -11,7 +11,7 @@ var totalNumberOfRequestsNeedToBeMade=0;
 var dataToBeAnalyzedForRelevance={};
 router.use(bodyParser.urlencoded({ extended: false }));
 router.use(bodyParser.json());
-router.post('/getFinalMeaning', function(req, res, next) {
+router.post('/getSubjectDescription', function(req, res, next) {
   var id=req.body.id;
   var searchUri='https://www.wikidata.org/wiki/Special:EntityData/'+id+'.json';
   console.log(searchUri);

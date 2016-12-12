@@ -50,7 +50,6 @@ export default class SearchDisplay extends React.Component{
 
         var pattern= new RegExp(/.+?(( is))/ ,"i");
         var descriptionModification= clue.replace(pattern , "This is ");
-        //
         var descriptionModificationArray= descriptionModification.split(' ');
         for(var i=0;i<nameArr.length;i++){
           descriptionModificationArray.map(function(element){
@@ -64,12 +63,9 @@ export default class SearchDisplay extends React.Component{
         var descriptionModification= descriptionModification.replace(removeName , "________");
 
         var clueArr=descriptionModification.split(/\.\s/);
-        console.log(clueArr);
         if(clueArr.length>1){clueArr.pop();}
         else{}
-        console.log(clueArr);
         ListItems = clueArr.map(function(element){
-          console.log(element);
           element=element.trim();
           return (
             <ListItem style={styles.listStyle} primaryText={element} leftIcon={<ContentSend />} />
@@ -81,8 +77,6 @@ export default class SearchDisplay extends React.Component{
 
         var pattern= new RegExp(/([^,]+)/ ,"i");
         var descriptionModification= clue.replace(pattern , "The "+des +" ");
-
-
         var descriptionModificationArray= descriptionModification.split(' ');
         for(var i=0;i<nameArr.length;i++){
           descriptionModificationArray.map(function(element){
@@ -96,7 +90,6 @@ export default class SearchDisplay extends React.Component{
         var descriptionModification= descriptionModification.replace(removeName , "________");
 
         var clueArr=descriptionModification.split(/\.\s/);
-        console.log(clueArr);
         if(clueArr.length>1){clueArr.pop();}
         else{}
         ListItems = clueArr.map(function(element){
@@ -124,12 +117,9 @@ export default class SearchDisplay extends React.Component{
         var descriptionModification= descriptionModification.replace(removeName , "________");
 
         var clueArr=descriptionModification.split(/\.\s/);
-        console.log(clueArr);
         if(clueArr.length>1){clueArr.pop();}
         else{}
-        console.log(clueArr);
         ListItems = clueArr.map(function(element){
-          console.log(element);
           element=element.trim();
           return (
             <ListItem style={styles.listStyle} primaryText={element} leftIcon={<ContentSend />} />
@@ -157,7 +147,6 @@ export default class SearchDisplay extends React.Component{
                     <Subheader inset={true}>Clues</Subheader>
                     {ListItems}
                   </List>
-                  <RaisedButton label="Generate Options" secondary={true} />
                 </Col>
               </Row>
             </div>
@@ -247,12 +236,9 @@ export default class SearchDisplay extends React.Component{
         var descriptionModification= descriptionModification.replace(removeName , "________");
 
         var clueArr=descriptionModification.split(/\.\s/);
-        console.log(clueArr);
         if(clueArr.length>1){clueArr.pop();}
         else{}
-        console.log(clueArr);
         ListItems = clueArr.map(function(element){
-          console.log(element);
           element=element.trim();
           return (
             <ListItem style={styles.listStyle} primaryText={element} leftIcon={<ContentSend />} />
@@ -260,7 +246,6 @@ export default class SearchDisplay extends React.Component{
         });
       }
       return(
-
         <Row center='xs'>
           <Paper style={styles.paperStyle} zDepth={1}>
             <div>
@@ -281,7 +266,6 @@ export default class SearchDisplay extends React.Component{
                     <Subheader inset={true}>Clues</Subheader>
                     {ListItems}
                   </List>
-                  <RaisedButton label="Generate Options" secondary={true} />
                 </Col>
               </Row>
             </div>

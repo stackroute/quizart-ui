@@ -47,7 +47,7 @@ export default class JeopardyClues extends React.Component{
   };
   handleClick=()=>{
     var tempClues=[];
-    Request.post('http://localhost:8081/generateClues')
+    Request.post('http://localhost:8081/identifyingSubject')
     .set('Content-type', 'application/json')
     .send({searchValue:this.state.input})
     .end((err, res) => {
@@ -74,7 +74,7 @@ export default class JeopardyClues extends React.Component{
     this.setState({selectedSubject:input});
     this.setState({selectedSubjectDescription:description});
     var variableMeaningArray=[];
-    Request.post('http://localhost:8081/getVariableMeaning')
+    Request.post('http://localhost:8081/getSubjectMeaning')
     .set('Content-type', 'application/json')
     .send({selectedVariable:input})
     .end((err, res) => {
@@ -108,7 +108,7 @@ export default class JeopardyClues extends React.Component{
     value++;
     this.setState({slideIndex:value});
     var tempString=[];
-    Request.post('http://localhost:8081/getFinalMeaning')
+    Request.post('http://localhost:8081/getSubjectDescription')
     .set('Content-type', 'application/json')
     .send({
       id:this.state.qStringForSubject
@@ -152,6 +152,19 @@ export default class JeopardyClues extends React.Component{
         }
         this.setState({jeopardyClues:tempSubject});
       }
+    });
+  };
+  postDataToServer=()=>{
+    alert("Your Clues Has been Generated");
+    var tempSubject=[];
+    Request.post('http://localhost:8081/sendCluesToServer')
+    .set('Content-type', 'application/json')
+    .send({
+      pIdForSubject:this.state.pIdForSubject,
+      qIDForSubject:this.state.qIDForSubject,
+      selectedSubjectDescription:this.state.selectedSubjectDescription
+    })
+    .end((err, res) => {
     });
   };
   render(){
@@ -215,7 +228,7 @@ export default class JeopardyClues extends React.Component{
                 {this.state.jeopardyClues.map(function(element){
                   return(<SearchDisplay ElementObj={element}></SearchDisplay>);
                 })}
-                <RaisedButton label="Next" disabled={this.state.enableSelectedSubjectContext} secondary={true} onClick={this.handleListOfSubject} style={styles.buttonNext}/>
+                <RaisedButton label="Generate Clues" disabled={this.state.enableSelectedSubjectContext} secondary={true} onClick={this.postDataToServer} style={styles.buttonNext}/>
               </div>
             </SwipeableViews>
           </div>

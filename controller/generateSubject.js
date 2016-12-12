@@ -18,7 +18,7 @@ router.post('/generateSubject', function(req, res, next) {
     bd:serviceParam wikibase:language "en" .
   }
 
-}LIMIT 10
+} LIMIT 2
 `
 var subjectList=[];
 var url = wdk.sparqlQuery(sparql);
@@ -28,9 +28,9 @@ request(url, function (error, response, body) {
     subjectsJson.results.bindings.map(function(item){
       subjectList.push(item.variableLabel.value);
     });
-    var results = [];
+    var results = [],count=0;
     async.each(subjectList, function(searchString, callback){
-      searchUri='https://kgsearch.googleapis.com/v1/entities:search?query='+searchString+'&key=AIzaSyBIqOeykX5B6xGKC7xsZWmS86P81Zr12DY&limit=5&indent=True';
+      searchUri='https://kgsearch.googleapis.com/v1/entities:search?query='+searchString+'&key=AIzaSyBIqOeykX5B6xGKC7xsZWmS86P81Zr12DY&indent=True';
       request(searchUri, function (error, response, body)
       {
         if (!error && response.statusCode == 200)

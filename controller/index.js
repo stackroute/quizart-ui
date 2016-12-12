@@ -10,12 +10,11 @@ router.use(function(req,res,next) {
 router.use(require('./signup'));
 router.use(require('./users'));
 
-router.use(require('./getVariableMeaning'));
+router.use(require('./getSubjectMeaning'));
 router.use(require('./getOptionMeaning'));
-router.use(require('./getFinalMeaning'));
+router.use(require('./getSubjectDescription'));
 router.use(require('./generateQuestions'));
-router.use(require('./generateClues'));
-router.use(require('./storeJeopardyClues'));
-router.use(require('./generateJeopardyClues'));
+router.use(require('./identifyingSubject'));
 router.use(require('./generateSubject'));
+router.use(require('./sendCluesToServer'));
 module.exports = router;
