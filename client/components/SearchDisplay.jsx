@@ -49,13 +49,13 @@ export default class SearchDisplay extends React.Component{
       if(isPosition<=22){
 
         var pattern= new RegExp(/.+?(( is))/ ,"i");
-        var descriptionModification= clue.replace(pattern , "This is ");
+        var descriptionModification= clue.replace(pattern , "The subject is ");
         var descriptionModificationArray= descriptionModification.split(' ');
         for(var i=0;i<nameArr.length;i++){
           descriptionModificationArray.map(function(element){
             if(element==nameArr[i]){
               var removeElement= new RegExp(nameArr[i],"g");
-              descriptionModification = descriptionModification.replace(removeElement , "this");
+              descriptionModification = descriptionModification.replace(removeElement , "the subject");
             }
           });
         }
@@ -82,7 +82,7 @@ export default class SearchDisplay extends React.Component{
           descriptionModificationArray.map(function(element){
             if(element==nameArr[i]){
               var removeElement= new RegExp(nameArr[i],"g");
-              descriptionModification = descriptionModification.replace(removeElement , "this");
+              descriptionModification = descriptionModification.replace(removeElement , "the subject ");
             }
           });
         }
@@ -103,13 +103,13 @@ export default class SearchDisplay extends React.Component{
       }
       else {
         var pattern= new RegExp(/.+?(( is))/ ,"i");
-        var descriptionModification= clue.replace(pattern , "This is ");
+        var descriptionModification= clue.replace(pattern , "The subject is ");
         var descriptionModificationArray= descriptionModification.split(' ');
         for(var i=0;i<nameArr.length;i++){
           descriptionModificationArray.map(function(element){
             if(element==nameArr[i]){
               var removeElement= new RegExp(nameArr[i],"g");
-              descriptionModification = descriptionModification.replace(removeElement , "this");
+              descriptionModification = descriptionModification.replace(removeElement , "the subject");
             }
           });
         }
@@ -170,14 +170,14 @@ export default class SearchDisplay extends React.Component{
       if(isPosition<=22 || wasPosition<=30){
 
         var pattern= new RegExp(/.+?(( is))/ ,"i");
-        var descriptionModification= clue.replace(pattern , "This is ");
+        var descriptionModification= clue.replace(pattern , "The subject is ");
 
         var descriptionModificationArray= descriptionModification.split(' ');
         for(var i=0;i<nameArr.length;i++){
           descriptionModificationArray.map(function(element){
             if(element==nameArr[i]){
               var removeElement= new RegExp(nameArr[i],"g");
-              descriptionModification = descriptionModification.replace(removeElement , "this");
+              descriptionModification = descriptionModification.replace(removeElement , "the subject");
             }
           });
         }
@@ -204,7 +204,7 @@ export default class SearchDisplay extends React.Component{
           descriptionModificationArray.map(function(element){
             if(element==nameArr[i]){
               var removeElement= new RegExp(nameArr[i],"g");
-              descriptionModification = descriptionModification.replace(removeElement , "this");
+              descriptionModification = descriptionModification.replace(removeElement , "the subject ");
             }
           });
         }
@@ -222,13 +222,13 @@ export default class SearchDisplay extends React.Component{
         });
       }
       else {
-        var descriptionModification= clue.replace(pattern , "This is ");
+        var descriptionModification= clue.replace(pattern , "The subject is ");
         var descriptionModificationArray= descriptionModification.split(' ');
         for(var i=0;i<nameArr.length;i++){
           descriptionModificationArray.map(function(element){
             if(element==nameArr[i]){
               var removeElement= new RegExp(nameArr[i],"g");
-              descriptionModification = descriptionModification.replace(removeElement , "this");
+              descriptionModification = descriptionModification.replace(removeElement , "the subject");
             }
           });
         }
