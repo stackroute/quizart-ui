@@ -57,7 +57,12 @@ export default class JeopardyClues extends React.Component{
           res.body.itemListElement.map(function(data){
             tempClues.push(data);
           });
-          console.log(tempClues);
+          for(var clue in tempClues)
+          {
+              if(!clue.hasOwnProperty('image')){
+                console.log("no image");
+          }
+        }
           this.setState({dataObj:tempClues});
         }
       }
