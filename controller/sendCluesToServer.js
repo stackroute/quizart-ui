@@ -15,15 +15,17 @@ router.post('/sendCluesToServer', function(req, res, next) {
   var pIdForVariable=req.body.pIdForSubject;
   var qIDForVariable=req.body.qIDForSubject;
   var description=req.body.selectedSubjectDescription;
+  var topicSelected = req.body.topic;
+  console.log(topicSelected);
   var sparql = `
   SELECT  ?variableLabel
   WHERE { ?variable wdt:${pIdForVariable} wd:${qIDForVariable} .
   SERVICE wikibase:label {
     bd:serviceParam wikibase:language "en" .
   }
-
-}LIMIT 200
+}LIMIT 50
 `
+
 var subjectList=[];
 var url = wdk.sparqlQuery(sparql);
 request(url, function (error, response, body) {
@@ -135,10 +137,9 @@ request(url, function (error, response, body) {
           clue=clueArr;
           }
           console.log(name+" "+clueArr);
-          session
-          .run("MERGE (p:Person {name:{name}})-[:Described_By]->(c:clue{clue:{clue}}) return p",{name:data.name,clue:clueArr})
 
-        }}, function(err)
+          .run("MERGE (p:Person {name:{name}})-[:Described_By]->(c:clue{clue:{clue}})-[:Belongs_To]->(t:Topic {topic:{topicChosen}}) return p",{name:data.name,clue:clueArr,topicChosen:topicSelected})
+        }, function(err)
         {
           if( err )
           {
