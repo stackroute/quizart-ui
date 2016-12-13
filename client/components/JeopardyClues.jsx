@@ -9,6 +9,10 @@ import {Card,CardTitle} from 'material-ui/Card';
 import {List, ListItem} from 'material-ui/List';
 import Checkbox from 'material-ui/Checkbox';
 import SearchDisplay from './SearchDisplay.jsx';
+import Dialog from 'material-ui/Dialog';
+import FlatButton from 'material-ui/FlatButton';
+import {RadioButton, RadioButtonGroup} from 'material-ui/RadioButton';
+
 const styles={
   paperStyle:{
     height: '100%',
@@ -37,8 +41,24 @@ export default class JeopardyClues extends React.Component{
 
   constructor(){
     super();
-    this.state={enableChoose:true,enableSubjectMeaning:true,enableSelectedSubjectContext:true,jeopardyClues:[],generatedSubjects:[],pandqString:[],pIdForSubject:'',qIdForSubject:'',slideIndex: 0,dataObj:[],input: '',selectedSubject:'',selectedSubjectMeaning:[],subjectMeaning:'',qStringForSubject:''};
+    this.state={enableChoose:true,enableSubjectMeaning:true,enableSelectedSubjectContext:true,jeopardyClues:[],generatedSubjects:[],pandqString:[],pIdForSubject:'',qIdForSubject:'',topic:'',slideIndex: 0,dataObj:[],input: '',selectedSubject:'',selectedSubjectMeaning:[],subjectMeaning:'',qStringForSubject:''};
   }
+
+  state = {
+   open: false,
+ };
+
+ handleOpen = () => {
+   this.setState({open: true});
+ };
+
+ handleClose = () => {
+   this.setState({open: false});
+   console.log("Hello! I am closing");
+ };
+
+
+
   handleChange=(event)=>{
     value=1;
     this.setState({slideIndex:value})
@@ -160,19 +180,56 @@ export default class JeopardyClues extends React.Component{
     });
   };
   postDataToServer=()=>{
-    alert("Your Clues Has been Generated");
+    alert("Your Clues Have been Generated");
     var tempSubject=[];
     Request.post('http://localhost:8081/sendCluesToServer')
     .set('Content-type', 'application/json')
     .send({
       pIdForSubject:this.state.pIdForSubject,
       qIDForSubject:this.state.qIDForSubject,
-      selectedSubjectDescription:this.state.selectedSubjectDescription
+      selectedSubjectDescription:this.state.selectedSubjectDescription,
+      topic:this.state.topic
+
     })
     .end((err, res) => {
     });
   };
+
+  _onChange(e, selected){
+    // let topicSelected = this._radio.getSelectedValue();
+    //var topicSelected = selected;
+    const options = ["Sports","Music","Technology","History","Politics","Movies"];
+    var lastChar = selected.slice(-1);
+    var topicSelected = options[parseInt(lastChar)-1]
+    this.setState({topic:topicSelected});
+    console.log('selected', topicSelected);
+  }
   render(){
+    const actions = [
+      <FlatButton
+        label="Generate Clue"
+        primary={true}
+        keyboardFocused={true}
+        onClick={this.postDataToServer}
+        onTouchTap={this.handleClose}
+
+      />,
+    ];
+
+    const radios = [];
+    const options = ["Sports","Music","Technology","History","Politics","Movies"];
+    for (let i = 0; i < 6; i++) {
+      radios.push(
+        <RadioButton
+          key={i}
+          value={`value${i + 1}`}
+          label={options[i]}
+
+
+        />
+      );
+    }
+
     return(
       <div>
         <Paper style={styles} zDepth={1} >
@@ -233,7 +290,23 @@ export default class JeopardyClues extends React.Component{
                 {this.state.jeopardyClues.map(function(element){
                   return(<SearchDisplay ElementObj={element}></SearchDisplay>);
                 })}
-                <RaisedButton label="Generate Clues" disabled={this.state.enableSelectedSubjectContext} secondary={true} onClick={this.postDataToServer} style={styles.buttonNext}/>
+                <RaisedButton label="Select Topic" disabled={this.state.enableSelectedSubjectContext} secondary={true} style={styles.buttonNext} onTouchTap={this.handleOpen}/>
+                <Dialog
+                  title="Select Topic"
+                  actions={actions}
+                  modal={false}
+                  open={this.state.open}
+                  onRequestClose={this.handleClose}
+                  autoScrollBodyContent={false}
+                >
+                  <RadioButtonGroup
+                    name="shipSpeed"
+
+                    ref={(c) => this._radio = c}
+                    onChange={this._onChange.bind(this)}>
+                    {radios}
+                  </RadioButtonGroup>
+                </Dialog>
               </div>
             </SwipeableViews>
           </div>
