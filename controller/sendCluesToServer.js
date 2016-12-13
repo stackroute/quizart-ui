@@ -11,6 +11,7 @@ var session = driver.session();
 router.use(bodyParser.urlencoded({ extended: false }));
 router.use(bodyParser.json());
 router.post('/sendCluesToServer', function(req, res, next) {
+  console.log("in server");
   var pIdForVariable=req.body.pIdForSubject;
   var qIDForVariable=req.body.qIDForSubject;
   var description=req.body.selectedSubjectDescription;
@@ -21,7 +22,7 @@ router.post('/sendCluesToServer', function(req, res, next) {
     bd:serviceParam wikibase:language "en" .
   }
 
-}
+}LIMIT 200
 `
 var subjectList=[];
 var url = wdk.sparqlQuery(sparql);
@@ -32,6 +33,7 @@ request(url, function (error, response, body) {
       subjectList.push(item.variableLabel.value);
     });
     var results = [],count=0;
+    console.log(subjectList);
     async.each(subjectList, function(searchString, callback){
       searchUri='https://kgsearch.googleapis.com/v1/entities:search?query='+searchString+'&key=AIzaSyBIqOeykX5B6xGKC7xsZWmS86P81Zr12DY&indent=True';
       request(searchUri, function (error, response, body)
@@ -57,6 +59,8 @@ request(url, function (error, response, body) {
       else
       {
         async.each(results, function(data, callback){
+          if(data.hasOwnProperty('detailedDescription'))
+          {
           var ListItems='';
           var ListItemsCommaCondition='';
           var clue=data.detailedDescription.articleBody;
@@ -134,7 +138,7 @@ request(url, function (error, response, body) {
           session
           .run("MERGE (p:Person {name:{name}})-[:Described_By]->(c:clue{clue:{clue}}) return p",{name:data.name,clue:clueArr})
 
-        }, function(err)
+        }}, function(err)
         {
           if( err )
           {
@@ -148,7 +152,8 @@ request(url, function (error, response, body) {
           }
         });
           console.log("process Done");
-      }
+
+    }
     });
   }
 });
