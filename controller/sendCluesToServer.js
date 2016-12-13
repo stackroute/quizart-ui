@@ -137,9 +137,9 @@ request(url, function (error, response, body) {
           clue=clueArr;
           }
           console.log(name+" "+clueArr);
-
+          session
           .run("MERGE (p:Person {name:{name}})-[:Described_By]->(c:clue{clue:{clue}})-[:Belongs_To]->(t:Topic {topic:{topicChosen}}) return p",{name:data.name,clue:clueArr,topicChosen:topicSelected})
-        }, function(err)
+        }}, function(err)
         {
           if( err )
           {
