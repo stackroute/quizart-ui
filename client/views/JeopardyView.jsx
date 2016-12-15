@@ -5,7 +5,7 @@ import CardChild from './../components/CardChild';
 import {Grid, Row, Col} from 'react-flexbox-grid';
 import BottomPlayerBoard from './../components/BottomPlayerBoard';
 import Request from 'superagent';
-var io = require('socket.io-client');
+
 export default class JeopardyView extends React.Component
 {
   constructor(props)
@@ -23,19 +23,32 @@ export default class JeopardyView extends React.Component
     }
 
      componentDidMount() {
+
+      var socket = io('http://localhost:8084');
+
       console.log('Didmount')
+
+      socket.on('news', function(data) {
+        console.log('client connected to socket');
+        console.log(data);
+        socket.emit('my other event', { my: 'data' });
+      });
+
       // var socket = io.connect('http://localhost:3050');
       // socket.emit('testMsg',"hello");
       // socket.on('data',function(msg){
       //   console.log(msg);
       // });
-      var socket = io.connect('http://localhost:3050');
+      // var socket = io('http://localhost:3050', {reconnect: true});
 
-          socket.send('data',"hello");
-          socket.on('testMsg',function(msg)
-            {
-              console.log(msg);
-            });
+      // socket.on('connect', function(socket) {
+      //   console.log('Connected!');
+      // });
+          // socket.send('data',"hello");
+          // socket.on('testMsg',function(msg)
+          //   {
+          //     console.log(msg);
+          //   });
 
       //   Request.post('http://localhost:8081/initialGameData')
       //   .set('Content-Type','text/json').end((err,res) => {
