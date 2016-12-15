@@ -6,6 +6,7 @@ var io = require('socket.io')(server);
 var bodyParser = require('body-parser');
 var expressJWT = require('express-jwt');
 var jwt = require('jsonwebtoken');
+var path = require('path');
 
 var mongoose = require('mongoose');
 mongoose.connect('mongodb://localhost/test');
@@ -43,7 +44,13 @@ io.on('connection', function(socket) {
 });
 
 app.use(bodyParser.json());
-// app.use(express.static(__disrname + '/client'))
+app.use(express.static(__dirname + '/client'));
+
+app.get('/', function(req, res) {
+  res.sendFile(path.join(__dirname, 'index.html'));
+})
+
+
 
 app.use(function(req, res, next) {
   res.header("Access-Control-Allow-Origin", "*");
@@ -55,4 +62,5 @@ app.use('/users/login',userRoute);
 app.use('/',userRoute);
 app.use('/signin',userRoute);
 server.listen('8081',function(){
+  console.log('Application is listening on port 8081');
 });
