@@ -8,6 +8,7 @@ var wdk = require('wikidata-sdk');
 router.use(bodyParser.urlencoded({ extended: false }));
 router.use(bodyParser.json());
 router.post('/generateSubject', function(req, res, next) {
+  console.log("in question");
   var pIdForVariable=req.body.pIdForSubject;
   var qIDForVariable=req.body.qIDForSubject;
   var description=req.body.selectedSubjectDescription;

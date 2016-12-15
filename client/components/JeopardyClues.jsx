@@ -38,7 +38,6 @@ const styles={
 };
 var value=1;
 export default class JeopardyClues extends React.Component{
-
   constructor(){
     super();
     this.state={enableChoose:true,enableSubjectMeaning:true,enableSelectedSubjectContext:true,jeopardyClues:[],generatedSubjects:[],pandqString:[],pIdForSubject:'',qIdForSubject:'',topic:'',slideIndex: 0,dataObj:[],input: '',selectedSubject:'',selectedSubjectMeaning:[],subjectMeaning:'',qStringForSubject:''};
@@ -91,7 +90,6 @@ export default class JeopardyClues extends React.Component{
       }
     });
   }
-
   handleSubject=(input,description)=>
   {
     value++;
@@ -113,7 +111,6 @@ export default class JeopardyClues extends React.Component{
         }
       }
       else{
-
         this.setState({
           err: res.body.message
         });
@@ -121,13 +118,11 @@ export default class JeopardyClues extends React.Component{
       }
     });
   };
-
   handleSelectedSubjectMeaning=(variable,id)=>{
     this.setState({subjectMeaning:variable});
     this.setState({qStringForSubject:id});
     this.setState({enableSubjectMeaning:false});
   };
-
   handleSubjectContext=()=>
   {
     value++;
@@ -180,7 +175,9 @@ export default class JeopardyClues extends React.Component{
     });
   };
   postDataToServer=()=>{
-    alert("Your Clues Have been Generated");
+    alert("Your Clues Has been Generated");
+    value++;
+    this.setState({slideIndex:value});
     var tempSubject=[];
     Request.post('http://localhost:8081/sendCluesToServer')
     .set('Content-type', 'application/json')
@@ -195,9 +192,29 @@ export default class JeopardyClues extends React.Component{
     });
   };
 
+  showQuestions=()=>{
+    var names=[],clues=[];
+    Request.post('http://localhost:8081/storeCluesInJson')
+    .set('Content-type', 'application/json')
+    .end((err, res) => {
+      if(res.status==200)
+      {
+        res.body.resultsGot.records.map(function(obj){
+
+        obj._fields.forEach(function(value){
+         names.push(value.properties.name);
+         clues.push(value.properties.clue);
+        })
+          })
+        console.log(names);
+        console.log(clues);
+      }
+    });
+  };
+
+
   _onChange(e, selected){
-    // let topicSelected = this._radio.getSelectedValue();
-    //var topicSelected = selected;
+
     const options = ["Sports","Music","Technology","History","Politics","Movies"];
     var lastChar = selected.slice(-1);
     var topicSelected = options[parseInt(lastChar)-1]
@@ -240,11 +257,9 @@ export default class JeopardyClues extends React.Component{
             />
           <RaisedButton label="Search" primary={true} onClick={this.handleClick} style={{margin:'2%'}}/>
         </Paper>
-
         <SwipeableViews
           index={this.state.slideIndex}
           onChangeIndex={this.handleSlide} >
-
           <div></div>
           <div>
             {this.state.dataObj.map(element=>
@@ -265,8 +280,6 @@ export default class JeopardyClues extends React.Component{
               </Row>
             )}
           </div>
-
-
           <div>
             <Card style={{height:70,width:"90%",margin:"auto"}}> <h4 style={{textAlign:"center",paddingTop:20}}>Hey! Lemme Know What Did You Mean By "  {this.state.selectedSubject} "</h4> </Card>
             <List style={{margin:"0% 10% 0% 10%"}}>
@@ -275,7 +288,6 @@ export default class JeopardyClues extends React.Component{
                   onClick={() => {this.handleSelectedSubjectMeaning(data.description,data.id)}} style={{backgroundColor:'#B3E5FC',margin:'5px',textAlign:'center',color:'#3F51B5'}}/> )} </List>
                 <RaisedButton label="Next" disabled={this.state.enableSubjectMeaning} secondary={true} onClick={this.handleSubjectContext} style={styles.buttonNext}/>
               </div>
-
               <div>
                 <Card style={{height:100,width:"90%",margin:"auto"}}> <h4 style={{textAlign:"center",paddingTop:20}}>Trying To Figure Out What Kind Of Entity " {this.state.selectedSubject} " is... Select The Description Which Matches Best</h4>
               </Card>
@@ -285,7 +297,6 @@ export default class JeopardyClues extends React.Component{
                 )}
                 <RaisedButton label="Next" disabled={this.state.enableSelectedSubjectContext} secondary={true} onClick={this.handleListOfSubject} style={styles.buttonNext}/>
               </div>
-
               <div>
                 {this.state.jeopardyClues.map(function(element){
                   return(<SearchDisplay ElementObj={element}></SearchDisplay>);
@@ -307,6 +318,9 @@ export default class JeopardyClues extends React.Component{
                     {radios}
                   </RadioButtonGroup>
                 </Dialog>
+              </div>
+               <div>
+                <RaisedButton label="Show Questions" disabled={this.state.enableSelectedSubjectContext} secondary={true} onClick={this.showQuestions} style={styles.buttonNext}/>
               </div>
             </SwipeableViews>
           </div>

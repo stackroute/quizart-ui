@@ -5,12 +5,13 @@ var request = require('request');
 var bodyParser = require('body-parser');
 var wdk = require('wikidata-sdk');
 var neo4j = require('neo4j-driver').v1;
-var driver = neo4j.driver("bolt://localhost", neo4j.auth.basic("neo4j", "Neo4j"));
+var driver = neo4j.driver("bolt://localhost", neo4j.auth.basic("neo4j", "password"));
 var session = driver.session();
 
 router.use(bodyParser.urlencoded({ extended: false }));
 router.use(bodyParser.json());
 router.post('/sendCluesToServer', function(req, res, next) {
+  console.log("in server");
   var pIdForVariable=req.body.pIdForSubject;
   var qIDForVariable=req.body.qIDForSubject;
   var description=req.body.selectedSubjectDescription;
@@ -22,8 +23,7 @@ router.post('/sendCluesToServer', function(req, res, next) {
   SERVICE wikibase:label {
     bd:serviceParam wikibase:language "en" .
   }
-
-}LIMIT 5
+}LIMIT 50
 `
 
 var subjectList=[];
@@ -35,6 +35,7 @@ request(url, function (error, response, body) {
       subjectList.push(item.variableLabel.value);
     });
     var results = [],count=0;
+    console.log(subjectList);
     async.each(subjectList, function(searchString, callback){
       searchUri='https://kgsearch.googleapis.com/v1/entities:search?query='+searchString+'&key=AIzaSyBIqOeykX5B6xGKC7xsZWmS86P81Zr12DY&indent=True';
       request(searchUri, function (error, response, body)
@@ -60,6 +61,8 @@ request(url, function (error, response, body) {
       else
       {
         async.each(results, function(data, callback){
+          if(data.hasOwnProperty('detailedDescription'))
+          {
           var ListItems='';
           var ListItemsCommaCondition='';
           var clue=data.detailedDescription.articleBody;
@@ -136,8 +139,7 @@ request(url, function (error, response, body) {
           console.log(name+" "+clueArr);
           session
           .run("MERGE (p:Person {name:{name}})-[:Described_By]->(c:clue{clue:{clue}})-[:Belongs_To]->(t:Topic {topic:{topicChosen}}) return p",{name:data.name,clue:clueArr,topicChosen:topicSelected})
-              // MERGE (u1:User {name:’u1’})-[:FRIEND]-(u2:User { name:’u2’ })-[:LIVES_IN]->(c:Country { name:"India" })
-        }, function(err)
+        }}, function(err)
         {
           if( err )
           {
@@ -151,7 +153,8 @@ request(url, function (error, response, body) {
           }
         });
           console.log("process Done");
-      }
+
+    }
     });
   }
 });
