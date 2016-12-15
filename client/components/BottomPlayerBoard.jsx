@@ -49,13 +49,13 @@ class BottomPlayerBoard extends Component {
       
         <BottomNavigation selectedIndex={this.state.selectedIndex} style={style}>
           <BottomNavigationItem 
-            label={<h1 className="ScoreBoard">PlayerName {score}</h1> }
+            label={<h1 className="ScoreBoard">{this.props.p1Name} {this.props.p1Score}</h1> }
             icon={<Avatar size={this.state.size} src="http://res.cloudinary.com/deaxb0msww/image/upload/v1480051920/quiztack/avt4.png"/>}/>
           <BottomNavigationItem
-            label={<h1 className="ScoreBoard">PlayerName {score}</h1>}
+            label={<h1 className="ScoreBoard">{this.props.p2Name} {this.props.p1Score}</h1>}
             icon={<Avatar size={this.state.size}  src="http://res.cloudinary.com/deaxb0msww/image/upload/c_scale,w_513/v1480051920/quiztack/avt3.png" />} />
           <BottomNavigationItem
-            label={<h1 className="ScoreBoard">PlayerName {score}</h1>}
+            label={<h1 className="ScoreBoard">{this.props.p3Name} {this.props.p1Score}</h1>}
            icon={<Avatar size={this.state.size} src="http://res.cloudinary.com/deaxb0msww/image/upload/v1480050193/avt1_yfioy5.png" />}/>
         
         </BottomNavigation>

@@ -3,9 +3,7 @@ router = express.Router();
 var neo4j = require('neo4j-driver').v1;
 var driver = neo4j.driver("bolt://localhost", neo4j.auth.basic("neo4j", "password"));
 var session = driver.session();
-
 global.userData=[];
-
 router.post('/signin',function(req,res){
 
   console.log("in signin js");
@@ -13,11 +11,11 @@ router.post('/signin',function(req,res){
 
 
   session
-    .run( "CREATE (a:Person {username:{name}, email:{email},password:{pass}, role:{role}}) return a",{name:req.body.userName, email:req.body.email, pass:req.body.password, role:"user"} )
-    .then( function( result ) {
-      session.close();
-      driver.close();
-    })
+  .run( "CREATE (a:Person {username:{name}, email:{email},password:{pass}, role:{role}}) return a",{name:req.body.userName, email:req.body.email, pass:req.body.password, role:"user"} )
+  .then( function( result ) {
+    session.close();
+    driver.close();
+  })
   res.send("end");
 });
 
