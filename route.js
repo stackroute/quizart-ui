@@ -19,6 +19,14 @@ db.once('open', function() {
   console.log("connected");
 });
 
+var init  = require('./server/gameController/gameController');
+
+init(io);
+
+server.listen(8081, function() {
+	console.log('yes its listening');
+});
+
 if (process.env.NODE_ENV !== 'production') {
   const logger = require('morgan');
   const webpack = require('webpack')

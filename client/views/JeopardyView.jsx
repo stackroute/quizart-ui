@@ -24,15 +24,27 @@ export default class JeopardyView extends React.Component
 
      componentDidMount() {
 
-      var socket = io('http://localhost:8084');
+      var thisCopy = this;
+
+      var socket = io('http://localhost:8081');
 
       console.log('Didmount')
 
-      socket.on('news', function(data) {
-        console.log('client connected to socket');
-        console.log(data);
-        socket.emit('my other event', { my: 'data' });
+      socket.emit('testMsg',"testData");
+      socket.on("data",function(data)
+      {
+        thisCopy.setState({p1_name:data[0][0]});
+        thisCopy.setState({p2_name:data[0][1]});
+        thisCopy.setState({p3_name:data[0][2]});
+        thisCopy.setState({p1_score:data[1][0]});
+        thisCopy.setState({p1_score:data[1][1]});
+        thisCopy.setState({p1_score:data[1][2]});
       });
+      // socket.on('news', function(data) {
+      //   console.log('client connected to socket');
+      //   console.log(data);
+      //   socket.emit('my other event', { my: 'data' });
+      // });
 
       // var socket = io.connect('http://localhost:3050');
       // socket.emit('testMsg',"hello");

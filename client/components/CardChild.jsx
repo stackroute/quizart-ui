@@ -37,7 +37,7 @@ export default class CardChild extends React.Component
   	if(this.state.cName=='NscaledCard')
   	{
   		this.setState({cName:'ScaledCard'});
-  		this.setState({content:<JeopardyGameplay limit={1}/>});
+  		this.setState({content:<JeopardyGameplay points={this.props.points} limit={1}/>});
   	}
   	else
       if(this.state.cName=='ScaledCard' && counter==3)
