@@ -110,7 +110,7 @@ export default class QuestionGeneratorHome extends React.Component
     value++;
     this.setState({slideIndex:value});
      var variableMeaningArray=[];
-     Request.post('http://localhost:8081/getVariableMeaning')
+     Request.post('/getVariableMeaning')
     .set('Content-type', 'application/json')
     .send({selectedVariable:this.state.selectedVariable})
     .end((err, res) => {
@@ -137,7 +137,7 @@ export default class QuestionGeneratorHome extends React.Component
     value++;
     this.setState({slideIndex:value});
     var optionMeaningArray=[],text;
-    Request.post('http://localhost:8081/getOptionMeaning')
+    Request.post('/getOptionMeaning')
     .set('Content-type', 'application/json')
     .send({
       selectedOption:this.state.selectedOption
@@ -171,7 +171,7 @@ export default class QuestionGeneratorHome extends React.Component
     value++;
     this.setState({slideIndex:value});
     var tempString=[];
-    Request.post('http://localhost:8081/getFinalMeaning')
+    Request.post('/getFinalMeaning')
       .set('Content-type', 'application/json')
       .send({
         id:this.state.qStringForVariable
@@ -252,7 +252,7 @@ handleFinalMeaning=()=>{
   this.setState({prefix:pre});
   this.setState({suffix:post});
 
-  Request.post('http://localhost:8081/generateQuestions')
+  Request.post('/generateQuestions')
     .set('Content-type', 'application/json')
     .send({
       pIdForVariable:this.state.pIdForVariable,
