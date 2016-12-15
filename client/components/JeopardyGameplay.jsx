@@ -29,6 +29,7 @@ export default class JeopardyGameplay extends React.Component {
 
     componentDidMount()
     {
+        console.log(this.props.points);
         console.log("component mounted");
         superagent
         .get('http://localhost:3000/topic?_limit=' + this.props.limit)
