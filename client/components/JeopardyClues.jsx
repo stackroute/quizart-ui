@@ -66,7 +66,7 @@ export default class JeopardyClues extends React.Component{
   };
   handleClick=()=>{
     var tempClues=[];
-    Request.post('http://localhost:8081/identifyingSubject')
+    Request.post('/identifyingSubject')
     .set('Content-type', 'application/json')
     .send({searchValue:this.state.input})
     .end((err, res) => {
@@ -97,7 +97,7 @@ export default class JeopardyClues extends React.Component{
     this.setState({selectedSubject:input});
     this.setState({selectedSubjectDescription:description});
     var variableMeaningArray=[];
-    Request.post('http://localhost:8081/getSubjectMeaning')
+    Request.post('/getSubjectMeaning')
     .set('Content-type', 'application/json')
     .send({selectedVariable:input})
     .end((err, res) => {
@@ -128,7 +128,7 @@ export default class JeopardyClues extends React.Component{
     value++;
     this.setState({slideIndex:value});
     var tempString=[];
-    Request.post('http://localhost:8081/getSubjectDescription')
+    Request.post('/getSubjectDescription')
     .set('Content-type', 'application/json')
     .send({
       id:this.state.qStringForSubject
@@ -156,7 +156,7 @@ export default class JeopardyClues extends React.Component{
     var tempSubject=[];
     value++;
     this.setState({slideIndex:value});
-    Request.post('http://localhost:8081/generateSubject')
+    Request.post('/generateSubject')
     .set('Content-type', 'application/json')
     .send({
       pIdForSubject:this.state.pIdForSubject,
@@ -179,7 +179,7 @@ export default class JeopardyClues extends React.Component{
     value++;
     this.setState({slideIndex:value});
     var tempSubject=[];
-    Request.post('http://localhost:8081/sendCluesToServer')
+    Request.post('/sendCluesToServer')
     .set('Content-type', 'application/json')
     .send({
       pIdForSubject:this.state.pIdForSubject,
@@ -194,7 +194,7 @@ export default class JeopardyClues extends React.Component{
 
   showQuestions=()=>{
     var names=[],clues=[];
-    Request.post('http://localhost:8081/storeCluesInJson')
+    Request.post('/storeCluesInJson')
     .set('Content-type', 'application/json')
     .end((err, res) => {
       if(res.status==200)

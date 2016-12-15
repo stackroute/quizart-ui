@@ -50,7 +50,7 @@ export default class JeopardyView extends React.Component
           //     console.log(msg);
           //   });
 
-      //   Request.post('http://localhost:8081/initialGameData')
+      //   Request.post('/initialGameData')
       //   .set('Content-Type','text/json').end((err,res) => {
       //     if(res.status===200)
       //       {

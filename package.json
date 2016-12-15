@@ -51,6 +51,7 @@
     "react-svg-gauge": "^1.0.4",
     "react-swipeable-views": "^0.8.0",
     "react-tap-event-plugin": "^2.0.1",
+    "socket.io": "^1.7.2",
     "style-loader": "^0.13.1",
     "superagent": "^3.0.0",
     "webpack": "^1.13.3",
