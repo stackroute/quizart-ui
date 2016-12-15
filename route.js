@@ -16,8 +16,15 @@ var db = mongoose.connection;
 db.on('error', console.error.bind(console, 'connection error:'));
 db.once('open', function() {
   // we're connected!
+  categories.find({}, function(err, users) {
+  if (err) throw err;
+
+  // object of all the users
+  console.log(users);
+});
   console.log("connected");
 });
+app.get()
 
 if (process.env.NODE_ENV !== 'production') {
   const logger = require('morgan');
