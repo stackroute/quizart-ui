@@ -16,23 +16,19 @@ var db = mongoose.connection;
 db.on('error', console.error.bind(console, 'connection error:'));
 db.once('open', function() {
   // we're connected!
-  Categories.find({}, function(err, categories) {
-  if (err) throw err;
-
-  // object of all the users
-  console.log(categories);
-});
+//   db.categories.find({}, function(err, categories) {
+//   if (err) throw err;
+//
+//   // object of all the users
+//   console.log(categories);
+// });
   console.log("connected");
 });
-app.get()
+
 
 var init  = require('./server/gameController/gameController');
 
 init(io);
-
-server.listen(8081, function() {
-	console.log('yes its listening');
-});
 
 if (process.env.NODE_ENV !== 'production') {
   const logger = require('morgan');
