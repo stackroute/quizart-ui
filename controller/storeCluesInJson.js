@@ -18,6 +18,7 @@ router.post('/storeCluesInJson',function(req,res){
           clues.push(value.properties);
         })
       })
+        console.log(clues);
     });
   },function(err){
     if(err)
