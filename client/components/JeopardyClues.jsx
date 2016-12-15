@@ -36,25 +36,25 @@ const styles={
     marginLeft:"40%",
   },
 };
-var value=1;
+var value=1,image=[];
 export default class JeopardyClues extends React.Component{
   constructor(){
     super();
-    this.state={enableChoose:true,enableSubjectMeaning:true,enableSelectedSubjectContext:true,jeopardyClues:[],generatedSubjects:[],pandqString:[],pIdForSubject:'',qIdForSubject:'',topic:'',slideIndex: 0,dataObj:[],input: '',selectedSubject:'',selectedSubjectMeaning:[],subjectMeaning:'',qStringForSubject:''};
+    this.state={enableChoose:true,enableSubjectMeaning:true,enableSelectedSubjectContext:false,jeopardyClues:[],generatedSubjects:[],pandqString:[],pIdForSubject:'',qIdForSubject:'',topic:'',slideIndex: 0,dataObj:[],input: '',selectedSubject:'',selectedSubjectMeaning:[],subjectMeaning:'',qStringForSubject:''};
   }
 
   state = {
-   open: false,
- };
+    open: false,
+  };
 
- handleOpen = () => {
-   this.setState({open: true});
- };
+  handleOpen = () => {
+    this.setState({open: true});
+  };
 
- handleClose = () => {
-   this.setState({open: false});
-   console.log("Hello! I am closing");
- };
+  handleClose = () => {
+    this.setState({open: false});
+    console.log("Hello! I am closing");
+  };
 
 
 
@@ -74,14 +74,15 @@ export default class JeopardyClues extends React.Component{
         if(res.body===null){
           res.body = JSON.parse(res.text);
           res.body.itemListElement.map(function(data){
-            tempClues.push(data);
-          });
-          for(var clue in tempClues)
-          {
-              if(!clue.hasOwnProperty('image')){
-                console.log("no image");
-          }
-        }
+            if(data.result.image){
+                   tempClues.push(data);
+                 }
+                 else{
+                   image["contentUrl"]="http://res.cloudinary.com/deaxb0msww/image/upload/v1481087596/Image-Not-Available_tcpeee.jpg";
+                   data.result["image"]=image;
+                   tempClues.push(data);
+                 }
+               });
           this.setState({dataObj:tempClues});
         }
       }
@@ -199,19 +200,17 @@ export default class JeopardyClues extends React.Component{
     .end((err, res) => {
       if(res.status==200)
       {
-        res.body.resultsGot.records.map(function(obj){
-
-        obj._fields.forEach(function(value){
-         names.push(value.properties.name);
-         clues.push(value.properties.clue);
-        })
+        res.body.results.records.map(function(obj){
+          obj._fields.forEach(function(value){
+            names.push(value.properties.name);
+            clues.push(value.properties.clue);
           })
+        })
         console.log(names);
         console.log(clues);
       }
     });
   };
-
 
   _onChange(e, selected){
 
@@ -230,9 +229,8 @@ export default class JeopardyClues extends React.Component{
         onClick={this.postDataToServer}
         onTouchTap={this.handleClose}
 
-      />,
+        />,
     ];
-
     const radios = [];
     const options = ["Sports","Music","Technology","History","Politics","Movies"];
     for (let i = 0; i < 6; i++) {
@@ -241,9 +239,7 @@ export default class JeopardyClues extends React.Component{
           key={i}
           value={`value${i + 1}`}
           label={options[i]}
-
-
-        />
+          />
       );
     }
 
@@ -309,7 +305,7 @@ export default class JeopardyClues extends React.Component{
                   open={this.state.open}
                   onRequestClose={this.handleClose}
                   autoScrollBodyContent={false}
-                >
+                  >
                   <RadioButtonGroup
                     name="shipSpeed"
 
@@ -319,7 +315,7 @@ export default class JeopardyClues extends React.Component{
                   </RadioButtonGroup>
                 </Dialog>
               </div>
-               <div>
+              <div>
                 <RaisedButton label="Show Questions" disabled={this.state.enableSelectedSubjectContext} secondary={true} onClick={this.showQuestions} style={styles.buttonNext}/>
               </div>
             </SwipeableViews>
