@@ -59,45 +59,45 @@ router.post('/login',function(req,res){
   var username = req.body.userName;
   var pwd = req.body.password;
   var session = driver.session();
-
+  
   var isValid = false;
 
-session.run("MATCH (n:Person {email:{email},password:{pass}}) return (n)",{email:username,pass:pwd})
-       .then(function(results){
-         if(results.records.length===0)
-          {
-            isValid = false;
-            for(var i=0;i<global.users.length;i++){
-                if(username==users[i].userName){
-                  if(pwd==users[i].password){
-                    isValid=true;
-                    authenticateToken=jwt.sign({sub:users[i].id, role:'admin'}, "QuizztackAdmin")
-                  }
-                }
-              }
+  session.run("MATCH (n:Person {email:{email},password:{pass}}) return (n)",{email:username,pass:pwd})
+  .then(function(results){
+    if(results.records.length===0)
+    {
+      isValid = false;
+      for(var i=0;i<global.users.length;i++){
+        if(username==users[i].userName){
+          if(pwd==users[i].password){
+            isValid=true;
+            authenticateToken=jwt.sign({sub:users[i].id, role:'admin'}, "QuizztackAdmin")
           }
-          else {
-            isValid = true;
-            authenticateToken=jwt.sign({sub:username, role:'user'}, "QuizztackAdmin")
-          }
+        }
+      }
+    }
+    else {
+      isValid = true;
+      authenticateToken=jwt.sign({sub:username, role:'user'}, "QuizztackAdmin")
+    }
 
-                 res.status(200).json({
-                   message: authenticateToken,
-                   error: false,
-                   isValid: isValid
-                 });
-                 session.close();
-                 driver.close();
-       })
-       .catch(function(error){
-         console.log(error);
-         res.status(401).json({
-           message: "username/password incorrect",
-           error: true
-         });
-         session.close();
-         driver.close();
-       })
+    res.status(200).json({
+      message: authenticateToken,
+      error: false,
+      isValid: isValid
+    });
+    session.close();
+    driver.close();
+  })
+  .catch(function(error){
+    console.log(error);
+    res.status(401).json({
+      message: "username/password incorrect",
+      error: true
+    });
+    session.close();
+    driver.close();
+  })
 });
 
 module.exports = router;

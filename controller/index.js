@@ -16,4 +16,5 @@ router.use(require('./generateQuestions'));
 router.use(require('./identifyingSubject'));
 router.use(require('./generateSubject'));
 router.use(require('./sendCluesToServer'));
+router.use(require('./storeCluesInJson'));
 module.exports = router;
