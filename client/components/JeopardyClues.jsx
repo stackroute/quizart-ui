@@ -40,7 +40,7 @@ var value=1,image=[];
 export default class JeopardyClues extends React.Component{
   constructor(){
     super();
-    this.state={enableChoose:true,enableSubjectMeaning:true,enableSelectedSubjectContext:false,jeopardyClues:[],generatedSubjects:[],pandqString:[],pIdForSubject:'',qIdForSubject:'',topic:'',slideIndex: 0,dataObj:[],input: '',selectedSubject:'',selectedSubjectMeaning:[],subjectMeaning:'',qStringForSubject:''};
+    this.state={enableChoose:true,enableSubjectMeaning:true,enableSelectedSubjectContext:true,enableSelectTopic:true,jeopardyClues:[],generatedSubjects:[],pandqString:[],pIdForSubject:'',qIdForSubject:'',topic:'',slideIndex: 0,dataObj:[],input: '',selectedSubject:'',selectedSubjectMeaning:[],subjectMeaning:'',qStringForSubject:''};
   }
 
   state = {
@@ -128,6 +128,7 @@ export default class JeopardyClues extends React.Component{
   {
     value++;
     this.setState({slideIndex:value});
+    this.setState({enableSelectTopic:false});
     var tempString=[];
     Request.post('/getSubjectDescription')
     .set('Content-type', 'application/json')
@@ -177,8 +178,6 @@ export default class JeopardyClues extends React.Component{
   };
   postDataToServer=()=>{
     alert("Your Clues Has been Generated");
-    value++;
-    this.setState({slideIndex:value});
     var tempSubject=[];
     Request.post('/sendCluesToServer')
     .set('Content-type', 'application/json')
@@ -193,24 +192,24 @@ export default class JeopardyClues extends React.Component{
     });
   };
 
-  showQuestions=()=>{
-    var names=[],clues=[];
-    Request.post('/storeCluesInJson')
-    .set('Content-type', 'application/json')
-    .end((err, res) => {
-      if(res.status==200)
-      {
-        res.body.results.records.map(function(obj){
-          obj._fields.forEach(function(value){
-            names.push(value.properties.name);
-            clues.push(value.properties.clue);
-          })
-        })
-        console.log(names);
-        console.log(clues);
-      }
-    });
-  };
+  // showQuestions=()=>{
+  //   var names=[],clues=[];
+  //   Request.post('/storeCluesInJson')
+  //   .set('Content-type', 'application/json')
+  //   .end((err, res) => {
+  //     if(res.status==200)
+  //     {
+  //       res.body.results.records.map(function(obj){
+  //         obj._fields.forEach(function(value){
+  //           names.push(value.properties.name);
+  //           clues.push(value.properties.clue);
+  //         })
+  //       })
+  //       console.log(names);
+  //       console.log(clues);
+  //     }
+  //   });
+  // };
 
   _onChange(e, selected){
 
@@ -297,7 +296,7 @@ export default class JeopardyClues extends React.Component{
                 {this.state.jeopardyClues.map(function(element){
                   return(<SearchDisplay ElementObj={element}></SearchDisplay>);
                 })}
-                <RaisedButton label="Select Topic" disabled={this.state.enableSelectedSubjectContext} secondary={true} style={styles.buttonNext} onTouchTap={this.handleOpen}/>
+                <RaisedButton label="Select Topic" disabled={this.state.enableSelectTopic} secondary={true} style={styles.buttonNext} onTouchTap={this.handleOpen}/>
                 <Dialog
                   title="Select Topic"
                   actions={actions}
@@ -314,9 +313,6 @@ export default class JeopardyClues extends React.Component{
                     {radios}
                   </RadioButtonGroup>
                 </Dialog>
-              </div>
-              <div>
-                <RaisedButton label="Show Questions" disabled={this.state.enableSelectedSubjectContext} secondary={true} onClick={this.showQuestions} style={styles.buttonNext}/>
               </div>
             </SwipeableViews>
           </div>

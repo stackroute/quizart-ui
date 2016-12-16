@@ -1,12 +1,9 @@
-var express = require('express'),
-router = express.Router();
 var neo4j = require('neo4j-driver').v1;
 var driver = neo4j.driver("bolt://localhost", neo4j.auth.basic("neo4j", "password"));
 var session = driver.session();
 var async = require("async");
-var clues=[];
-router.post('/storeCluesInJson',function(req,res){
-  console.log("in storing");
+storeClues=()=>{
+  var clues=[];
   var topics=["Sports","Music","Technology","History","Politics","Movies"];
   var options=[];
   async.each(topics, function(topic, callback){
@@ -19,7 +16,7 @@ router.post('/storeCluesInJson',function(req,res){
         obj.forEach(function(value){
           tempArr.push(value.properties);
         })
-          clues.push(tempArr);
+        clues.push(tempArr);
       })
       // session.close();
     })
@@ -43,7 +40,7 @@ router.post('/storeCluesInJson',function(req,res){
       var tempArr=[];
       results.records.map(function(obj){
         obj.forEach(function(value){
-        tempArr.push(value.properties.name);
+          tempArr.push(value.properties.name);
         })
       })
       options[topic]=tempArr;
@@ -60,5 +57,4 @@ router.post('/storeCluesInJson',function(req,res){
       console.log(options);
     }
   });
-});
-module.exports = router;
+}
