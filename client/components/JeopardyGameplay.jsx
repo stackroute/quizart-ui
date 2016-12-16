@@ -22,6 +22,7 @@ export default class JeopardyGameplay extends React.Component {
             i: 0,
             question:'',
             options:[],
+            redisQues:'',
         };
         this.changeState=this.changeState.bind(this);
         this.handleOnClick = this.handleOnClick.bind(this);
@@ -29,7 +30,13 @@ export default class JeopardyGameplay extends React.Component {
 
     componentDidMount()
     {
-        console.log(this.props.points);
+        var thisCopy = this;  
+        var socket = io('http://localhost:8081');
+        socket.emit("jGamePlay",this.props.points);
+        socket.on("question",function(msg)
+            {
+                thisCopy.setState({redisQues:JSON.stringify(msg)});
+            });
         console.log("component mounted");
         superagent
         .get('http://localhost:3000/topic?_limit=' + this.props.limit)
@@ -149,7 +156,7 @@ render() {
           <MediaQuery minDeviceWidth={1} maxDeviceWidth={479}>
                <div className="some-class">
         <Card style={{width:'90%',height:'58px',marginTop:'-13px', marginLeft:'1.9px',backgroundColor:blue300}}>
-        <CardTitle title={this.state.question} style={{padding:"0px"}} titleStyle={{fontSize:"1.2px",lineHeight:"2px",textAlign:'justify',padding:'3px'}}/>
+        <CardTitle title={this.state.redisQues} style={{padding:"0px"}} titleStyle={{fontSize:"1.2px",lineHeight:"2px",textAlign:'justify',padding:'3px'}}/>
         {screenData}
         {this.state.options.map(i=> <button key={i} onTouchTap={this.handleOnClick}  label={i} style={{width:"45%", border:'1px', borderRadius:'1px',padding:'3px',margin: '0px' , textAlign:'center',
         backgroundColor:'#1A237E',color:'white', cursor: 'pointer', outline: '0px',
@@ -163,7 +170,7 @@ render() {
             <MediaQuery minDeviceWidth={480} maxDeviceWidth={767}>
               <div className="some-class">
         <Card style={{width:'90%',height:'76px',margin:'auto',backgroundColor:blue300}}>
-         <CardTitle title={this.state.question} style={{padding:"0px"}} titleStyle={{fontSize:"2px",textAlign:'justify',padding:'3px',lineHeight:"2px",marginTop:"-10px"}}/>
+         <CardTitle title={this.state.redisQues} style={{padding:"0px"}} titleStyle={{fontSize:"2px",textAlign:'justify',padding:'3px',lineHeight:"2px",marginTop:"-10px"}}/>
         {screenData}
         {this.state.options.map(i=> <button key={i} onTouchTap={this.handleOnClick}  label={i} style={{width:"40%",height:'100%',marginTop: '6px',textAlign:'center',
         backgroundColor:'#1A237E',color:'white', padding: '3px',border:'1px', borderRadius:'1px', cursor: 'pointer', outline: '30px 30px 30px 30px',
@@ -176,7 +183,7 @@ render() {
         <MediaQuery minDeviceWidth={768} maxDeviceWidth={1023}>
          <div className="some-class">
         <Card style={{width:'90%',height:'100px',margin:'auto',backgroundColor:blue300}}>
-        <CardTitle title={this.state.question} style={{padding:"0px"}} titleStyle={{fontSize:"3px",textAlign:'justify',padding:'3px',lineHeight:"4px",marginTop:"-10px"}}/>
+        <CardTitle title={this.state.redisQues} style={{padding:"0px"}} titleStyle={{fontSize:"3px",textAlign:'justify',padding:'3px',lineHeight:"4px",marginTop:"-10px"}}/>
         <Row center="xs" style={{fontSize:"15px"}}> </Row>
         {screenData}
         {this.state.options.map(i=> <button key={i} onTouchTap={this.handleOnClick}  label={i} style={{width:"40%",height:'100%',marginTop: '6px',textAlign:'center',
@@ -189,7 +196,7 @@ render() {
         </MediaQuery>
         <MediaQuery minDeviceWidth={1024} className="some-class">
          <Card style={{width:'90%',height:'70px',fontSize:'1px', backgroundColor:blue300, margin:'-7% auto'}}>
-          <CardTitle title={this.state.question} style={{padding:"0px",height:'28px',textAlign:'justify'}} titleStyle={{fontSize:"3px",lineHeight:"4px",margin:"10px"}}/>
+          <CardTitle title={this.state.redisQues} style={{padding:"0px",height:'28px',textAlign:'justify'}} titleStyle={{fontSize:"3px",lineHeight:"4px",margin:"10px"}}/>
         {screenData}
         {this.state.options.map(i=> <button key={i} onTouchTap={this.handleOnClick}  label={i} style={{width:"40%",height:'100%',fxed:'bottom', marginTop: '6px',textAlign:'center',
         backgroundColor:'#1A237E',color:'white', padding: '3px', border:'1px solid', borderRadius:'2px', cursor: 'pointer', outline: '30px 30px 30px 30px',
