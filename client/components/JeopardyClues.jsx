@@ -5,7 +5,7 @@ import {Grid, Row, Col} from 'react-flexbox-grid';
 import TextField from 'material-ui/TextField';
 import Paper from 'material-ui/Paper';
 import RaisedButton from 'material-ui/RaisedButton';
-import {Card,CardTitle} from 'material-ui/Card';
+import {Card, CardActions, CardHeader, CardMedia, CardTitle, CardText} from 'material-ui/Card';
 import {List, ListItem} from 'material-ui/List';
 import Checkbox from 'material-ui/Checkbox';
 import SearchDisplay from './SearchDisplay.jsx';
@@ -28,8 +28,8 @@ const styles={
     marginTop:10
   },
   imageStyle:{
-    height: 250,
-    width: 300
+    height: 350,
+    width: 400
   },
   buttonNext:
   {
@@ -259,20 +259,16 @@ export default class JeopardyClues extends React.Component{
           <div>
             {this.state.dataObj.map(element=>
               <Row center='xs'>
-                <Paper style={styles.paperStyle} zDepth={1}>
-                  <div>
-                    <Row>
-                      <Col xs={12} sm={12} md={6} lg={6}>
-                        <img src={element.result.image.contentUrl} alt="image not Available" style={styles.imageStyle}></img>
-                      </Col>
-                      <Col xs={12} sm={12} md={6} lg={6}>
-                        <h1 style={{margin:2,color:'#1A237E'}}>{element.result.name}</h1>
-                        <RaisedButton label="Choose" disabled={this.state.enableChoose} secondary={true} onTouchTap={() => this.handleSubject(element.result.name,element.result.description)}/>
-                      </Col>
-                    </Row>
-                  </div>
-                </Paper>
-              </Row>
+                 <Card style={{margin:10}}>
+                   <CardMedia
+                     overlay={<CardTitle title={element.result.name}/>}>
+                     <img src={element.result.image.contentUrl} alt="image not Available" style={styles.imageStyle} />
+                   </CardMedia>
+                   <CardActions>
+                     <RaisedButton label="Choose" disabled={this.state.enableChoose} secondary={true} onTouchTap={() => this.handleSubject(element.result.name,element.result.description)}/>
+                   </CardActions>
+                 </Card>
+               </Row>
             )}
           </div>
           <div>
