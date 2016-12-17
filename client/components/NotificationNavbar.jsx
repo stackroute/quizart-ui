@@ -11,8 +11,6 @@ import {Row, Grid, Col} from 'react-flexbox-grid';
 
 import Notification from './Notification';
 
-
-
 var data=[];
 
 class NotificationList extends React.Component{
@@ -31,14 +29,15 @@ class NotificationList extends React.Component{
   componentDidMount(){
 
     superagent
-  .get('http://localhost:3000/announcement?_limit='+this.props.limit)
+  .get('/announcement')
   .end((err, res) => {
-    this.setState({announcements: res.body});
+    console.log(res.body.message);
+    this.setState({announcements: res.body.message});
   });
-  
+
 
   }
-  
+
   render(){
     console.log(this.props.limit);
     const notificationItems= this.state.announcements ? this.state.announcements.map((notification) => {

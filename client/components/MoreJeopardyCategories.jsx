@@ -49,9 +49,10 @@ constructor(props) {
 
    componentDidMount() {
     superagent
-      .get('http://localhost:3000/classicCategory')
+      .get('/classicCategory')
       .end((err, res) => {
-        this.setState({classicCategory: res.body});
+        console.log(res.body.message);
+        this.setState({classicCategory: res.body.message});
       });
   }
 

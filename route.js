@@ -8,27 +8,22 @@ var expressJWT = require('express-jwt');
 var jwt = require('jsonwebtoken');
 var path = require('path');
 
-var mongoose = require('mongoose');
-mongoose.connect('mongodb://localhost/test');
-var Schema = mongoose.Schema;
+// var mongoose = require('mongoose');
+// mongoose.connect('mongodb://localhost/test');
+// var Schema = mongoose.Schema;
 
-var db = mongoose.connection;
-db.on('error', console.error.bind(console, 'connection error:'));
-db.once('open', function() {
-  // we're connected!
-//   db.categories.find({}, function(err, categories) {
-//   if (err) throw err;
-//
-//   // object of all the users
-//   console.log(categories);
+// var db = mongoose.connection;
+// var categoryModel=require('./controller/schemas/categoriesSchema').docCategoryModel;
+// db.on('error', console.error.bind(console, 'connection error:'));
+// db.once('open', function() {
+//   // we're connected!
+//   console.log("connected");
 // });
-  console.log("connected");
-});
-
-
-var init  = require('./server/gameController/gameController');
-
-init(io);
+// categoryModel.find(function(err, categories) {
+//   if (err) throw err;
+//   // object of all the users
+//   console.log("categories: ", categories[0].imageUrl);
+// });
 
 if (process.env.NODE_ENV !== 'production') {
   const logger = require('morgan');
@@ -46,6 +41,10 @@ if (process.env.NODE_ENV !== 'production') {
   }))
 }
 
+var init  = require('./server/gameController/gameController');
+
+init(io);
+
 io.on('connection', function(socket) {
 	console.log('server connected to socket');
 	socket.emit('news', {hello: 'world'});
@@ -60,8 +59,6 @@ app.use(express.static(__dirname + '/client'));
 app.get('/', function(req, res) {
   res.sendFile(path.join(__dirname, 'index.html'));
 })
-
-
 
 app.use(function(req, res, next) {
   res.header("Access-Control-Allow-Origin", "*");
