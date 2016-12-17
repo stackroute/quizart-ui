@@ -40,56 +40,7 @@ export default class JeopardyView extends React.Component
         thisCopy.setState({p1_score:data[1][1]});
         thisCopy.setState({p1_score:data[1][2]});
       });
-      // socket.on('news', function(data) {
-      //   console.log('client connected to socket');
-      //   console.log(data);
-      //   socket.emit('my other event', { my: 'data' });
-      // });
-
-      // var socket = io.connect('http://localhost:3050');
-      // socket.emit('testMsg',"hello");
-      // socket.on('data',function(msg){
-      //   console.log(msg);
-      // });
-      // var socket = io('http://localhost:3050', {reconnect: true});
-
-      // socket.on('connect', function(socket) {
-      //   console.log('Connected!');
-      // });
-          // socket.send('data',"hello");
-          // socket.on('testMsg',function(msg)
-          //   {
-          //     console.log(msg);
-          //   });
-
-      //   Request.post('/initialGameData')
-      //   .set('Content-Type','text/json').end((err,res) => {
-      //     if(res.status===200)
-      //       {
-      //         var names=[];
-      //         var scores = [];
-      //         var data = JSON.parse(res.text);
-      //         scores = JSON.parse(data[0]);
-      //         names = JSON.parse(data[1]);
-  
-              
-      //         this.setState({p1_score:scores[0]});
-      //         this.setState({p2_score:scores[1]});
-      //         this.setState({p3_score:scores[2]});
-
-
-      //         this.setState({p1_name:names[0]});
-      //         this.setState({p2_name:names[1]});
-      //         this.setState({p3_name:names[2]});
-
-      //       }
-      //   else{
-      //     this.setState({
-      //       err: res.body.message
-      //     });
-      //     return false;
-      //     }
-      // });
+      
         window.addEventListener('resize', this.handleResize.bind(this));
     }
     componentWillUnmount() {

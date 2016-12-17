@@ -99,8 +99,7 @@ request(url, function (error, response, body) {
         }
         else
         {
-          console.log("came to first callback")
-          console.log(results);
+          console.log("came to first callback"+results);
           async.each(results, function(data, callback){
             if(data.hasOwnProperty('detailedDescription'))
             {
@@ -178,8 +177,10 @@ request(url, function (error, response, body) {
               }
             session
             .run("MERGE (p:Person {name:{name}})-[:Described_By]->(c:clue{clue:{clue}})-[:Belongs_To]->(t:Topic {topic:{topicChosen}}) return p",{name:data.name,clue:clueArr,topicChosen:topicSelected})
+            .then(function(results){
+                session.close();
+            })
           }
-
         }, function(err)
           {
             if( err )
@@ -188,8 +189,6 @@ request(url, function (error, response, body) {
             }
             else
             {
-              session.close();
-              driver.close();
               console.log("Done");
             }
           });

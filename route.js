@@ -25,6 +25,13 @@ var path = require('path');
 //   console.log("categories: ", categories[0].imageUrl);
 // });
 
+
+/*server.listen(8081, function() {
+	console.log('yes its listening');
+});
+*/
+
+
 if (process.env.NODE_ENV !== 'production') {
   const logger = require('morgan');
   const webpack = require('webpack')
