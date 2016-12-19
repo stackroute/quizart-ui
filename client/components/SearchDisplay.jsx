@@ -14,7 +14,7 @@ const styles = {
     textAlign: 'center',
     margin: 20,
     padding: 20,
-    backgroundColor: '#c2efd9'
+    backgroundColor: 'white'
   },
   imageStyle: {
     height: 250,
