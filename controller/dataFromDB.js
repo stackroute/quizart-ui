@@ -16,6 +16,7 @@ var classicCategoryModel = require('./schemas/classicCategorySchema').docClassic
 var myChallengeDashModel = require('./schemas/myChallengesDashSchema').docMyChallengeDashModel;
 var userDetailsModel = require('./schemas/userDetailsSchema').docUserDetailsModel;
 
+
 db.on('error', console.error.bind(console, 'connection error:'));
 db.once('open', function() {
   // we're connected!
@@ -71,6 +72,46 @@ router.get('/myChallenges',function(req,res){
       error: false
     });
   });
+});
+
+router.get('/myChallengesDash/:limitTest', function(req, res) {
+  myChallengeDashModel.find({}).limit(req.params.limitTest).exec(function(err, myChallenges){
+    if (err) throw err;
+    res.status(200).json({
+      message: myChallenges,
+      error: false
+  });console.log("limit: ",req.params.limitTest);
+});
+});
+
+router.get('/categoriesDash/:limitCategories', function(req, res) {
+  categoriesModel.find({}).limit(req.params.limitCategories).exec(function(err, categories){
+    if (err) throw err;
+    res.status(200).json({
+      message: categories,
+      error: false
+  });console.log("limitHere: ",req.params.limitCategories);
+});
+});
+
+router.get('/gamePlayChallenge/:limitTopics', function(req, res) {
+  challengeGameplayModel.find({}).limit(req.params.limitTopics).exec(function(err, challengeGameplay){
+    if (err) throw err;
+    res.status(200).json({
+      message: challengeGameplay,
+      error: false
+  });console.log("limitHere: ",req.params.limitTopics);
+});
+});
+
+router.get('/gamePlayJeopardy/:limitTopics', function(req, res) {
+  challengeGameplayModel.find({}).limit(req.params.limitTopics).exec(function(err, challengeGameplay){
+    if (err) throw err;
+    res.status(200).json({
+      message: challengeGameplay,
+      error: false
+  });console.log("limitHere: ",req.params.limitTopics);
+});
 });
 
 router.get('/announcement',function(req,res){

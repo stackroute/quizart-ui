@@ -113,9 +113,9 @@ componentDidMount() {
 timeLimit=(timeLimit*(60*1000))/15;
 this.setState({timeLimit: timeLimit});
 superagent
-.get('http://localhost:3000/topic?_limit='+this.state.limit)
+.get('/gamePlayChallenge/'+this.state.limit)
 .end((err, res) => {
- this.setState({topic: res.body});
+ this.setState({topic: res.body.message});
 });
 
 }
@@ -201,7 +201,7 @@ optionArray=TopicOptionsForCheck;
   <Col xs={6} sm={6} md={6} lg={6}>
   <FlatButton label="Next >>" secondary={true} onTouchTap={() => this.handleChange()} style={{textAlign:'right', marginTop:'20px'}}/>
   </Col>
-  
+
   </Row>
   </Col>
   </Row>

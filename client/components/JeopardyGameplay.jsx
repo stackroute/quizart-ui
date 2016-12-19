@@ -30,7 +30,7 @@ export default class JeopardyGameplay extends React.Component {
 
     componentDidMount()
     {
-        var thisCopy = this;  
+        var thisCopy = this;
         var socket = io('http://localhost:8081');
         socket.emit("jGamePlay",this.props.points);
         socket.on("question",function(msg)
@@ -39,10 +39,10 @@ export default class JeopardyGameplay extends React.Component {
             });
         console.log("component mounted");
         superagent
-        .get('http://localhost:3000/topic?_limit=' + this.props.limit)
+        .get('/gamePlayJeopardy/' + this.props.limit)
         .end((err, res) => {
             console.log("processing");
-            this.setState({topic: res.body});
+            this.setState({topic: res.body.message});
             this.state.topic.map((ques)=>
                 this.setState({question:ques.question})
                 );

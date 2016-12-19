@@ -39,11 +39,11 @@ function init(io)
                 client.get(gameId+"_questions",function(err,reply)
                 {
                     questions = JSON.parse(reply);
-                    socket.emit("question",questions[quesNum]);
+                    // socket.emit("question",questions[quesNum]);
                 });
             })
         });
     });
 }
 
-module.exports = init;	
+module.exports = init;

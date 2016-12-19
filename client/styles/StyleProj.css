@@ -1,10 +1,11 @@
 .Points
 {
  font-size: 1.7em;
-} 
+}
 body
 {
  background-color:darkgray;
+ overflow-x: hidden;
 }
 .ScoreBoard
 {
@@ -71,7 +72,7 @@ body
 }
 }
 
-@media (max-width: 1024 px) { 
+@media (max-width: 1024 px) {
 .Questions h4
 {
  font-size: 1em;
@@ -83,7 +84,7 @@ body
 .ScoreBoard
 {
  font-size: 1.5em;
-} 
+}
 }
 @media (min-width: 1200px) {
 .Questions h4
@@ -97,5 +98,5 @@ body
 .ScoreBoard
 {
  font-size: 1.5em;
-} 
+}
 }

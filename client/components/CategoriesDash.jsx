@@ -26,9 +26,9 @@ export default class CategoriesDash extends React.Component {
 
   componentDidMount() {
     superagent
-      .get('http://localhost:3000/category?_limit=' + this.props.limit)
+      .get('/categoriesDash/' + this.props.limit)
       .end((err, res) => {
-        this.setState({categories: res.body});
+        this.setState({categories: res.body.message});
       });
   }
 
