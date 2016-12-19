@@ -55,9 +55,10 @@ export default class NavBar extends React.Component {
  componentDidMount(){
    var thisSelf = this;
    superagent
-     .get('http://localhost:3000/userDetails')
+     .get('/userDetails')
      .end((err, res) => {
-       thisSelf.setState({userDetailDrawer: res.body});
+       console.log(res.body.message);
+       thisSelf.setState({userDetailDrawer: res.body.message});
      });
 
  }

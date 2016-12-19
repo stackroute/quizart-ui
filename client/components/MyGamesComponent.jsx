@@ -4,6 +4,7 @@ import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import {Grid, Row, Col} from 'react-flexbox-grid';
 import {Table, TableBody, TableHeader, TableHeaderColumn, TableRow, TableRowColumn} from 'material-ui/Table';
 import superagent from 'superagent';
+import Request from 'superagent';
 import SwipeableViews from 'react-swipeable-views';
 import {Tabs, Tab} from 'material-ui/Tabs';
 import {Link} from 'react-router';
@@ -41,11 +42,12 @@ export default class TabsExampleSwipeable extends React.Component {
 
   componentWillMount() {
     var thisSelf = this;
-      superagent
-        .get('http://localhost:3000/myGamesJeopardy')
-        .end((err, res) => {
-        thisSelf.setState({myGamesJeopordyHistory: res.body});
-        });
+    Request
+    .get('/myGamesJeopardyFromDB')
+    .end(function(err,res){
+      console.log(res.body.message);
+      thisSelf.setState({myGamesJeopordyHistory: res.body.message});
+    })
 
   }
 
@@ -149,7 +151,7 @@ export default class TabsExampleSwipeable extends React.Component {
           </Grid>
         </div>
         <div style={styles.slide}>
-          slide n°2
+
           <Table>
             <TableHeader
             adjustForCheckbox = {false}

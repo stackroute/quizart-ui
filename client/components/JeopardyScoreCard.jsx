@@ -5,6 +5,7 @@ import getMuiTheme from 'material-ui/styles/getMuiTheme';
 import Paper from 'material-ui/Paper';
 import {Grid, Row, Col} from 'react-flexbox-grid';
 import superagent from 'superagent';
+import Request from 'superagent';
 import Avatar from 'material-ui/Avatar';
 import Gauge from 'react-svg-gauge';
 import RaisedButton from 'material-ui/RaisedButton';
@@ -21,10 +22,11 @@ export default class JeopardyScoreCard extends React.Component{
 
   componentDidMount() {
       var thisSelf = this;
-      superagent
-        .get('http://localhost:3000/jeopardyScores')
+      Request
+        .get('/jeopardyScores')
         .end((err, res) => {
-          thisSelf.setState({playerInfoJeop: res.body});
+          console.log(res.body.message);
+          thisSelf.setState({playerInfoJeop: res.body.message});
         });
   }
 

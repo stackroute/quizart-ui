@@ -9,6 +9,7 @@ router.use(function(req,res,next) {
 })
 router.use(require('./signup'));
 router.use(require('./users'));
+router.use(require('./dataFromDB'));
 router.use(require('./getSubjectMeaning'));
 router.use(require('./getOptionMeaning'));
 router.use(require('./getSubjectDescription'));
@@ -17,4 +18,5 @@ router.use(require('./identifyingSubject'));
 router.use(require('./generateSubject'));
 router.use(require('./sendCluesToServer'));
 router.use(require('./storeCluesInJson'));
+
 module.exports = router;

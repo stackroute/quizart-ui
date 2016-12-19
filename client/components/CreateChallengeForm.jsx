@@ -53,9 +53,10 @@ this.disableButton = this.disableButton.bind(this);
   }
   componentDidMount() {
    superagent
-     .get('http://localhost:3000/classicCategory')
+     .get('/classicCategory')
      .end((err, res) => {
-       this.setState({Topics: res.body});
+       console.log(res.body.message);
+       this.setState({Topics: res.body.message});
      });
  }
  enableButton() {

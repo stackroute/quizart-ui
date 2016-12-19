@@ -20,7 +20,7 @@ imgStyle:{
 class Notification extends React.Component{
 	constructor(props){
 		super(props);
-	
+
 }
 static get propTypes() {
 		return {
@@ -29,7 +29,7 @@ static get propTypes() {
 	}
 	render(){
 		return(
-			
+
 			<Row>
 			<List style={{width: '500px'}}>
 			<ListItem
@@ -38,7 +38,6 @@ static get propTypes() {
 			secondaryText={<p>{this.props.notification.about}</p>}
 			secondaryTextLines={1}
 			leftAvatar={<img src={this.props.notification.picture}  style={styles.imgStyle}/>}
-
 			/>
 			<Divider />
 			</List>

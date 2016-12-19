@@ -22,9 +22,10 @@ export default class AllMyChallenges extends React.Component {
   }
   componentDidMount() {
     superagent
-      .get('http://localhost:3000/mychallenges')
+      .get('/myChallenges')
       .end((err, res) => {
-        this.setState({mychallenges: res.body});
+        console.log(res.body.message);
+        this.setState({mychallenges: res.body.message});
       });
   }
 
