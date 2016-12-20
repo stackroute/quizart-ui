@@ -25,14 +25,13 @@ export default class JeopardyView extends React.Component
      componentDidMount() {
 
       var thisCopy = this;
-
-      var socket = io('http://localhost:8081');
-
+      var socket = io();
       console.log('Didmount')
-
       socket.emit('testMsg',"testData");
       socket.on("data",function(data)
       {
+        console.log("checking socket connection");
+        console.log(data[0][0]);
         thisCopy.setState({p1_name:data[0][0]});
         thisCopy.setState({p2_name:data[0][1]});
         thisCopy.setState({p3_name:data[0][2]});
@@ -40,20 +39,20 @@ export default class JeopardyView extends React.Component
         thisCopy.setState({p1_score:data[1][1]});
         thisCopy.setState({p1_score:data[1][2]});
       });
-      
+
         window.addEventListener('resize', this.handleResize.bind(this));
     }
     componentWillUnmount() {
         window.removeEventListener('resize', this.handleResize);
     }
 
-  
+
   render()
   {
       const paperStyle = {
        width: this.state.windowWidth,
       height: this.state.windowHeight,
-   
+
       marginTop:10,
       backgroundColor:'#3498DB',
     };
@@ -101,15 +100,15 @@ export default class JeopardyView extends React.Component
 
     return(
       <div className="Header" style={{divStyle}} >
-   
-    
+
+
       <Grid>
        <div className="Topics" style={divStyle}>
         <center>
       <Row center="xs">
         <Col>
-        
-     
+
+
       </Col>
 
       <Col>
@@ -152,14 +151,14 @@ export default class JeopardyView extends React.Component
         </center>
 
          </div>
-      
+
       <Row center="xs">
         <Col>
       <div className="Cards100" style={divStyle}>
         {cards100}
         </div>
-    
-  
+
+
     </Col>
     </Row>
     <Row center="xs">
@@ -169,13 +168,13 @@ export default class JeopardyView extends React.Component
      </div>
      </Col>
         </Row>
-       
-          
-        
-        </Grid> 
 
-        
-     
+
+
+        </Grid>
+
+
+
   </div>
   );
   }

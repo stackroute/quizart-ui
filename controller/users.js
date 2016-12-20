@@ -96,8 +96,8 @@ router.post('/login',function(req,res){
       message: "username/password incorrect",
       error: true
     });
-    session.close();
-    driver.close();
+    // session.close();
+    // driver.close();
   })
 });
 

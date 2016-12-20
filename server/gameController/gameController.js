@@ -1,14 +1,13 @@
 var redis = require('redis');
-const redisUrl= process.env.REDIS_URL || 'redis://localhost';
+const redisUrl= process.env.REDIS_URL;
 var client = redis.createClient(redisUrl);
-
 
 var score='';
 var user='';
 function init(io)
 {
     io.on('connection',function(socket){
-        console.log("server connection established");
+        console.log("YES! server connection established");
 
         socket.on('testMsg',function(data)
         {
@@ -39,9 +38,11 @@ function init(io)
                 var gameId = reply;
                 console.log(gameId);
                 var quesNum=Math.floor((Math.random() * (29 - 0 + 1)) + 0);
+                console.log(quesNum);
                 client.get(gameId+"_questions",function(err,reply)
                 {
                     questions = JSON.parse(reply);
+                    console.log("question Array: ", questions[quesNum]);
                     socket.emit("question",questions[quesNum]);
                 });
             })
@@ -49,4 +50,4 @@ function init(io)
     });
 }
 
-module.exports = init;	
+module.exports = init;

@@ -1,8 +1,8 @@
 var redis = require('redis');
-const redisUrl= process.env.REDIS_URL || 'redis://localhost';
+const redisUrl= process.env.REDIS_URL;
 var client = redis.createClient(redisUrl);
 
-var io = require('socket.io-client');
+var io = require('socket.io');
 // var socket = io.connect();
 
 function initializeGame(gameId,questions,users,playerScores)
