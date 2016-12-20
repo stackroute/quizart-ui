@@ -143,7 +143,6 @@ export default class NavBar extends React.Component {
               </ListItem>
               <Divider/>
           </List>
-
       );
     }):null;
     // return (
@@ -167,7 +166,6 @@ export default class NavBar extends React.Component {
             anchorOrigin={{horizontal: 'left', vertical: 'bottom'}}
             targetOrigin={{horizontal: 'right', vertical: 'top'}}
       >
-
       <MenuItem style={{width:'500px', backgroundColor:'indigo500'}}>
         <NotificationNavbar limit={3} />
       </MenuItem>
