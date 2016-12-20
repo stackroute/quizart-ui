@@ -28,7 +28,7 @@ export default class CategoryIcon extends React.Component {
  render() {
    const actions = [
           <FlatButton
- 		                   label="Bact to the Topic"
+ 		                   label="Back to the Topic"
  		                   primary={true}
  		                   onTouchTap={this.handleClose}/>,
 
