@@ -28,12 +28,12 @@ const styles={
     marginTop:10
   },
   imageStyle:{
-    height: 350,
-    width: 400
+    height: 300,
+    width: 300
   },
   buttonNext:
   {
-    marginLeft:"40%",
+    marginLeft:"45%",
   },
 };
 var value=1,image=[];
@@ -245,12 +245,14 @@ export default class JeopardyClues extends React.Component{
     return(
       <div>
         <Paper style={styles} zDepth={1} >
+          <center>
           <TextField
             style={styles.textFieldStyle}
             onChange={this.handleChange}
             floatingLabelText="Search Here"
             />
           <RaisedButton label="Search" primary={true} onClick={this.handleClick} style={{margin:'2%'}}/>
+          </center>
         </Paper>
         <SwipeableViews
           index={this.state.slideIndex}
@@ -293,7 +295,7 @@ export default class JeopardyClues extends React.Component{
                   return(<SearchDisplay ElementObj={element}></SearchDisplay>);
                 })}
                 <RaisedButton label="Select Topic" disabled={this.state.enableSelectTopic} secondary={true} style={styles.buttonNext} onTouchTap={this.handleOpen}/>
-                <RaisedButton label="questions" disabled={this.state.enableSelectTopic} secondary={true} style={styles.buttonNext} onTouchTap={this.showQuestions}/>
+                {/* <RaisedButton label="questions" disabled={this.state.enableSelectTopic} secondary={true}  onTouchTap={this.showQuestions}/> */}
                 <Dialog
                   title="Select Topic"
                   actions={actions}

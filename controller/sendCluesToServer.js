@@ -23,7 +23,7 @@ router.post('/sendCluesToServer', function(req, res, next) {
   SERVICE wikibase:label {
     bd:serviceParam wikibase:language "en" .
   }
-}LIMIT 10
+}LIMIT 50
 `
 var subjectList=[];
 var url = wdk.sparqlQuery(sparql);
@@ -35,14 +35,11 @@ request(url, function (error, response, body) {
       subjectList.push(item.variableLabel.value);
     });
     var results = [],count=0;
-    var startlimit=0,endlimit=5,end=5;
+    var startlimit=0,endlimit=10,end=10;
     var length=subjectList.length;
     console.log("length"+length);
-    var count=0;
-
     while(length>0)
     {
-      count++;
       var tempsubjectList=subjectList.slice(startlimit,endlimit);
       console.log(tempsubjectList);
       results=[];
@@ -99,8 +96,7 @@ request(url, function (error, response, body) {
         }
         else
         {
-          console.log("came to first callback");
-          console.log(results);
+          console.log("came to first callback"+results);
           async.each(results, function(data, callback){
             if(data.hasOwnProperty('detailedDescription'))
             {
