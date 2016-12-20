@@ -3,7 +3,9 @@ var router = express.Router();
 var request = require('request');
 var bodyParser = require('body-parser');
 var mongoose = require('mongoose');
-mongoose.connect('mongodb://localhost/test');
+var mongoUrl = process.env.MONGO_URL || 'mongodb://localhost/test';
+mongoose.Promise = require('bluebird');
+mongoose.connect(mongoUrl);
 var Schema = mongoose.Schema;
 var db = mongoose.connection;
 

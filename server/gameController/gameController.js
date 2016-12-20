@@ -1,6 +1,6 @@
- var redis = require('redis');
-var client = redis.createClient();
-
+var redis = require('redis');
+const redisUrl= process.env.REDIS_URL || 'redis://localhost';
+var client = redis.createClient(redisUrl);
 
 
 var score='';
