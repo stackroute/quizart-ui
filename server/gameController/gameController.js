@@ -12,9 +12,11 @@ function init(io)
 
         socket.on('testMsg',function(data)
         {
+            console.log('test1');
             console.log(data);
             client.get("users",function(err,reply)
             {
+                console.log('test2');
                 var data=[];
                 user=JSON.parse(reply);
                 client.get("scores",function(err,reply){
@@ -33,17 +35,18 @@ function init(io)
             client.get("gameId",function(err,reply)
             {
                 var questions = [];
+
                 var gameId = reply;
                 console.log(gameId);
-                var quesNum=Math.floor((Math.random() * (30 - 0 + 1)) + 0);
+                var quesNum=Math.floor((Math.random() * (29 - 0 + 1)) + 0);
                 client.get(gameId+"_questions",function(err,reply)
                 {
                     questions = JSON.parse(reply);
-                    // socket.emit("question",questions[quesNum]);
+                    socket.emit("question",questions[quesNum]);
                 });
             })
         });
     });
 }
 
-module.exports = init;
+module.exports = init;	
