@@ -5,7 +5,7 @@ var jwt = require('jsonwebtoken');
 var authenticateToken = "";
 router.use(bodyParser.json());
 var neo4j = require('neo4j-driver').v1;
-var driver = neo4j.driver("bolt://localhost", neo4j.auth.basic("neo4j", "password"));
+var driver = neo4j.driver(process.env.NEO4j_DRIVER, neo4j.auth.basic("neo4j", "password"));
 
 
 global.users=[
@@ -59,11 +59,12 @@ router.post('/login',function(req,res){
   var username = req.body.userName;
   var pwd = req.body.password;
   var session = driver.session();
-  
+
   var isValid = false;
 
   session.run("MATCH (n:Person {email:{email},password:{pass}}) return (n)",{email:username,pass:pwd})
   .then(function(results){
+    console.log("!!DFGDGFDGFD!!!")
     if(results.records.length===0)
     {
       isValid = false;

@@ -62,7 +62,7 @@ export default class Login extends React.Component {
  }
   submitForm(data) {
 
-    Request.post('/users/login/login')
+    Request.post('/login')
       .set('Content-type', 'application/json')
       .send({
         userName: data.email,

@@ -1,5 +1,5 @@
 var neo4j = require('neo4j-driver').v1;
-var driver = neo4j.driver("bolt://localhost", neo4j.auth.basic("neo4j", "password"));
+var driver = neo4j.driver(process.env.NEO4j_DRIVER, neo4j.auth.basic("neo4j", "password"));
 var session = driver.session();
 var async = require("async");
 storeClues=()=>{
