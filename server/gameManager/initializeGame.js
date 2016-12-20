@@ -1,10 +1,12 @@
 var redis = require('redis');
-var client = redis.createClient();
+const redisUrl= process.env.REDIS_URL || 'redis://localhost';
+var client = redis.createClient(redisUrl);
+
 var io = require('socket.io-client');
 // var socket = io.connect();
 
 function initializeGame(gameId,questions,users,playerScores)
-{	
+{
 	client.set(gameId+"_questions",JSON.stringify(questions),function(err,reply)
 	{
 		console.log('questions');

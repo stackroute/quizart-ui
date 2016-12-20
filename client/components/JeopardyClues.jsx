@@ -28,12 +28,12 @@ const styles={
     marginTop:10
   },
   imageStyle:{
-    height: 350,
-    width: 400
+    height: 300,
+    width: 300
   },
   buttonNext:
   {
-    marginLeft:"40%",
+    marginLeft:"45%",
   },
 };
 var value=1,image=[];
@@ -244,6 +244,7 @@ export default class JeopardyClues extends React.Component{
 
     return(
       <div>
+      <center>
         <Paper style={styles} zDepth={1} >
           <TextField
             style={styles.textFieldStyle}
@@ -252,6 +253,7 @@ export default class JeopardyClues extends React.Component{
             />
           <RaisedButton label="Search" primary={true} onClick={this.handleClick} style={{margin:'2%'}}/>
         </Paper>
+        </center>
         <SwipeableViews
           index={this.state.slideIndex}
           onChangeIndex={this.handleSlide} >

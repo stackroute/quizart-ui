@@ -23,7 +23,7 @@ router.post('/sendCluesToServer', function(req, res, next) {
   SERVICE wikibase:label {
     bd:serviceParam wikibase:language "en" .
   }
-}LIMIT 100
+}LIMIT 50
 `
 var subjectList=[];
 var url = wdk.sparqlQuery(sparql);

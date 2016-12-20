@@ -1,5 +1,7 @@
- var redis = require('redis');
-var client = redis.createClient();
+var redis = require('redis');
+const redisUrl= process.env.REDIS_URL || 'redis://localhost';
+var client = redis.createClient(redisUrl);
+
 
 var score='';
 var user='';
@@ -33,7 +35,7 @@ function init(io)
             client.get("gameId",function(err,reply)
             {
                 var questions = [];
-                
+
                 var gameId = reply;
                 console.log(gameId);
                 var quesNum=Math.floor((Math.random() * (29 - 0 + 1)) + 0);
