@@ -146,7 +146,7 @@ export default class SignUp extends React.Component {
                   <FormsyText
                               type="password"
                               name="password"
-                              validations="isLength:8"
+                              validations="minLength:8"
                               validationError={ errorMessages.pwdLength }
                               id = "pwd"
                               required
