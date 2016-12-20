@@ -36,7 +36,6 @@ router.post('/storeCluesInJson',function(req,res){
 
 
   async.each(topics, function(topic, callback){
-    console.log('in option');
     session
     .run( "MATCH(p:Person)-[r:Described_By]->(c:clue)-[:Belongs_To]->(t:Topic {topic:{topicSelected}}) return p order by rand() limit 30",{topicSelected:topic} )
     .then(function(results)
@@ -50,7 +49,7 @@ router.post('/storeCluesInJson',function(req,res){
       options[topic]=tempArr;
       tempArr=[];
       // session.close();
-      console.log(options);
+      //console.log(options);
     })
     callback(null)
   },function(err){
