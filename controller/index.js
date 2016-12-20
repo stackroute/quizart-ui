@@ -5,6 +5,7 @@ router = express.Router();
 router.use(function(req,res,next) {
   console.log(req.body);
   console.log("Inside Middleware");
+  console.log("checking in index");
   next();
 })
 router.use(require('./signup'));
