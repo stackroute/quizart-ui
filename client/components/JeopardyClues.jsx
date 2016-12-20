@@ -246,12 +246,14 @@ export default class JeopardyClues extends React.Component{
       <div>
       <center>
         <Paper style={styles} zDepth={1} >
+          <center>
           <TextField
             style={styles.textFieldStyle}
             onChange={this.handleChange}
             floatingLabelText="Search Here"
             />
           <RaisedButton label="Search" primary={true} onClick={this.handleClick} style={{margin:'2%'}}/>
+          </center>
         </Paper>
         </center>
         <SwipeableViews
@@ -295,7 +297,7 @@ export default class JeopardyClues extends React.Component{
                   return(<SearchDisplay ElementObj={element}></SearchDisplay>);
                 })}
                 <RaisedButton label="Select Topic" disabled={this.state.enableSelectTopic} secondary={true} style={styles.buttonNext} onTouchTap={this.handleOpen}/>
-                <RaisedButton label="questions" disabled={this.state.enableSelectTopic} secondary={true} style={styles.buttonNext} onTouchTap={this.showQuestions}/>
+                {/* <RaisedButton label="questions" disabled={this.state.enableSelectTopic} secondary={true}  onTouchTap={this.showQuestions}/> */}
                 <Dialog
                   title="Select Topic"
                   actions={actions}

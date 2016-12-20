@@ -8,6 +8,7 @@ var expressJWT = require('express-jwt');
 var jwt = require('jsonwebtoken');
 var path = require('path');
 
+
 var mongoose = require('mongoose');
 mongoose.connect('mongodb://localhost/test');
 var Schema = mongoose.Schema;
@@ -76,7 +77,7 @@ app.use(function(req, res, next) {
   next();
 });
 
-app.use('/users/login',userRoute);
+// app.use('/login',userRoute);
 app.use('/',userRoute);
 app.use('/signin',userRoute);
 server.listen('8081',function(){
