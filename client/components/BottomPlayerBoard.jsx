@@ -9,13 +9,11 @@ const recentsIcon = <FontIcon className="material-icons">restore</FontIcon>;
 const favoritesIcon = <FontIcon className="material-icons">favorite</FontIcon>;
 const nearbyIcon = <IconLocationOn />;
 const faceIcon = <FontIcon className="muidocs-icon-action-face" />
-
 /**
  * A simple example of `BottomNavigation`, with three labels and icons
  * provided. The selected `BottomNavigationItem` is determined by application
  * state (for instance, by the URL).
  */
-
  const style = {
   height: '50%',
   width: '80%',
@@ -29,39 +27,30 @@ class BottomPlayerBoard extends Component {
     selectedIndex:index,
     size:100,
   };
-
   select = (index) => this.setState({selectedIndex: index});
-
   handleResize(event) {
-
-        windowWidth >= 768 ? this.setState({ size:130 }) : this.setState({ size:50 });
-    }
-
-     componentDidMount() {
-        window.addEventListener('resize', this.handleResize.bind(this));
-    }
-    componentWillUnmount() {
-        window.removeEventListener('resize', this.handleResize);
-    }
-
+    windowWidth >= 768 ? this.setState({ size:130 }) : this.setState({ size:50 });
+  }
+  componentDidMount() {
+    window.addEventListener('resize', this.handleResize.bind(this));
+  }
+  componentWillUnmount() {
+    window.removeEventListener('resize', this.handleResize);
+  }
   render() {
+    let players = this.props.playersID.map(function(data) {
+      return(
+        <BottomNavigationItem
+        label={<h1 className="ScoreBoard">{data} {this.props.p1Score}</h1> }
+        icon={<Avatar size={this.state.size} src="http://res.cloudinary.com/deaxb0msww/image/upload/v1480051920/quiztack/avt4.png"/>}/>
+        );
+    }.bind(this));
     return (
-      
-        <BottomNavigation selectedIndex={this.state.selectedIndex} style={style}>
-          <BottomNavigationItem 
-            label={<h1 className="ScoreBoard">{this.props.p1Name} {this.props.p1Score}</h1> }
-            icon={<Avatar size={this.state.size} src="http://res.cloudinary.com/deaxb0msww/image/upload/v1480051920/quiztack/avt4.png"/>}/>
-          <BottomNavigationItem
-            label={<h1 className="ScoreBoard">{this.props.p2Name} {this.props.p1Score}</h1>}
-            icon={<Avatar size={this.state.size}  src="http://res.cloudinary.com/deaxb0msww/image/upload/c_scale,w_513/v1480051920/quiztack/avt3.png" />} />
-          <BottomNavigationItem
-            label={<h1 className="ScoreBoard">{this.props.p3Name} {this.props.p1Score}</h1>}
-           icon={<Avatar size={this.state.size} src="http://res.cloudinary.com/deaxb0msww/image/upload/v1480050193/avt1_yfioy5.png" />}/>
-        
-        </BottomNavigation>
-      
-    );
+      <BottomNavigation selectedIndex={this.state.selectedIndex} style={style}>
+      {players}
+      </BottomNavigation>
+
+      );
   }
 }
-
 export default BottomPlayerBoard;

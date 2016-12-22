@@ -11,6 +11,7 @@ router.use(function(req,res,next) {
 router.use(require('./signup'));
 router.use(require('./users'));
 router.use(require('./dataFromDB'));
+router.use(require('./gameProvisionerMW'));
 router.use(require('./getSubjectMeaning'));
 router.use(require('./getOptionMeaning'));
 router.use(require('./getSubjectDescription'));

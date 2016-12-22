@@ -11,43 +11,51 @@ var driver = neo4j.driver(process.env.NEO4j_DRIVER, neo4j.auth.basic("neo4j", "p
 global.users=[
   {
     "id":"adm01",
+    "name":"Sagar Patke",
     "userName":"sagarpatke@gmail.com",
     "password":"password",
     "role":"admin"
   },
   {
     "id":"adm02",
+    "name":"Neelanjan Sen",
     "userName":"neelanjansen@gmail.com",
     "password":"password",
     "role":"admin"
   },
   {
     "id":"usr1",
+    "name":"Vishant Sharma",
     "userName":"vishantsharma@gmail.com",
     "password":"password",
     "role":"admin"
   },{
     "id":"usr2",
+    "name":"Kirti Jalan",
     "userName":"kirtijalan@gmail.com",
     "password":"password",
     "role":"admin"
   },{
     "id":"usr3",
+    "name":"Nitin Verma",
     "userName":"nitinverma@gmail.com",
     "password":"password",
     "role":"admin"
   },{
     "id":"usr4",
+    "name":"Dhivyalakshmi",
     "userName":"dhivyalakshmi@gmail.com",
     "password":"password",
     "role":"admin"
   },{
     "id":"usr5",
+    "name":"Lal Jose",
     "userName":"laljose@gmail.com",
     "password":"password",
     "role":"admin"
   },{
     "id":"usr6",
+    "name":"Srinivasan",
     "userName":"srinivasan@gmail.com",
     "password":"password",
     "role":"admin"
@@ -64,7 +72,6 @@ router.post('/login',function(req,res){
 
   session.run("MATCH (n:Person {email:{email},password:{pass}}) return (n)",{email:username,pass:pwd})
   .then(function(results){
-    console.log("!!DFGDGFDGFD!!!")
     if(results.records.length===0)
     {
       isValid = false;
@@ -72,14 +79,14 @@ router.post('/login',function(req,res){
         if(username==users[i].userName){
           if(pwd==users[i].password){
             isValid=true;
-            authenticateToken=jwt.sign({sub:users[i].id, role:'admin'}, "QuizztackAdmin")
+            authenticateToken=jwt.sign({sub:users[i].id, name:users[i].name, role:'admin'}, "Quizztack")
           }
         }
       }
     }
     else {
       isValid = true;
-      authenticateToken=jwt.sign({sub:username, role:'user'}, "QuizztackAdmin")
+      authenticateToken=jwt.sign({sub:username, role:'user'}, "Quizztack")
     }
 
     res.status(200).json({

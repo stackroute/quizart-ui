@@ -23,9 +23,10 @@ const errorMessages = {
 };
 const styles = {
   loginStyle: {
-    marginTop: window.innerHeight / 4.5,
-    marginLeft: "auto",
-    marginRight: "auto"
+    // marginTop: window.innerHeight / 4.5,
+    // marginLeft: "auto",
+    // marginRight: "auto",
+    backgroundColor: "#00000000"
   },
   errorStyle: {
     color: 'red'
@@ -61,7 +62,6 @@ export default class Login extends React.Component {
    };
  }
   submitForm(data) {
-
     Request.post('/login')
       .set('Content-type', 'application/json')
       .send({
@@ -92,9 +92,9 @@ export default class Login extends React.Component {
   render() {
     return (
       <Grid>
+        <Row xs="center">
         <Col xs={ 6 }>
         <Card
-              zDepth={ 2 }
               style={ styles.loginStyle }>
           <Row center="xs">
             <Formsy.Form
@@ -102,7 +102,6 @@ export default class Login extends React.Component {
                          onInvalid={ this.disableButton }
                          onValidSubmit={ this.submitForm }
                          onInvalidSubmit={ this.notifyFormError }>
-
               <CardText>
                 <Row center="xs"><h2>Already a user?</h2> </Row>
                 <Row>
@@ -164,6 +163,7 @@ export default class Login extends React.Component {
           </Row>
         </Card>
         </Col>
+      </Row>
       </Grid>
       );
   }

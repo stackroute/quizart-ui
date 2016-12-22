@@ -12,20 +12,37 @@ var path = require('path');
 var mongoose = require('mongoose');
 mongoose.connect('mongodb://localhost/test');
 var Schema = mongoose.Schema;
-
+// var socket;
 var db = mongoose.connection;
 db.on('error', console.error.bind(console, 'connection error:'));
 db.once('open', function() {
 //   // we're connected!
-// //   db.categories.find({}, function(err, categories) {
-// //   if (err) throw err;
-// //
-// //   // object of all the users
-// //   console.log(categories);
-// // });
-//   console.log("connected");
 });
 
+// io.sockets.on('connection',function(socket){
+//   console.log('socket connection established here!!!!');
+
+
+// });
+// sockets.on('queue')
+// io.use(function(sockets, next) {
+//   // var token = sockets.handshake.query.toke
+//   var token = JSON.parse(localStorage['token']),
+//               decodedToken;
+//    try {
+//       decodedToken = jwt.verify(token, "Quizztack");
+//       console.log("token valid for user", decodedToken.name);
+//       sockets.connectedUser = decodedToken.name;
+//       sockets.emit('connected', sockets.connectedUser);
+//       next();
+//     } catch (err) {
+//         console.log(err);
+//         next(new Error("not valid token"));
+//         //socket.disconnect();
+//     }
+//   });
+
+  // io.on('connection', socket);
 
 var init  = require('./server/gameController/gameController');
 
@@ -54,13 +71,13 @@ if (process.env.NODE_ENV !== 'production') {
   }))
 }
 
-io.on('connection', function(socket) {
-	console.log('server connected to socket');
-	socket.emit('news', {hello: 'world'});
-	socket.on('my other event', function(data) {
-		console.log(data);
-	});
-});
+// io.on('connection', function(socket) {
+// 	console.log('server connected to socket');
+// 	socket.emit('news', {hello: 'world'});
+// 	socket.on('my other event', function(data) {
+// 		console.log(data);
+// 	});
+// });
 
 app.use(bodyParser.json());
 app.use(express.static(__dirname + '/client'));

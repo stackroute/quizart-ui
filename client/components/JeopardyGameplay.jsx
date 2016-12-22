@@ -27,7 +27,6 @@ export default class JeopardyGameplay extends React.Component {
         this.changeState=this.changeState.bind(this);
         this.handleOnClick = this.handleOnClick.bind(this);
     }
-
     componentDidMount()
     {
         var thisCopy = this;
@@ -40,22 +39,11 @@ export default class JeopardyGameplay extends React.Component {
         questionData.push(msg);
         this.setState({topic: questionData});
     }.bind(this));
-        console.log("component mounted");
-        // superagent
-        // .get('http://localhost:3000/topic?_limit=' + this.props.limit)
-        // .end((err, res) => {
-        //     console.log("processing");
-        //     this.setState({topic: res.body});
-        //     this.state.topic.map((ques)=>
-        //         this.setState({question:ques.question})
-        //         );
-        // });
     }
 
     handleOnClick(e)
     {
         this.state.topic.map((topics) => {
-
             for (let option=0; option <= topics.options.length; option++)
             {
                 e.target.parentElement.childNodes[option].disabled = true;
@@ -68,10 +56,8 @@ export default class JeopardyGameplay extends React.Component {
             {
                 e.target.style.backgroundColor = "red";
             }
-
         });
     }
-
     changeState()
     {
      options = [];
@@ -204,13 +190,10 @@ render() {
         {this.state.options.map(i=> <button key={i} onTouchTap={this.handleOnClick}  label={i} style={{width:"40%",height:'100%',fxed:'bottom', marginTop: '6px',textAlign:'center',
             backgroundColor:'#1A237E',color:'white', padding: '3px', border:'1px solid', borderRadius:'2px', cursor: 'pointer', outline: '30px 30px 30px 30px',
             fontSize:'2px'
-
         }}
         >{i}</button>)}
-
         </Card>
         </MediaQuery>
-
         </div>
         );
 }

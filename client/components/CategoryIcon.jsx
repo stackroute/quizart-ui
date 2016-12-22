@@ -7,6 +7,13 @@ import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import Dialog from 'material-ui/Dialog';
 import FlatButton from 'material-ui/FlatButton';
 import {Link} from 'react-router';
+import superagent from 'superagent';
+// import io from 'socket.io-client';
+// var jwt = require('jsonwebtoken');
+// var io = require("socket.io");
+// var io = require('socket.io-client');
+
+// var socket = null;
 
 export default class CategoryIcon extends React.Component {
   constructor(props)
@@ -14,12 +21,23 @@ export default class CategoryIcon extends React.Component {
 		super(props);
 		this.state={open:false};
 	}
-  handleOpen =() => {
+  // componentDidMount() {
+  //   var socket = io();
+  //   socket.emit('queue');
+  //   socket.on('msg',function(data){
+  //     console.log(data.msgServe);
+  //   });
+  //
+  //   // socket = io.connect({'query': 'token=' + localStorage['token']});
+  //   // socket.on('init', this._initializeConversation.bind(this))
+  //   // socket.on('send:message', this._recieveMessage.bind(this));
+  // }
+  handleOpen() {
     this.setState({open:true});
-  };
-	handleClose =() => {
+  }
+	handleClose() {
 		this.setState({open:false});
-	};
+	}
  static get propTypes() {
    return {
      category: React.PropTypes.object.isRequired
@@ -35,7 +53,8 @@ export default class CategoryIcon extends React.Component {
  						 <Link to="jeopardyBoard/">
  						 <FlatButton
  						   label="Risk Jeopardy"
- 						   primary={true} />
+ 						   primary={true}
+             />
  						   </Link>
  						   ];
    const styles={
