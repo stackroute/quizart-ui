@@ -37,7 +37,9 @@ class BottomPlayerBoard extends Component {
   componentWillUnmount() {
     window.removeEventListener('resize', this.handleResize);
   }
+
   render() {
+
     let players = this.props.playersID.map(function(data) {
       return(
         <BottomNavigationItem
@@ -49,7 +51,6 @@ class BottomPlayerBoard extends Component {
       <BottomNavigation selectedIndex={this.state.selectedIndex} style={style}>
       {players}
       </BottomNavigation>
-
       );
   }
 }

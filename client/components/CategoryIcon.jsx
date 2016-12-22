@@ -32,7 +32,9 @@ export default class CategoryIcon extends React.Component {
   //   // socket.on('init', this._initializeConversation.bind(this))
   //   // socket.on('send:message', this._recieveMessage.bind(this));
   // }
-  handleOpen() {
+
+
+  handleOpen =() => {
     this.setState({open:true});
   }
 	handleClose() {

@@ -5,7 +5,7 @@ var bodyParser = require('body-parser');
 var mongoose = require('mongoose');
 var mongoUrl = process.env.MONGO_URL || 'mongodb://localhost/test';
 mongoose.Promise = require('bluebird');
-mongoose.connect(mongoUrl);
+mongoose.createConnection(mongoUrl);
 var Schema = mongoose.Schema;
 var db = mongoose.connection;
 
@@ -77,7 +77,7 @@ router.get('/myChallenges',function(req,res){
 });
 
 router.get('/myChallengesDash/:limitTest', function(req, res) {
-  myChallengeDashModel.find({}).limit(req.params.limitTest).exec(function(err, myChallenges){
+  myChallengeDashModel.find({}).exec(function(err, myChallenges){
     if (err) throw err;
     res.status(200).json({
       message: myChallenges,
@@ -87,7 +87,7 @@ router.get('/myChallengesDash/:limitTest', function(req, res) {
 });
 
 router.get('/categoriesDash/:limitCategories', function(req, res) {
-  categoriesModel.find({}).limit(req.params.limitCategories).exec(function(err, categories){
+  categoriesModel.find({}).exec(function(err, categories){
     if (err) throw err;
     res.status(200).json({
       message: categories,
@@ -97,7 +97,7 @@ router.get('/categoriesDash/:limitCategories', function(req, res) {
 });
 
 router.get('/gamePlayChallenge/:limitTopics', function(req, res) {
-  challengeGameplayModel.find({}).limit(req.params.limitTopics).exec(function(err, challengeGameplay){
+  challengeGameplayModel.find({}).exec(function(err, challengeGameplay){
     if (err) throw err;
     res.status(200).json({
       message: challengeGameplay,
@@ -107,7 +107,7 @@ router.get('/gamePlayChallenge/:limitTopics', function(req, res) {
 });
 
 router.get('/gamePlayJeopardy/:limitTopics', function(req, res) {
-  challengeGameplayModel.find({}).limit(req.params.limitTopics).exec(function(err, challengeGameplay){
+  challengeGameplayModel.find({}).exec(function(err, challengeGameplay){
     if (err) throw err;
     res.status(200).json({
       message: challengeGameplay,

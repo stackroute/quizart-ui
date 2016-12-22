@@ -11,6 +11,7 @@ let tempEmail= [];
 function init(io)
 {
     io.on('connection',function(socket){
+
         console.log("YES! server connection established");
         socket.on('queue',function(data){
           console.log('queued here:', data.token);
@@ -36,11 +37,23 @@ function init(io)
           console.log("Ready to play ", data.gameID);
         });
 
+        socket.on('queue',function(data){
+         console.log('queued here:', data.token);
+         var jwtTokenAuth = jwt.verify(data.token, "Quizztack");
+         jwt.verify(data.token, "Quizztack",function(err,token){
+           if(err){
+             console.log(err);
+           }else{
+             console.log("authenticated Token: ",jwtTokenAuth.name);
+             // socket.emit('userID', jwtTokenAuth.name);
+           }
+         });
+       });
+
         socket.on('testMsg',function(data)
         {
             console.log('test1');
             console.log(data);
-
             socket.on('joining', function(userData) {
                 console.log('userData', userData);
                 if(!tempEmail.includes(userData.userId)) {
@@ -57,33 +70,34 @@ function init(io)
                 console.log(user);
                 socket.emit("data",user);
                     console.log(channel);
+            /*client.get("users",function(err,reply)
+            {
+                console.log('test2');
+                var data=[];
+                user=JSON.parse(reply);
+                client.get("scores",function(err,reply){
+                    score=JSON.parse(reply);
+                    data.push(user);
+                    data.push(score);
+                    console.log(data);
+                    socket.emit("data",data);
+                });
             });
+*/
 
 
-            // client.get("users",function(err,reply)
-            // {
-            //     console.log('test2');
-            //     var data=[];
-            //     user=JSON.parse(reply);
-            //     client.get("scores",function(err,reply){
-            //         score=JSON.parse(reply);
-            //         data.push(user);
-            //         data.push(score);
-            //         console.log(data);
-            //         socket.emit("data",data);
-            //     });
-            // });
         });
-
+      })
+      ;
         socket.on('jGamePlay',function(msg)
         {
             console.log("user chose "+msg);
             client.get("gameId",function(err,reply)
             {
                 var questions = [];
-
                 var gameId = reply;
                 console.log(gameId);
+                socket.emit('gameId', gameId);
                 var quesNum=Math.floor((Math.random() * (29 - 0 + 1)) + 0);
                 console.log(quesNum);
                 client.get(gameId+"_questions",function(err,reply)

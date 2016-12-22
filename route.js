@@ -10,14 +10,14 @@ var path = require('path');
 
 
 var mongoose = require('mongoose');
-mongoose.connect('mongodb://localhost/test');
+mongoose.createConnection('mongodb://localhost/test');
 var Schema = mongoose.Schema;
 // var socket;
-var db = mongoose.connection;
-db.on('error', console.error.bind(console, 'connection error:'));
-db.once('open', function() {
-//   // we're connected!
-});
+// var db = mongoose.connection;
+// db.on('error', console.error.bind(console, 'connection error:'));
+// db.once('open', function() {
+// //   // we're connected!
+// });
 
 // io.sockets.on('connection',function(socket){
 //   console.log('socket connection established here!!!!');

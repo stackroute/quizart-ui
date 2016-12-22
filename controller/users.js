@@ -24,38 +24,38 @@ global.users=[
     "role":"admin"
   },
   {
-    "id":"usr1",
-    "name":"Vishant Sharma",
+    "id":"adm03",
+    "name": "Vishant Sharma",
     "userName":"vishantsharma@gmail.com",
     "password":"password",
     "role":"admin"
   },{
-    "id":"usr2",
-    "name":"Kirti Jalan",
+    "id":"adm04",
+    "name": "Kirti Jalan",
     "userName":"kirtijalan@gmail.com",
     "password":"password",
     "role":"admin"
   },{
-    "id":"usr3",
-    "name":"Nitin Verma",
+    "id":"adm05",
+    "name": "Nitin Verma",
     "userName":"nitinverma@gmail.com",
     "password":"password",
     "role":"admin"
   },{
-    "id":"usr4",
-    "name":"Dhivyalakshmi",
+    "id":"adm06",
+    "name": "Dhivyalakshmi",
     "userName":"dhivyalakshmi@gmail.com",
     "password":"password",
     "role":"admin"
   },{
-    "id":"usr5",
-    "name":"Lal Jose",
+    "id":"adm07",
+    "name": "Lal Jose",
     "userName":"laljose@gmail.com",
     "password":"password",
     "role":"admin"
   },{
-    "id":"usr6",
-    "name":"Srinivasan",
+    "id":"adm08",
+    "name": "Srinivasan",
     "userName":"srinivasan@gmail.com",
     "password":"password",
     "role":"admin"
@@ -86,7 +86,11 @@ router.post('/login',function(req,res){
     }
     else {
       isValid = true;
-      authenticateToken=jwt.sign({sub:username, role:'user'}, "Quizztack")
+      var nameOfUser =  results.records[0]._fields[0].properties.username;
+      // console.log("user's name is ", nameOfUser)
+      // console.log("Results here: ",);
+      // console.log("Results here: ",JSON.stringify(results.records._fields[0]));
+      authenticateToken=jwt.sign({sub:username, name: nameOfUser, role:'user'}, "Quizztack")
     }
 
     res.status(200).json({
