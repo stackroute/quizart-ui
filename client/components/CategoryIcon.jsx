@@ -14,6 +14,8 @@ export default class CategoryIcon extends React.Component {
 		super(props);
 		this.state={open:false};
 	}
+
+
   handleOpen =() => {
     this.setState({open:true});
   };

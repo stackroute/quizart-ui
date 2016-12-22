@@ -34,33 +34,31 @@ class BottomPlayerBoard extends Component {
 
   handleResize(event) {
 
-        windowWidth >= 768 ? this.setState({ size:130 }) : this.setState({ size:50 });
-    }
+    windowWidth >= 768 ? this.setState({ size:130 }) : this.setState({ size:50 });
+  }
 
-     componentDidMount() {
-        window.addEventListener('resize', this.handleResize.bind(this));
-    }
-    componentWillUnmount() {
-        window.removeEventListener('resize', this.handleResize);
-    }
+  componentDidMount() {
+    window.addEventListener('resize', this.handleResize.bind(this));
+  }
+  componentWillUnmount() {
+    window.removeEventListener('resize', this.handleResize);
+  }
 
   render() {
+
+    let players = this.props.playersID.map(function(data) {
+      return(
+        <BottomNavigationItem 
+        label={<h1 className="ScoreBoard">{data} {this.props.p1Score}</h1> }
+        icon={<Avatar size={this.state.size} src="http://res.cloudinary.com/deaxb0msww/image/upload/v1480051920/quiztack/avt4.png"/>}/>
+        );
+    }.bind(this));
     return (
+      <BottomNavigation selectedIndex={this.state.selectedIndex} style={style}>
+      {players}
+      </BottomNavigation>
       
-        <BottomNavigation selectedIndex={this.state.selectedIndex} style={style}>
-          <BottomNavigationItem 
-            label={<h1 className="ScoreBoard">{this.props.p1Name} {this.props.p1Score}</h1> }
-            icon={<Avatar size={this.state.size} src="http://res.cloudinary.com/deaxb0msww/image/upload/v1480051920/quiztack/avt4.png"/>}/>
-          <BottomNavigationItem
-            label={<h1 className="ScoreBoard">{this.props.p2Name} {this.props.p1Score}</h1>}
-            icon={<Avatar size={this.state.size}  src="http://res.cloudinary.com/deaxb0msww/image/upload/c_scale,w_513/v1480051920/quiztack/avt3.png" />} />
-          <BottomNavigationItem
-            label={<h1 className="ScoreBoard">{this.props.p3Name} {this.props.p1Score}</h1>}
-           icon={<Avatar size={this.state.size} src="http://res.cloudinary.com/deaxb0msww/image/upload/v1480050193/avt1_yfioy5.png" />}/>
-        
-        </BottomNavigation>
-      
-    );
+      );
   }
 }
 

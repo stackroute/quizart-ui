@@ -10,7 +10,7 @@ var path = require('path');
 
 
 var mongoose = require('mongoose');
-mongoose.connect('mongodb://localhost/test');
+mongoose.createConnection('mongodb://localhost/test');
 var Schema = mongoose.Schema;
 
 var db = mongoose.connection;
@@ -54,13 +54,13 @@ if (process.env.NODE_ENV !== 'production') {
   }))
 }
 
-io.on('connection', function(socket) {
-	console.log('server connected to socket');
-	socket.emit('news', {hello: 'world'});
-	socket.on('my other event', function(data) {
-		console.log(data);
-	});
-});
+// io.on('connection', function(socket) {
+// 	console.log('server connected to socket');
+// 	socket.emit('news', {hello: 'world'});
+// 	socket.on('my other event', function(data) {
+// 		console.log(data);
+// 	});
+// });
 
 app.use(bodyParser.json());
 app.use(express.static(__dirname + '/client'));
