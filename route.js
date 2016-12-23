@@ -10,7 +10,7 @@ var path = require('path');
 
 
 var mongoose = require('mongoose');
-mongoose.createConnection('mongodb://localhost/test');
+mongoose.connect(process.env.MONGO_URL);
 var Schema = mongoose.Schema;
 // var socket;
 // var db = mongoose.connection;
