@@ -11,38 +11,23 @@ var path = require('path');
 
 var mongoose = require('mongoose');
 mongoose.connect(process.env.MONGO_URL);
+
 var Schema = mongoose.Schema;
-// var socket;
-// var db = mongoose.connection;
-// db.on('error', console.error.bind(console, 'connection error:'));
-// db.once('open', function() {
-// //   // we're connected!
-// });
 
-// io.sockets.on('connection',function(socket){
-//   console.log('socket connection established here!!!!');
+var db = mongoose.connection;
+db.on('error', console.error.bind(console, 'connection error:'));
+db.once('open', function() {
+  console.log('Database connected');
+//   // we're connected!
+// //   db.categories.find({}, function(err, categories) {
+// //   if (err) throw err;
+// //
+// //   // object of all the users
+// //   console.log(categories);
+// // });
+//   console.log("connected");
+});
 
-
-// });
-// sockets.on('queue')
-// io.use(function(sockets, next) {
-//   // var token = sockets.handshake.query.toke
-//   var token = JSON.parse(localStorage['token']),
-//               decodedToken;
-//    try {
-//       decodedToken = jwt.verify(token, "Quizztack");
-//       console.log("token valid for user", decodedToken.name);
-//       sockets.connectedUser = decodedToken.name;
-//       sockets.emit('connected', sockets.connectedUser);
-//       next();
-//     } catch (err) {
-//         console.log(err);
-//         next(new Error("not valid token"));
-//         //socket.disconnect();
-//     }
-//   });
-
-  // io.on('connection', socket);
 
 var init  = require('./server/gameController/gameController');
 

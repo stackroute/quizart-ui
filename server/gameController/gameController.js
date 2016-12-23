@@ -11,7 +11,7 @@ let tempEmail= [];
 function init(io)
 {
     io.on('connection',function(socket){
-
+        console.log(socket.id);
         console.log("YES! server connection established");
         socket.on('queue',function(data){
           console.log('queued here:', data.token);
@@ -49,6 +49,7 @@ function init(io)
            }
          });
        });
+
 
         socket.on('testMsg',function(data)
         {

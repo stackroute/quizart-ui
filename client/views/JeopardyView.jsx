@@ -51,7 +51,7 @@ export default class JeopardyView extends React.Component
            console.log("checking socket connection");
 
     window.addEventListener('resize', this.handleResize.bind(this));
-  });
+  }.bind(this));
 }
   componentWillUnmount() {
     window.removeEventListener('resize', this.handleResize);

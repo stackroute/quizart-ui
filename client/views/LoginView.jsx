@@ -17,10 +17,10 @@ export default class LoginView extends React.Component {
          <CardMedia
            overlay={<Grid>
              <Row>
-               <Col xs={12} sm={12} md={12} lg={12}><Login/></Col>
-               {/* <Col xs={6} sm={6} md={6} lg={6}><SignUp/></Col> */}
+               <Col xs={6} sm={6} md={6} lg={6}><Login/></Col>
+               { <Col xs={6} sm={6} md={6} lg={6}><SignUp/></Col> }
              </Row>
-             <Row>
+             {/* <Row>
                <Col xs={12} sm={12} md={12} lg={12}>
                  <RaisedButton
                                type="submit"
@@ -28,7 +28,7 @@ export default class LoginView extends React.Component {
                                primary={ true }
                                 />
                </Col>
-             </Row>
+             </Row> */}
            </Grid>}
            overlayContainerStyle={{height:"100%"}}
            overlayStyle = {{height:"100%"}}
