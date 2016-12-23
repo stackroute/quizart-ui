@@ -23,7 +23,7 @@ router.post('/sendCluesToServer', function(req, res, next) {
   SERVICE wikibase:label {
     bd:serviceParam wikibase:language "en" .
   }
-}LIMIT 50
+}LIMIT 1
 `
 var subjectList=[];
 var url = wdk.sparqlQuery(sparql);
@@ -35,7 +35,7 @@ request(url, function (error, response, body) {
       subjectList.push(item.variableLabel.value);
     });
     var results = [],count=0;
-    var startlimit=0,endlimit=10,end=10;
+    var startlimit=0,endlimit=5,end=5;
     var length=subjectList.length;
     console.log("length"+length);
     while(length>0)
@@ -96,85 +96,76 @@ request(url, function (error, response, body) {
         }
         else
         {
-          console.log("came to first callback"+results);
+          count++;
+          console.log(count);
+          console.log(results);
           async.each(results, function(data, callback){
-            if(data.hasOwnProperty('detailedDescription'))
+            let nlp = require('nlp_compromise');
+            var clue=data.detailedDescription.articleBody;
+            var flag=0;
+            var sentences=[];
+            var jeopardyClues=[];
+            var des = data.description;
+            var name = data.name;
+            var nameArr = name.split(' ');
+            var nameLength = nameArr.length;
+            var splitByDot=nlp.text(clue);
+            splitByDot.sentences.map(function(value){
+              var pattern = new RegExp(/((, ))/, "ig");
+              var values=value.str.split(pattern);
+              values.forEach(function(eachSentence){
+                var element = nlp.text(eachSentence).text();
+                var temp=element.trim().split(' ').length;
+                if(temp>4)
+                {
+                  var checkGrammer=nlp.text(element);
+                  checkGrammer.sentences.forEach(function(terms){
+                    if(terms.terms[0].tag=="Noun"||terms.terms[0].tag=="Adverb"||terms.terms[0].tag=="Person")
+                    {
+                      sentences.push(terms.str);
+                    }
+                    else if(terms.terms[0].normal=="and")
+                    {
+                      terms.terms.forEach(function(value){
+                        if((value.pos.hasOwnProperty("Verb")||value.pos.hasOwnProperty("Adjective"))&&flag==0)
+                        {
+                          sentences.push(terms.str);
+                          flag=1;
+                        }
+                      })
+                      flag=0;
+                    }
+                  })
+                }
+              })
+            })
+            console.log(sentences.length);
+            if(sentences.length>5)
             {
-              var ListItems='';
-              var ListItemsCommaCondition='';
-              let nlp = require('nlp_compromise');
-              var clue = data.detailedDescription.articleBody;
-              var name = data.name;
-              var des = data.description;
-              var nameArr = name.split(' ');
-              var nameLength = nameArr.length;
-
-              var isPosition = clue.search(/is /i);
-              var wasPosition = clue.search(/was /i);
-              var commaPosition = clue.search(/,/i);
-              var dotPosition = clue.search(/./i);
-              if (isPosition <= 80 || wasPosition <= 80) {
-                var pattern = new RegExp(/.+?(( is))/, "i");
-                var descriptionModification = clue.replace(pattern, "The subject is ");
-                var descriptionModificationArray = descriptionModification.split(' ');
-                for (var i = 0; i < nameArr.length; i++) {
-                  descriptionModificationArray.map(function(element) {
-                    if (element == nameArr[i]) {
-                      var removeElement = new RegExp(nameArr[i], "ig");
-                      descriptionModification = descriptionModification.replace(removeElement, "This");
-                    }
-                  });
-                }
-                var removeName = new RegExp(name, "ig");
-                var descriptionModification = descriptionModification.replace(removeName, "________");
-                var clueLength = nlp.text(descriptionModification).sentences.length;
-                var clueArr = [];
-                for (var i = 0; i < clueLength; i++) {
-                  clueArr[i] = nlp.text(descriptionModification).sentences[i].str;
-                }
-              } else if (commaPosition <= 80) {
-                var pattern = new RegExp(/([^,]+)/, "i");
-                var descriptionModification = clue.replace(pattern, "The " + des + " ");
-                var descriptionModificationArray = descriptionModification.split(' ');
-                for (var i = 0; i < nameArr.length; i++) {
-                  descriptionModificationArray.map(function(element) {
-                    if (element == nameArr[i]) {
-                      var removeElement = new RegExp(nameArr[i], "ig");
-                      descriptionModification = descriptionModification.replace(removeElement, "This");
-                    }
-                  });
-                }
-                var removeName = new RegExp(name, "ig");
-                var descriptionModification = descriptionModification.replace(removeName, "________");
-                var clueLength = nlp.text(descriptionModification).sentences.length;
-                var clueArr = [];
-                for (var i = 0; i < clueLength; i++) {
-                  clueArr[i] = nlp.text(descriptionModification).sentences[i].str;
-                }
-              } else {
-                var pattern = new RegExp(/.+?(( is))/, "i");
-                var descriptionModification = clue.replace(pattern, "The subject is ");
-                var descriptionModificationArray = descriptionModification.split(' ');
-                for (var i = 0; i < nameArr.length; i++) {
-                  descriptionModificationArray.map(function(element) {
-                    if (element == nameArr[i]) {
-                      var removeElement = new RegExp(nameArr[i], "ig");
-                      descriptionModification = descriptionModification.replace(removeElement, "This");
-                    }
-                  });
-                }
-                var removeName = new RegExp(name, "ig");
-                var descriptionModification = descriptionModification.replace(removeName, "________");
-
-                var clueLength = nlp.text(descriptionModification).sentences.length;
-                var clueArr = [];
-                for (var i = 0; i < clueLength; i++) {
-                  clueArr[i] = nlp.text(descriptionModification).sentences[i].str;
-                }
+            var isPosition = sentences[0].search(/ is /i);
+            console.log(isPosition);
+            var wasPosition = sentences[0].search(/ was /i);
+            var pattern = new RegExp(/.+?(( is))/, "i");
+            if(isPosition==-1){
+              console.log("in if");
+              sentences.splice(0,2);
+            }
+            else
+            {
+              sentences[0]=sentences[0].replace(pattern, "The subject is ");
+            }
+            for(var j=0;j<sentences.length;j++)
+            {
+              for (var i = 0; i < nameArr.length; i++) {
+                var removeElement = new RegExp(nameArr[i], "ig");
+                sentences[j]=sentences[j].replace(removeElement,"Our Subject");
               }
+            }
+            let query="MERGE (t:topic {topics:{topicChosen}})<-[:Belongs_to]-(s:subject {subject:{subject}}) FOREACH (clueArr in {clue} |  MERGE (s)-[:Described_by]->(c:clue{clue:clueArr})) return t"
+            let params={subject:data.name,clue:sentences,topicChosen:topicSelected};
             session
-            .run("MERGE (p:Person {name:{name}})-[:Described_By]->(c:clue{clue:{clue}})-[:Belongs_To]->(t:Topic {topic:{topicChosen}}) return p",{name:data.name,clue:clueArr,topicChosen:topicSelected})
-
+            .run(query,params)
+            //.run("MERGE (you:Person {name:'You'}) FOREACH (name in ['Johan','Rajesh'] |CREATE (you)-[:FRIEND]->(:Person {name:name}))")
           }
         }, function(err)
           {
@@ -184,6 +175,8 @@ request(url, function (error, response, body) {
             }
             else
             {
+              session.close();
+              driver.close();
               console.log("Done");
             }
           });

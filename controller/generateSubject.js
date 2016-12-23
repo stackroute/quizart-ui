@@ -4,6 +4,9 @@ var router = express.Router();
 var request = require('request');
 var bodyParser = require('body-parser');
 var wdk = require('wikidata-sdk');
+var config = require('../config');
+var redis = require('redis');
+var client = redis.createClient(config.REDIS_PORT, config.REDIS_HOST);
 
 router.use(bodyParser.urlencoded({ extended: false }));
 router.use(bodyParser.json());
@@ -46,7 +49,12 @@ request(url, function (error, response, body) {
                 async.each(clues.query.pages, function(index,callback3){
                   if(item.result.hasOwnProperty('detailedDescription')&&item.result.description==description){
                     item.result.detailedDescription.articleBody=index.extract
-                    results.push(item.result);
+                    // results.push(item.result);
+                    var result=JSON.stringify(item.result);
+                    client.lrange(config.REDIS_QUEUE_NAME,result, function(error , list) {
+                      console.log('remaining elements in the list is :',list);
+                    });
+                    
                   }
                   callback3(null);
                 },function(err)
@@ -82,7 +90,8 @@ request(url, function (error, response, body) {
       }
       else
       {
-        res.send(results);
+        client.quit();
+        //res.send(results);
       }
     });
   }
