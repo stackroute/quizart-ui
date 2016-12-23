@@ -190,7 +190,7 @@ export default class NavBar extends React.Component {
     return (
       <div>
       <AppBar
-        title={<span style={styles.title}>Quiztack</span>}
+        title={<span style={styles.title}>Quizztack</span>}
         onTitleTouchTap={() => this.context.router.push('/')}
         iconElementLeft={<IconButton><NavigationMenu /></IconButton>}
         onLeftIconButtonTouchTap={this.handleDrawerOpen.bind(this)}
@@ -208,30 +208,24 @@ export default class NavBar extends React.Component {
                 <ListItem key={9} onTouchTap={() => this.context.router.push('/createChallenge')}>
                   Create Challenges
                 </ListItem>
-
               <Divider/>
                 <ListItem key={10} onTouchTap={() => this.context.router.push('/myChallenge')}>
                   My Challenges
                 </ListItem>
               <Divider/>
-
                   <Dialog
                     title={"On clicking on Start Challenge you will start to play Challenge"}
                     actions={actions}
                     modal={true}
                     open={this.state.open} style={{backgroundColor:'black'}} bodyStyle={{color:'#3F51B5'}}>
                   </Dialog>
-
                 <ListItem key={12} onTouchTap={() => this.handleOpen(this)}>
                   Play Challenge
                 </ListItem>
-
               <Divider/>
-
                 <ListItem key={13} onTouchTap={() => this.context.router.push('/myGames')}>
                   My Games
                 </ListItem>
-
               <Divider/>
                 <ListItem key={14} onTouchTap={() => this.context.router.push('/questionGenerator')}>
                   Question Generator

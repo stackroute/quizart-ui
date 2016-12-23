@@ -40,7 +40,8 @@ module.exports = {
 	},
   node: {
     fs: 'empty',
-    net: 'empty'
+    net: 'empty',
+    dns: 'mock'
   },
   plugins: []
 };

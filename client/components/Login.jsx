@@ -3,7 +3,7 @@ import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import getMuiTheme from 'material-ui/styles/getMuiTheme';
 import Formsy from 'formsy-react';
 import RaisedButton from 'material-ui/RaisedButton';
-import { red500 } from 'material-ui/styles/colors';
+import {red500, orange500, cyan500,purple300, cyan100} from 'material-ui/styles/colors';
 import { Grid, Row, Col } from 'react-flexbox-grid';
 import ActionAccountCircle from 'material-ui/svg-icons/action/account-box';
 import FormsyText from 'formsy-material-ui/lib/FormsyText';
@@ -21,14 +21,30 @@ const errorMessages = {
   emailError: "Please enter a valid email",
   numericError: "Please provide a password"
 };
+
+
 const styles = {
   loginStyle: {
-    marginTop: window.innerHeight / 4.5,
-    marginLeft: "auto",
-    marginRight: "auto"
+    // marginTop: window.innerHeight / 4.5,
+    // marginLeft: "auto",
+    // marginRight: "auto",
+    backgroundColor: "#04000000",
+    color: 'white'
   },
   errorStyle: {
     color: 'red'
+  },
+  underlineStyle: {
+    borderColor: orange500,
+  },
+  floatingLabelStyle: {
+    color: cyan100,
+  },
+  floatingLabelFocusStyle: {
+    color: cyan500,
+  },
+  inputStyle:{
+    color: cyan100,
   }
 }
 var flag = false;
@@ -61,7 +77,6 @@ export default class Login extends React.Component {
    };
  }
   submitForm(data) {
-
     Request.post('/login')
       .set('Content-type', 'application/json')
       .send({
@@ -92,9 +107,9 @@ export default class Login extends React.Component {
   render() {
     return (
       <Grid>
+        <Row xs="center">
         <Col xs={ 6 }>
         <Card
-              zDepth={ 2 }
               style={ styles.loginStyle }>
           <Row center="xs">
             <Formsy.Form
@@ -102,7 +117,6 @@ export default class Login extends React.Component {
                          onInvalid={ this.disableButton }
                          onValidSubmit={ this.submitForm }
                          onInvalidSubmit={ this.notifyFormError }>
-
               <CardText>
                 <Row center="xs"><h2>Already a user?</h2> </Row>
                 <Row>
@@ -119,6 +133,9 @@ export default class Login extends React.Component {
                               required
                               hintText="Enter your Email"
                               floatingLabelText="Email"
+                              floatingLabelStyle={styles.floatingLabelStyle}
+                              floatingLabelFocusStyle={styles.floatingLabelFocusStyle}
+                              inputStyle={styles.inputStyle}
                               updateImmediately />
                   </Col>
                 </Row>
@@ -134,6 +151,9 @@ export default class Login extends React.Component {
                               required
                               hintText="Enter Password"
                               floatingLabelText="Password"
+                              floatingLabelStyle={styles.floatingLabelStyle}
+                              floatingLabelFocusStyle={styles.floatingLabelFocusStyle}
+                              inputStyle={styles.inputStyle}
                               updateImmediately />
                   </Col>
                 </Row>
@@ -164,6 +184,7 @@ export default class Login extends React.Component {
           </Row>
         </Card>
         </Col>
+      </Row>
       </Grid>
       );
   }

@@ -10,12 +10,14 @@ var path = require('path');
 
 
 var mongoose = require('mongoose');
-mongoose.connect('mongodb://localhost/test');
+mongoose.connect(process.env.MONGO_URL);
+
 var Schema = mongoose.Schema;
 
 var db = mongoose.connection;
 db.on('error', console.error.bind(console, 'connection error:'));
 db.once('open', function() {
+  console.log('Database connected');
 //   // we're connected!
 // //   db.categories.find({}, function(err, categories) {
 // //   if (err) throw err;
@@ -54,13 +56,13 @@ if (process.env.NODE_ENV !== 'production') {
   }))
 }
 
-io.on('connection', function(socket) {
-	console.log('server connected to socket');
-	socket.emit('news', {hello: 'world'});
-	socket.on('my other event', function(data) {
-		console.log(data);
-	});
-});
+// io.on('connection', function(socket) {
+// 	console.log('server connected to socket');
+// 	socket.emit('news', {hello: 'world'});
+// 	socket.on('my other event', function(data) {
+// 		console.log(data);
+// 	});
+// });
 
 app.use(bodyParser.json());
 app.use(express.static(__dirname + '/client'));
