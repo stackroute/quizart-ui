@@ -1,8 +1,8 @@
 var redis = require('redis');
 const redisUrl= process.env.REDIS_URL;
-var client = redis.createClient(redisUrl);
+var client = redis.createClient(process.env.REDIS_PORT, process.env.REDIS_HOSTNAME);
 var jwt = require('jsonwebtoken');
-var client1 = redis.createClient(redisUrl);
+var client1 = redis.createClient(process.env.REDIS_PORT, process.env.REDIS_HOSTNAME);
 
 var score='';
 var user=[];
@@ -103,6 +103,7 @@ function init(io)
                 console.log(quesNum);
                 client.get(gameId+"_questions",function(err,reply)
                 {
+                console.log(reply);
                     questions = JSON.parse(reply);
                     console.log("question Array: ", questions[quesNum]);
                     socket.emit("question",questions[quesNum]);

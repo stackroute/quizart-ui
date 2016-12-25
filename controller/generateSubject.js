@@ -2,11 +2,8 @@ var async = require("async");
 var express = require('express');
 var router = express.Router();
 var request = require('request');
-var bodyParser = require('body-parser');
 var wdk = require('wikidata-sdk');
 
-router.use(bodyParser.urlencoded({ extended: false }));
-router.use(bodyParser.json());
 router.post('/generateSubject', function(req, res, next) {
   console.log("in question");
   var pIdForVariable=req.body.pIdForSubject;
