@@ -202,7 +202,7 @@ var SorryImages = React.createClass({
     render: function() {
         return (
           <div>
-            <img src="./timesup.png"
+            <img src="./images/timesup.png"
                     alt="Image Not Available" style={{height:'30px',width:'20px',marginTop:'-10px'}}/>
             <h1>Correct Answer: </h1>
             </div>
