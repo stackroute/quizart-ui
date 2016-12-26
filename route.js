@@ -7,39 +7,20 @@ var bodyParser = require('body-parser');
 var expressJWT = require('express-jwt');
 var jwt = require('jsonwebtoken');
 var path = require('path');
-
-
 var mongoose = require('mongoose');
 mongoose.connect(process.env.MONGO_URL);
-
 var Schema = mongoose.Schema;
-
 var db = mongoose.connection;
 db.on('error', console.error.bind(console, 'connection error:'));
 db.once('open', function() {
   console.log('Database connected');
-//   // we're connected!
-// //   db.categories.find({}, function(err, categories) {
-// //   if (err) throw err;
-// //
-// //   // object of all the users
-// //   console.log(categories);
-// // });
-//   console.log("connected");
 });
-
 
 var init  = require('./server/gameController/gameController');
 init(io);
 
-var generateClue= require('./server/clueGenerator/generateSubject');
-generateClue(io);
-
-/*server.listen(8081, function() {
-	console.log('yes its listening');
-});
-*/
-
+// var generateClue= require('./server/clueGenerator/generateSubject');
+// generateClue(io);
 
 if (process.env.NODE_ENV !== 'production') {
   const logger = require('morgan');

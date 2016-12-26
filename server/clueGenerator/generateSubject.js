@@ -7,20 +7,21 @@ var redis = require('redis');
 const redisUrl= process.env.REDIS_URL;
 let client = redis.createClient(redisUrl);
 let client1 = redis.createClient(redisUrl);
+let PandQString = redis.createClient(redisUrl);
 
 // const EventEmitter = require('events');
 // const emitter = new EventEmitter();
 // emitter.setMaxListeners(100);
-
-function generateClue(io){
-  io.on('connection',function(socket){
+//
+// function generateClue(io){
+//   io.on('connection',function(socket){
+  PandQString.subscribe('PandQString');
+  PandQString.on('ReceivedPandQString', function(channel, receivedData) {
+    console.log(receivedData);
     var subjectList=[],pIdForVariable,qIDForVariable,description;
-    console.log('Connection established for ClueGeneration');
-    socket.on('sendPandQString',function(data){
-      console.log(data);
-      pIdForVariable=data.pIdForSubject;
-      qIDForVariable=data.qIDForSubject;
-      description=data.selectedSubjectDescription;
+      pIdForVariable=receivedData.pIdForSubject;
+      qIDForVariable=receivedData.qIDForSubject;
+      description=receivedData.selectedSubjectDescription;
       var sparql = `
       SELECT  ?variableLabel
       WHERE { ?variable wdt:${pIdForVariable} wd:${qIDForVariable} .
@@ -66,12 +67,11 @@ function generateClue(io){
                           client.publish('clues',result);
                         }
                         client1.subscribe('clues');
-                    
-                        client1.on('message', function(channel, msg) {
-                        socket.emit("sendClues",{
-                            clues: msg
-                          });
-                        });
+                        // client1.on('message', function(channel, msg) {
+                        // socket.emit("sendClues",{
+                        //     clues: msg
+                        //   });
+                        // });
                       }
                       callback3(null);
                     },function(err)
@@ -114,6 +114,6 @@ function generateClue(io){
       }
     });
   });
-});
-}
+// });
+// }
 module.exports = generateClue;
