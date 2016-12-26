@@ -1,21 +1,18 @@
 var redis = require('redis');
 const redisUrl= process.env.REDIS_URL;
-<<<<<<< HEAD
 var client = redis.createClient(process.env.REDIS_PORT, process.env.REDIS_HOSTNAME);
 var jwt = require('jsonwebtoken');
-var client1 = redis.createClient(process.env.REDIS_PORT, process.env.REDIS_HOSTNAME);
-=======
+
 var jwt = require('jsonwebtoken');
 let client = redis.createClient(redisUrl);
->>>>>>> 7a323d88195e6b0e9ff3713937ccbac7ccad01d1
+
 
 var score='';
 var user=[];
-<<<<<<< HEAD
-=======
+
 let count = '';
 let tempEmail= [];
->>>>>>> e3e0ebb8a50a438919666323275c5c0495d3e568
+
 function init(io)
 {
     io.on('connection',function(socket){

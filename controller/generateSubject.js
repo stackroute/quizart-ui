@@ -3,11 +3,11 @@ var express = require('express');
 var router = express.Router();
 var request = require('request');
 var wdk = require('wikidata-sdk');
-<<<<<<< HEAD
+
 var config = require('../server/config');
 var redis = require('redis');
 var client = redis.createClient(config.REDIS_PORT, config.REDIS_HOSTNAME);
-=======
+
 var redis = require('redis');
 const redisUrl= process.env.REDIS_URL;
 let client = redis.createClient(redisUrl);
@@ -18,7 +18,7 @@ var io = require('socket.io')(server);
 // const EventEmitter = require('events');
 // const emitter = new EventEmitter();
 // emitter.setMaxListeners(100);
->>>>>>> 7a323d88195e6b0e9ff3713937ccbac7ccad01d1
+
 
 router.post('/generateSubject', function(req, res, next) {
   console.log("in question");
@@ -61,12 +61,11 @@ request(url, function (error, response, body) {
                     item.result.detailedDescription.articleBody=index.extract
                     // results.push(item.result);
                     var result=JSON.stringify(item.result);
-<<<<<<< HEAD
+
                     client.lrange('SPORTS',result, function(error , list) {
-=======
                     client.lpush('SPORTS',result, function(error , list) {
                       count++;
->>>>>>> 7a323d88195e6b0e9ff3713937ccbac7ccad01d1
+
                       console.log('remaining elements in the list is :',list);
                     });
                     if(count<=10)

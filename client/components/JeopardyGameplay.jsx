@@ -32,11 +32,10 @@ export default class JeopardyGameplay extends React.Component {
         questionData.push(msg);
         this.setState({topic: questionData});
     }.bind(this));
-<<<<<<< HEAD
+
         console.log("component mounted");
     this.timerID = setInterval(() => this.tick(),8000);
-=======
->>>>>>> e3e0ebb8a50a438919666323275c5c0495d3e568
+
     }
 
 /*--- if the buzzer is not pressed before time up----------*/
@@ -193,10 +192,6 @@ render() {
             fontSize:'2px'
         }}
         >{i}</button>)}
-<<<<<<< HEAD
-        
-=======
->>>>>>> e3e0ebb8a50a438919666323275c5c0495d3e568
         </Card>
         </MediaQuery>
         </div>

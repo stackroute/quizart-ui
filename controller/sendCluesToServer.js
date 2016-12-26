@@ -7,18 +7,16 @@ var neo4j = require('neo4j-driver').v1;
 var nlp_compromise= require('nlp_compromise');
 var driver = neo4j.driver(process.env.NEO4j_DRIVER, neo4j.auth.basic("neo4j", "password"));
 var session = driver.session();
-<<<<<<< HEAD
 
-=======
 const redis = require('redis');
 const redisUrl= process.env.REDIS_URL;
 let client = redis.createClient(redisUrl);
 router.use(bodyParser.urlencoded({ extended: false }));
 router.use(bodyParser.json());
->>>>>>> 7a323d88195e6b0e9ff3713937ccbac7ccad01d1
+
 router.post('/sendCluesToServer', function(req, res, next) {
   console.log("in server");
-<<<<<<< HEAD
+
   var pIdForVariable=req.body.pIdForSubject;
   var qIDForVariable=req.body.qIDForSubject;
   var description=req.body.selectedSubjectDescription;
@@ -55,7 +53,7 @@ request(url, function (error, response, body) {
         request(searchUri, function (error, response, body)
         {
           if(response!=undefined)
-=======
+
   let nlp = require('nlp_compromise');
   // var lengthofList=client.LLEN('SPORTS');
   // console.log(lengthofList);
@@ -83,7 +81,7 @@ request(url, function (error, response, body) {
           var element = nlp.text(eachSentence).text();
           var temp=element.trim().split(' ').length;
           if(temp>4)
->>>>>>> e3e0ebb8a50a438919666323275c5c0495d3e568
+
           {
             var checkGrammer=nlp.text(element);
             checkGrammer.sentences.forEach(function(terms){
@@ -116,7 +114,7 @@ request(url, function (error, response, body) {
         }
         else
         {
-<<<<<<< HEAD
+
           console.log("came to first callback"+results);
           async.each(results, function(data, callback){
             if(data.hasOwnProperty('detailedDescription'))
@@ -197,7 +195,7 @@ request(url, function (error, response, body) {
             session
             .run("MERGE (p:Person {name:{name}})-[:Described_By]->(c:clue{clue:{clue}})-[:Belongs_To]->(t:Topic {topic:{topicChosen}}) return p",{name:data.name,clue:clueArr,topicChosen:topicSelected})
           
-=======
+
           sentences[0]=sentences[0].replace(pattern, "The subject is ");
         }
         for(var j=0;j<sentences.length;j++)
@@ -205,7 +203,7 @@ request(url, function (error, response, body) {
           for (var i = 0; i < nameArr.length; i++) {
             var removeElement = new RegExp(nameArr[i], "ig");
             sentences[j]=sentences[j].replace(removeElement,"Our Subject");
->>>>>>> e3e0ebb8a50a438919666323275c5c0495d3e568
+
           }
         }
         if(sentences.length>5)
