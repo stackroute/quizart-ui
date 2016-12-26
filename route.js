@@ -10,12 +10,6 @@ var config = require('./server/config');
 var userRoute = require('./controller/index.js');
 require('./server/db.js');
 
-var init  = require('./server/gameController/gameController');
-init(io);
-console.log('Calling generateSubject');
-var generateSubject= require('./server/clueGenerator/generateSubject');
-generateSubject(io);
-
 if (process.env.NODE_ENV !== 'production') {
   const logger = require('morgan');
   const webpack = require('webpack')

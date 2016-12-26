@@ -46,7 +46,12 @@ export default class JeopardyClues extends React.Component{
   state = {
     open: false,
   };
-
+  componentWillMount() {
+    var socket = io();
+    socket.on('finalClues',function(data){
+    console.log(data);
+    });
+  }
   handleOpen = () => {
     this.setState({open: true});
   };
@@ -161,7 +166,7 @@ export default class JeopardyClues extends React.Component{
     socket.emit('sendPandQString',{
       pIdForSubject:this.state.pIdForSubject,
       qIDForSubject:this.state.qIDForSubject,
-      selectedSubjectDescription:this.state.selectedSubjectDescription
+      selectedSubjectDescription:this.state.selectedSubjectDescription,
     });
   };
   postDataToServer=()=>{
