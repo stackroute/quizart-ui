@@ -20,6 +20,7 @@
     "neo4j-driver": "^1.0.4",
     "nlp_compromise": "^6.5.3",
     "node-mongo-seeds": "^2.3.0",
+    "number-to-words": "^1.2.3",
     "promise": "^7.1.1",
     "react": "^15.4.1",
     "react-dom": "^15.4.1",

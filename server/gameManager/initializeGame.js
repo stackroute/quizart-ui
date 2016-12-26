@@ -17,7 +17,7 @@ function initializeGame(gameId,questions,users,playerScores)
 
 	client.set("gameId",gameId,function(err,reply)
 	{
-		console.log('gameId');
+		console.log(gameId);
 		console.log(reply);
 	});
 
