@@ -132,6 +132,7 @@ export default class Login extends React.Component {
                               validationError={ errorMessages.emailError }
                               required
                               hintText="Enter your Email"
+                              hintStyle={styles.inputStyle}
                               floatingLabelText="Email"
                               floatingLabelStyle={styles.floatingLabelStyle}
                               floatingLabelFocusStyle={styles.floatingLabelFocusStyle}
@@ -150,6 +151,7 @@ export default class Login extends React.Component {
                               name="password"
                               required
                               hintText="Enter Password"
+                              hintStyle={styles.inputStyle}
                               floatingLabelText="Password"
                               floatingLabelStyle={styles.floatingLabelStyle}
                               floatingLabelFocusStyle={styles.floatingLabelFocusStyle}

@@ -11,7 +11,6 @@ confidence : Number,
 picture : String
 }, {collection: 'jeopardyScores', versionKey: false});
 
-
 const model = mongoose.model('jeopardyScores', jeopardyScoresSchema);
 
 module.exports = {
