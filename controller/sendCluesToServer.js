@@ -2,17 +2,23 @@ var async = require("async");
 var express = require('express');
 var router = express.Router();
 var request = require('request');
-var bodyParser = require('body-parser');
 var wdk = require('wikidata-sdk');
 var neo4j = require('neo4j-driver').v1;
 var nlp_compromise= require('nlp_compromise');
 var driver = neo4j.driver(process.env.NEO4j_DRIVER, neo4j.auth.basic("neo4j", "password"));
 var session = driver.session();
+<<<<<<< HEAD
 
+=======
+const redis = require('redis');
+const redisUrl= process.env.REDIS_URL;
+let client = redis.createClient(redisUrl);
 router.use(bodyParser.urlencoded({ extended: false }));
 router.use(bodyParser.json());
+>>>>>>> 7a323d88195e6b0e9ff3713937ccbac7ccad01d1
 router.post('/sendCluesToServer', function(req, res, next) {
   console.log("in server");
+<<<<<<< HEAD
   var pIdForVariable=req.body.pIdForSubject;
   var qIDForVariable=req.body.qIDForSubject;
   var description=req.body.selectedSubjectDescription;
@@ -49,54 +55,68 @@ request(url, function (error, response, body) {
         request(searchUri, function (error, response, body)
         {
           if(response!=undefined)
+=======
+  let nlp = require('nlp_compromise');
+  // var lengthofList=client.LLEN('SPORTS');
+  // console.log(lengthofList);
+  // var startLimit=0,endLimit=2,end=2,count=0;
+  // while(lengthofList>0)
+  // {
+  //   count++;
+  //   console.log(count);
+  client.LRANGE('SPORTS', 0,100, function(error, data) {
+    data.map(function(value){
+      var subjectData=JSON.parse(value);
+      var clue=subjectData.detailedDescription.articleBody;
+      var flag=0;
+      var sentences=[],clueArr=[];
+      var jeopardyClues=[];
+      var des = subjectData.description;
+      var name = subjectData.name;
+      var nameArr = name.split(' ');
+      var nameLength = nameArr.length;
+      var splitByDot=nlp.text(clue);
+      splitByDot.sentences.map(function(value){
+        var pattern = new RegExp(/((, ))/, "ig");
+        var values=value.str.split(pattern);
+        values.forEach(function(eachSentence){
+          var element = nlp.text(eachSentence).text();
+          var temp=element.trim().split(' ').length;
+          if(temp>4)
+>>>>>>> e3e0ebb8a50a438919666323275c5c0495d3e568
           {
-            var cluesJson=JSON.parse(response.body);
-            async.each(cluesJson.itemListElement, function(item, callback2){
-              wikipediaUri='https://en.wikipedia.org/w/api.php?format=json&action=query&prop=extracts&exintro=&explaintext=&titles='+item.result.name;
-              request(wikipediaUri, function (error, response, body)
+            var checkGrammer=nlp.text(element);
+            checkGrammer.sentences.forEach(function(terms){
+              if(terms.terms[0].tag=="Noun"||terms.terms[0].tag=="Adverb"||terms.terms[0].tag=="Person")
               {
-                if (!error && response.statusCode == 200)
-                {
-                  var clues=JSON.parse(response.body);
-                  async.each(clues.query.pages, function(index,callback3){
-                    if(item.result.hasOwnProperty('detailedDescription')&&item.result.description==description){
-                      item.result.detailedDescription.articleBody=index.extract
-                      results.push(item.result);
-                    }
-                    callback3(null);
-                  },function(err)
+                sentences.push(terms.str);
+              }
+              else if(terms.terms[0].normal=="and")
+              {
+                terms.terms.forEach(function(value){
+                  if((value.pos.hasOwnProperty("Verb")||value.pos.hasOwnProperty("Adjective"))&&flag==0)
                   {
-                    if(err)
-                    {
-                      console.log('Failed to process');
-                    }
-                    else {
-                      callback2(null);
-                    }
-                  });
-                }
-              });
-            },function(err)
-            {
-              console.log("came to second callback");
-              if(err)
-              {
-                console.log('Failed to process');
+                    sentences.push(terms.str);
+                    flag=1;
+                  }
+                })
+                flag=0;
               }
-              else {
-                callback1(null);
-              }
-            });
+            })
           }
-        });
-      }, function(err)
+        })
+      })
+      if(sentences.length>5)
       {
-        if( err )
-        {
-          console.log('Failed to process');
+        var isPosition = sentences[0].search(/ is /i);
+        var wasPosition = sentences[0].search(/ was /i);
+        var pattern = new RegExp(/.+?(( is))/, "i");
+        if(isPosition==-1){
+          sentences.splice(0,2);
         }
         else
         {
+<<<<<<< HEAD
           console.log("came to first callback"+results);
           async.each(results, function(data, callback){
             if(data.hasOwnProperty('detailedDescription'))
@@ -177,28 +197,41 @@ request(url, function (error, response, body) {
             session
             .run("MERGE (p:Person {name:{name}})-[:Described_By]->(c:clue{clue:{clue}})-[:Belongs_To]->(t:Topic {topic:{topicChosen}}) return p",{name:data.name,clue:clueArr,topicChosen:topicSelected})
           
-          }
-        }, function(err)
-          {
-            if( err )
-            {
-              console.log('Failed to process');
-            }
-            else
-            {
-              console.log("Done");
-            }
-          });
+=======
+          sentences[0]=sentences[0].replace(pattern, "The subject is ");
         }
-      });
-      length=length-end;
-      if(endlimit<=length)
-      {
-        startlimit=endlimit;
-        endlimit=endlimit+end;
+        for(var j=0;j<sentences.length;j++)
+        {
+          for (var i = 0; i < nameArr.length; i++) {
+            var removeElement = new RegExp(nameArr[i], "ig");
+            sentences[j]=sentences[j].replace(removeElement,"Our Subject");
+>>>>>>> e3e0ebb8a50a438919666323275c5c0495d3e568
+          }
+        }
+        if(sentences.length>5)
+        {
+          clueArr=sentences;
+          console.log(clueArr);
+          let query="CREATE (t:topic {topics:{topicChosen}})<-[:Belongs_to]-(s:subject {subject:{subject}}) FOREACH (clueArr in {clue} |  MERGE (s)-[:Described_by]->(c:clue{clue:clueArr})) return t"
+          let params={subject:subjectData.name,clue:clueArr,topicChosen:topicSelected};
+          session
+          .run(query,params)
+          .then(function(results){
+            session.close;
+            driver.close;
+          })
+        }
       }
-    }
-  }
+    });
+  })
+  //   lengthofList=lengthofList-end;
+  //   if(endLimit<=lengthofList)
+  //   {
+  //     startLimit=endLimit;
+  //     endLimit=endLimit+end;
+  //   }
+  // }
+  client.del('SPORTS');
 });
-});
+
 module.exports = router;

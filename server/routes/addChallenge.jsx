@@ -1,4 +1,4 @@
-var router = require('express').Router();
+svar router = require('express').Router();
 router.post('/newChallenge/',function(req,res){
    var j=req.body.newChallenge;
    console.log("req"+req);

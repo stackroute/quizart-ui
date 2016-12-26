@@ -12,30 +12,10 @@ export default class DisplayDialog extends React.Component
 	}
 	handleClose =() => {
 		this.setState({open:false});
+		
 	};
-	render()
-	{
-		const actions = [<FlatButton
-		                   label="Back to the Topic"
-		                   primary={true}
-		                   onTouchTap={this.handleClose}/>,
-
-						 <Link to="jeopardyBoard/">
-						 <FlatButton
-						   label="Risk Jeopardy"/>
-						 </Link>];
-
-	{	const actions = [<FlatButton
-		                   label="Back to the Home"
-		                   primary={true}
-		                   onTouchTap={this.handleClose}/>,
-
-						 <Link to="jeopardyBoard/">
-						 <FlatButton
-						   label="Start"
-						   primary={true} />
-						   </Link>
-						   ];
+	
+	render() {
 		return(
 			<Dialog
 			title={"You have chosen "+this.props.category}
@@ -44,5 +24,4 @@ export default class DisplayDialog extends React.Component
 			open={this.state.open}>
 			</Dialog>);
 	}
-}
 }
