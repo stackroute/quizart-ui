@@ -30,9 +30,10 @@ db.once('open', function() {
 
 
 var init  = require('./server/gameController/gameController');
-
 init(io);
 
+var generateClue= require('./server/clueGenerator/generateSubject');
+generateClue(io);
 
 /*server.listen(8081, function() {
 	console.log('yes its listening');

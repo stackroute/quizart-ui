@@ -16,9 +16,9 @@ router.use(require('./getSubjectMeaning'));
 router.use(require('./getOptionMeaning'));
 router.use(require('./getSubjectDescription'));
 router.use(require('./generateQuestions'));
-router.use(require('./identifyingSubject'));
-router.use(require('./generateSubject'));
+// router.use(require('./generateSubject'));
 router.use(require('./sendCluesToServer'));
+router.use(require('./identifyingSubject'));
 router.use(require('./storeCluesInJson'));
 
 module.exports = router;

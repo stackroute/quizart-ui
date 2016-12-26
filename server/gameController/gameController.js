@@ -1,8 +1,7 @@
 var redis = require('redis');
 const redisUrl= process.env.REDIS_URL;
-var client = redis.createClient(redisUrl);
 var jwt = require('jsonwebtoken');
-var client1 = redis.createClient(redisUrl);
+let client = redis.createClient(redisUrl);
 
 var score='';
 var user=[];
@@ -88,8 +87,7 @@ function init(io)
 
 
         });
-      })
-      ;
+      });
         socket.on('jGamePlay',function(msg)
         {
             console.log("user chose "+msg);
