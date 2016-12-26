@@ -47,15 +47,6 @@ export default class JeopardyClues extends React.Component{
     open: false,
   };
 
-  componentDidMount() {
-    const socket = io();
-    socket.on("sendClues",function(clues)
-    {
-      console.log('in socket');
-      console.log(clues);
-    });
-  }
-
   handleOpen = () => {
     this.setState({open: true});
   };
@@ -167,29 +158,6 @@ export default class JeopardyClues extends React.Component{
     var tempSubject=[];
     value++;
     this.setState({slideIndex:value});
-    // Request.post('/generateSubject')
-    // .set('Content-type', 'application/json')
-    // .send({
-    //   // pIdForSubject:this.state.pIdForSubject,
-    //   // qIDForSubject:this.state.qIDForSubject,
-    //   // selectedSubjectDescription:this.state.selectedSubjectDescription
-    //
-    //   pIdForSubject:'P106',
-    //   qIDForSubject:'Q12299841',
-    //   selectedSubjectDescription:'Cricketer'
-    // })
-    // .end((err, res) => {
-    //   var questions=[];
-    //   if (res.status===200) {
-    //     for(var data in res.body)
-    //     {
-    //       tempSubject.push(res.body[data]);
-    //     }
-    //     this.setState({jeopardyClues:tempSubject});
-    //   }
-    // });
-
-    const socket = io();
     socket.emit('sendPandQString',{
       pIdForSubject:this.state.pIdForSubject,
       qIDForSubject:this.state.qIDForSubject,

@@ -5,13 +5,18 @@ var io = require('socket.io')(server);
 var expressJWT = require('express-jwt');
 var jwt = require('jsonwebtoken');
 var path = require('path');
+
 var config = require('./server/config');
 var userRoute = require('./controller/index.js');
 require('./server/db.js');
 
 var init  = require('./server/gameController/gameController');
 init(io);
+console.log('Calling generateSubject');
+var generateSubject= require('./server/clueGenerator/generateSubject');
+generateSubject(io);
 
+<<<<<<< HEAD
 
 
 var generateClue= require('./server/clueGenerator/generateSubject');
@@ -24,6 +29,8 @@ generateClue(io);
 
 
 
+=======
+>>>>>>> 5caea344dc172c56206175583094e33932c17984
 if (process.env.NODE_ENV !== 'production') {
   const logger = require('morgan');
   const webpack = require('webpack')
@@ -52,8 +59,6 @@ app.use(function(req, res, next) {
   res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
   next();
 });
-
-// app.use('/login',userRoute);
 app.use('/',userRoute);
 app.use('/signin',userRoute);
 server.listen(process.env.EXPRESS_PORT,function(){
