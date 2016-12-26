@@ -12,9 +12,6 @@ import SearchDisplay from './SearchDisplay.jsx';
 import Dialog from 'material-ui/Dialog';
 import FlatButton from 'material-ui/FlatButton';
 import {RadioButton, RadioButtonGroup} from 'material-ui/RadioButton';
-// import redis from 'redis';
-const redisUrl= process.env.REDIS_URL;
-let PandQString = redis.createClient(redisUrl);
 
 const styles={
   paperStyle:{
@@ -161,17 +158,26 @@ export default class JeopardyClues extends React.Component{
     var tempSubject=[];
     value++;
     this.setState({slideIndex:value});
-    PandQString.publish('PandQString',{
+    socket.emit('sendPandQString',{
       pIdForSubject:this.state.pIdForSubject,
       qIDForSubject:this.state.qIDForSubject,
       selectedSubjectDescription:this.state.selectedSubjectDescription
-    })
+    });
   };
   postDataToServer=()=>{
     alert("Your Clues Has been Generated");
     var tempSubject=[];
     Request.post('/sendCluesToServer')
     .set('Content-type', 'application/json')
+    .send({
+      pIdForSubject:this.state.pIdForSubject,
+      qIDForSubject:this.state.qIDForSubject,
+      selectedSubjectDescription:this.state.selectedSubjectDescription,
+      topic:this.state.topic
+
+    })
+    .end((err, res) => {
+    });
   };
 
   showQuestions=()=>{
