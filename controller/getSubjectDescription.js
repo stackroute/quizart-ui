@@ -1,7 +1,6 @@
 var express = require('express');
 var router = express.Router();
 var request = require('request');
-var bodyParser = require('body-parser');
 var request = require('request');
 var Promise = require("bluebird");
 var rp = require('request-promise');
@@ -9,8 +8,6 @@ var rp = require('request-promise');
 var totalNumberOfRequestsCompleted=0;
 var totalNumberOfRequestsNeedToBeMade=0;
 var dataToBeAnalyzedForRelevance={};
-router.use(bodyParser.urlencoded({ extended: false }));
-router.use(bodyParser.json());
 router.post('/getSubjectDescription', function(req, res, next) {
   var id=req.body.id;
   var searchUri='https://www.wikidata.org/wiki/Special:EntityData/'+id+'.json';
