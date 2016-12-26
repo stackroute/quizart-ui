@@ -7,10 +7,15 @@ import { Link } from "react-router";
 import Paper from 'material-ui/Paper';
 import FloatingActionButton from 'material-ui/FloatingActionButton';
 import NavigationExpandMore from 'material-ui/svg-icons/navigation/expand-more';
-import darkBaseTheme from 'material-ui/styles/baseThemes/darkBaseTheme';
+import {cyan500,grey500} from 'material-ui/styles/colors';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import getMuiTheme from 'material-ui/styles/getMuiTheme';
 import Challenge from './Challenge';
+const muiTheme = getMuiTheme({
+  palette: {
+    textColor: cyan500,
+  },
+});
 
 const styles={
   paper:{
@@ -55,7 +60,7 @@ export default class CategoriesDash extends React.Component {
       );
     });
     return (
-      <MuiThemeProvider muiTheme={getMuiTheme(darkBaseTheme)}>
+      <MuiThemeProvider muiTheme={muiTheme}>
           <Paper style={styles.paper}>
           <Grid>
             <Row center="xs" >

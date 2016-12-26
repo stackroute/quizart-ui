@@ -23,8 +23,9 @@ router.post('/sendCluesToServer', function(req, res, next) {
   SERVICE wikibase:label {
     bd:serviceParam wikibase:language "en" .
   }
-}LIMIT 50
-`
+}LIMIT 10
+` 
+
 var subjectList=[];
 var url = wdk.sparqlQuery(sparql);
 
@@ -172,9 +173,10 @@ request(url, function (error, response, body) {
                   clueArr[i] = nlp.text(descriptionModification).sentences[i].str;
                 }
               }
+             
             session
             .run("MERGE (p:Person {name:{name}})-[:Described_By]->(c:clue{clue:{clue}})-[:Belongs_To]->(t:Topic {topic:{topicChosen}}) return p",{name:data.name,clue:clueArr,topicChosen:topicSelected})
-
+          
           }
         }, function(err)
           {

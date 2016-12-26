@@ -3,7 +3,7 @@ const redisUrl= process.env.REDIS_URL;
 var client = redis.createClient(redisUrl);
 
 var score='';
-var user='';
+var user=[];
 function init(io)
 {
     io.on('connection',function(socket){
