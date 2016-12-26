@@ -10,9 +10,20 @@ var userRoute = require('./controller/index.js');
 require('./server/db.js');
 
 var init  = require('./server/gameController/gameController');
-
 init(io);
 
+<<<<<<< HEAD
+=======
+var generateClue= require('./server/clueGenerator/generateSubject');
+generateClue(io);
+
+/*server.listen(8081, function() {
+	console.log('yes its listening');
+});
+*/
+
+
+>>>>>>> 7a323d88195e6b0e9ff3713937ccbac7ccad01d1
 if (process.env.NODE_ENV !== 'production') {
   const logger = require('morgan');
   const webpack = require('webpack')

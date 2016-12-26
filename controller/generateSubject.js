@@ -3,9 +3,22 @@ var express = require('express');
 var router = express.Router();
 var request = require('request');
 var wdk = require('wikidata-sdk');
+<<<<<<< HEAD
 var config = require('../server/config');
 var redis = require('redis');
 var client = redis.createClient(config.REDIS_PORT, config.REDIS_HOSTNAME);
+=======
+var redis = require('redis');
+const redisUrl= process.env.REDIS_URL;
+let client = redis.createClient(redisUrl);
+let client1 = redis.createClient(redisUrl);
+var app = express();
+var server = require('http').createServer(app);
+var io = require('socket.io')(server);
+// const EventEmitter = require('events');
+// const emitter = new EventEmitter();
+// emitter.setMaxListeners(100);
+>>>>>>> 7a323d88195e6b0e9ff3713937ccbac7ccad01d1
 
 router.post('/generateSubject', function(req, res, next) {
   console.log("in question");
@@ -18,7 +31,7 @@ router.post('/generateSubject', function(req, res, next) {
   SERVICE wikibase:label {
     bd:serviceParam wikibase:language "en" .
   }
-} LIMIT 1
+}LIMIT 2
 `
 var subjectList=[];
 var url = wdk.sparqlQuery(sparql);
@@ -48,50 +61,66 @@ request(url, function (error, response, body) {
                     item.result.detailedDescription.articleBody=index.extract
                     // results.push(item.result);
                     var result=JSON.stringify(item.result);
+<<<<<<< HEAD
                     client.lrange('SPORTS',result, function(error , list) {
+=======
+                    client.lpush('SPORTS',result, function(error , list) {
+                      count++;
+>>>>>>> 7a323d88195e6b0e9ff3713937ccbac7ccad01d1
                       console.log('remaining elements in the list is :',list);
                     });
-                    
+                    if(count<=10)
+                    {
+                      client.publish('clues',result);
+                      client1.subscribe('clues');
+                      client1.on('message', function(channel, msg) {
+
+                            socket.emit('sendClues',{
+                              clues: msg
+                            });
+
+                      });
+                    }
                   }
-                  callback3(null);
-                },function(err)
-                {
-                  if(err)
+                    callback3(null);
+                  },function(err)
                   {
-                    console.log('Failed to process');
-                  }
-                  else {
-                    callback2(null);
-                  }
-                });
+                    if(err)
+                    {
+                      console.log('Failed to process');
+                    }
+                    else {
+                      callback2(null);
+                    }
+                  });
+                }
+              });
+            },function(err)
+            {
+              console.log("came");
+              if(err)
+              {
+                console.log('Failed to process');
+              }
+              else {
+                callback1(null);
               }
             });
-          },function(err)
-          {
-            console.log("came");
-            if(err)
-            {
-              console.log('Failed to process');
-            }
-            else {
-              callback1(null);
-            }
-          });
+          }
+        });
+      },function(err)
+      {
+        if( err )
+        {
+          console.log('Failed to process');
+        }
+        else
+        {
+          client.quit();
+          //res.send(results);
         }
       });
-    },function(err)
-    {
-      if( err )
-      {
-        console.log('Failed to process');
-      }
-      else
-      {
-        client.quit();
-        //res.send(results);
-      }
-    });
-  }
-});
+    }
+  });
 });
 module.exports = router;
