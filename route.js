@@ -12,8 +12,8 @@ require('./server/db.js');
 var init  = require('./server/gameController/gameController');
 init(io);
 
-<<<<<<< HEAD
-=======
+
+
 var generateClue= require('./server/clueGenerator/generateSubject');
 generateClue(io);
 
@@ -23,7 +23,7 @@ generateClue(io);
 */
 
 
->>>>>>> 7a323d88195e6b0e9ff3713937ccbac7ccad01d1
+
 if (process.env.NODE_ENV !== 'production') {
   const logger = require('morgan');
   const webpack = require('webpack')
