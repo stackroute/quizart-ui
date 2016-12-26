@@ -1,13 +1,6 @@
 var express = require('express');
 var router = express.Router();
 var request = require('request');
-var bodyParser = require('body-parser');
-var mongoose = require('mongoose');
-var mongoUrl = process.env.MONGO_URL || 'mongodb://localhost/test';
-mongoose.Promise = require('bluebird');
-mongoose.createConnection(mongoUrl);
-var Schema = mongoose.Schema;
-var db = mongoose.connection;
 
 var myGameJeopardyModel = require('./schemas/myGamesJeopardySchema').docMyGamesJeopardyModel;
 var jeopardyScoresModel = require('./schemas/jeopardyScoresSchema').docJeopardyScoresModel;
@@ -19,11 +12,6 @@ var myChallengeDashModel = require('./schemas/myChallengesDashSchema').docMyChal
 var userDetailsModel = require('./schemas/userDetailsSchema').docUserDetailsModel;
 
 
-db.on('error', console.error.bind(console, 'connection error:'));
-db.once('open', function() {
-  // we're connected!
-  console.log("connected");
-});
 
 router.get('/myGamesJeopardyFromDB',function(req,res){
   //Fetching data from mongoDB

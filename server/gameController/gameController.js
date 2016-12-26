@@ -1,9 +1,8 @@
 var redis = require('redis');
 const redisUrl= process.env.REDIS_URL;
-var client = redis.createClient(redisUrl);
+var client = redis.createClient(process.env.REDIS_PORT, process.env.REDIS_HOSTNAME);
 var jwt = require('jsonwebtoken');
-var client1 = redis.createClient(redisUrl);
-
+let client1 = redis.createClient(process.env.REDIS_PORT, process.env.REDIS_HOSTNAME);
 var score='';
 var user=[];
 let count = '';
@@ -83,23 +82,6 @@ function init(io)
                console.log("3 users already subscribed");
              }
 
-            /*client.get("users",function(err,reply)
-            {
-                console.log('test2');
-                var data=[];
-                user=JSON.parse(reply);
-                client.get("scores",function(err,reply){
-                    score=JSON.parse(reply);
-                    data.push(user);
-                    data.push(score);
-                    console.log(data);
-                    socket.emit("data",data);
-                });
-            });
-*/
-
-
-        // });
         socket.on('disconnect',function(){
           console.log("Disconnected on Refresh");
           var playersQueued = [];
@@ -110,8 +92,8 @@ function init(io)
           console.log(playersQueued);
           user=[];
           user = playersQueued;
-        })
-      });
+        });
+        });
         socket.on('jGamePlay',function(msg)
         {
             console.log("user chose "+msg);
@@ -125,11 +107,12 @@ function init(io)
                 console.log(quesNum);
                 client.get(gameId+"_questions",function(err,reply)
                 {
+                console.log(reply);
                     questions = JSON.parse(reply);
                     console.log("question Array: ", questions[quesNum]);
                     socket.emit("question",questions[quesNum]);
                 });
-            })
+            });
         });
     });
 }

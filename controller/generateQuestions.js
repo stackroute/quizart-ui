@@ -1,10 +1,7 @@
 var express = require('express');
 var router = express.Router();
 var request = require('request');
-var bodyParser = require('body-parser');
 var wdk = require('wikidata-sdk');
-router.use(bodyParser.urlencoded({ extended: false }));
-router.use(bodyParser.json());
 router.post('/generateQuestions', function(req, res, next) {
   var pIdForVariable=req.body.pIdForVariable;
   var qIDForVariable=req.body.qIDForVariable;

@@ -1,7 +1,6 @@
 var express = require('express');
 var router = express.Router();
 var request = require('request');
-var bodyParser = require('body-parser');
 
 
 router.post('/gameProvisioner/:jwtToken',function(req,res){
