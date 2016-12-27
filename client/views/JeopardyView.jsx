@@ -152,7 +152,7 @@ export default class JeopardyView extends React.Component
       </Col>
       <Col>
       <Card style={cardStyle}>
-          <h4 style={{color:"#FDFEFE"}}>Technologyt</h4>
+          <h4 style={{color:"#FDFEFE"}}>Technology</h4>
       </Card>
       </Col>
       <Col>

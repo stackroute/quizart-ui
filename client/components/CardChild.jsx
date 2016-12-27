@@ -8,6 +8,7 @@ import JeopardyGameplay from './JeopardyGameplay';
 
 var counter=0;
 var openedCards=0;
+
 export default class CardChild extends React.Component
 {
   constructor(props)
@@ -15,6 +16,20 @@ export default class CardChild extends React.Component
     super(props);
     this.state={view:'points',cName:'NscaledCard',content:this.props.points,question:'Points',posTop:this.props.top,posLeft:this.props.posL,open:false};
     this.handleClick=this.handleClick.bind(this);
+
+    this.classChange = this.classChange.bind(this);
+  }
+
+
+  classChange()
+  {
+    if(this.state.cName=='ScaledCard')
+    {
+      this.setState({content:'*'});
+      this.setState({cName:'NscaledCard'});
+    }
+
+
   }
   handleClick()
   {
@@ -32,7 +47,7 @@ export default class CardChild extends React.Component
   	if(this.state.cName=='NscaledCard')
   	{
   		this.setState({cName:'ScaledCard'});
-  		this.setState({content:<JeopardyGameplay points={this.props.points} limit={1}/>});
+  		this.setState({content:<JeopardyGameplay classChange={this.classChange} points={this.props.points} limit={1}/>});
   	}
   	else
       if(this.state.cName=='ScaledCard' && counter==3)

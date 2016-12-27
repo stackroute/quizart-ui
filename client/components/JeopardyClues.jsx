@@ -210,7 +210,7 @@ export default class JeopardyClues extends React.Component{
   render(){
     const actions = [
       <FlatButton
-        label="Generate Clue"
+        label="Have a Preview"
         primary={true}
         keyboardFocused={true}
         onClick={this.postDataToServer}
