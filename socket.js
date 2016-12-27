@@ -147,7 +147,7 @@ function init(io)
               SERVICE wikibase:label {
                 bd:serviceParam wikibase:language "en" .
               }
-            }LIMIT 2
+            }LIMIT 10
             `
             var url = wdk.sparqlQuery(sparql);
             request(url, function (error, response, body) {
