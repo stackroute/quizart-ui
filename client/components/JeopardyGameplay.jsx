@@ -146,7 +146,9 @@ render() {
         <CardTitle title={this.state.redisQues} style={{padding:"0px"}} titleStyle={{fontSize:"1.2px",lineHeight:"2px",textAlign:'justify',padding:'3px'}}/>
         {screenData}
         <div>{ this.state.showImage ? <SorryImages classChange={this.props.classChange}/> : null }</div>
+
         <div>{ this.state.showImageNoAnswer ? <SorryImagesForNotAnswering classChange={this.props.classChange}/> : null }</div>
+
 
         {this.state.options.map(i=> <button key={i} disabled={this.state.disable} onTouchTap={this.handleOnClick}  label={i} style={{width:"45%", border:'1px', borderRadius:'1px',padding:'3px',margin: '0px' , textAlign:'center',
             backgroundColor:'#1A237E',color:'white', cursor: 'pointer', outline: '0px',
@@ -162,8 +164,8 @@ render() {
         <CardTitle title={this.state.redisQues} style={{padding:"0px"}} titleStyle={{fontSize:"2px",textAlign:'justify',padding:'3px',lineHeight:"2px",marginTop:"-10px"}}/>
         {screenData}
         <div>{ this.state.showImage ? <SorryImages classChange={this.props.classChange}/> : null }</div>
+
         <div>{ this.state.showImageNoAnswer ? <SorryImagesForNotAnswering classChange={this.props.classChange}/> : null }</div>
-  
         {this.state.options.map(i=> <button key={i} disabled={this.state.disable} onTouchTap={this.handleOnClick}  label={i} style={{width:"40%",height:'100%',marginTop: '6px',textAlign:'center',
             backgroundColor:'#1A237E',color:'white', padding: '3px',border:'1px', borderRadius:'1px', cursor: 'pointer', outline: '30px 30px 30px 30px',
             fontSize:'1px'
@@ -179,7 +181,7 @@ render() {
         <Row center="xs" style={{fontSize:"15px"}}> </Row>
         {screenData}
         <div>{ this.state.showImage ? <SorryImages classChange={this.props.classChange}/> : null }</div>
-        <div>{ this.state.showImageNoAnswer ? <SorryImagesForNotAnswering classChange={this.props.classChange}/> : null }</div>
+        <div>{ this.state.showImageNoAnswer ? <SorryImagesForNotAnswering classChange={this.props.classChange}/> : null }</div
 
         {this.state.options.map(i=> <button key={i} disabled={this.state.disable} onTouchTap={this.handleOnClick}  label={i} style={{width:"40%",height:'100%',marginTop: '6px',textAlign:'center',
             backgroundColor:'#1A237E',color:'white', padding: '3px',border:'1px', borderRadius:'1px', cursor: 'pointer', outline: '30px 30px 30px 30px',
@@ -195,6 +197,7 @@ render() {
         {screenData}
         <div>{ this.state.showImage ? <SorryImages classChange={this.props.classChange}/> : null }</div>
        <div>{ this.state.showImageNoAnswer ? <SorryImagesForNotAnswering classChange={this.props.classChange}/> : null }</div>
+
         {this.state.options.map(i=> <button key={i} disabled={this.state.disable} onTouchTap={this.handleOnClick}  label={i} style={{width:"40%",height:'100%',fxed:'bottom', marginTop: '6px',textAlign:'center',
             backgroundColor:'#1A237E',color:'white', padding: '3px', border:'1px solid', borderRadius:'2px', cursor: 'pointer', outline: '30px 30px 30px 30px',
             fontSize:'2px'
@@ -212,6 +215,7 @@ render() {
         super(props);
     }
     render() {
+
         
         return (
           <div>
@@ -276,6 +280,19 @@ class SorryImagesForNotAnswering extends React.Component{
            
            <script>{setTimeout(this.props.classChange,1000)}</script>  
            </MediaQuery>
+            </div>
+        );
+    }
+};
+
+
+
+        return (
+          <div>
+            <img src="http://res.cloudinary.com/deaxb0msww/image/upload/v1482744812/timesup_emnvm8.png"
+                    alt="Image Not Available" style={{height:'30px',width:'20px',marginTop:'-10px'}}/>
+            <h1>Correct Answer: </h1>
+           {setTimeout(this.props.classChange,1000)}
             </div>
         );
     }

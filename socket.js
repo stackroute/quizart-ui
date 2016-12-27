@@ -1,8 +1,16 @@
 var redis = require('redis');
+var wdk = require('wikidata-sdk');
+var request = require('request');
 const redisUrl= process.env.REDIS_URL;
 var pubClient = redis.createClient(process.env.REDIS_PORT, process.env.REDIS_HOSTNAME);
 var subClient = redis.createClient(process.env.REDIS_PORT, process.env.REDIS_HOSTNAME);
 var playerQueue = redis.createClient(process.env.REDIS_PORT, process.env.REDIS_HOSTNAME);
+var pub = redis.createClient(process.env.REDIS_PORT, process.env.REDIS_HOSTNAME);
+var sub = redis.createClient(process.env.REDIS_PORT, process.env.REDIS_HOSTNAME);
+var pubBack = redis.createClient(process.env.REDIS_PORT, process.env.REDIS_HOSTNAME);
+var workqueue = redis.createClient(process.env.REDIS_PORT, process.env.REDIS_HOSTNAME);
+var redisClient = redis.createClient(process.env.REDIS_PORT, process.env.REDIS_HOSTNAME);
+
 var jwt = require('jsonwebtoken');
 var score='';
 var user=[];
@@ -60,11 +68,9 @@ function init(io)
                 if(!tempEmail.includes(userData.userId)) {
                   if(user.length<4){
                   user.push(userData.userName);
-                  playerQueue.lpush('playerQueue',userData.userName);
-                  playerQueue.LLEN('playerQueue',function(error,length){
-
+                  redisClient.lpush('queuedPlayer',userData.userName);
+                  redisClient.LLEN('queuedPlayer',function(error,length){
                       console.log('Length of Player Queue  :', length);
-
                   });
 
                   tempEmail.push(userData.userId);
@@ -92,7 +98,7 @@ function init(io)
 
         socket.on('disconnect',function(){
           console.log("Disconnected on Refresh");
-          playerQueue.DEL('playerQueue');
+          redisClient.DEL('playerQueue');
           var playersQueued = [];
           console.log(user.length);
           for(var j=0;j<3;j++){
@@ -126,17 +132,63 @@ function init(io)
 
           // **************  CONTROLLER ***********************
 
+		// socket.on('openCard', function(index)
+          // {
+          //   console.log("Getting index");
+
+          //   socket.emit('forceOpen', index);
+            socket.on('cardFlip', function(data){
+
+              console.log("Card Flip Data on ServerSide"+data.msg);
+
+              socket.broadcast.emit('cDataUsers', data.msg);
+
+            });
+
+
+
+
+          // });
 
 
 
             // **************  CLUE GENERATOR ***********************
+            socket.on('sendPandQString', function(data) {
+              console.log(data);
+              pIdForSubject=data.pIdForSubject,
+              qIDForSubject=data.qIDForSubject,
+              selectedSubjectDescription=data.selectedSubjectDescription
+              var sparql = `
+              SELECT  ?variableLabel
+              WHERE { ?variable wdt:${pIdForSubject} wd:${qIDForSubject} .
+              SERVICE wikibase:label {
+                bd:serviceParam wikibase:language "en" .
+              }
+            }LIMIT 10
+            `
+            var url = wdk.sparqlQuery(sparql);
+            request(url, function (error, response, body) {
+              if (!error && response.statusCode == 200) {
+                var subjectsJson=JSON.parse(response.body)
+                subjectsJson.results.bindings.map(function(item){
+                  console.log(JSON.stringify(item.variableLabel.value));
+                  workqueue.lpush('workQueue',JSON.stringify(item.variableLabel.value));
+                });
+              }
+            });
+              pub.publish('clueGenerationDescription',JSON.stringify({
+                selectedSubjectDescription:selectedSubjectDescription,
+                searchId:'DATALIST'+Math.floor((Math.random() * 1000) + 1)
+              }));
+              sub.subscribe('clues');
+              sub.on('message',function(channel,data){
+                var data=JSON.parse(data);
+                socket.emit('finalClues',data);
+              })
+            });
 
 
-
-
-
-
-    });
+          });
 }
 
 module.exports = init;
