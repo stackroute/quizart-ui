@@ -145,7 +145,7 @@ render() {
 
         <div>{ this.state.showImage ? <SorryImages classChange={this.props.classChange}/> : null }</div>
 
-    
+
 
         {this.state.options.map(i=> <button key={i} disabled={this.state.disable} onTouchTap={this.handleOnClick}  label={i} style={{width:"45%", border:'1px', borderRadius:'1px',padding:'3px',margin: '0px' , textAlign:'center',
             backgroundColor:'#1A237E',color:'white', cursor: 'pointer', outline: '0px',
@@ -220,6 +220,7 @@ render() {
         super(props);
     }
     render() {
+
 
         return (
           <div>
