@@ -15,21 +15,22 @@ import Dialog from 'material-ui/Dialog';
 import Request from 'superagent';
 import { browserHistory } from 'react-router';
 import jwt_decode from 'jwt-decode';
-
 const errorMessages = {
   projectName: "Please enter only characters and number.",
   emailError: "Please enter a valid email",
   numericError: "Please provide a password"
 };
-
-
 const styles = {
   loginStyle: {
     // marginTop: window.innerHeight / 4.5,
     // marginLeft: "auto",
     // marginRight: "auto",
+    // border:'solid 2px #E7FFAA',
     backgroundColor: "#04000000",
     color: 'white'
+  },
+  textStyle:{
+      color:cyan500
   },
   errorStyle: {
     color: 'red'
@@ -45,8 +46,9 @@ const styles = {
   },
   inputStyle:{
     color: cyan100,
+    WebkitAutofill: 'none'
   }
-}
+};
 var flag = false;
 export default class Login extends React.Component {
   constructor(props) {
@@ -106,9 +108,10 @@ export default class Login extends React.Component {
   }
   render() {
     return (
+      <div className="autofill">
       <Grid>
         <Row xs="center">
-        <Col xs={ 6 }>
+        <Col xsOffset={3} xs={6}>
         <Card
               style={ styles.loginStyle }>
           <Row center="xs">
@@ -118,7 +121,7 @@ export default class Login extends React.Component {
                          onValidSubmit={ this.submitForm }
                          onInvalidSubmit={ this.notifyFormError }>
               <CardText>
-                <Row center="xs"><h2>Already a user?</h2> </Row>
+                <Row center="xs"><h2 style={{color:'#FF7885'}}>Already a user?</h2> </Row>
                 <Row>
                   <Col
                        xs={ 12 }
@@ -132,6 +135,8 @@ export default class Login extends React.Component {
                               validationError={ errorMessages.emailError }
                               required
                               hintText="Enter your Email"
+                              hintStyle={styles.inputStyle}
+                              textareaStyle={styles.textStyle}
                               floatingLabelText="Email"
                               floatingLabelStyle={styles.floatingLabelStyle}
                               floatingLabelFocusStyle={styles.floatingLabelFocusStyle}
@@ -150,6 +155,7 @@ export default class Login extends React.Component {
                               name="password"
                               required
                               hintText="Enter Password"
+                              hintStyle={styles.inputStyle}
                               floatingLabelText="Password"
                               floatingLabelStyle={styles.floatingLabelStyle}
                               floatingLabelFocusStyle={styles.floatingLabelFocusStyle}
@@ -166,6 +172,7 @@ export default class Login extends React.Component {
                   <span style={ styles.errorStyle }>{ this.state.err }</span>
                   </Col>
                 </Row>
+                <Row><br/><br /></Row>
                 <Row>
                   <Col
                        xs={ 12 }
@@ -173,9 +180,10 @@ export default class Login extends React.Component {
                        md={ 12 }
                        lg={ 12 }>
                   <RaisedButton
+                                backgroundColor="#FF7885"
                                 type="submit"
                                 label="Login"
-                                primary={ true }
+                                // style={{marginTop:'20px'}}
                                 disabled={ !this.state.canSubmit } />
                   </Col>
                 </Row>
@@ -186,6 +194,7 @@ export default class Login extends React.Component {
         </Col>
       </Row>
       </Grid>
+      </div>
       );
   }
 }

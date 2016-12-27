@@ -11,12 +11,12 @@ var openedCards=0;
 
 export default class CardChild extends React.Component
 {
-
   constructor(props)
   {
     super(props);
     this.state={view:'points',cName:'NscaledCard',content:this.props.points,question:'Points',posTop:this.props.top,posLeft:this.props.posL,open:false};
     this.handleClick=this.handleClick.bind(this);
+
     this.classChange = this.classChange.bind(this);
   }
 
@@ -28,20 +28,19 @@ export default class CardChild extends React.Component
       this.setState({content:'*'});
       this.setState({cName:'NscaledCard'});
     }
+
+
   }
-
-
   handleClick()
   {
     counter++;
-    
     if(openedCards==29)
     {
       alert("opened all the cards");
     }
   	if(this.state.content=='*')
   	{
-
+      console.log("state *");
   	}
   	else
   	{
@@ -59,7 +58,7 @@ export default class CardChild extends React.Component
       this.setState({content:'*'});
   	}
   }
-   
+
   }
 	render()
 	{
@@ -74,7 +73,7 @@ export default class CardChild extends React.Component
       left :'44%',
       backgroundColor: '#0E0983',
     }
-		return(			
+		return(
 			<Card onClick={this.handleClick} className={this.state.cName} style={cardStyle} >  <h4 className={this.state.question} style={{color:"#F4D03F" ,marginTop:17}} >{this.state.content}</h4></Card>
 			);
 	}

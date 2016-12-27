@@ -4,6 +4,7 @@ var router = express.Router();
 var request = require('request');
 var wdk = require('wikidata-sdk');
 
+
 var config = require('../server/config');
 var redis = require('redis');
 var client = redis.createClient(config.REDIS_PORT, config.REDIS_HOSTNAME);
@@ -18,6 +19,11 @@ var io = require('socket.io')(server);
 // const EventEmitter = require('events');
 // const emitter = new EventEmitter();
 // emitter.setMaxListeners(100);
+
+
+var config = require('../server/config');
+var redis = require('redis');
+var client = redis.createClient(config.REDIS_PORT, config.REDIS_HOSTNAME);
 
 
 router.post('/generateSubject', function(req, res, next) {
@@ -62,7 +68,12 @@ request(url, function (error, response, body) {
                     // results.push(item.result);
                     var result=JSON.stringify(item.result);
 
+
                     client.lrange('SPORTS',result, function(error , list) {
+
+                    client.lpush('SPORTS',result, function(error , list) {
+                      count++;
+
 
                     client.lpush('SPORTS',result, function(error , list) {
                       count++;
