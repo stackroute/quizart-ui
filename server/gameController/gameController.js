@@ -3,7 +3,6 @@ const redisUrl= process.env.REDIS_URL;
 var client = redis.createClient(process.env.REDIS_PORT, process.env.REDIS_HOSTNAME);
 var client1 = redis.createClient(process.env.REDIS_PORT, process.env.REDIS_HOSTNAME);
 var jwt = require('jsonwebtoken');
-
 var score='';
 var user=[];
 let count = '';
@@ -11,7 +10,7 @@ let tempEmail= [];
 function init(io)
 {
     io.on('connection',function(socket){
-        console.log(socket.id);
+        // console.log(socket.id);
         console.log("YES! server connection established");
         socket.on('queue',function(data){
           console.log('queued here:', data.token);
@@ -58,37 +57,43 @@ function init(io)
             socket.on('joining', function(userData) {
                 console.log('userData', userData);
                 if(!tempEmail.includes(userData.userId)) {
+                  if(user.length<4){
                   user.push(userData.userName);
                   tempEmail.push(userData.userId);
+                }
                 };
                 socket.emit("data",user);
-
-                client.publish('joined',userData.userId);
+                console.log("user Length:",user.length);
+                if(user.length<4)
+                  client.publish('joined',userData.userId);
+                else {
+                  console.log("3 users ready to play");
+                }
              });
+             if(user.length<4){
+               client1.subscribe('joined');
+               client1.on('message', function(channel, msg) {
+                   console.log(user);
+                   socket.emit("data",user);
+                       console.log(channel);
+             });
+           }
+             else{
+               console.log("3 users already subscribed");
+             }
 
-            client1.subscribe('joined');
-            client1.on('message', function(channel, msg) {
-                console.log(user);
-                socket.emit("data",user);
-                    console.log(channel);
-            /*client.get("users",function(err,reply)
-            {
-                console.log('test2');
-                var data=[];
-                user=JSON.parse(reply);
-                client.get("scores",function(err,reply){
-                    score=JSON.parse(reply);
-                    data.push(user);
-                    data.push(score);
-                    console.log(data);
-                    socket.emit("data",data);
-                });
-            });
-*/
-
-
+        socket.on('disconnect',function(){
+          console.log("Disconnected on Refresh");
+          var playersQueued = [];
+          console.log(user.length);
+          for(var j=0;j<3;j++){
+            playersQueued.push(user[j]);
+          }
+          console.log(playersQueued);
+          user=[];
+          user = playersQueued;
         });
-      });
+        });
         socket.on('jGamePlay',function(msg)
         {
             console.log("user chose "+msg);
@@ -107,7 +112,7 @@ function init(io)
                     console.log("question Array: ", questions[quesNum]);
                     socket.emit("question",questions[quesNum]);
                 });
-            })
+            });
         });
     });
 }

@@ -6,12 +6,8 @@ var expressJWT = require('express-jwt');
 var jwt = require('jsonwebtoken');
 var path = require('path');
 
-var init  = require('./client/socket.js');
+var init  = require('./socket.js');
 init(io);
-
-var config = require('./server/config');
-var userRoute = require('./controller/index.js');
-require('./server/db.js');
 
 if (process.env.NODE_ENV !== 'production') {
   const logger = require('morgan');

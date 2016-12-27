@@ -7,6 +7,11 @@ var neo4j = require('neo4j-driver').v1;
 var nlp_compromise= require('nlp_compromise');
 var driver = neo4j.driver(process.env.NEO4j_DRIVER, neo4j.auth.basic("neo4j", "password"));
 var session = driver.session();
+const redis = require('redis');
+let client = redis.createClient(process.env.REDIS_PORT, process.env.REDIS_HOSTNAME);
+var bodyParser=require('body-parser');
+router.use(bodyParser.urlencoded({ extended: false }));
+router.use(bodyParser.json());
 
 router.post('/sendCluesToServer', function(req, res, next) {
   console.log("in server");
