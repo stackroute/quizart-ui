@@ -145,7 +145,7 @@ render() {
 
         <div>{ this.state.showImage ? <SorryImages classChange={this.props.classChange}/> : null }</div>
 
-        <div>{ this.state.showImage ? <SorryImages /> : null }</div>
+    
 
         {this.state.options.map(i=> <button key={i} disabled={this.state.disable} onTouchTap={this.handleOnClick}  label={i} style={{width:"45%", border:'1px', borderRadius:'1px',padding:'3px',margin: '0px' , textAlign:'center',
             backgroundColor:'#1A237E',color:'white', cursor: 'pointer', outline: '0px',
@@ -163,7 +163,7 @@ render() {
 
         <div>{ this.state.showImage ? <SorryImages classChange={this.props.classChange}/> : null }</div>
 
-        <div>{ this.state.showImage ? <SorryImages /> : null }</div>
+
 
         {this.state.options.map(i=> <button key={i} disabled={this.state.disable} onTouchTap={this.handleOnClick}  label={i} style={{width:"40%",height:'100%',marginTop: '6px',textAlign:'center',
             backgroundColor:'#1A237E',color:'white', padding: '3px',border:'1px', borderRadius:'1px', cursor: 'pointer', outline: '30px 30px 30px 30px',
@@ -183,7 +183,6 @@ render() {
 
         <div>{ this.state.showImage ? <SorryImages classChange={this.props.classChange}/> : null }</div>
 
-        <div>{ this.state.showImage ? <SorryImages /> : null }</div>
 
         {this.state.options.map(i=> <button key={i} disabled={this.state.disable} onTouchTap={this.handleOnClick}  label={i} style={{width:"40%",height:'100%',marginTop: '6px',textAlign:'center',
             backgroundColor:'#1A237E',color:'white', padding: '3px',border:'1px', borderRadius:'1px', cursor: 'pointer', outline: '30px 30px 30px 30px',
@@ -200,8 +199,6 @@ render() {
         {screenData}
 
         <div>{ this.state.showImage ? <SorryImages classChange={this.props.classChange}/> : null }</div>
-
-        <div>{ this.state.showImage ? <SorryImages /> : null }</div>
 
         {this.state.options.map(i=> <button key={i} disabled={this.state.disable} onTouchTap={this.handleOnClick}  label={i} style={{width:"40%",height:'100%',fxed:'bottom', marginTop: '6px',textAlign:'center',
             backgroundColor:'#1A237E',color:'white', padding: '3px', border:'1px solid', borderRadius:'2px', cursor: 'pointer', outline: '30px 30px 30px 30px',
@@ -223,27 +220,14 @@ render() {
         super(props);
     }
     render() {
-        
+
         return (
           <div>
             <img src="http://res.cloudinary.com/deaxb0msww/image/upload/v1482744812/timesup_emnvm8.png"
                     alt="Image Not Available" style={{height:'30px',width:'20px',marginTop:'-10px'}}/>
-            <h1>Correct Answer: </h1> 
-           {setTimeout(this.props.classChange,1000)}  
+            <h1>Correct Answer: </h1>
+           {setTimeout(this.props.classChange,1000)}
             </div>
         );
     }
 };
-
-var SorryImages = React.createClass({
-    render: function() {
-        return (
-          <div>
-            <img src="./timesup.png"
-                    alt="Image Not Available" style={{height:'30px',width:'20px',marginTop:'-10px'}}/>
-            <h1>Correct Answer: </h1>
-            </div>
-        );
-    }
-});
-

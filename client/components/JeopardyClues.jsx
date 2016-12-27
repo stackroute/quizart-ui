@@ -23,6 +23,14 @@ const styles={
     padding:20,
     backgroundColor:'#c2efd9'
   },
+  paper: {
+    height: '100%',
+    width: 900,
+    textAlign: 'center',
+    margin: 20,
+    padding: 20,
+    backgroundColor: 'white'
+  },
   textFieldStyle:{
     marginLeft:"5%",
     width:"65%",
@@ -36,6 +44,12 @@ const styles={
   {
     marginLeft:"45%",
   },
+  listStyle: {
+    backgroundColor: '#F8BBD0',
+    hoverColor: '#9FA8DA',
+    border: '.3px solid',
+    textAlign: 'justify'
+  }
 };
 var value=1,image=[],tempClues=[],tempClueData=[];
 export default class JeopardyClues extends React.Component{
@@ -50,10 +64,12 @@ export default class JeopardyClues extends React.Component{
   componentWillMount() {
     tempClues=[],tempClueData=[];
     socket.on('finalClues',function(data){
+      if(data.clues!=undefined){
       tempClues.push(data.clues);
       tempClueData.push(data.clueData);
       this.setState({jeopardyClues:tempClues});
       this.setState({jeopardyCluesData:tempClueData});
+    }
     }.bind(this));
   }
   handleOpen = () => {
@@ -218,7 +234,15 @@ export default class JeopardyClues extends React.Component{
     var topicSelected = options[parseInt(lastChar)-1]
     this.setState({topic:topicSelected});
     console.log('selected', topicSelected);
-  }
+  };
+
+  displayElement=(value)=>
+  {
+    alert('func');
+    console.log(value);
+    return <div>{value}</div>
+  };
+
   render(){
     const actions = [
       <FlatButton
@@ -241,7 +265,7 @@ export default class JeopardyClues extends React.Component{
           />
       );
     }
-
+  let that=this;
     return(
       <div>
         <Paper style={styles} zDepth={1} >
@@ -291,9 +315,10 @@ export default class JeopardyClues extends React.Component{
                 <RaisedButton label="Next" disabled={this.state.enableSelectedSubjectContext} secondary={true} onClick={this.handleListOfSubject} style={styles.buttonNext}/>
               </div>
               <div>
-               {this.state.jeopardyCluesData.map(function(element){
+
+               {this.state.jeopardyCluesData.map(element =>
                <Row center='xs'>
-                 <Paper style={styles.paperStyle} zDepth={1}>
+                 <Paper style={styles.paper} zDepth={1}>
                    <div>
                      <Row>
                        <Col xs={12} sm={12} md={6} lg={6}>
@@ -312,18 +337,20 @@ export default class JeopardyClues extends React.Component{
                        <Row>
                          <Col xs={12} sm={12} md={12} lg={12}>
                            <List>
-                             
-                               {this.state.jeopardyClues.map(function(element) {
-                                 return (
-                                   <ListItem style={styles.listStyle} primaryText={element} leftIcon={< ContentSend />}/>
-                                 );
-                               })}
+                               {that.state.jeopardyClues.map(element=>
+                                {JSON.parse(element).map(value=>
+                                  <div>
+                                    <ListItem style={styles.listStyle} primaryText={value}/>
+                                    <script>{console.log(value)}</script>
+                                  </div>
+                                )}
+                               )}
                            </List>
                          </Col>
                        </Row>
                      </div>
                    </Paper>
-                 </Row>})}
+                 </Row>)}
                 <RaisedButton label="Select Topic" disabled={this.state.enableSelectTopic} secondary={true} style={styles.buttonNext} onTouchTap={this.handleOpen}/>
                 {/* <RaisedButton label="questions" disabled={this.state.enableSelectTopic} secondary={true}  onTouchTap={this.showQuestions}/> */}
                 <Dialog
