@@ -12,7 +12,16 @@ export default class JeopardyView extends React.Component
   constructor(props)
   {
     super(props);
-    this.state={playersId: [],view:'points',windowWidth: window.innerWidth, windowHeight: window.innerHeight,p1_score:'',p2_score:'',p3_score:'',data:[]};
+    this.state={
+      playersId: [],
+      view:'points',
+      windowWidth: window.innerWidth,
+      windowHeight: window.innerHeight,
+      p1_score:'',
+      p2_score:'',
+      p3_score:'',
+      data:[]
+    };
   }
   handleResize(event) {
         this.setState({

@@ -110,7 +110,7 @@ export default class Login extends React.Component {
     return (
       <div className="autofill">
       <Grid>
-        <Row xs="center">
+        <Row center="xs">
         <Col xsOffset={3} xs={6}>
         <Card
               style={ styles.loginStyle }>

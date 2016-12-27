@@ -31,7 +31,7 @@ export default class LoginView extends React.Component {
     document.body.style.backgroundColor = "#3B3251";
     return (
       <div>
-        <Bouncefix className="Bouncefix">
+
         <img src="./../images/gifnew.gif" style={styles.imageStyle} />
           <MediaQuery minDeviceWidth='1224px'>
             <div className="some-class">
@@ -55,7 +55,7 @@ export default class LoginView extends React.Component {
               </Grid>
             </div>
       </MediaQuery>
-      </Bouncefix>
+      
       </div>
     );
   }

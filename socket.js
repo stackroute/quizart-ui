@@ -1,7 +1,8 @@
 var redis = require('redis');
 const redisUrl= process.env.REDIS_URL;
-var client = redis.createClient(process.env.REDIS_PORT, process.env.REDIS_HOSTNAME);
-var client1 = redis.createClient(process.env.REDIS_PORT, process.env.REDIS_HOSTNAME);
+var pubClient = redis.createClient(process.env.REDIS_PORT, process.env.REDIS_HOSTNAME);
+var subClient = redis.createClient(process.env.REDIS_PORT, process.env.REDIS_HOSTNAME);
+var playerQueue = redis.createClient(process.env.REDIS_PORT, process.env.REDIS_HOSTNAME);
 var jwt = require('jsonwebtoken');
 var score='';
 var user=[];
@@ -11,7 +12,7 @@ function init(io)
 {
     io.on('connection',function(socket){
         // **************  PROVISIONER ***********************
-        console.log("YES! server connection established");
+        console.log("Server connection established");
         socket.on('queue',function(data){
           console.log('queued here:', data.token);
           var jwtTokenAuth = jwt.verify(data.token, "Quizztack");
@@ -32,9 +33,9 @@ function init(io)
           });
         });
 
-        socket.on('joiningNow',function(data){
-          console.log("Ready to play ", data.gameID);
-        });
+        // socket.on('joiningNow',function(data){
+        //   console.log("Ready to play ", data.gameID);
+        // });
 
         socket.on('queue',function(data){
          console.log('queued here:', data.token);
@@ -59,20 +60,27 @@ function init(io)
                 if(!tempEmail.includes(userData.userId)) {
                   if(user.length<4){
                   user.push(userData.userName);
+                  playerQueue.lpush('playerQueue',userData.userName);
+                  playerQueue.LLEN('playerQueue',function(error,length){
+
+                      console.log('Length of Player Queue  :', length);
+
+                  });
+
                   tempEmail.push(userData.userId);
                 }
                 };
                 socket.emit("data",user);
                 console.log("user Length:",user.length);
                 if(user.length<4)
-                  client.publish('joined',userData.userId);
+                  pubClient.publish('joined',userData.userId);
                 else {
                   console.log("3 users ready to play");
                 }
              });
              if(user.length<4){
-               client1.subscribe('joined');
-               client1.on('message', function(channel, msg) {
+               subClient.subscribe('joined');
+               subClient.on('message', function(channel, msg) {
                    console.log(user);
                    socket.emit("data",user);
                        console.log(channel);
@@ -84,6 +92,7 @@ function init(io)
 
         socket.on('disconnect',function(){
           console.log("Disconnected on Refresh");
+          playerQueue.DEL('playerQueue');
           var playersQueued = [];
           console.log(user.length);
           for(var j=0;j<3;j++){
@@ -97,7 +106,7 @@ function init(io)
         socket.on('jGamePlay',function(msg)
         {
             console.log("user chose "+msg);
-            client.get("gameId",function(err,reply)
+            pubClient.get("gameId",function(err,reply)
             {
                 var questions = [];
                 var gameId = reply;
@@ -105,7 +114,7 @@ function init(io)
                 socket.emit('gameId', gameId);
                 var quesNum=Math.floor((Math.random() * (29 - 0 + 1)) + 0);
                 console.log(quesNum);
-                client.get(gameId+"_questions",function(err,reply)
+                pubClient.get(gameId+"_questions",function(err,reply)
                 {
                 console.log(reply);
                     questions = JSON.parse(reply);
