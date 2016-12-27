@@ -16,7 +16,7 @@ console.log('Calling generateSubject');
 var generateSubject= require('./server/clueGenerator/generateSubject');
 generateSubject(io);
 
-<<<<<<< HEAD
+
 
 
 var generateClue= require('./server/clueGenerator/generateSubject');
@@ -29,8 +29,8 @@ generateClue(io);
 
 
 
-=======
->>>>>>> 5caea344dc172c56206175583094e33932c17984
+
+
 if (process.env.NODE_ENV !== 'production') {
   const logger = require('morgan');
   const webpack = require('webpack')
