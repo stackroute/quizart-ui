@@ -15,7 +15,17 @@ export default class JeopardyGameplay extends React.Component {
     constructor()
     {
         super();
-        this.state = {screen: false,disable:false,showImage:false,showBuzzer:true,choice:'',topic: [],i: 0, question:'',options:[],redisQues:'',
+        this.state = {
+        screen: false,
+        disable:false,
+        showImage:false,
+        showBuzzer:true,
+        choice:'',
+        topic: [],
+        i: 0,timeLimit:7000,
+        question:'',
+        options:[],
+        redisQues:'',
         };
         this.changeState=this.changeState.bind(this);
         this.handleOnClick = this.handleOnClick.bind(this);
@@ -32,12 +42,9 @@ export default class JeopardyGameplay extends React.Component {
         questionData.push(msg);
         this.setState({topic: questionData});
     }.bind(this));
-
         console.log("component mounted");
-    this.timerID = setInterval(() => this.tick(),8000);
-
+    this.timerID = setInterval(() => this.tick(),this.state.timeLimit);
     }
-
 /*--- if the buzzer is not pressed before time up----------*/
 tick() {
   console.log('timeout from tick');
@@ -48,19 +55,17 @@ tick() {
      {
         this.state.topic.map((topics) => {
             options.push(topics.correctOption);
-        });    
+        });
         console.log(options);
         this.setState({options:options});
      }
      this.setState({screen:true});
      this.setState({choice:options});
   }
-
 componentWillUnmount() {
     console.log('timeout component will mount');
   clearInterval(this.timerID);
 }
-
     handleOnClick(e)
     {
         this.state.topic.map((topics) => {
@@ -77,6 +82,7 @@ componentWillUnmount() {
                 e.target.style.backgroundColor = "red";
             }
         });
+        
     }
     changeState()
     {
@@ -97,27 +103,23 @@ componentWillUnmount() {
                 //     fontSize:'2px'
                 // }}>
                 options.push(topics.options[i]);
-
                 //</button>);
             }
-            this.setState({options:options});
+            this.setState({options:options,timeLimit:7000,showImage:false});
         }));
-
      }
      this.setState({screen:true});
      this.setState({choice:options});
 }
-
 render() {
-
     const screenData = this.state.screen ?
     this.state.options:
     <div>
-        { this.state.showBuzzer ? 
+        { this.state.showBuzzer ?
                 <div>
                     <MediaQuery maxDeviceWidth={767} className="some-class">
                     <img src="http://res.cloudinary.com/deaxb0msww/image/upload/v1480404062/buzzer_p754xp.png"
-                    alt="Image Not Available" 
+                    alt="Image Not Available"
                     style={{height:'10px',width:'10px',cursor:'pointer'}}
                     onTouchTap = {this.changeState}/>
                     <TimerSpeed timeLimit={1000} blocks={[0,1,2,3,4,5,6,7]} />
@@ -132,10 +134,8 @@ render() {
                 </div> : null
         }
     </div>
-
     return (
         <div>
-
         <MediaQuery minDeviceWidth={1} maxDeviceWidth={479}>
         <div className="some-class">
         <Card style={{width:'90%',height:'58px',marginTop:'-13px', marginLeft:'1.9px',backgroundColor:blue300}}>
@@ -147,7 +147,7 @@ render() {
             fontSize:'1px'
         }}
         >{i}</button>)}
-        
+
         </Card>
         </div>
         </MediaQuery>
@@ -162,7 +162,7 @@ render() {
             fontSize:'1px'
         }}
         >{i}</button>)}
-        
+
         </Card>
         </div>
         </MediaQuery>
@@ -178,7 +178,7 @@ render() {
             fontSize:'2px'
         }}
         >{i}</button>)}
-        
+
         </Card>
         </div>
         </MediaQuery>
@@ -192,6 +192,7 @@ render() {
             fontSize:'2px'
         }}
         >{i}</button>)}
+
         </Card>
         </MediaQuery>
         </div>
@@ -201,8 +202,11 @@ render() {
 var SorryImages = React.createClass({
     render: function() {
         return (
-            <img src="http://res.cloudinary.com/deaxb0msww/image/upload/v1482517367/oops_ug3zbc.png"
-                    alt="Image Not Available" style={{height:'30px',width:'20px',marginTop:'2px'}}/>
+          <div>
+            <img src="http://res.cloudinary.com/deaxb0msww/image/upload/v1482744812/timesup_emnvm8.png"
+                    alt="Image Not Available" style={{height:'30px',width:'20px',marginTop:'-10px'}}/>
+            <h1>Correct Answer: </h1>
+            </div>
         );
     }
 });

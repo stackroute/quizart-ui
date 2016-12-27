@@ -5,30 +5,20 @@ var io = require('socket.io')(server);
 var expressJWT = require('express-jwt');
 var jwt = require('jsonwebtoken');
 var path = require('path');
-
-var mongoose = require('mongoose');
-mongoose.connect(process.env.MONGO_URL);
-var Schema = mongoose.Schema;
-var db = mongoose.connection;
-db.on('error', console.error.bind(console, 'connection error:'));
-db.once('open', function() {
-  console.log('Database connected');
-});
-
 var config = require('./server/config');
 var userRoute = require('./controller/index.js');
 require('./server/db.js');
-
-
 var init  = require('./server/gameController/gameController');
 init(io);
+console.log('Calling generateSubject');
+var generateSubject= require('./server/clueGenerator/generateSubject');
+generateSubject(io);
 
 
 // var generateClue= require('./server/clueGenerator/generateSubject');
 // generateClue(io);
 
-var generateClue= require('./server/clueGenerator/generateSubject');
-generateClue(io);
+
 
 /*server.listen(8081, function() {
 	console.log('yes its listening');
@@ -64,8 +54,6 @@ app.use(function(req, res, next) {
   res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
   next();
 });
-
-// app.use('/login',userRoute);
 app.use('/',userRoute);
 app.use('/signin',userRoute);
 server.listen(process.env.EXPRESS_PORT,function(){

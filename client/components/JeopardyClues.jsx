@@ -12,23 +12,18 @@ import SearchDisplay from './SearchDisplay.jsx';
 import Dialog from 'material-ui/Dialog';
 import FlatButton from 'material-ui/FlatButton';
 import {RadioButton, RadioButtonGroup} from 'material-ui/RadioButton';
-// import redis from 'redis';
-const redisUrl= process.env.REDIS_URL;
-let PandQString = redis.createClient(redisUrl);
 
 const styles={
   paperStyle:{
     height: '100%',
-    width: 900,
+    width: '100%',
     textAlign: 'center',
-    margin:20,
-    padding:20,
-    backgroundColor:'#c2efd9'
+    margin:5,
+    backgroundColor:'white'
   },
   textFieldStyle:{
     marginLeft:"5%",
     width:"65%",
-    marginTop:10
   },
   imageStyle:{
     height: 300,
@@ -161,17 +156,26 @@ export default class JeopardyClues extends React.Component{
     var tempSubject=[];
     value++;
     this.setState({slideIndex:value});
-    PandQString.publish('PandQString',{
+    socket.emit('sendPandQString',{
       pIdForSubject:this.state.pIdForSubject,
       qIDForSubject:this.state.qIDForSubject,
       selectedSubjectDescription:this.state.selectedSubjectDescription
-    })
+    });
   };
   postDataToServer=()=>{
     alert("Your Clues Has been Generated");
     var tempSubject=[];
     Request.post('/sendCluesToServer')
     .set('Content-type', 'application/json')
+    .send({
+      pIdForSubject:this.state.pIdForSubject,
+      qIDForSubject:this.state.qIDForSubject,
+      selectedSubjectDescription:this.state.selectedSubjectDescription,
+      topic:this.state.topic
+
+    })
+    .end((err, res) => {
+    });
   };
 
   showQuestions=()=>{
@@ -227,7 +231,7 @@ export default class JeopardyClues extends React.Component{
     return(
       <div>
       <center>
-        <Paper style={styles} zDepth={1} >
+        <Paper style={styles.paperStyle} zDepth={1} >
           <center>
           <TextField
             style={styles.textFieldStyle}

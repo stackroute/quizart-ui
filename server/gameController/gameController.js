@@ -4,7 +4,11 @@ var client = redis.createClient(process.env.REDIS_PORT, process.env.REDIS_HOSTNA
 var jwt = require('jsonwebtoken');
 
 var jwt = require('jsonwebtoken');
-let client = redis.createClient(redisUrl);
+//let client = redis.createClient(redisUrl);
+
+
+var client1 = redis.createClient(process.env.REDIS_PORT, process.env.REDIS_HOSTNAME);
+var jwt = require('jsonwebtoken');
 
 
 var score='';
