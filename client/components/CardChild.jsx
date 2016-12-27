@@ -131,6 +131,3 @@ export default class CardChild extends React.Component
     }
 }
 
-1 new message since 5:47 PM
-Mark as read (esc)
-Files
