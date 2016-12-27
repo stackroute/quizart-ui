@@ -105,10 +105,10 @@ componentWillUnmount() {
                 options.push(topics.options[i]);
                 //</button>);
             }
-            this.setState({options:options,timeLimit:7000,showImage:false});
+            this.setState({options:options});
         }));
      }
-     this.setState({screen:true});
+     this.setState({screen:true,timeLimit:7000,showImage:false});
      this.setState({choice:options});
 }
 render() {

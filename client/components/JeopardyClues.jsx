@@ -12,6 +12,7 @@ import SearchDisplay from './SearchDisplay.jsx';
 import Dialog from 'material-ui/Dialog';
 import FlatButton from 'material-ui/FlatButton';
 import {RadioButton, RadioButtonGroup} from 'material-ui/RadioButton';
+var socket = io();
 
 const styles={
   paperStyle:{
@@ -34,17 +35,25 @@ const styles={
     marginLeft:"45%",
   },
 };
-var value=1,image=[];
+var value=1,image=[],tempClues=[],tempClueData=[];
 export default class JeopardyClues extends React.Component{
   constructor(){
     super();
-    this.state={enableChoose:true,enableSubjectMeaning:true,enableSelectedSubjectContext:false,enableSelectTopic:true,jeopardyClues:[],generatedSubjects:[],pandqString:[],pIdForSubject:'',qIdForSubject:'',topic:'',slideIndex: 0,dataObj:[],input: '',selectedSubject:'',selectedSubjectMeaning:[],subjectMeaning:'',qStringForSubject:''};
+    this.state={enableChoose:true,enableSubjectMeaning:true,enableSelectedSubjectContext:false,enableSelectTopic:true,jeopardyClues:[],jeopardyCluesData:[],generatedSubjects:[],pandqString:[],pIdForSubject:'',qIdForSubject:'',topic:'',slideIndex: 0,dataObj:[],input: '',selectedSubject:'',selectedSubjectMeaning:[],subjectMeaning:'',qStringForSubject:''};
   }
 
   state = {
     open: false,
   };
-
+  componentWillMount() {
+    tempClues=[],tempClueData=[];
+    socket.on('finalClues',function(data){
+      tempClues.push(data.clues);
+      tempClueData.push(data.clueData);
+      this.setState({jeopardyClues:tempClues});
+      this.setState({jeopardyCluesData:tempClueData});
+    }.bind(this));
+  }
   handleOpen = () => {
     this.setState({open: true});
   };
@@ -160,6 +169,9 @@ export default class JeopardyClues extends React.Component{
       pIdForSubject:this.state.pIdForSubject,
       qIDForSubject:this.state.qIDForSubject,
       selectedSubjectDescription:this.state.selectedSubjectDescription
+      // pIdForSubject:'P106',
+      // qIDForSubject:'Q12299841',
+      // selectedSubjectDescription:'Cricketer'
     });
   };
   postDataToServer=()=>{
@@ -208,7 +220,7 @@ export default class JeopardyClues extends React.Component{
   render(){
     const actions = [
       <FlatButton
-        label="Generate Clue"
+        label="Have a Preview"
         primary={true}
         keyboardFocused={true}
         onClick={this.postDataToServer}
@@ -233,12 +245,12 @@ export default class JeopardyClues extends React.Component{
       <center>
         <Paper style={styles.paperStyle} zDepth={1} >
           <center>
-          <TextField
-            style={styles.textFieldStyle}
-            onChange={this.handleChange}
-            floatingLabelText="Search Here"
-            />
-          <RaisedButton label="Search" primary={true} onClick={this.handleClick} style={{margin:'2%'}}/>
+            <TextField
+              style={styles.textFieldStyle}
+              onChange={this.handleChange}
+              floatingLabelText="Search Here"
+              />
+            <RaisedButton label="Search" primary={true} onClick={this.handleClick} style={{margin:'2%'}}/>
           </center>
         </Paper>
         </center>
@@ -248,7 +260,7 @@ export default class JeopardyClues extends React.Component{
           <div></div>
           <div style={{overflow:'hidden'}}>
             <Row center='xs'>
-            {this.state.dataObj.map(element=>
+              {this.state.dataObj.map(element=>
                 <Card style={{margin:10}}>
                   <CardMedia
                     overlay={<CardTitle title={element.result.name} subtitle={element.result.description}/>}>
@@ -258,7 +270,7 @@ export default class JeopardyClues extends React.Component{
                     <RaisedButton label="Choose" disabled={this.state.enableChoose} secondary={true} onTouchTap={() => this.handleSubject(element.result.name,element.result.description)}/>
                   </CardActions>
                 </Card>
-            )}
+              )}
             </Row>
           </div>
           <div>
@@ -279,9 +291,39 @@ export default class JeopardyClues extends React.Component{
                 <RaisedButton label="Next" disabled={this.state.enableSelectedSubjectContext} secondary={true} onClick={this.handleListOfSubject} style={styles.buttonNext}/>
               </div>
               <div>
-                {this.state.jeopardyClues.map(function(element){
-                  return(<SearchDisplay ElementObj={element}></SearchDisplay>);
-                })}
+               {this.state.jeopardyCluesData.map(function(element){
+               <Row center='xs'>
+                 <Paper style={styles.paperStyle} zDepth={1}>
+                   <div>
+                     <Row>
+                       <Col xs={12} sm={12} md={6} lg={6}>
+                         <img src={element.image.contentUrl} alt="image not Available" style={styles.imageStyle}></img>
+                       </Col>
+                       <Col xs={12} sm={12} md={6} lg={6}>
+                         <h1>{element.name}</h1>
+                         <br></br>
+                         <p>{element.description}</p>
+                         <a href={element.detailedDescription.url} target="_blank">wikipedia</a>
+                         <p style={{
+                             textAlign: 'justify'
+                           }}>{element.detailedDescription.articleBody}</p>
+                         </Col>
+                       </Row>
+                       <Row>
+                         <Col xs={12} sm={12} md={12} lg={12}>
+                           <List>
+                             
+                               {this.state.jeopardyClues.map(function(element) {
+                                 return (
+                                   <ListItem style={styles.listStyle} primaryText={element} leftIcon={< ContentSend />}/>
+                                 );
+                               })}
+                           </List>
+                         </Col>
+                       </Row>
+                     </div>
+                   </Paper>
+                 </Row>})}
                 <RaisedButton label="Select Topic" disabled={this.state.enableSelectTopic} secondary={true} style={styles.buttonNext} onTouchTap={this.handleOpen}/>
                 {/* <RaisedButton label="questions" disabled={this.state.enableSelectTopic} secondary={true}  onTouchTap={this.showQuestions}/> */}
                 <Dialog

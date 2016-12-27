@@ -59,6 +59,7 @@
     "gulp-eslint": "^3.0.1",
     "gulp-htmlhint": "^0.3.1",
     "gulp-mocha": "^3.0.1",
+    "react-bouncefix": "^1.0.5",
     "style-loader": "^0.13.1",
     "webpack": "^1.13.3",
     "webpack-dev-server": "^1.16.2",

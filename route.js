@@ -9,10 +9,9 @@ var config = require('./server/config');
 var userRoute = require('./controller/index.js');
 require('./server/db.js');
 var init  = require('./server/gameController/gameController');
+var init  = require('./socket.js');
+
 init(io);
-console.log('Calling generateSubject');
-var generateSubject= require('./server/clueGenerator/generateSubject');
-generateSubject(io);
 
 
 // var generateClue= require('./server/clueGenerator/generateSubject');

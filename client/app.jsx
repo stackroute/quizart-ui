@@ -3,7 +3,7 @@ import ReactDOM from 'react-dom';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import injectTapEventPlugin from 'react-tap-event-plugin';
 injectTapEventPlugin();
-
+import ContextComponent from './components/ContextComponent';
 import {Router, Route, hashHistory, IndexRoute} from 'react-router';
 import DashboardView from './views/DashboardView';
 import LoginView from './views/LoginView';
@@ -41,6 +41,7 @@ function loginCheck(nextState, replace) {
 
 ReactDOM.render(
   <MuiThemeProvider>
+    <ContextComponent>
     <Router history={hashHistory}>
       <Route path="/">
         <IndexRoute component={DashboardView} onEnter={authCheck}/>
@@ -60,5 +61,6 @@ ReactDOM.render(
         <Route path="jeopardyClues" component={JeopardyCluesAdmin} onEnter={authCheck}/>
       </Route>
     </Router>
+    </ContextComponent>
   </MuiThemeProvider>, document.getElementById('content')
 );

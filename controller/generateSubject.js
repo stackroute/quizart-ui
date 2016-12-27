@@ -1,6 +1,6 @@
-var async = require("async");
 var express = require('express');
 var router = express.Router();
+
 var request = require('request');
 var wdk = require('wikidata-sdk');
 
@@ -10,7 +10,7 @@ var client = redis.createClient(config.REDIS_PORT, config.REDIS_HOSTNAME);
 
 var redis = require('redis');
 const redisUrl= process.env.REDIS_URL;
-let client = redis.createClient(redisUrl);
+//let client = redis.createClient(redisUrl);
 let client1 = redis.createClient(redisUrl);
 var app = express();
 var server = require('http').createServer(app);
@@ -18,6 +18,8 @@ var io = require('socket.io')(server);
 // const EventEmitter = require('events');
 // const emitter = new EventEmitter();
 // emitter.setMaxListeners(100);
+
+
 
 
 router.post('/generateSubject', function(req, res, next) {
@@ -62,9 +64,22 @@ request(url, function (error, response, body) {
                     // results.push(item.result);
                     var result=JSON.stringify(item.result);
 
+
                     client.lrange('SPORTS',result, function(error , list) {
                     client.lpush('SPORTS',result, function(error , list) {
                       count++;
+
+
+
+                    client.lrange('SPORTS',result, function(error , list) {
+
+                    client.lpush('SPORTS',result, function(error , list) {
+                      count++;
+
+
+                    client.lpush('SPORTS',result, function(error , list) {
+                      count++;
+
 
                       console.log('remaining elements in the list is :',list);
                     });
@@ -78,48 +93,13 @@ request(url, function (error, response, body) {
                               clues: msg
                             });
 
-                      });
-                    }
-                  }
-                    callback3(null);
-                  },function(err)
-                  {
-                    if(err)
-                    {
-                      console.log('Failed to process');
-                    }
-                    else {
-                      callback2(null);
-                    }
-                  });
-                }
-              });
-            },function(err)
-            {
-              console.log("came");
-              if(err)
-              {
-                console.log('Failed to process');
-              }
-              else {
-                callback1(null);
-              }
-            });
-          }
-        });
-      },function(err)
-      {
-        if( err )
-        {
-          console.log('Failed to process');
-        }
-        else
-        {
-          client.quit();
-          //res.send(results);
-        }
-      });
-    }
-  });
-});
-module.exports = router;
+
+function generateSubject(io){
+  io.on('connection',function(socket){
+    socket.on('sendPandQString',function(data){
+      console.log(data);
+      PandQString.publish('PandQString',data);
+    })
+  })
+}
+module.exports = generateSubject;

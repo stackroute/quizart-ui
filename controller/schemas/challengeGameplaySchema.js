@@ -7,7 +7,6 @@ var ChallengeGameplaySchema = new mongoose.Schema({
   correctOption: String
 }, {collection: 'challengeGameplay', versionKey: false});
 
-
 const model = mongoose.model('challengeGameplay', ChallengeGameplaySchema);
 
 module.exports = {
