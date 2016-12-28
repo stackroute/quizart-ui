@@ -35,6 +35,11 @@ class TimerSpeed extends React.Component
       interval : setInterval( function()
     {
       this.state.block.pop();
+       if(this.state.block.length==0)
+      {
+       this.setState({block : [0,1,2,3,4,5,6,7]});
+       console.log('Opps... Time Up...');
+      }
       this.setState({block: this.state.block});
     }.bind(this),timer)
   });

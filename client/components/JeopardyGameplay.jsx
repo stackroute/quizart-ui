@@ -19,6 +19,7 @@ export default class JeopardyGameplay extends React.Component {
         disable:false,
         showImage:false,
         showBuzzer:true,
+        showImageNoAnswer:false,
         choice:'',
         topic: [],
         i: 0,
@@ -61,6 +62,13 @@ tick() {
      this.setState({screen:true});
      this.setState({choice:options});
   }
+
+  tick2() {
+
+  console.log('timeout from tick2');
+  this.setState({showImageNoAnswer:true});
+  }
+
 componentWillUnmount() {
     console.log('timeout component will mount');
   clearInterval(this.timerID);
@@ -83,34 +91,29 @@ componentWillUnmount() {
                 setTimeout(this.props.classChange,600);
             }
         });
-
     }
     changeState()
     {
      options = [];
+     clearInterval(this.timerID);
+     this.timerID = setInterval(() => this.tick2(),8000);
+
      if(this.state.choice=='')
      {
         this.state.topic.map((topics => {
             for(var i=0;i<topics.options.length;i++)
             {
-                // options.push(<button onTouchTap={this.handleOnClick}
-                //     style={{width: '50%', height:'100%',margin: '1px',textAlign:'center',
-                //     backgroundColor:'#1A237E',color:'white',
-                //     padding: '2px 2px 2px 2px',
-                //    /* borderTopLeftRadius:'20px' ,borderTopRightRadius: '20px',
-                //     borderBottomLeftRadius: '20px',borderBottomRightRadius: '20px',
-                //     cursor: 'pointer',
-                //     outline: '30px 30px 30px 30px',
-                //     fontSize:'2px'
-                // }}>
+               
                 options.push(topics.options[i]);
-                //</button>);
+               
             }
             this.setState({options:options});
+
         }));
      }
      this.setState({screen:true});
      this.setState({choice:options});
+     
 }
 render() {
     const screenData = this.state.screen ?
@@ -142,16 +145,17 @@ render() {
         <Card style={{width:'90%',height:'58px',marginTop:'-13px', marginLeft:'1.9px',backgroundColor:blue300}}>
         <CardTitle title={this.state.redisQues} style={{padding:"0px"}} titleStyle={{fontSize:"1.2px",lineHeight:"2px",textAlign:'justify',padding:'3px'}}/>
         {screenData}
-
         <div>{ this.state.showImage ? <SorryImages classChange={this.props.classChange}/> : null }</div>
 
+        <div>{ this.state.showImageNoAnswer ? <SorryImagesForNotAnswering classChange={this.props.classChange}/> : null }</div>
 
 
-        {this.state.options.map(i=> <button key={i} disabled={this.state.disable} onTouchTap={this.handleOnClick}  label={i} style={{width:"45%", border:'1px', borderRadius:'1px',padding:'3px',margin: '0px' , textAlign:'center',
+                   {this.state.options.map(i=> <button key={i} disabled={this.state.disable} onTouchTap={this.handleOnClick}  label={i} style={{width:"45%", border:'1px', borderRadius:'1px',padding:'3px',margin: '0px' , textAlign:'center',
             backgroundColor:'#1A237E',color:'white', cursor: 'pointer', outline: '0px',
             fontSize:'1px'
         }}
         >{i}</button>)}
+        }}
         </Card>
         </div>
         </MediaQuery>
@@ -160,17 +164,14 @@ render() {
         <Card style={{width:'90%',height:'76px',margin:'auto',backgroundColor:blue300}}>
         <CardTitle title={this.state.redisQues} style={{padding:"0px"}} titleStyle={{fontSize:"2px",textAlign:'justify',padding:'3px',lineHeight:"2px",marginTop:"-10px"}}/>
         {screenData}
-
         <div>{ this.state.showImage ? <SorryImages classChange={this.props.classChange}/> : null }</div>
 
-
-
-        {this.state.options.map(i=> <button key={i} disabled={this.state.disable} onTouchTap={this.handleOnClick}  label={i} style={{width:"40%",height:'100%',marginTop: '6px',textAlign:'center',
+        <div>{ this.state.showImageNoAnswer ? <SorryImagesForNotAnswering classChange={this.props.classChange}/> : null }</div>
+          {this.state.options.map(i=> <button key={i} disabled={this.state.disable} onTouchTap={this.handleOnClick}  label={i} style={{width:"40%",height:'100%',marginTop: '6px',textAlign:'center',
             backgroundColor:'#1A237E',color:'white', padding: '3px',border:'1px', borderRadius:'1px', cursor: 'pointer', outline: '30px 30px 30px 30px',
             fontSize:'1px'
         }}
         >{i}</button>)}
-
         </Card>
         </div>
         </MediaQuery>
@@ -180,54 +181,105 @@ render() {
         <CardTitle title={this.state.redisQues} style={{padding:"0px"}} titleStyle={{fontSize:"3px",textAlign:'justify',padding:'3px',lineHeight:"4px",marginTop:"-10px"}}/>
         <Row center="xs" style={{fontSize:"15px"}}> </Row>
         {screenData}
-
         <div>{ this.state.showImage ? <SorryImages classChange={this.props.classChange}/> : null }</div>
-
-
-        {this.state.options.map(i=> <button key={i} disabled={this.state.disable} onTouchTap={this.handleOnClick}  label={i} style={{width:"40%",height:'100%',marginTop: '6px',textAlign:'center',
+        <div>{ this.state.showImageNoAnswer ? <SorryImagesForNotAnswering classChange={this.props.classChange}/> : null }</div>
+  {this.state.options.map(i=> <button key={i} disabled={this.state.disable} onTouchTap={this.handleOnClick}  label={i} style={{width:"40%",height:'100%',marginTop: '6px',textAlign:'center',
             backgroundColor:'#1A237E',color:'white', padding: '3px',border:'1px', borderRadius:'1px', cursor: 'pointer', outline: '30px 30px 30px 30px',
             fontSize:'2px'
         }}
         >{i}</button>)}
-
-        </Card>
+          </Card>
         </div>
         </MediaQuery>
         <MediaQuery minDeviceWidth={1024} className="some-class">
         <Card style={{width:'90%',height:'70px',fontSize:'1px', backgroundColor:blue300, margin:'-7% auto'}}>
         <CardTitle title={this.state.redisQues} style={{padding:"0px",height:'28px',textAlign:'justify'}} titleStyle={{fontSize:"3px",lineHeight:"4px",margin:"10px"}}/>
         {screenData}
-
         <div>{ this.state.showImage ? <SorryImages classChange={this.props.classChange}/> : null }</div>
+       <div>{ this.state.showImageNoAnswer ? <SorryImagesForNotAnswering classChange={this.props.classChange}/> : null }</div>
 
-        {this.state.options.map(i=> <button key={i} disabled={this.state.disable} onTouchTap={this.handleOnClick}  label={i} style={{width:"40%",height:'100%',fxed:'bottom', marginTop: '6px',textAlign:'center',
+         {this.state.options.map(i=> <button key={i} disabled={this.state.disable} onTouchTap={this.handleOnClick}  label={i} style={{width:"40%",height:'100%',fxed:'bottom', marginTop: '6px',textAlign:'center',
             backgroundColor:'#1A237E',color:'white', padding: '3px', border:'1px solid', borderRadius:'2px', cursor: 'pointer', outline: '30px 30px 30px 30px',
             fontSize:'2px'
         }}
         >{i}</button>)}
-
         </Card>
         </MediaQuery>
         </div>
         );
 }
 }
-
  class SorryImages extends React.Component{
-
     constructor(props)
     {
         super(props);
     }
     render() {
 
-
+        
         return (
           <div>
+          <MediaQuery minDeviceWidth={1024} className="some-class">
             <img src="http://res.cloudinary.com/deaxb0msww/image/upload/v1482744812/timesup_emnvm8.png"
-                    alt="Image Not Available" style={{height:'30px',width:'20px',marginTop:'-10px'}}/>
-            <h1>Correct Answer: </h1>
-           {setTimeout(this.props.classChange,1000)}
+                    alt="Image Not Available" style={{height:'20%',width:'23%',marginTop:'-10px'}}/>
+            <div style={{fontSize:'3px'}}>Correct Answer: </div>  
+           <script>{setTimeout(this.props.classChange,1000)}</script>
+           </MediaQuery>
+           <MediaQuery minDeviceWidth={768} maxDeviceWidth={1023}>
+            <img src="http://res.cloudinary.com/deaxb0msww/image/upload/v1482744812/timesup_emnvm8.png"
+                    alt="Image Not Available" style={{height:'20%',width:'23%',marginTop:'-10px'}}/>
+            <div style={{fontSize:'3px'}}>Correct Answer: </div>  
+           <script>{setTimeout(this.props.classChange,1000)}</script>
+           </MediaQuery>
+           <MediaQuery minDeviceWidth={480} maxDeviceWidth={767}>
+            <img src="http://res.cloudinary.com/deaxb0msww/image/upload/v1482744812/timesup_emnvm8.png"
+                    alt="Image Not Available" style={{height:'30%',width:'30%',marginTop:'-10px'}}/>
+            <div style={{fontSize:'2px'}}>Correct Answer: </div> 
+           <script>{setTimeout(this.props.classChange,1000)}</script>
+           </MediaQuery>
+          <MediaQuery minDeviceWidth={1} maxDeviceWidth={479}>
+            <img src="http://res.cloudinary.com/deaxb0msww/image/upload/v1482744812/timesup_emnvm8.png"
+                    alt="Image Not Available" style={{height:'30%',width:'30%',marginTop:'-10px'}}/>
+            <div style={{fontSize:'1.5px'}}>Correct Answer: </div> 
+           <script>{setTimeout(this.props.classChange,1000)}</script>  
+           </MediaQuery>
+            </div>
+        );
+    }
+};
+class SorryImagesForNotAnswering extends React.Component{
+    constructor(props)
+    {
+        super(props);
+    }
+    render() {
+        
+        return (
+          <div>
+          <MediaQuery minDeviceWidth={1024} className="some-class">
+            <img src="http://res.cloudinary.com/deaxb0msww/image/upload/v1482744812/timesup_emnvm8.png"
+                    alt="Image Not Available" style={{height:'10%',width:'15%',marginTop:'-10px'}}/>
+             
+           <script>{setTimeout(this.props.classChange,1000)}</script>
+           </MediaQuery>
+           <MediaQuery minDeviceWidth={768} maxDeviceWidth={1023}>
+            <img src="http://res.cloudinary.com/deaxb0msww/image/upload/v1482744812/timesup_emnvm8.png"
+                    alt="Image Not Available" style={{height:'10%',width:'15%',marginTop:'-10px'}}/>
+            
+           <script>{setTimeout(this.props.classChange,1000)}</script>
+           </MediaQuery>
+           <MediaQuery minDeviceWidth={480} maxDeviceWidth={767}>
+            <img src="http://res.cloudinary.com/deaxb0msww/image/upload/v1482744812/timesup_emnvm8.png"
+                    alt="Image Not Available" style={{height:'30%',width:'30%',marginTop:'-10px'}}/>
+            
+           <script>{setTimeout(this.props.classChange,1000)}</script>
+           </MediaQuery>
+          <MediaQuery minDeviceWidth={1} maxDeviceWidth={479}>
+            <img src="http://res.cloudinary.com/deaxb0msww/image/upload/v1482744812/timesup_emnvm8.png"
+                    alt="Image Not Available" style={{height:'30%',width:'30%',marginTop:'-10px'}}/>
+           
+           <script>{setTimeout(this.props.classChange,1000)}</script>  
+           </MediaQuery>
             </div>
         );
     }

@@ -6,6 +6,7 @@ var wdk = require('wikidata-sdk');
 const redisUrl = process.env.REDIS_URL || "localhost";
 const redisPort = process.env.REDIS_PORT || "6379";
 var workqueue = redis.createClient(redisPort, process.env.REDIS_HOSTNAME);
+
 router.post('/generateSubject', function(req, res, next) {
   console.log("in question");
   var pIdForVariable=req.body.pIdForSubject;
@@ -27,7 +28,6 @@ request(url, function (error, response, body) {
     searchId='DATALIST'+Math.floor((Math.random() * 1000) + 1);
     var subjectsJson=JSON.parse(response.body)
     subjectsJson.results.bindings.map(function(item){
-      console.log(JSON.stringify(item.variableLabel.value));
       workqueue.lpush('workQueue',JSON.stringify({workQueueData:item.variableLabel.value,selectedSubjectDescription:description,
         searchId:searchId}));
       });

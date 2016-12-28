@@ -8,7 +8,6 @@ Router.use(function(req,res,next) {
   console.log("checking in index");
   next();
 })
-
 Router.use(require('./signup'));
 Router.use(require('./users'));
 Router.use(require('./dataFromDB'));
@@ -21,6 +20,5 @@ Router.use(require('./generateSubject'));
 Router.use(require('./identifyingSubject'));
 Router.use(require('./sendCluesToServer'));
 Router.use(require('./storeCluesInJson'));
-
 
 module.exports = Router;

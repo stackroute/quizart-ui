@@ -17,11 +17,10 @@ var socket = io();
 const styles={
   paperStyle:{
     height: '100%',
-    width: 900,
+    width: '100%',
     textAlign: 'center',
-    margin:20,
-    padding:20,
-    backgroundColor:'#c2efd9'
+    margin:5,
+    backgroundColor:'white'
   },
   paper: {
     height: '100%',
@@ -34,7 +33,6 @@ const styles={
   textFieldStyle:{
     marginLeft:"5%",
     width:"65%",
-    marginTop:10
   },
   imageStyle:{
     height: 300,
@@ -277,7 +275,8 @@ export default class JeopardyClues extends React.Component{
   let that=this;
     return(
       <div>
-        <Paper style={styles} zDepth={1} >
+      <center>
+        <Paper style={styles.paperStyle} zDepth={1} >
           <center>
             <TextField
               style={styles.textFieldStyle}
@@ -287,6 +286,7 @@ export default class JeopardyClues extends React.Component{
             <RaisedButton label="Search" primary={true} onClick={this.handleClick} style={{margin:'2%'}}/>
           </center>
         </Paper>
+        </center>
         <SwipeableViews
           index={this.state.slideIndex}
           onChangeIndex={this.handleSlide} >
