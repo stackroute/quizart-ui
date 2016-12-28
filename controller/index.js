@@ -16,6 +16,7 @@ Router.use(require('./getSubjectMeaning'));
 Router.use(require('./getOptionMeaning'));
 Router.use(require('./getSubjectDescription'));
 Router.use(require('./generateQuestions'));
+Router.use(require('./generateSubject'));
 Router.use(require('./identifyingSubject'));
 Router.use(require('./sendCluesToServer'));
 Router.use(require('./storeCluesInJson'));

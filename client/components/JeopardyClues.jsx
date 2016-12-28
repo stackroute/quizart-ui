@@ -53,23 +53,26 @@ var value=1,image=[],tempClues=[],tempClueData=[];
 export default class JeopardyClues extends React.Component{
   constructor(){
     super();
-    this.state={enableChoose:true,enableSubjectMeaning:true,enableSelectedSubjectContext:false,enableSelectTopic:true,jeopardyClues:[],jeopardyCluesData:[],generatedSubjects:[],pandqString:[],pIdForSubject:'',qIdForSubject:'',topic:'',slideIndex: 0,dataObj:[],input: '',selectedSubject:'',selectedSubjectMeaning:[],subjectMeaning:'',qStringForSubject:''};
+    this.state={enableChoose:true,enableSubjectMeaning:true,searchId:'',enableSelectedSubjectContext:false,enableSelectTopic:true,jeopardyClues:[],jeopardyCluesData:[],generatedSubjects:[],pandqString:[],pIdForSubject:'',qIdForSubject:'',topic:'',slideIndex: 0,dataObj:[],input: '',selectedSubject:'',selectedSubjectMeaning:[],subjectMeaning:'',qStringForSubject:''};
   }
 
   state = {
     open: false,
   };
-  componentWillMount() {
-    tempClues=[],tempClueData=[];
-    socket.on('finalClues',function(data){
-      if(data.clues!=undefined){
-      tempClues.push(data.clues);
-      tempClueData.push(data.clueData);
-      this.setState({jeopardyClues:tempClues});
-      this.setState({jeopardyCluesData:tempClueData});
-    }
-    }.bind(this));
-  }
+  // componentWillMount() {
+  //   tempClues=[],tempClueData=[];
+  //   socket.on('finalClues',function(data){
+  //   data.map(function(value){
+  //     console.log(JSON.parse(value))
+  //     console.log(value.clues+"   "+value.clueData)
+  //
+  //     tempClues.push(value.clues),
+  //     tempClueData.push(value.clueData),
+  //     this.setState({jeopardyClues:tempClues}),
+  //     this.setState({jeopardyCluesData:tempClueData})
+  //   })
+  //   }.bind(this));
+  // }
   handleOpen = () => {
     this.setState({open: true});
   };
@@ -181,13 +184,20 @@ export default class JeopardyClues extends React.Component{
     var tempSubject=[];
     value++;
     this.setState({slideIndex:value});
-    socket.emit('sendPandQString',{
+    Request.post('/generateSubject')
+    .set('Content-type', 'application/json')
+    .send({
       pIdForSubject:this.state.pIdForSubject,
       qIDForSubject:this.state.qIDForSubject,
-      selectedSubjectDescription:this.state.selectedSubjectDescription
-      // pIdForSubject:'P106',
-      // qIDForSubject:'Q12299841',
-      // selectedSubjectDescription:'Cricketer'
+      selectedSubjectDescription:this.state.selectedSubjectDescription,
+    })
+    .end((err, res) => {
+      if (res.status===200) {
+        if(res.body===null){
+          res.body = res.text
+          this.setState({searchId:res.body});
+        }
+    }
     });
   };
   postDataToServer=()=>{
@@ -200,7 +210,6 @@ export default class JeopardyClues extends React.Component{
       qIDForSubject:this.state.qIDForSubject,
       selectedSubjectDescription:this.state.selectedSubjectDescription,
       topic:this.state.topic
-
     })
     .end((err, res) => {
     });
@@ -338,12 +347,9 @@ export default class JeopardyClues extends React.Component{
                          <Col xs={12} sm={12} md={12} lg={12}>
                            <List>
                                {that.state.jeopardyClues.map(element=>
-                                {JSON.parse(element).map(value=>
-                                  <div>
+                                JSON.parse(element).map(value=>
                                     <ListItem style={styles.listStyle} primaryText={value}/>
-                                    <script>{console.log(value)}</script>
-                                  </div>
-                                )}
+                                )
                                )}
                            </List>
                          </Col>
