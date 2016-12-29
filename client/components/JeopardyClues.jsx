@@ -13,6 +13,7 @@ import Dialog from 'material-ui/Dialog';
 import FlatButton from 'material-ui/FlatButton';
 import {RadioButton, RadioButtonGroup} from 'material-ui/RadioButton';
 import config from './../config.js';
+import ContentSend from 'material-ui/svg-icons/content/send';
 
 
 var socket = io();
@@ -56,7 +57,7 @@ var value=1,image=[],start,end,tempClueData=[],emptyArray=[],temp,flagTrue=true;
 export default class JeopardyClues extends React.Component{
   constructor(){
     super();
-    this.state={enableChoose:true,flag:false,enableSubjectMeaning:true,searchId:'',startLimit:'',endLimit:'',enableSelectedSubjectContext:false,enableSelectTopic:true,jeopardyCluesData:[],generatedSubjects:[],pandqString:[],pIdForSubject:'',qIdForSubject:'',topic:'',slideIndex: 0,dataObj:[],input: '',selectedSubject:'',selectedSubjectMeaning:[],subjectMeaning:'',qStringForSubject:''};
+    this.state={clueString:'',enableChoose:true,openDialog:false,flag:false,showError:false,enableSubjectMeaning:true,searchId:'',startLimit:'',endLimit:'',enableSelectedSubjectContext:false,enableSelectTopic:true,jeopardyCluesData:[],generatedSubjects:[],pandqString:[],pIdForSubject:'',qIdForSubject:'',topic:'',slideIndex: 0,dataObj:[],input: '',selectedSubject:'',selectedSubjectMeaning:[],subjectMeaning:'',qStringForSubject:''};
   }
   state = {
     open: false,
@@ -82,7 +83,7 @@ export default class JeopardyClues extends React.Component{
           if(this.state.jeopardyCluesData.length != 0)
           {
             console.log('loaded');
-            this.setState({showImage:false});
+            this.setState({showImage:false,showError:false});
             clearInterval(this.timerID);
           }
       }
@@ -90,18 +91,17 @@ export default class JeopardyClues extends React.Component{
     }.bind(this));
   }
 
-
   handleOpen = () => {
     this.setState({open: true});
-
-
   };
-
   handleClose = () => {
     this.setState({open: false});
+    this.setState({openDialog:true});
     console.log("Hello! I am closing");
   };
-
+  handleSave = () => {
+    this.setState({openDialog:false});
+  };
 
 
   handleChange=(event)=>{
@@ -112,7 +112,7 @@ export default class JeopardyClues extends React.Component{
   };
   handleClick=()=>{
     this.setState({showError:false,showImage:false})
-    this.timerID = setInterval(() => this.tick(),10000);
+    this.timerID = setInterval(() => this.tick(),30000);
     this.setState({enableLoaderPage:true});
     this.setState({showImage:true});
     console.log('onclick');
@@ -157,7 +157,7 @@ export default class JeopardyClues extends React.Component{
   handleSubject=(input,description)=>
   {
     this.setState({showError:false,showImage:false})
-    this.timerID = setInterval(() => this.tick(),10000);
+    this.timerID = setInterval(() => this.tick(),30000);
     value++;
     this.setState({slideIndex:value});
     this.setState({showImage:true});
@@ -199,7 +199,7 @@ export default class JeopardyClues extends React.Component{
   handleSubjectContext=()=>
   {
     this.setState({showError:false,showImage:false})
-    this.timerID = setInterval(() => this.tick(),10000);
+    this.timerID = setInterval(() => this.tick(),30000);
     value++;
     this.setState({slideIndex:value});
     this.setState({showImage:true});
@@ -229,15 +229,16 @@ export default class JeopardyClues extends React.Component{
       }
     });
   };
-  handleSelectedSubjectContext=(pnum,qnum)=>
+  handleSelectedSubjectContext=(pnum,qnum,pstring,qstring)=>
   {
+    this.setState({clueString:pstring+" - "+qstring});
     this.setState({pIdForSubject:pnum});
     this.setState({qIDForSubject:qnum});
     this.setState({enableSelectedSubjectContext:false});
   }
   handleListOfSubject=()=>{
     this.setState({showError:false,showImage:false})
-    this.timerID = setInterval(() => this.tick(),10000);
+    this.timerID = setInterval(() => this.tick(),30000);
     var tempSubject=[];
     value++;
     this.setState({showImage:true});
@@ -336,6 +337,15 @@ export default class JeopardyClues extends React.Component{
 
         />,
     ];
+      const actionbutton = [
+      <FlatButton
+        label="save"
+        primary={true}
+        keyboardFocused={true}
+        onClick={this.postDataToServer}
+        onTouchTap={this.handleSave}
+        />,
+    ];
     const radios = [];
     const options = ["Sports","Music","Science","History","Politics","Movies"];
     for (let i = 0; i < 6; i++) {
@@ -368,8 +378,8 @@ export default class JeopardyClues extends React.Component{
           <div></div>
           <div style={{overflow:'hidden'}}>
             <Row center='xs'>
-            { this.state.showImage ? <div style={{padding:20}}><center><img src= "http://res.cloudinary.com/deaxb0msww/image/upload/v1483013587/box_p8jmof.gif"/><div style={{color:'white'}}><p4>Loading....</p4></div></center></div> : null }
-            { this.state.showError ? <div style={{padding:'30%'}}><center><img src="http://demorg.in/ocd2.0/images/no-records1.png"/></center></div> : null }
+            { this.state.showImage ? <div style={{padding:20}}><center><img src= "http://res.cloudinary.com/deaxb0msww/image/upload/v1483013587/box_p8jmof.gif"/><div style={{color:'#42f448'}}><p4>Loading....</p4></div></center></div> : null }
+            { this.state.showError ? <div style={{padding:20}}><center><img src="http://res.cloudinary.com/deaxb0msww/image/upload/v1483043546/no-record-found_enguyy.png"/></center></div> : null }
 
               {this.state.dataObj.map(element=>
                 <Card style={{margin:10}}>
@@ -386,8 +396,8 @@ export default class JeopardyClues extends React.Component{
           </div>
           <div>
             <Card style={{height:70,width:"90%",margin:"auto"}}> <h4 style={{textAlign:"center",paddingTop:20}}>Hey! Lemme Know What Did You Mean By "  {this.state.selectedSubject} "</h4> </Card>
-              { this.state.showImage ? <div style={{padding:20}}><center><img src= "http://res.cloudinary.com/deaxb0msww/image/upload/v1483013587/box_p8jmof.gif"/><div style={{color:'white'}}><p4>Loading....</p4></div></center></div> : null }
-              { this.state.showError ? <div style={{padding:'30%'}}><center><img src="http://demorg.in/ocd2.0/images/no-records1.png"/></center></div> : null }
+              { this.state.showImage ? <div style={{padding:20}}><center><img src= "http://res.cloudinary.com/deaxb0msww/image/upload/v1483013587/box_p8jmof.gif"/><div style={{color:'#42f448'}}><p4>Loading....</p4></div></center></div> : null }
+              { this.state.showError ? <div style={{padding:20}}><center><img src="http://res.cloudinary.com/deaxb0msww/image/upload/v1483043546/no-record-found_enguyy.png"/></center></div> : null }
               <List style={{margin:"0% 10% 0% 10%"}}>
               {this.state.selectedSubjectMeaning.map(data=>
                 <ListItem key={data.description} primaryText={data.label+"-"+data.description}
@@ -398,18 +408,18 @@ export default class JeopardyClues extends React.Component{
           <div>
              <Card style={{height:100,width:"90%",margin:"auto"}}> <h4 style={{textAlign:"center",paddingTop:20}}>Trying To Figure Out What Kind Of Entity " {this.state.selectedSubject} " is... Select The Description Which Matches Best</h4>
               </Card>
-              
-              { this.state.showImage ? <div style={{padding:20}}><center><img src= "http://res.cloudinary.com/deaxb0msww/image/upload/v1483013587/box_p8jmof.gif"/><div style={{color:'white'}}><p4>Loading....</p4></div></center></div> : null }
-              { this.state.showError ? <div style={{padding:'30%'}}><center><img src="http://demorg.in/ocd2.0/images/no-records1.png"/></center></div> : null }
+
+              { this.state.showImage ? <div style={{padding:20}}><center><img src= "http://res.cloudinary.com/deaxb0msww/image/upload/v1483013587/box_p8jmof.gif"/><div style={{color:'#42f448'}}><p4>Loading....</p4></div></center></div> : null }
+              { this.state.showError ? <div style={{padding:20}}><center><img src="http://res.cloudinary.com/deaxb0msww/image/upload/v1483043546/no-record-found_enguyy.png"/></center></div> : null }
               {this.state.pandqString.map(text=>
                 <List style={{margin:"0% 10% 0% 10%"}}>
-                  <ListItem key={text.pString+" - "+text.qString} primaryText={text.pString+" - "+text.qString}  onClick={() => { this.handleSelectedSubjectContext(text.pNum,text.qNum) }} style={{backgroundColor:'#B3E5FC',margin:'5px',textAlign:'center',color:'#3F51B5'}}/></List>
+                  <ListItem key={text.pString+" - "+text.qString} primaryText={text.pString+" - "+text.qString}  onClick={() => { this.handleSelectedSubjectContext(text.pNum,text.qNum,text.pString,text.qString) }} style={{backgroundColor:'#B3E5FC',margin:'5px',textAlign:'center',color:'#3F51B5'}}/></List>
                 )}
               <RaisedButton label="Next" disabled={this.state.enableSelectedSubjectContext} secondary={true} onClick={this.handleListOfSubject} style={styles.buttonNext}/>
               </div>
               <div>
-              { this.state.showImage ? <div style={{padding:20}}><center><img src= "http://res.cloudinary.com/deaxb0msww/image/upload/v1483013587/box_p8jmof.gif"/><div style={{color:'white'}}><p4>Loading....</p4></div></center></div> : null }
-               { this.state.showError ? <div style={{padding:'30%'}}><center><img src="http://demorg.in/ocd2.0/images/no-records1.png"/></center></div> : null }
+              { this.state.showImage ? <div style={{padding:20}}><center><img src= "http://res.cloudinary.com/deaxb0msww/image/upload/v1483013587/box_p8jmof.gif"/><div style={{color:'#42f448'}}><p4>Loading....</p4></div></center></div> : null }
+               { this.state.showError ? <div style={{padding:20}}><center><img src="http://res.cloudinary.com/deaxb0msww/image/upload/v1483043546/no-record-found_enguyy.png"/></center></div> : null }
                 {this.state.jeopardyCluesData.map(element =>
                   <Row center='xs'>
                     <Paper style={styles.paper} zDepth={1}>
@@ -432,15 +442,17 @@ export default class JeopardyClues extends React.Component{
                             <Col xs={12} sm={12} md={12} lg={12}>
                               <List>
                                 {element.detailedDescription.articleBody.map(value=>
-                                  <ListItem style={styles.listStyle} primaryText={value}/>
+                                  <ListItem style={styles.listStyle} primaryText={value} leftIcon={< ContentSend />}/>
                                 )}
                               </List>
                             </Col>
                           </Row>
                         </div>
                       </Paper></Row>)}
-                      <RaisedButton label="Select Topic" disabled={this.state.enableSelectTopic} secondary={true} style={styles.buttonNext} onClick={this.handleOpen}/>
-                      <RaisedButton label="ShowMore" disabled={this.state.enableSelectTopic} secondary={true}  onClick={this.showMoreClues}/>
+                      <Row center='xs'>
+                      <RaisedButton label="ShowMore" disabled={this.state.enableSelectTopic} primary={true} onClick={this.showMoreClues} style={{width:'80%'}}/>
+                      <RaisedButton label="Select Topic" disabled={this.state.enableSelectTopic} secondary={true} style={{width:'50%',margin:20}} onClick={this.handleOpen}/>
+                      </Row>
                       <Dialog
                         title="Select Topic"
                         actions={actions}
@@ -455,6 +467,16 @@ export default class JeopardyClues extends React.Component{
                           onChange={this._onChange.bind(this)}>
                           {radios}
                         </RadioButtonGroup>
+                      </Dialog>
+                      <Dialog
+                        title="Summary"
+                        actions={actionbutton}
+                        modal={false}
+                        open={this.state.openDialog}
+                        onRequestClose={this.handleClose}>
+                        Subject :- {this.state.selectedSubject}<br/>
+                        Description :- {this.state.selectedSubjectDescription}<br/>
+                        Clues based on :- {this.state.clueString}
                       </Dialog>
                     </div>
                   </SwipeableViews>
