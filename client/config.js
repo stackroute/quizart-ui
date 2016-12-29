@@ -1,3 +1,3 @@
-export default {
-	restUrl: 'http://localhost:8081/'
+module.exports = {
+	restUrl: 'http://localhost:8081'
 }
