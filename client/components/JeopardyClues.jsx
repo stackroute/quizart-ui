@@ -439,8 +439,10 @@ export default class JeopardyClues extends React.Component{
                           </Row>
                         </div>
                       </Paper></Row>)}
-                      <RaisedButton label="Select Topic" disabled={this.state.enableSelectTopic} secondary={true} style={styles.buttonNext} onClick={this.handleOpen}/>
-                      <RaisedButton label="ShowMore" disabled={this.state.enableSelectTopic} secondary={true}  onClick={this.showMoreClues}/>
+                      <Row center='xs'>
+                      <RaisedButton label="ShowMore" disabled={this.state.enableSelectTopic} primary={true} onClick={this.showMoreClues} style={{width:'80%'}}/>
+                      <RaisedButton label="Select Topic" disabled={this.state.enableSelectTopic} secondary={true} style={{width:'50%',margin:20}} onClick={this.handleOpen}/>
+                      </Row>
                       <Dialog
                         title="Select Topic"
                         actions={actions}
