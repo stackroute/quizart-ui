@@ -7,6 +7,7 @@ import BottomPlayerBoard from './../components/BottomPlayerBoard';
 import Request from 'superagent';
 import jwt from 'jwt-decode';
 
+
 export default class JeopardyView extends React.Component
 {
   constructor(props)

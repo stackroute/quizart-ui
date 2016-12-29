@@ -11,6 +11,7 @@ import {Link} from 'react-router';
 import FlatButton from 'material-ui/FlatButton';
 import JeopardyScoreCard from './JeopardyScoreCard';
 import Dialog from 'material-ui/Dialog';
+import config from './../config.js';
 
 const styles = {
   headline: {
@@ -43,7 +44,7 @@ export default class TabsExampleSwipeable extends React.Component {
   componentWillMount() {
     var thisSelf = this;
     Request
-    .get('/myGamesJeopardyFromDB')
+    .get(config.restUrl + '/myGamesJeopardyFromDB')
     .end(function(err,res){
       console.log(res.body.message);
       thisSelf.setState({myGamesJeopordyHistory: res.body.message});

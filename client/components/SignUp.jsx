@@ -15,6 +15,7 @@ import Dialog from 'material-ui/Dialog';
 import Request from 'superagent';
 import { browserHistory } from 'react-router';
 import jwt_decode from 'jwt-decode';
+import config from './../config.js';
 
 const errorMessages = {
   projectName: "Please enter only characters and number.",
@@ -65,7 +66,7 @@ export default class SignUp extends React.Component {
   submitForm(data) {
     console.log("Inside Signup.js ");
     console.log(data);
-    Request.post('/signin/signin')
+    Request.post(config.restUrl + '/signin/signin')
       .set('Content-Type', 'application/json')
       .send({
         "userName": data.username,
