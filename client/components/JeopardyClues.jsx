@@ -53,7 +53,7 @@ var value=1,image=[],tempClues=[],tempClueData=[];
 export default class JeopardyClues extends React.Component{
   constructor(){
     super();
-    this.state={enableChoose:true,enableSubjectMeaning:true,searchId:'',enableSelectedSubjectContext:false,enableSelectTopic:true,jeopardyClues:[],jeopardyCluesData:[],generatedSubjects:[],pandqString:[],pIdForSubject:'',qIdForSubject:'',topic:'',slideIndex: 0,dataObj:[],input: '',selectedSubject:'',selectedSubjectMeaning:[],subjectMeaning:'',qStringForSubject:''};
+    this.state={enableChoose:true,showError:false,showImage:false,enableSubjectMeaning:true,searchId:'',enableSelectedSubjectContext:false,enableSelectTopic:true,jeopardyClues:[],jeopardyCluesData:[],generatedSubjects:[],pandqString:[],pIdForSubject:'',qIdForSubject:'',topic:'',slideIndex: 0,dataObj:[],input: '',selectedSubject:'',selectedSubjectMeaning:[],subjectMeaning:'',qStringForSubject:''};
   }
 
   state = {
@@ -75,6 +75,8 @@ export default class JeopardyClues extends React.Component{
   // }
   handleOpen = () => {
     this.setState({open: true});
+
+
   };
 
   handleClose = () => {
@@ -91,6 +93,10 @@ export default class JeopardyClues extends React.Component{
     this.setState({enableChoose:false});
   };
   handleClick=()=>{
+    this.timerID = setInterval(() => this.tick(),10000);
+    this.setState({enableLoaderPage:true});
+    this.setState({showImage:true});
+    console.log('onclick');
     var tempClues=[];
     Request.post('/identifyingSubject')
     .set('Content-type', 'application/json')
@@ -111,11 +117,22 @@ export default class JeopardyClues extends React.Component{
           });
           this.setState({dataObj:tempClues});
         }
+         if(this.state.dataObj.length != 0)
+          {
+            console.log('loaded');
+            this.setState({showImage:false});
+          }
       }
       else{
         return false;
       }
     });
+    
+  }
+  tick(){
+    console.log('timeout from tick');
+    this.setState({showError:true,showImage:false});
+    clearInterval(this.timerID);
   }
   handleSubject=(input,description)=>
   {
@@ -154,6 +171,7 @@ export default class JeopardyClues extends React.Component{
   {
     value++;
     this.setState({slideIndex:value});
+    this.setState({showImage:true});
     this.setState({enableSelectTopic:false});
     var tempString=[];
     Request.post('/getSubjectDescription')
@@ -168,6 +186,11 @@ export default class JeopardyClues extends React.Component{
           tempString.push(res.body[key]);
         }
         this.setState({pandqString:tempString});
+        if(this.state.pandqString.length != 0)
+          {
+            console.log('loaded');
+            this.setState({showImage:false});
+          }
       }
       else {
         return false;
@@ -183,6 +206,7 @@ export default class JeopardyClues extends React.Component{
   handleListOfSubject=()=>{
     var tempSubject=[];
     value++;
+    this.setState({showImage:true});
     this.setState({slideIndex:value});
     Request.post('/generateSubject')
     .set('Content-type', 'application/json')
@@ -293,6 +317,9 @@ export default class JeopardyClues extends React.Component{
           <div></div>
           <div style={{overflow:'hidden'}}>
             <Row center='xs'>
+            { this.state.showImage ? <div style={{padding:20}}><center><img src= "http://res.cloudinary.com/deaxb0msww/image/upload/v1483013587/box_p8jmof.gif"/><div style={{color:'white'}}><p4>Loading....</p4></div></center></div> : null }
+            { this.state.showError ? <div style={{padding:20}}><center><img src="http://demorg.in/ocd2.0/images/no-records1.png"/></center></div> : null }
+
               {this.state.dataObj.map(element=>
                 <Card style={{margin:10}}>
                   <CardMedia
@@ -308,23 +335,26 @@ export default class JeopardyClues extends React.Component{
           </div>
           <div>
             <Card style={{height:70,width:"90%",margin:"auto"}}> <h4 style={{textAlign:"center",paddingTop:20}}>Hey! Lemme Know What Did You Mean By "  {this.state.selectedSubject} "</h4> </Card>
-            <List style={{margin:"0% 10% 0% 10%"}}>
+              { this.state.showImage ? <div style={{padding:20}}><center><img src= "http://res.cloudinary.com/deaxb0msww/image/upload/v1483013587/box_p8jmof.gif"/><div style={{color:'white'}}><p4>Loading....</p4></div></center></div> : null }
+              <List style={{margin:"0% 10% 0% 10%"}}>
               {this.state.selectedSubjectMeaning.map(data=>
                 <ListItem key={data.description} primaryText={data.label+"-"+data.description}
                   onClick={() => {this.handleSelectedSubjectMeaning(data.description,data.id)}} style={{backgroundColor:'#B3E5FC',margin:'5px',textAlign:'center',color:'#3F51B5'}}/> )} </List>
-                <RaisedButton label="Next" disabled={this.state.enableSubjectMeaning} secondary={true} onClick={this.handleSubjectContext} style={styles.buttonNext}/>
-              </div>
-              <div>
-                <Card style={{height:100,width:"90%",margin:"auto"}}> <h4 style={{textAlign:"center",paddingTop:20}}>Trying To Figure Out What Kind Of Entity " {this.state.selectedSubject} " is... Select The Description Which Matches Best</h4>
+              <RaisedButton label="Next" disabled={this.state.enableSubjectMeaning} secondary={true} onClick={this.handleSubjectContext} style={styles.buttonNext}/>
+          </div>
+
+          <div>
+             <Card style={{height:100,width:"90%",margin:"auto"}}> <h4 style={{textAlign:"center",paddingTop:20}}>Trying To Figure Out What Kind Of Entity " {this.state.selectedSubject} " is... Select The Description Which Matches Best</h4>
               </Card>
+              { this.state.showImage ? <div style={{padding:20}}><center><img src= "http://res.cloudinary.com/deaxb0msww/image/upload/v1483013587/box_p8jmof.gif"/><div style={{color:'white'}}><p4>Loading....</p4></div></center></div> : null }
               {this.state.pandqString.map(text=>
                 <List style={{margin:"0% 10% 0% 10%"}}>
                   <ListItem key={text.pString+" - "+text.qString} primaryText={text.pString+" - "+text.qString}  onClick={() => { this.handleSelectedSubjectContext(text.pNum,text.qNum) }} style={{backgroundColor:'#B3E5FC',margin:'5px',textAlign:'center',color:'#3F51B5'}}/></List>
                 )}
-                <RaisedButton label="Next" disabled={this.state.enableSelectedSubjectContext} secondary={true} onClick={this.handleListOfSubject} style={styles.buttonNext}/>
-              </div>
-              <div>
-
+              <RaisedButton label="Next" disabled={this.state.enableSelectedSubjectContext} secondary={true} onClick={this.handleListOfSubject} style={styles.buttonNext}/>
+          </div>
+          <div>
+              { this.state.showImage ? <div style={{padding:20}}><center><img src= "http://res.cloudinary.com/deaxb0msww/image/upload/v1483013587/box_p8jmof.gif"/><div style={{color:'white'}}><p4>Loading....</p4></div></center></div> : null }
                {this.state.jeopardyCluesData.map(element =>
                <Row center='xs'>
                  <Paper style={styles.paper} zDepth={1}>
