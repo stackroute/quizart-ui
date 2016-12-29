@@ -1,0 +1,4 @@
+client/views
+client/components
+client/*.jsx
+node_modules
