@@ -1,6 +1,7 @@
 import React from 'react';
 import Request from 'superagent';
 import CreateChallengeForm from './CreateChallengeForm.jsx';
+import config from './../config.js';
 
 export default class AddChallenge extends React.Component {
  constructor(props) {
@@ -12,7 +13,7 @@ export default class AddChallenge extends React.Component {
     var challengeListTemp=this.state.challengeList;
     challengeListTemp.push(challenge);
     this.setState({challengeList:challengeListTemp});
-    let url ='http://localhost:8080/newChallenge';
+    let url =config.restUrl + '/newChallenge';
     let that = this;
     Request
     .post(url)

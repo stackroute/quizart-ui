@@ -8,6 +8,7 @@ import { Grid, Row, Col } from 'react-flexbox-grid';
 import ActionAccountCircle from 'material-ui/svg-icons/action/account-box';
 import FormsyText from 'formsy-material-ui/lib/FormsyText';
 import Paper from 'material-ui/Paper';
+import SignUp from '../components/SignUp';
 import { Card, CardHeader, CardText } from 'material-ui/Card';
 import { Link } from 'react-router';
 import FlatButton from 'material-ui/FlatButton';
@@ -15,6 +16,8 @@ import Dialog from 'material-ui/Dialog';
 import Request from 'superagent';
 import { browserHistory } from 'react-router';
 import jwt_decode from 'jwt-decode';
+import config from './../config.js';
+
 const errorMessages = {
   projectName: "Please enter only characters and number.",
   emailError: "Please enter a valid email",
@@ -60,7 +63,8 @@ export default class Login extends React.Component {
     this.state = {
       canSubmit: false,
       open: false,
-      err: ''
+      err: '',
+      signupState: false
     };
   }
   enableButton() {
@@ -79,7 +83,7 @@ export default class Login extends React.Component {
    };
  }
   submitForm(data) {
-    Request.post('/login')
+    Request.post(config.restUrl + '/login')
       .set('Content-type', 'application/json')
       .send({
         userName: data.email,
@@ -106,7 +110,21 @@ export default class Login extends React.Component {
   notifyFormError(data) {
     console.error('Form error:', data);
   }
+  signupDisplay(){
+    this.setState({signupState: true});
+  }
   render() {
+    if(this.state.signupState){
+      return(
+        <div  style={styles.signupStyle}>
+          <Grid>
+            <Row>
+                <Col xs={12} sm={12} md={12} lg={12}><SignUp /></Col>
+            </Row>
+          </Grid>
+        </div>
+      );
+    }
     return (
       <div className="autofill">
       <Grid>
@@ -121,7 +139,7 @@ export default class Login extends React.Component {
                          onValidSubmit={ this.submitForm }
                          onInvalidSubmit={ this.notifyFormError }>
               <CardText>
-                <Row center="xs"><h2 style={{color:'#FF7885'}}>Already a user?</h2> </Row>
+                <Row center="xs"><h2 style={{color:'#FF7885'}}>Already a user.</h2> </Row>
                 <Row>
                   <Col
                        xs={ 12 }
@@ -175,16 +193,26 @@ export default class Login extends React.Component {
                 <Row><br/><br /></Row>
                 <Row>
                   <Col
-                       xs={ 12 }
-                       sm={ 12 }
-                       md={ 12 }
-                       lg={ 12 }>
+                       xs={ 6 }
+                       sm={ 6 }
+                       md={ 6 }
+                       lg={ 6 }>
                   <RaisedButton
                                 backgroundColor="#FF7885"
                                 type="submit"
                                 label="Login"
-                                // style={{marginTop:'20px'}}
                                 disabled={ !this.state.canSubmit } />
+                  </Col>
+                  <Col
+                      xs={ 6 }
+                      sm={ 6 }
+                      md={ 6 }
+                      lg={ 6 }>
+                  <RaisedButton
+                                 backgroundColor="#FF7885"
+                                 label="Signup"
+                                 onClick={this.signupDisplay.bind(this)}
+                               />
                   </Col>
                 </Row>
               </CardText>

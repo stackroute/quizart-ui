@@ -12,6 +12,9 @@ import SearchDisplay from './SearchDisplay.jsx';
 import Dialog from 'material-ui/Dialog';
 import FlatButton from 'material-ui/FlatButton';
 import {RadioButton, RadioButtonGroup} from 'material-ui/RadioButton';
+import config from './../config.js';
+
+
 var socket = io();
 
 const styles={
@@ -114,7 +117,7 @@ export default class JeopardyClues extends React.Component{
     this.setState({showImage:true});
     console.log('onclick');
     var tempClues=[];
-    Request.post('/identifyingSubject')
+    Request.post(config.restUrl + '/identifyingSubject')
     .set('Content-type', 'application/json')
     .send({searchValue:this.state.input})
     .end((err, res) => {
@@ -161,7 +164,7 @@ export default class JeopardyClues extends React.Component{
     this.setState({selectedSubject:input});
     this.setState({selectedSubjectDescription:description});
     var variableMeaningArray=[];
-    Request.post('/getSubjectMeaning')
+    Request.post(config.restUrl + '/getSubjectMeaning')
     .set('Content-type', 'application/json')
     .send({selectedVariable:input})
     .end((err, res) => {
@@ -202,7 +205,7 @@ export default class JeopardyClues extends React.Component{
     this.setState({showImage:true});
     this.setState({enableSelectTopic:false});
     var tempString=[];
-    Request.post('/getSubjectDescription')
+    Request.post(config.restUrl + '/getSubjectDescription')
     .set('Content-type', 'application/json')
     .send({
       id:this.state.qStringForSubject
@@ -239,7 +242,7 @@ export default class JeopardyClues extends React.Component{
     value++;
     this.setState({showImage:true});
     this.setState({slideIndex:value});
-    Request.post('/generateSubject')
+    Request.post(config.restUrl + '/generateSubject')
     .set('Content-type', 'application/json')
     .send({
       pIdForSubject:this.state.pIdForSubject,
@@ -281,7 +284,7 @@ export default class JeopardyClues extends React.Component{
   postDataToServer=()=>{
     alert("Your Clues Has been Generated");
     var tempSubject=[];
-    Request.post('/sendCluesToServer')
+    Request.post(config.restUrl + '/sendCluesToServer')
     .set('Content-type', 'application/json')
     .send({
       pIdForSubject:this.state.pIdForSubject,
@@ -293,6 +296,25 @@ export default class JeopardyClues extends React.Component{
     });
   };
 
+
+  showQuestions=()=>{
+    var names=[],clues=[];
+    Request.post(config.restUrl + '/storeCluesInJson')
+    .set('Content-type', 'application/json')
+    .end((err, res) => {
+      // if(res.status==200)
+      // {
+      //   res.body.results.records.map(function(obj){
+      //     obj._fields.forEach(function(value){
+      //       names.push(value.properties.name);
+      //       clues.push(value.properties.clue);
+      //     })
+      //   })
+      //   console.log(names);
+      //   console.log(clues);
+      // }
+    });
+  };
 
   _onChange(e, selected){
 

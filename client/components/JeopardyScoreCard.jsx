@@ -10,6 +10,7 @@ import Avatar from 'material-ui/Avatar';
 import Gauge from 'react-svg-gauge';
 import RaisedButton from 'material-ui/RaisedButton';
 import {Link} from 'react-router';
+import config from './../config.js';
 
 
 export default class JeopardyScoreCard extends React.Component{
@@ -23,7 +24,7 @@ export default class JeopardyScoreCard extends React.Component{
   componentDidMount() {
       var thisSelf = this;
       Request
-        .get('/jeopardyScores')
+        .get(config.restUrl + '/jeopardyScores')
         .end((err, res) => {
           console.log(res.body.message);
           thisSelf.setState({playerInfoJeop: res.body.message});
