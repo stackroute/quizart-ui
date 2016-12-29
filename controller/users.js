@@ -77,7 +77,7 @@ router.post('/login',function(req,res){
         if(username==users[i].userName){
           if(pwd==users[i].password){
             isValid=true;
-            authenticateToken=jwt.sign({sub:users[i].id, name:users[i].name, role:'admin'}, "Quizztack")
+            authenticateToken=jwt.sign({sub:users[i].id, name:users[i].name, email:users[i].userName, role:'admin'}, "Quizztack")
           }
         }
       }

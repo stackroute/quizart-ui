@@ -48,6 +48,7 @@ ReactDOM.render(
         <Route path="login" component={LoginView} onEnter={loginCheck} />
         <Route path="gamePlay" component={ChallengeGamePlayView} onEnter={authCheck}/>
         <Route path="createChallenge" component={CreateChallengeView} onEnter={authCheck} />
+        <Route path="jeopardyGameBoard/:gameId" component={JeopardyView} onEnter={authCheck} />
         <Route path="jeopardyGameBoard" component={JeopardyView} onEnter={authCheck} />
         <Route path="jeopardyBoard" component={WaitingForPlayerseView} onEnter={authCheck}/>
         <Route path="morecategories" component={MoreJeopardyCategoriesView} onEnter={authCheck}/>
