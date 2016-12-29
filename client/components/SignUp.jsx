@@ -3,7 +3,7 @@ import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import getMuiTheme from 'material-ui/styles/getMuiTheme';
 import Formsy from 'formsy-react';
 import RaisedButton from 'material-ui/RaisedButton';
-import { red500 } from 'material-ui/styles/colors';
+import { red500, orange500, cyan500,purple300, cyan100 } from 'material-ui/styles/colors';
 import { Grid, Row, Col } from 'react-flexbox-grid';
 import ActionAccountCircle from 'material-ui/svg-icons/action/account-box';
 import FormsyText from 'formsy-material-ui/lib/FormsyText';
@@ -15,6 +15,7 @@ import Dialog from 'material-ui/Dialog';
 import Request from 'superagent';
 import { browserHistory } from 'react-router';
 import jwt_decode from 'jwt-decode';
+import config from './../config';
 
 const errorMessages = {
   projectName: "Please enter only characters and number.",
@@ -24,13 +25,28 @@ const errorMessages = {
   pwdLength: "Passwords should have atleast 8 characters"
 };
 const styles = {
-  loginStyle: {
-    marginTop: window.innerHeight / 4.5,
-    marginLeft: "auto",
-    marginRight: "auto"
+  signupStyle: {
+    backgroundColor: "#04000000",
+    color: 'white'
+  },
+  textStyle:{
+      color:cyan500
   },
   errorStyle: {
     color: 'red'
+  },
+  underlineStyle: {
+    borderColor: orange500,
+  },
+  floatingLabelStyle: {
+    color: cyan100,
+  },
+  floatingLabelFocusStyle: {
+    color: cyan500,
+  },
+  inputStyle:{
+    color: cyan100,
+    WebkitAutofill: 'none'
   }
 }
 var flag = false;
@@ -65,7 +81,7 @@ export default class SignUp extends React.Component {
   submitForm(data) {
     console.log("Inside Signup.js ");
     console.log(data);
-    Request.post('/signin/signin')
+    Request.post(config.restUrl+'/signin/signin')
       .set('Content-Type', 'application/json')
       .send({
         "userName": data.username,
@@ -90,11 +106,11 @@ export default class SignUp extends React.Component {
   }
   render() {
     return (
+       <div className="autofill">
       <Grid>
-        <Col xs={ 6 }>
+        <Col lgOffset={2} mdOffset={3} xs={6} sm={6} md={6} lg={8}>
         <Card
-              zDepth={ 2 }
-              style={ styles.loginStyle }>
+              style={ styles.signupStyle }>
           <Row center="xs">
             <Formsy.Form
                          onValid={ this.enableButton }
@@ -103,7 +119,7 @@ export default class SignUp extends React.Component {
                          onInvalidSubmit={ this.notifyFormError }>
 
               <CardText>
-                  <Row center="xs"><h2>New User? </h2></Row>
+                  <Row center="xs"><h2 style={{color:'#FF7885'}}>New User? </h2></Row>
                 <Row>
                   <Col
                        xs={ 12 }
@@ -116,6 +132,8 @@ export default class SignUp extends React.Component {
                               validationError={ errorMessages.userError }
                               required
                               hintText="Enter your User Name"
+                              textareaStyle={styles.textStyle}
+                              hintStyle={styles.inputStyle}
                               floatingLabelText="User Name"
                               updateImmediately />
                   </Col>
@@ -133,6 +151,8 @@ export default class SignUp extends React.Component {
                               validationError={ errorMessages.emailError }
                               required
                               hintText="Enter your Email"
+                              textareaStyle={styles.textStyle}
+                              hintStyle={styles.inputStyle}
                               floatingLabelText="Email"
                               updateImmediately />
                   </Col>
@@ -151,6 +171,8 @@ export default class SignUp extends React.Component {
                               id = "pwd"
                               required
                               hintText="Enter Password"
+                              textareaStyle={styles.textStyle}
+                              hintStyle={styles.inputStyle}
                               floatingLabelText="Password"
                               updateImmediately />
                   </Col>
@@ -168,6 +190,8 @@ export default class SignUp extends React.Component {
                               validationError={ errorMessages.confirmError }
                               required
                               hintText="Enter Password"
+                              textareaStyle={styles.textStyle}
+                              hintStyle={styles.inputStyle}
                               floatingLabelText="Confirm Password"
                               updateImmediately
                               // onBlur = {this.confirmPassword} validationErrors={this.state.validationErrors}
@@ -202,6 +226,7 @@ export default class SignUp extends React.Component {
         </Card>
         </Col>
       </Grid>
+    </div>
       );
   }
 }

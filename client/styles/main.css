@@ -1,4 +1,13 @@
 body {
   margin: 0;
-  overflow-x: hidden;
+  /*overflow: hidden;*/
+}
+.Bouncefix {
+    overflow-y: hidden;
+    overflow-x: hidden;
+  -webkit-overflow-scrolling: touch;
+}
+.autofill input:-webkit-autofill {
+  -webkit-text-fill-color: #00BCD4;
+  -webkit-box-shadow: 0 0 0 1000px #3B3251 inset;
 }

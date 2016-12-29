@@ -4,8 +4,17 @@
 }
 body
 {
- background-color:darkgray;
- overflow-x: hidden;
+ /*overflow: hidden;*/
+}
+.autofill input:-webkit-autofill {
+  -webkit-box-shadow: 0 0 0 1000px #3B3251 inset;
+  -webkit-text-fill-color: #00BCD4
+}
+
+.Bouncefix {
+    overflow-y: hidden;
+    overflow-x: hidden;
+  -webkit-overflow-scrolling: touch;
 }
 .ScoreBoard
 {
