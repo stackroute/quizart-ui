@@ -136,7 +136,7 @@ function init(io)
                // console.log("selected Channel from subscriber",channel);
              });
 
-        });
+        
      
     //});
 
@@ -185,9 +185,9 @@ function init(io)
         console.log(' am in else');
         socket.emit('finalClues',list);
       }
-      })
+      });
   });
-})
+});
 }
 
 module.exports = init;
