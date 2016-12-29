@@ -16,6 +16,8 @@ import Dialog from 'material-ui/Dialog';
 import Request from 'superagent';
 import { browserHistory } from 'react-router';
 import jwt_decode from 'jwt-decode';
+import config from './../config.js';
+
 const errorMessages = {
   projectName: "Please enter only characters and number.",
   emailError: "Please enter a valid email",
@@ -81,7 +83,7 @@ export default class Login extends React.Component {
    };
  }
   submitForm(data) {
-    Request.post('/login')
+    Request.post(config.restUrl + '/login')
       .set('Content-type', 'application/json')
       .send({
         userName: data.email,
@@ -137,7 +139,7 @@ export default class Login extends React.Component {
                          onValidSubmit={ this.submitForm }
                          onInvalidSubmit={ this.notifyFormError }>
               <CardText>
-                <Row center="xs"><h2 style={{color:'#FF7885'}}>Already a user?</h2> </Row>
+                <Row center="xs"><h2 style={{color:'#FF7885'}}>Already a user.</h2> </Row>
                 <Row>
                   <Col
                        xs={ 12 }

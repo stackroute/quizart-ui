@@ -102,6 +102,7 @@ function init(io)
         user=[];
         user = playersQueued;
       });
+      subClient.subscribe('_questions');
     });
     socket.on('jGamePlay',function(msg)
     {
@@ -120,9 +121,24 @@ function init(io)
           questions = JSON.parse(reply);
           console.log("question Array: ", questions[quesNum]);
           socket.emit("question",questions[quesNum]);
-        });
-      });
-    });
+             pubClient.publish('_questions', questions[quesNum]);
+                  console.log(quesNum);
+                  console.log("PUB CLIENT: " + JSON.stringify(questions[quesNum]));              
+                });
+
+              });
+          });
+        subClient.on('message', function(channel, msg) {
+         socket.emit("selectedQues",{msg});
+         // console.log("SELCETED QUESTIONS :" + JSON.parse(msg));
+
+               // console.log("selected MSG from subscriber",msg.toString());
+               // console.log("selected Channel from subscriber",channel);
+             });
+
+        
+     
+    //});
 
     // **************  CONTROLLER ***********************
 
@@ -169,9 +185,9 @@ function init(io)
         console.log(' am in else');
         socket.emit('finalClues',list);
       }
-      })
+      });
   });
-})
+});
 }
 
 module.exports = init;

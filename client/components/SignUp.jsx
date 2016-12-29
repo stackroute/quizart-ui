@@ -81,7 +81,7 @@ export default class SignUp extends React.Component {
   submitForm(data) {
     console.log("Inside Signup.js ");
     console.log(data);
-    Request.post(config.restUrl+'/signin/signin')
+    Request.post(config.restUrl + '/signin/signin')
       .set('Content-Type', 'application/json')
       .send({
         "userName": data.username,
