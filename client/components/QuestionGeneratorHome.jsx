@@ -8,6 +8,7 @@ import {Grid, Row, Col} from 'react-flexbox-grid';
 import {List, ListItem} from 'material-ui/List';
 import Checkbox from 'material-ui/Checkbox';
 import Request from 'superagent';
+import config from './../config.js';
 const styles = {
   slide: {
     padding: 10,
@@ -110,7 +111,7 @@ export default class QuestionGeneratorHome extends React.Component
     value++;
     this.setState({slideIndex:value});
      var variableMeaningArray=[];
-     Request.post('/getVariableMeaning')
+     Request.post(config.restUrl + '/getVariableMeaning')
     .set('Content-type', 'application/json')
     .send({selectedVariable:this.state.selectedVariable})
     .end((err, res) => {
@@ -137,7 +138,7 @@ export default class QuestionGeneratorHome extends React.Component
     value++;
     this.setState({slideIndex:value});
     var optionMeaningArray=[],text;
-    Request.post('/getOptionMeaning')
+    Request.post(config.restUrl + '/getOptionMeaning')
     .set('Content-type', 'application/json')
     .send({
       selectedOption:this.state.selectedOption
@@ -171,7 +172,7 @@ export default class QuestionGeneratorHome extends React.Component
     value++;
     this.setState({slideIndex:value});
     var tempString=[];
-    Request.post('/getFinalMeaning')
+    Request.post(config.restUrl + '/getFinalMeaning')
       .set('Content-type', 'application/json')
       .send({
         id:this.state.qStringForVariable
@@ -252,7 +253,7 @@ handleFinalMeaning=()=>{
   this.setState({prefix:pre});
   this.setState({suffix:post});
 
-  Request.post('/generateQuestions')
+  Request.post(config.restUrl + '/generateQuestions')
     .set('Content-type', 'application/json')
     .send({
       pIdForVariable:this.state.pIdForVariable,

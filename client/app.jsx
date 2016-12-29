@@ -43,7 +43,7 @@ ReactDOM.render(
   <MuiThemeProvider>
     <ContextComponent>
     <Router history={hashHistory}>
-      <Route path="/">
+      <Route path="/"> 
         <IndexRoute component={DashboardView} onEnter={authCheck}/>
         <Route path="login" component={LoginView} onEnter={loginCheck} />
         <Route path="gamePlay" component={ChallengeGamePlayView} onEnter={authCheck}/>

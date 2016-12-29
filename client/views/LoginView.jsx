@@ -1,10 +1,10 @@
 import React from 'react';
 import NavBar from '../components/NavBar';
 import Login from '../components/Login';
-import SignUp from '../components/SignUp';
 import {Grid, Row, Col} from 'react-flexbox-grid';
 import MediaQuery from 'react-responsive';
 var Bouncefix = require('react-bouncefix');
+
 var styles = {
   imageStyle:{
     width:'100%',
@@ -20,18 +20,19 @@ var styles = {
   },
   loginMobileStyle:{
     position: 'absolute',
-    left: '3px',
-    top:'35%',
+    top:'30%',
     textAlign:'center',
     width: '200%'
   }
 };
+
 export default class LoginView extends React.Component {
   render() {
     document.body.style.backgroundColor = "#3B3251";
     return (
-      <div>
 
+      <div>
+        <Bouncefix className="Bouncefix">
         <img src="./../images/gifnew.gif" style={styles.imageStyle} />
           <MediaQuery minDeviceWidth='1224px'>
             <div className="some-class">
@@ -55,7 +56,7 @@ export default class LoginView extends React.Component {
               </Grid>
             </div>
       </MediaQuery>
-      
+      </Bouncefix>
       </div>
     );
   }

@@ -19,7 +19,7 @@ router.post('/generateSubject', function(req, res, next) {
   SERVICE wikibase:label {
     bd:serviceParam wikibase:language "en" .
   }
-}LIMIT 2
+}
 `
 var subjectList=[];
 var url = wdk.sparqlQuery(sparql);
@@ -31,7 +31,6 @@ request(url, function (error, response, body) {
       workqueue.lpush('workQueue',JSON.stringify({workQueueData:item.variableLabel.value,selectedSubjectDescription:description,
         searchId:searchId}));
       });
-      console.log(searchId);
       res.send(searchId);
     }
   })
