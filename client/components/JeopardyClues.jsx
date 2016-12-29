@@ -93,6 +93,7 @@ export default class JeopardyClues extends React.Component{
     this.setState({enableChoose:false});
   };
   handleClick=()=>{
+    this.setState({showError:true,showImage:false})
     this.timerID = setInterval(() => this.tick(),10000);
     this.setState({enableLoaderPage:true});
     this.setState({showImage:true});
@@ -136,6 +137,7 @@ export default class JeopardyClues extends React.Component{
   }
   handleSubject=(input,description)=>
   {
+    this.setState({showError:true,showImage:false})
     this.timerID = setInterval(() => this.tick(),10000);
     value++;
     this.setState({slideIndex:value});
@@ -176,6 +178,7 @@ export default class JeopardyClues extends React.Component{
   };
   handleSubjectContext=()=>
   {
+    this.setState({showError:true,showImage:false})
     this.timerID = setInterval(() => this.tick(),10000);
     value++;
     this.setState({slideIndex:value});
@@ -212,6 +215,7 @@ export default class JeopardyClues extends React.Component{
     this.setState({enableSelectedSubjectContext:false});
   };
   handleListOfSubject=()=>{
+    this.setState({showError:true,showImage:false})
     this.timerID = setInterval(() => this.tick(),10000);
     var tempSubject=[];
     value++;
