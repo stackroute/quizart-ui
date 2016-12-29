@@ -49,30 +49,39 @@ const styles={
     textAlign: 'justify'
   }
 };
-var value=1,image=[],tempClues=[],tempClueData=[];
+var value=1,image=[],start,end,tempClueData=[],emptyArray=[],temp,flagTrue=true;
 export default class JeopardyClues extends React.Component{
   constructor(){
     super();
-    this.state={enableChoose:true,enableSubjectMeaning:true,searchId:'',enableSelectedSubjectContext:false,enableSelectTopic:true,jeopardyClues:[],jeopardyCluesData:[],generatedSubjects:[],pandqString:[],pIdForSubject:'',qIdForSubject:'',topic:'',slideIndex: 0,dataObj:[],input: '',selectedSubject:'',selectedSubjectMeaning:[],subjectMeaning:'',qStringForSubject:''};
+    this.state={enableChoose:true,flag:false,enableSubjectMeaning:true,searchId:'',startLimit:'',endLimit:'',enableSelectedSubjectContext:false,enableSelectTopic:true,jeopardyCluesData:[],generatedSubjects:[],pandqString:[],pIdForSubject:'',qIdForSubject:'',topic:'',slideIndex: 0,dataObj:[],input: '',selectedSubject:'',selectedSubjectMeaning:[],subjectMeaning:'',qStringForSubject:''};
   }
-
   state = {
     open: false,
   };
-  // componentWillMount() {
-  //   tempClues=[],tempClueData=[];
-  //   socket.on('finalClues',function(data){
-  //   data.map(function(value){
-  //     console.log(JSON.parse(value))
-  //     console.log(value.clues+"   "+value.clueData)
-  //
-  //     tempClues.push(value.clues),
-  //     tempClueData.push(value.clueData),
-  //     this.setState({jeopardyClues:tempClues}),
-  //     this.setState({jeopardyCluesData:tempClueData})
-  //   })
-  //   }.bind(this));
-  // }
+  componentDidMount() {
+    socket.on('finalClues',function(dataReceived){
+      if(this.state.flag){
+      if(dataReceived.length!=0){
+        dataReceived.map(function(element){
+          temp=JSON.parse(element);
+          tempClueData.push(temp.clueData);
+        })
+        this.setState({jeopardyCluesData:tempClueData})
+        console.log("after array len"+this.state.jeopardyCluesData.length);
+      }
+      }
+      else {
+        if(dataReceived.length!=0){
+          var data=JSON.parse(dataReceived);
+          tempClueData.push(data.clueData),
+          this.setState({jeopardyCluesData:tempClueData})
+          console.log("after array len"+this.state.jeopardyCluesData.length)
+      }
+    }
+    }.bind(this));
+  }
+
+
   handleOpen = () => {
     this.setState({open: true});
   };
@@ -179,7 +188,7 @@ export default class JeopardyClues extends React.Component{
     this.setState({pIdForSubject:pnum});
     this.setState({qIDForSubject:qnum});
     this.setState({enableSelectedSubjectContext:false});
-  };
+  }
   handleListOfSubject=()=>{
     var tempSubject=[];
     value++;
@@ -196,10 +205,32 @@ export default class JeopardyClues extends React.Component{
         if(res.body===null){
           res.body = res.text
           this.setState({searchId:res.body});
+          this.setState({startLimit:0}),
+          this.setState({endLimit:10});
+          socket.emit('getData',JSON.stringify({
+            searchId:this.state.searchId,
+            startLimit:this.state.startLimit,
+            endLimit:this.state.endLimit
+          }));
         }
-    }
+      }
     });
-  };
+  }
+  showMoreClues=()=>{
+    this.setState({flag:flagTrue});
+    this.setState({jeopardyCluesData:emptyArray});
+    console.log("next array length"+this.state.jeopardyCluesData.length);
+    console.log('in show');
+    start=this.state.endLimit+1;
+    end=this.state.endLimit+10;
+    this.setState({startLimit:start});
+    this.setState({endLimit:end});
+    socket.emit('getData',JSON.stringify({
+      searchId:this.state.searchId,
+      startLimit:start,
+      endLimit:end
+    }));
+  }
   postDataToServer=()=>{
     alert("Your Clues Has been Generated");
     var tempSubject=[];
@@ -215,24 +246,6 @@ export default class JeopardyClues extends React.Component{
     });
   };
 
-  showQuestions=()=>{
-    var names=[],clues=[];
-    Request.post('/storeCluesInJson')
-    .set('Content-type', 'application/json')
-    .end((err, res) => {
-      // if(res.status==200)
-      // {
-      //   res.body.results.records.map(function(obj){
-      //     obj._fields.forEach(function(value){
-      //       names.push(value.properties.name);
-      //       clues.push(value.properties.clue);
-      //     })
-      //   })
-      //   console.log(names);
-      //   console.log(clues);
-      // }
-    });
-  };
 
   _onChange(e, selected){
 
@@ -243,19 +256,12 @@ export default class JeopardyClues extends React.Component{
     console.log('selected', topicSelected);
   };
 
-  displayElement=(value)=>
-  {
-    alert('func');
-    console.log(value);
-    return <div>{value}</div>
-  };
 
   render(){
     const actions = [
       <FlatButton
         label="Have a Preview"
         primary={true}
-        keyboardFocused={true}
         onClick={this.postDataToServer}
         onTouchTap={this.handleClose}
 
@@ -272,20 +278,20 @@ export default class JeopardyClues extends React.Component{
           />
       );
     }
-  let that=this;
+    let that=this;
     return(
       <div>
-      <center>
-        <Paper style={styles.paperStyle} zDepth={1} >
-          <center>
-            <TextField
-              style={styles.textFieldStyle}
-              onChange={this.handleChange}
-              floatingLabelText="Search Here"
-              />
-            <RaisedButton label="Search" primary={true} onClick={this.handleClick} style={{margin:'2%'}}/>
-          </center>
-        </Paper>
+        <center>
+          <Paper style={styles.paperStyle} zDepth={1} >
+            <center>
+              <TextField
+                style={styles.textFieldStyle}
+                onChange={this.handleChange}
+                floatingLabelText="Search Here"
+                />
+              <RaisedButton label="Search" primary={true} onClick={this.handleClick} style={{margin:'2%'}}/>
+            </center>
+          </Paper>
         </center>
         <SwipeableViews
           index={this.state.slideIndex}
@@ -325,59 +331,55 @@ export default class JeopardyClues extends React.Component{
               </div>
               <div>
 
-               {this.state.jeopardyCluesData.map(element =>
-               <Row center='xs'>
-                 <Paper style={styles.paper} zDepth={1}>
-                   <div>
-                     <Row>
-                       <Col xs={12} sm={12} md={6} lg={6}>
-                         <img src={element.image.contentUrl} alt="image not Available" style={styles.imageStyle}></img>
-                       </Col>
-                       <Col xs={12} sm={12} md={6} lg={6}>
-                         <h1>{element.name}</h1>
-                         <br></br>
-                         <p>{element.description}</p>
-                         <a href={element.detailedDescription.url} target="_blank">wikipedia</a>
-                         <p style={{
-                             textAlign: 'justify'
-                           }}>{element.detailedDescription.articleBody}</p>
-                         </Col>
-                       </Row>
-                       <Row>
-                         <Col xs={12} sm={12} md={12} lg={12}>
-                           <List>
-                               {that.state.jeopardyClues.map(element=>
-                                JSON.parse(element).map(value=>
-                                    <ListItem style={styles.listStyle} primaryText={value}/>
-                                )
-                               )}
-                           </List>
-                         </Col>
-                       </Row>
-                     </div>
-                   </Paper>
-                 </Row>)}
-                <RaisedButton label="Select Topic" disabled={this.state.enableSelectTopic} secondary={true} style={styles.buttonNext} onTouchTap={this.handleOpen}/>
-                {/* <RaisedButton label="questions" disabled={this.state.enableSelectTopic} secondary={true}  onTouchTap={this.showQuestions}/> */}
-                <Dialog
-                  title="Select Topic"
-                  actions={actions}
-                  modal={false}
-                  open={this.state.open}
-                  onRequestClose={this.handleClose}
-                  autoScrollBodyContent={false}
-                  >
-                  <RadioButtonGroup
-                    name="shipSpeed"
-
-                    ref={(c) => this._radio = c}
-                    onChange={this._onChange.bind(this)}>
-                    {radios}
-                  </RadioButtonGroup>
-                </Dialog>
-              </div>
-            </SwipeableViews>
-          </div>
-        );
-      }
-    }
+                {this.state.jeopardyCluesData.map(element =>
+                  <Row center='xs'>
+                    <Paper style={styles.paper} zDepth={1}>
+                      <div>
+                        <Row>
+                          <Col xs={12} sm={12} md={6} lg={6}>
+                            <img src={element.image.contentUrl} alt="image not Available" style={styles.imageStyle}></img>
+                          </Col>
+                          <Col xs={12} sm={12} md={6} lg={6}>
+                            <h1>{element.name}</h1>
+                            <br></br>
+                            <p>{element.description}</p>
+                            <a href={element.detailedDescription.url} target="_blank">wikipedia</a>
+                            <p style={{
+                                textAlign: 'justify'
+                              }}>{element.detailedDescription.articleBody}</p>
+                            </Col>
+                          </Row>
+                          <Row>
+                            <Col xs={12} sm={12} md={12} lg={12}>
+                              <List>
+                                {element.detailedDescription.articleBody.map(value=>
+                                  <ListItem style={styles.listStyle} primaryText={value}/>
+                                )}
+                              </List>
+                            </Col>
+                          </Row>
+                        </div>
+                      </Paper></Row>)}
+                      <RaisedButton label="Select Topic" disabled={this.state.enableSelectTopic} secondary={true} style={styles.buttonNext} onClick={this.handleOpen}/>
+                      <RaisedButton label="ShowMore" disabled={this.state.enableSelectTopic} secondary={true}  onClick={this.showMoreClues}/>
+                      <Dialog
+                        title="Select Topic"
+                        actions={actions}
+                        modal={false}
+                        open={this.state.open}
+                        onRequestClose={this.handleClose}
+                        autoScrollBodyContent={false}
+                        >
+                        <RadioButtonGroup
+                          name="shipSpeed"
+                          ref={(c) => this._radio = c}
+                          onChange={this._onChange.bind(this)}>
+                          {radios}
+                        </RadioButtonGroup>
+                      </Dialog>
+                    </div>
+                  </SwipeableViews>
+                </div>
+              );
+            }
+          }
