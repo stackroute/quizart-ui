@@ -12,6 +12,9 @@ import SearchDisplay from './SearchDisplay.jsx';
 import Dialog from 'material-ui/Dialog';
 import FlatButton from 'material-ui/FlatButton';
 import {RadioButton, RadioButtonGroup} from 'material-ui/RadioButton';
+import config from './../config.js';
+
+
 var socket = io();
 
 const styles={
@@ -76,6 +79,12 @@ export default class JeopardyClues extends React.Component{
           tempClueData.push(data.clueData),
           this.setState({jeopardyCluesData:tempClueData})
           console.log("after array len"+this.state.jeopardyCluesData.length)
+          if(this.state.jeopardyCluesData.length != 0)
+          {
+            console.log('loaded');
+            this.setState({showImage:false});
+            clearInterval(this.timerID);
+          }
       }
     }
     }.bind(this));
@@ -102,12 +111,13 @@ export default class JeopardyClues extends React.Component{
     this.setState({enableChoose:false});
   };
   handleClick=()=>{
+    this.setState({showError:false,showImage:false})
     this.timerID = setInterval(() => this.tick(),10000);
     this.setState({enableLoaderPage:true});
     this.setState({showImage:true});
     console.log('onclick');
     var tempClues=[];
-    Request.post('/identifyingSubject')
+    Request.post(config.restUrl + '/identifyingSubject')
     .set('Content-type', 'application/json')
     .send({searchValue:this.state.input})
     .end((err, res) => {
@@ -130,6 +140,7 @@ export default class JeopardyClues extends React.Component{
           {
             console.log('loaded');
             this.setState({showImage:false});
+            clearInterval(this.timerID);
           }
       }
       else{
@@ -145,12 +156,15 @@ export default class JeopardyClues extends React.Component{
   }
   handleSubject=(input,description)=>
   {
+    this.setState({showError:false,showImage:false})
+    this.timerID = setInterval(() => this.tick(),10000);
     value++;
     this.setState({slideIndex:value});
+    this.setState({showImage:true});
     this.setState({selectedSubject:input});
     this.setState({selectedSubjectDescription:description});
     var variableMeaningArray=[];
-    Request.post('/getSubjectMeaning')
+    Request.post(config.restUrl + '/getSubjectMeaning')
     .set('Content-type', 'application/json')
     .send({selectedVariable:input})
     .end((err, res) => {
@@ -162,6 +176,12 @@ export default class JeopardyClues extends React.Component{
           });
           this.setState({selectedSubjectMeaning:variableMeaningArray});
         }
+        if(this.state.selectedSubjectMeaning.length != 0)
+          {
+            console.log('loaded');
+            this.setState({showImage:false});
+            clearInterval(this.timerID);
+          }
       }
       else{
         this.setState({
@@ -178,12 +198,14 @@ export default class JeopardyClues extends React.Component{
   };
   handleSubjectContext=()=>
   {
+    this.setState({showError:false,showImage:false})
+    this.timerID = setInterval(() => this.tick(),10000);
     value++;
     this.setState({slideIndex:value});
     this.setState({showImage:true});
     this.setState({enableSelectTopic:false});
     var tempString=[];
-    Request.post('/getSubjectDescription')
+    Request.post(config.restUrl + '/getSubjectDescription')
     .set('Content-type', 'application/json')
     .send({
       id:this.state.qStringForSubject
@@ -199,6 +221,7 @@ export default class JeopardyClues extends React.Component{
           {
             console.log('loaded');
             this.setState({showImage:false});
+            clearInterval(this.timerID);
           }
       }
       else {
@@ -213,11 +236,13 @@ export default class JeopardyClues extends React.Component{
     this.setState({enableSelectedSubjectContext:false});
   }
   handleListOfSubject=()=>{
+    this.setState({showError:false,showImage:false})
+    this.timerID = setInterval(() => this.tick(),10000);
     var tempSubject=[];
     value++;
     this.setState({showImage:true});
     this.setState({slideIndex:value});
-    Request.post('/generateSubject')
+    Request.post(config.restUrl + '/generateSubject')
     .set('Content-type', 'application/json')
     .send({
       pIdForSubject:this.state.pIdForSubject,
@@ -226,6 +251,7 @@ export default class JeopardyClues extends React.Component{
     })
     .end((err, res) => {
       if (res.status===200) {
+        clearInterval(this.timerID);
         if(res.body===null){
           res.body = res.text
           this.setState({searchId:res.body});
@@ -258,7 +284,7 @@ export default class JeopardyClues extends React.Component{
   postDataToServer=()=>{
     alert("Your Clues Has been Generated");
     var tempSubject=[];
-    Request.post('/sendCluesToServer')
+    Request.post(config.restUrl + '/sendCluesToServer')
     .set('Content-type', 'application/json')
     .send({
       pIdForSubject:this.state.pIdForSubject,
@@ -270,6 +296,25 @@ export default class JeopardyClues extends React.Component{
     });
   };
 
+
+  showQuestions=()=>{
+    var names=[],clues=[];
+    Request.post(config.restUrl + '/storeCluesInJson')
+    .set('Content-type', 'application/json')
+    .end((err, res) => {
+      // if(res.status==200)
+      // {
+      //   res.body.results.records.map(function(obj){
+      //     obj._fields.forEach(function(value){
+      //       names.push(value.properties.name);
+      //       clues.push(value.properties.clue);
+      //     })
+      //   })
+      //   console.log(names);
+      //   console.log(clues);
+      // }
+    });
+  };
 
   _onChange(e, selected){
 
@@ -324,7 +369,7 @@ export default class JeopardyClues extends React.Component{
           <div style={{overflow:'hidden'}}>
             <Row center='xs'>
             { this.state.showImage ? <div style={{padding:20}}><center><img src= "http://res.cloudinary.com/deaxb0msww/image/upload/v1483013587/box_p8jmof.gif"/><div style={{color:'white'}}><p4>Loading....</p4></div></center></div> : null }
-            { this.state.showError ? <div style={{padding:20}}><center><img src="http://demorg.in/ocd2.0/images/no-records1.png"/></center></div> : null }
+            { this.state.showError ? <div style={{padding:'30%'}}><center><img src="http://demorg.in/ocd2.0/images/no-records1.png"/></center></div> : null }
 
               {this.state.dataObj.map(element=>
                 <Card style={{margin:10}}>
@@ -342,6 +387,7 @@ export default class JeopardyClues extends React.Component{
           <div>
             <Card style={{height:70,width:"90%",margin:"auto"}}> <h4 style={{textAlign:"center",paddingTop:20}}>Hey! Lemme Know What Did You Mean By "  {this.state.selectedSubject} "</h4> </Card>
               { this.state.showImage ? <div style={{padding:20}}><center><img src= "http://res.cloudinary.com/deaxb0msww/image/upload/v1483013587/box_p8jmof.gif"/><div style={{color:'white'}}><p4>Loading....</p4></div></center></div> : null }
+              { this.state.showError ? <div style={{padding:'30%'}}><center><img src="http://demorg.in/ocd2.0/images/no-records1.png"/></center></div> : null }
               <List style={{margin:"0% 10% 0% 10%"}}>
               {this.state.selectedSubjectMeaning.map(data=>
                 <ListItem key={data.description} primaryText={data.label+"-"+data.description}
@@ -352,15 +398,18 @@ export default class JeopardyClues extends React.Component{
           <div>
              <Card style={{height:100,width:"90%",margin:"auto"}}> <h4 style={{textAlign:"center",paddingTop:20}}>Trying To Figure Out What Kind Of Entity " {this.state.selectedSubject} " is... Select The Description Which Matches Best</h4>
               </Card>
+              
               { this.state.showImage ? <div style={{padding:20}}><center><img src= "http://res.cloudinary.com/deaxb0msww/image/upload/v1483013587/box_p8jmof.gif"/><div style={{color:'white'}}><p4>Loading....</p4></div></center></div> : null }
+              { this.state.showError ? <div style={{padding:'30%'}}><center><img src="http://demorg.in/ocd2.0/images/no-records1.png"/></center></div> : null }
               {this.state.pandqString.map(text=>
                 <List style={{margin:"0% 10% 0% 10%"}}>
                   <ListItem key={text.pString+" - "+text.qString} primaryText={text.pString+" - "+text.qString}  onClick={() => { this.handleSelectedSubjectContext(text.pNum,text.qNum) }} style={{backgroundColor:'#B3E5FC',margin:'5px',textAlign:'center',color:'#3F51B5'}}/></List>
                 )}
-                <RaisedButton label="Next" disabled={this.state.enableSelectedSubjectContext} secondary={true} onClick={this.handleListOfSubject} style={styles.buttonNext}/>
+              <RaisedButton label="Next" disabled={this.state.enableSelectedSubjectContext} secondary={true} onClick={this.handleListOfSubject} style={styles.buttonNext}/>
               </div>
               <div>
-
+              { this.state.showImage ? <div style={{padding:20}}><center><img src= "http://res.cloudinary.com/deaxb0msww/image/upload/v1483013587/box_p8jmof.gif"/><div style={{color:'white'}}><p4>Loading....</p4></div></center></div> : null }
+               { this.state.showError ? <div style={{padding:'30%'}}><center><img src="http://demorg.in/ocd2.0/images/no-records1.png"/></center></div> : null }
                 {this.state.jeopardyCluesData.map(element =>
                   <Row center='xs'>
                     <Paper style={styles.paper} zDepth={1}>
