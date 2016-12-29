@@ -32,6 +32,7 @@ export default class JeopardyGameplay extends React.Component {
     }
     componentDidMount()
     {
+        var c=0;
         var thisCopy = this;
         var socket = io();
         socket.emit("jGamePlay",this.props.points);
@@ -42,7 +43,8 @@ export default class JeopardyGameplay extends React.Component {
         questionData.push(msg);
         this.setState({topic: questionData});
     }.bind(this));
-        console.log("component mounted");
+        console.log("component mounted in geopardyGamePlay Component called "+c+"times");
+        c++;
     this.timerID = setInterval(() => this.tick(),8000);
     }
 /*--- if the buzzer is not pressed before time up----------*/
