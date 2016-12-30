@@ -1,17 +1,16 @@
 var redis = require('redis');
 var wdk = require('wikidata-sdk');
 var request = require('request');
-const redisHost = process.env.REDIS_HOSTNAME || 'localhost';
-const redisPort = process.env.REDIS_PORT || 6379;
-var pubClient = redis.createClient(redisPort, redisHost);
-var subClient = redis.createClient(redisPort, redisHost);
-var playerQueue = redis.createClient(redisPort, redisHost);
-var pub = redis.createClient(redisPort, redisHost);
-var sub = redis.createClient(redisPort, redisHost);
-var pubBack = redis.createClient(redisPort, redisHost);
-var workqueue = redis.createClient(redisPort, redisHost);
-var redisClient = redis.createClient(redisPort, redisHost);
-var dataList=redis.createClient(redisPort, redisHost);
+const redisUrl= process.env.REDIS_URL;
+var pubClient = redis.createClient(process.env.REDIS_PORT, process.env.REDIS_HOSTNAME);
+var subClient = redis.createClient(process.env.REDIS_PORT, process.env.REDIS_HOSTNAME);
+var playerQueue = redis.createClient(process.env.REDIS_PORT, process.env.REDIS_HOSTNAME);
+var pub = redis.createClient(process.env.REDIS_PORT, process.env.REDIS_HOSTNAME);
+var sub = redis.createClient(process.env.REDIS_PORT, process.env.REDIS_HOSTNAME);
+var pubBack = redis.createClient(process.env.REDIS_PORT, process.env.REDIS_HOSTNAME);
+var workqueue = redis.createClient(process.env.REDIS_PORT, process.env.REDIS_HOSTNAME);
+var redisClient = redis.createClient(process.env.REDIS_PORT, process.env.REDIS_HOSTNAME);
+var dataList=redis.createClient(process.env.REDIS_PORT, process.env.REDIS_HOSTNAME);
 
 var jwt = require('jsonwebtoken');
 
@@ -23,15 +22,15 @@ let tempEmail= [];
 function init(io)
 {
   console.log('in socket');
-  var gameSubscriberClient = redis.createClient(redisPort, redisHost);
-  var pubClient = redis.createClient(redisPort, redisHost);
-  var subClient = redis.createClient(redisPort, redisHost);
-  var playerQueue = redis.createClient(redisPort, redisHost);
-  var workqueue = redis.createClient(redisPort, redisHost);
-  var redisClient = redis.createClient(redisPort, redisHost);
-  var dataList=redis.createClient(redisPort, redisHost);
+  var gameSubscriberClient = redis.createClient(process.env.REDIS_PORT, process.env.REDIS_HOSTNAME);
+  var pubClient = redis.createClient(process.env.REDIS_PORT, process.env.REDIS_HOSTNAME);
+  var subClient = redis.createClient(process.env.REDIS_PORT, process.env.REDIS_HOSTNAME);
+  var playerQueue = redis.createClient(process.env.REDIS_PORT, process.env.REDIS_HOSTNAME);
+  var workqueue = redis.createClient(process.env.REDIS_PORT, process.env.REDIS_HOSTNAME);
+  var redisClient = redis.createClient(process.env.REDIS_PORT, process.env.REDIS_HOSTNAME);
+  var dataList=redis.createClient(process.env.REDIS_PORT, process.env.REDIS_HOSTNAME);
 
-  io.on('connection',function(socket){
+   io.on('connection',function(socket){
     // **************  PROVISIONER ***********************
     console.log("Server connection established");
     // socket.on('queue',function(data){
@@ -171,7 +170,9 @@ function init(io)
     var endLimit=data.endLimit;
     let count =startLimit;
     console.log("start"+startLimit);
-    dataList.lrange(searchId,startLimit,endLimit,function(err,list){
+    const outputList = 'cluesGenOutputQueue_' + reply.searchId;
+    console.log('outputList:', outputList);
+    dataList.lrange(outputList,startLimit,endLimit,function(err,list){
       console.log(list);
         if(list.length==0){
         sub.subscribe('publishList');
