@@ -15,8 +15,7 @@ import {RadioButton, RadioButtonGroup} from 'material-ui/RadioButton';
 import config from './../config.js';
 import ContentSend from 'material-ui/svg-icons/content/send';
 
-
-var socket = io();
+var socket = io(config.restUrl);
 
 const styles={
   paperStyle:{
@@ -258,6 +257,7 @@ export default class JeopardyClues extends React.Component{
           this.setState({searchId:res.body});
           this.setState({startLimit:0}),
           this.setState({endLimit:10});
+          console.log('sending data to socket');
           socket.emit('getData',JSON.stringify({
             searchId:this.state.searchId,
             startLimit:this.state.startLimit,
