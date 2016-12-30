@@ -2,8 +2,6 @@ var redis = require('redis');
 var wdk = require('wikidata-sdk');
 var request = require('request');
 const redisUrl= process.env.REDIS_URL;
-<<<<<<< HEAD
-||||||| merged common ancestors
 var pubClient = redis.createClient(process.env.REDIS_PORT, process.env.REDIS_HOSTNAME);
 var subClient = redis.createClient(process.env.REDIS_PORT, process.env.REDIS_HOSTNAME);
 var playerQueue = redis.createClient(process.env.REDIS_PORT, process.env.REDIS_HOSTNAME);
@@ -14,28 +12,11 @@ var workqueue = redis.createClient(process.env.REDIS_PORT, process.env.REDIS_HOS
 var redisClient = redis.createClient(process.env.REDIS_PORT, process.env.REDIS_HOSTNAME);
 var dataList=redis.createClient(process.env.REDIS_PORT, process.env.REDIS_HOSTNAME);
 
-=======
-var pubClient = redis.createClient(process.env.REDIS_PORT, process.env.REDIS_HOSTNAME);
-var subClient = redis.createClient(process.env.REDIS_PORT, process.env.REDIS_HOSTNAME);
-var playerQueue = redis.createClient(process.env.REDIS_PORT, process.env.REDIS_HOSTNAME);
-var pub = redis.createClient(process.env.REDIS_PORT, process.env.REDIS_HOSTNAME);
-var sub = redis.createClient(process.env.REDIS_PORT, process.env.REDIS_HOSTNAME);
-var workqueue = redis.createClient(process.env.REDIS_PORT, process.env.REDIS_HOSTNAME);
-var redisClient = redis.createClient(process.env.REDIS_PORT, process.env.REDIS_HOSTNAME);
-var dataList=redis.createClient(process.env.REDIS_PORT, process.env.REDIS_HOSTNAME);
-
->>>>>>> d1b4e23e27c74bbee095ffb9f12f2c130502ff3d
 var jwt = require('jsonwebtoken');
-<<<<<<< HEAD
 
-var user=[];
-||||||| merged common ancestors
 var score='',sear;
 var user=[];
 let count = '';
-=======
-var score='',sear;
->>>>>>> d1b4e23e27c74bbee095ffb9f12f2c130502ff3d
 let tempEmail= [];
 
 function init(io)
@@ -79,32 +60,30 @@ function init(io)
           console.log(err);
         }else{
           console.log("authenticated Token: ",jwtTokenAuth);
+
           //when authorized, push to provisioner
           if(!tempEmail.includes(jwtTokenAuth.sub)){
               user.push(jwtTokenAuth.name);
               let userinfo = {
                 name: jwtTokenAuth.name,
-                email: jwtTokenAuth.email
+                email: jwtTokenAuth.sub
               };
-              redisClient.lpush('inputPlayer',JSON.stringify(userinfo), ()=> {
-                gameSubscriberClient.subscribe(jwtTokenAuth.email+"gameId");
-                console.log('jwt Token Auth email', jwtTokenAuth.email);
+              redisClient.lpush('provisionerInputQueue',JSON.stringify(userinfo), ()=> {
+                gameSubscriberClient.subscribe(jwtTokenAuth.sub+"_gameId");
+                console.log('jwt Token Auth email', jwtTokenAuth.sub);
                 tempEmail.push(jwtTokenAuth.sub);
               });
           };
-          socket.emit("authorized",{
-            user: 'true'
-          })
+
           // socket.emit('userID', jwtTokenAuth.name);
         }
       });
     });
 
-    gameSubscriberClient.on('message', function(gameid) {
-      console.log("Game id is ", gameid);
+    gameSubscriberClient.on('message', function(channel, message) {
+      console.log("Game id is "+channel+ "and message is"+message);
     })
 
-    // socket.on('testMsg',function(data){
       socket.on('joining', function(userData) {
         console.log('userData', userData);
         // if(!tempEmail.includes(userData.userId)){
@@ -135,9 +114,9 @@ function init(io)
         user=[];
         user = playersQueued;
       });
-    });
+
       subClient.subscribe('_questions');
-    });
+
     socket.on('jGamePlay',function(msg)
     {
       console.log("user chose "+msg);
@@ -171,16 +150,8 @@ function init(io)
              });
 
 
-
-    //});
-
     // **************  CONTROLLER ***********************
 
-    // socket.on('openCard', function(index)
-    // {
-    //   console.log("Getting index");
-
-    //   socket.emit('forceOpen', index);
     socket.on('cardFlip', function(data){
 
       console.log("Card Flip Data on ServerSide"+data.msg);

@@ -102,8 +102,6 @@ export default class JeopardyClues extends React.Component{
     console.log("Hello! I am closing");
   };
 
-
-
   handleChange=(event)=>{
     value=1;
     this.setState({slideIndex:value})
@@ -398,7 +396,7 @@ export default class JeopardyClues extends React.Component{
           <div>
              <Card style={{height:100,width:"90%",margin:"auto"}}> <h4 style={{textAlign:"center",paddingTop:20}}>Trying To Figure Out What Kind Of Entity " {this.state.selectedSubject} " is... Select The Description Which Matches Best</h4>
               </Card>
-              
+
               { this.state.showImage ? <div style={{padding:20}}><center><img src= "http://res.cloudinary.com/deaxb0msww/image/upload/v1483013587/box_p8jmof.gif"/><div style={{color:'white'}}><p4>Loading....</p4></div></center></div> : null }
               { this.state.showError ? <div style={{padding:'30%'}}><center><img src="http://demorg.in/ocd2.0/images/no-records1.png"/></center></div> : null }
               {this.state.pandqString.map(text=>

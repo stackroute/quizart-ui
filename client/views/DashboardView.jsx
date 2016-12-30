@@ -9,6 +9,7 @@ export default class DashboardView extends React.Component {
     return (
       <div>
         <NavBar />
+
         <MediaQuery minDeviceWidth={1} maxDeviceWidth={479}>
           <CategoriesDash limit={3} />
         </MediaQuery>
