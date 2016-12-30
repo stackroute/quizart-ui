@@ -61,6 +61,8 @@
     "gulp-htmlhint": "^0.3.1",
     "gulp-mocha": "^3.0.1",
     "react-bouncefix": "^1.0.5",
+    "react-coverflow": "^0.2.3",
+    "react-responsive-carousel": "^3.0.21",
     "style-loader": "^0.13.1",
     "webpack": "^1.13.3",
     "webpack-dev-server": "^1.16.2",
