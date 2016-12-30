@@ -2,8 +2,6 @@ var redis = require('redis');
 var wdk = require('wikidata-sdk');
 var request = require('request');
 const redisUrl= process.env.REDIS_URL;
-<<<<<<< HEAD
-||||||| merged common ancestors
 var pubClient = redis.createClient(process.env.REDIS_PORT, process.env.REDIS_HOSTNAME);
 var subClient = redis.createClient(process.env.REDIS_PORT, process.env.REDIS_HOSTNAME);
 var playerQueue = redis.createClient(process.env.REDIS_PORT, process.env.REDIS_HOSTNAME);
@@ -14,28 +12,11 @@ var workqueue = redis.createClient(process.env.REDIS_PORT, process.env.REDIS_HOS
 var redisClient = redis.createClient(process.env.REDIS_PORT, process.env.REDIS_HOSTNAME);
 var dataList=redis.createClient(process.env.REDIS_PORT, process.env.REDIS_HOSTNAME);
 
-=======
-var pubClient = redis.createClient(process.env.REDIS_PORT, process.env.REDIS_HOSTNAME);
-var subClient = redis.createClient(process.env.REDIS_PORT, process.env.REDIS_HOSTNAME);
-var playerQueue = redis.createClient(process.env.REDIS_PORT, process.env.REDIS_HOSTNAME);
-var pub = redis.createClient(process.env.REDIS_PORT, process.env.REDIS_HOSTNAME);
-var sub = redis.createClient(process.env.REDIS_PORT, process.env.REDIS_HOSTNAME);
-var workqueue = redis.createClient(process.env.REDIS_PORT, process.env.REDIS_HOSTNAME);
-var redisClient = redis.createClient(process.env.REDIS_PORT, process.env.REDIS_HOSTNAME);
-var dataList=redis.createClient(process.env.REDIS_PORT, process.env.REDIS_HOSTNAME);
-
->>>>>>> d1b4e23e27c74bbee095ffb9f12f2c130502ff3d
 var jwt = require('jsonwebtoken');
-<<<<<<< HEAD
 
-var user=[];
-||||||| merged common ancestors
 var score='',sear;
 var user=[];
 let count = '';
-=======
-var score='',sear;
->>>>>>> d1b4e23e27c74bbee095ffb9f12f2c130502ff3d
 let tempEmail= [];
 
 function init(io)
@@ -104,7 +85,6 @@ function init(io)
       console.log("Game id is ", gameid);
     })
 
-    // socket.on('testMsg',function(data){
       socket.on('joining', function(userData) {
         console.log('userData', userData);
         // if(!tempEmail.includes(userData.userId)){
@@ -126,8 +106,9 @@ function init(io)
         console.log("Disconnected on Refresh");
         redisClient.DEL('playerQueue');
         var playersQueued = [];
+        let userinfoser=[];
         for(var j=0;j<3;j++){
-          if(user[j]){
+          if(userinfoser[j]){
             playersQueued.push(user[j]);
           }
         }
@@ -135,9 +116,9 @@ function init(io)
         user=[];
         user = playersQueued;
       });
-    });
+
       subClient.subscribe('_questions');
-    });
+
     socket.on('jGamePlay',function(msg)
     {
       console.log("user chose "+msg);
@@ -171,16 +152,8 @@ function init(io)
              });
 
 
-
-    //});
-
     // **************  CONTROLLER ***********************
 
-    // socket.on('openCard', function(index)
-    // {
-    //   console.log("Getting index");
-
-    //   socket.emit('forceOpen', index);
     socket.on('cardFlip', function(data){
 
       console.log("Card Flip Data on ServerSide"+data.msg);
