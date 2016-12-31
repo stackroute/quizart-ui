@@ -49,11 +49,7 @@ export default class WaitingForPlayerseView extends React.Component {
     // console.log("decoded token ",decode);
     // // socket.emit('testMsg', 'testData');
     // console.log("Testing Data : "+localStorage.token);
-    socket.on('authorized',function(data){
-      if(data.user=='true'){
-        console.log('authoirised from socket');
-      }
-    });
+
     socket.emit('joining',{email: decode.email, userId: decode.sub});
     socket.on('game_id',(data) => {
       console.log("emitted data of players queued");

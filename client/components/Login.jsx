@@ -139,7 +139,7 @@ export default class Login extends React.Component {
                          onValidSubmit={ this.submitForm }
                          onInvalidSubmit={ this.notifyFormError }>
               <CardText>
-                <Row center="xs"><h2 style={{color:'#FF7885'}}>Already a user.</h2> </Row>
+                <Row center="xs"><h2 style={{color:'#FF7885'}}>Already a user?</h2> </Row>
                 <Row>
                   <Col
                        xs={ 12 }

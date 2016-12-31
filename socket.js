@@ -56,29 +56,28 @@ function init(io)
           console.log(err);
         }else{
           console.log("authenticated Token: ",jwtTokenAuth);
+
           //when authorized, push to provisioner
           if(!tempEmail.includes(jwtTokenAuth.sub)){
               user.push(jwtTokenAuth.name);
               let userinfo = {
                 name: jwtTokenAuth.name,
-                email: jwtTokenAuth.email
+                email: jwtTokenAuth.sub
               };
-              redisClient.lpush('inputPlayer',JSON.stringify(userinfo), ()=> {
-                gameSubscriberClient.subscribe(jwtTokenAuth.email+"gameId");
-                console.log('jwt Token Auth email', jwtTokenAuth.email);
+              redisClient.lpush('provisionerInputQueue',JSON.stringify(userinfo), ()=> {
+                gameSubscriberClient.subscribe(jwtTokenAuth.sub+"_gameId");
+                console.log('jwt Token Auth email', jwtTokenAuth.sub);
                 tempEmail.push(jwtTokenAuth.sub);
               });
           };
-          socket.emit("authorized",{
-            user: 'true'
-          })
+
           // socket.emit('userID', jwtTokenAuth.name);
         }
       });
     });
 
-    gameSubscriberClient.on('message', function(gameid) {
-      console.log("Game id is ", gameid);
+    gameSubscriberClient.on('message', function(channel, message) {
+      console.log("Game id is "+channel+ "and message is"+message);
     })
 
       socket.on('joining', function(userData) {
@@ -102,8 +101,9 @@ function init(io)
         console.log("Disconnected on Refresh");
         redisClient.DEL('playerQueue');
         var playersQueued = [];
+        let userinfoser=[];
         for(var j=0;j<3;j++){
-          if(user[j]){
+          if(userinfoser[j]){
             playersQueued.push(user[j]);
           }
         }
