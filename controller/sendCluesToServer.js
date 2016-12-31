@@ -105,9 +105,9 @@ router.post('/sendCluesToServer', function(req, res, next) {
                     })
                 difficulty*=2;
                 start=end;
-                end=lengthOfInterval*2;  
+                end=lengthOfInterval*2;
          }
-        
+
        }
      }
    });

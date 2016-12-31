@@ -7,7 +7,7 @@ module.exports = function(pId, qId, description,callback) {
   SERVICE wikibase:label {
     bd:serviceParam wikibase:language "en" .
   }
-}LIMIT 1
+}LIMIT 30
 `
 var url = wdk.sparqlQuery(sparql);
 request(url, function (error, response, body) {

@@ -7,8 +7,6 @@ var subClient = redis.createClient(process.env.REDIS_PORT, process.env.REDIS_HOS
 var playerQueue = redis.createClient(process.env.REDIS_PORT, process.env.REDIS_HOSTNAME);
 var pub = redis.createClient(process.env.REDIS_PORT, process.env.REDIS_HOSTNAME);
 var sub = redis.createClient(process.env.REDIS_PORT, process.env.REDIS_HOSTNAME);
-var pubBack = redis.createClient(process.env.REDIS_PORT, process.env.REDIS_HOSTNAME);
-var workqueue = redis.createClient(process.env.REDIS_PORT, process.env.REDIS_HOSTNAME);
 var redisClient = redis.createClient(process.env.REDIS_PORT, process.env.REDIS_HOSTNAME);
 var dataList=redis.createClient(process.env.REDIS_PORT, process.env.REDIS_HOSTNAME);
 
@@ -21,15 +19,12 @@ let tempEmail= [];
 
 function init(io)
 {
-  console.log('in socket');
   var gameSubscriberClient = redis.createClient(process.env.REDIS_PORT, process.env.REDIS_HOSTNAME);
   var pubClient = redis.createClient(process.env.REDIS_PORT, process.env.REDIS_HOSTNAME);
   var subClient = redis.createClient(process.env.REDIS_PORT, process.env.REDIS_HOSTNAME);
   var playerQueue = redis.createClient(process.env.REDIS_PORT, process.env.REDIS_HOSTNAME);
-  var workqueue = redis.createClient(process.env.REDIS_PORT, process.env.REDIS_HOSTNAME);
   var redisClient = redis.createClient(process.env.REDIS_PORT, process.env.REDIS_HOSTNAME);
   var dataList=redis.createClient(process.env.REDIS_PORT, process.env.REDIS_HOSTNAME);
-
    io.on('connection',function(socket){
     // **************  PROVISIONER ***********************
     console.log("Server connection established");
@@ -163,17 +158,14 @@ function init(io)
     });
 // **************  CLUE GENERATOR ***********************
   socket.on('getData',function(data){
-    console.log('in getData');
     var data=JSON.parse(data);
     var searchId=data.searchId;
     var startLimit=data.startLimit;
     var endLimit=data.endLimit;
     let count =startLimit;
     console.log("start"+startLimit);
-    const outputList = 'cluesGenOutputQueue_' + reply.searchId;
-    console.log('outputList:', outputList);
-    dataList.lrange(outputList,startLimit,endLimit,function(err,list){
-      console.log(list);
+    dataList.lrange(searchId,startLimit,endLimit,function(err,list){
+      console.log('outputlist'+list);
         if(list.length==0){
         sub.subscribe('publishList');
         sub.on('message',function(channel,clues){
@@ -198,7 +190,12 @@ function init(io)
       }
       });
   });
+  socket.on('sendSearchId',function(data){
+    pub.publish('publishSearchId',data);
+  });
 });
 }
+
+
 
 module.exports = init;
