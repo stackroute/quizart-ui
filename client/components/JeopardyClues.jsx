@@ -69,23 +69,21 @@ export default class JeopardyClues extends React.Component{
         if(dataReceived.length!=0){
           dataReceived.map(function(element){
             temp=JSON.parse(element);
-              tempClueData.push(temp.clueData);
+            tempClueData.push(temp.clueData);
           })
           this.setState({jeopardyCluesData:tempClueData})
-          console.log("after array len"+this.state.jeopardyCluesData.length);
         }
       }
       else {
         if(dataReceived.length!=0){
           var data=JSON.parse(dataReceived);
-            tempClueData.push(data.clueData),
-            this.setState({jeopardyCluesData:tempClueData})
-            console.log("after array len"+this.state.jeopardyCluesData.length)
-            if(this.state.jeopardyCluesData.length != 0)
-            {
-              this.setState({showImage:false,showError:false});
-              clearInterval(this.timerID);
-            }
+          tempClueData.push(data.clueData),
+          this.setState({jeopardyCluesData:tempClueData})
+          if(this.state.jeopardyCluesData.length != 0)
+          {
+            this.setState({showImage:false,showError:false});
+            clearInterval(this.timerID);
+          }
         }
       }
     }.bind(this));
@@ -101,9 +99,11 @@ export default class JeopardyClues extends React.Component{
   };
 
   handleSave = () => {
-    socket.emit('sendSearchId',JSON.stringify({
+    const data = {
       searchId:this.state.searchId,
-    }));
+      topic:this.state.topic,
+    };
+    socket.emit('sendSearchId',JSON.stringify(data));
     this.setState({openDialog:false});
   };
 
@@ -271,7 +271,7 @@ export default class JeopardyClues extends React.Component{
     });
   }
   showMoreClues=()=>{
-     this.setState({flag:flagTrue});
+    this.setState({flag:flagTrue});
     this.setState({jeopardyCluesData:emptyArray});
     console.log("next array length"+this.state.jeopardyCluesData.length);
     console.log('in show');
@@ -286,40 +286,7 @@ export default class JeopardyClues extends React.Component{
       endLimit:end
     }));
   }
-  postDataToServer=()=>{
 
-    var tempSubject=[];
-    Request.post(config.restUrl + '/sendCluesToServer')
-    .set('Content-type', 'application/json')
-    .send({
-      pIdForSubject:this.state.pIdForSubject,
-      qIDForSubject:this.state.qIDForSubject,
-      selectedSubjectDescription:this.state.selectedSubjectDescription,
-      topic:this.state.topic
-    })
-    .end((err, res) => {
-    });
-  };
-
-
-  showQuestions=()=>{
-    var names=[],clues=[];
-    Request.post(config.restUrl + '/storeCluesInJson')
-    .set('Content-type', 'application/json')
-    .end((err, res) => {
-      // if(res.status==200)
-      // {
-      //   res.body.results.records.map(function(obj){
-      //     obj._fields.forEach(function(value){
-      //       names.push(value.properties.name);
-      //       clues.push(value.properties.clue);
-      //     })
-      //   })
-      //   console.log(names);
-      //   console.log(clues);
-      // }
-    });
-  };
 
   _onChange(e, selected){
 
@@ -436,51 +403,52 @@ export default class JeopardyClues extends React.Component{
                             <br></br>
                             <p>{element.description}</p>
                             <a href={element.detailedDescription.url} target="_blank">wikipedia</a>
-                            </Col>
-                          </Row>
-                          <Row>
-                            <Col xs={12} sm={12} md={12} lg={12}>
-                              <List>
-                                {element.detailedDescription.articleBody.map(value=>
-                                  <ListItem style={styles.listStyle} primaryText={value} leftIcon={< ContentSend />}/>
-                                )}
-                              </List>
-                            </Col>
-                          </Row>
-                        </div>
-                      </Paper></Row>)}
-                      <Row center='xs'>
-                        <RaisedButton label="ShowMore" disabled={this.state.enableSelectTopic} primary={true} onClick={this.showMoreClues} style={{width:'80%'}}/>
-                        <RaisedButton label="Select Topic" disabled={this.state.enableSelectTopic} secondary={true} style={{width:'50%',margin:20}} onClick={this.handleOpen}/>
-                      </Row>
-                      <Dialog
-                        title="Select Topic"
-                        actions={actions}
-                        modal={false}
-                        open={this.state.open}
-                        onRequestClose={this.handleClose}
-                        autoScrollBodyContent={false}
-                        >
-                        <RadioButtonGroup
-                          name="shipSpeed"
-                          ref={(c) => this._radio = c}
-                          onChange={this._onChange.bind(this)}>
-                          {radios}
-                        </RadioButtonGroup>
-                      </Dialog>
-                      <Dialog
-                        title="Summary"
-                        actions={actionbutton}
-                        modal={false}
-                        open={this.state.openDialog}
-                        onRequestClose={this.handleClose}>
-                        Subject :- {this.state.selectedSubject}<br/>
-                      Description :- {this.state.selectedSubjectDescription}<br/>
-                    Clues based on :- {this.state.clueString}
-                  </Dialog>
-                </div>
-              </SwipeableViews>
-            </div>
-          );
-        }
+                          </Col>
+                        </Row>
+                        <Row>
+                          <Col xs={12} sm={12} md={12} lg={12}>
+                            <List>
+                              {element.detailedDescription.articleBody.map(value=>
+                                <ListItem style={styles.listStyle} primaryText={value} leftIcon={< ContentSend />}/>
+                              )}
+                            </List>
+                          </Col>
+                        </Row>
+                      </div>
+                    </Paper></Row>)}
+                    <Row center='xs'>
+                      <RaisedButton label="ShowMore" disabled={this.state.enableSelectTopic} primary={true} onClick={this.showMoreClues} style={{width:'80%'}}/>
+                      <RaisedButton label="Select Topic" disabled={this.state.enableSelectTopic} secondary={true} style={{width:'50%',margin:20}} onClick={this.handleOpen}/>
+                    </Row>
+                    <Dialog
+                      title="Select Topic"
+                      actions={actions}
+                      modal={false}
+                      open={this.state.open}
+                      onRequestClose={this.handleClose}
+                      autoScrollBodyContent={false}
+                      >
+                      <RadioButtonGroup
+                        name="shipSpeed"
+                        ref={(c) => this._radio = c}
+                        onChange={this._onChange.bind(this)}>
+                        {radios}
+                      </RadioButtonGroup>
+                    </Dialog>
+                    <Dialog
+                      title="Summary"
+                      actions={actionbutton}
+                      modal={false}
+                      open={this.state.openDialog}
+                      onRequestClose={this.handleClose}>
+                      <strong>Subject :-</strong> {this.state.selectedSubject}<br/>
+                    <strong>Description :-</strong> {this.state.selectedSubjectDescription}<br/>
+                  <strong>Similar Subjects Fetched based on :-</strong> {this.state.clueString}<br/>
+                  <strong>Topic:-</strong> {this.state.topic}
+                </Dialog>
+              </div>
+            </SwipeableViews>
+          </div>
+        );
       }
+    }

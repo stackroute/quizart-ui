@@ -170,8 +170,8 @@ function init(io)
         sub.subscribe('publishList');
         sub.on('message',function(channel,clues){
           count++;
-          console.log("count"+count);
-          console.log("end"+endLimit);
+          // console.log("count"+count);
+          // console.log("end"+endLimit);
           if(count<endLimit){
           socket.emit('finalClues',clues);
         }
