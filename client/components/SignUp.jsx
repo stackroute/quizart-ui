@@ -16,6 +16,7 @@ import Request from 'superagent';
 import { browserHistory } from 'react-router';
 import jwt_decode from 'jwt-decode';
 import config from './../config';
+import Login from './Login';
 
 const errorMessages = {
   projectName: "Please enter only characters and number.",
@@ -60,7 +61,8 @@ export default class SignUp extends React.Component {
     this.state = {
       canSubmit: false,
       open: false,
-      err: ''
+      err: '',
+      loginState: false
     };
   }
   enableButton() {
@@ -92,7 +94,9 @@ export default class SignUp extends React.Component {
         console.log(err)
         console.log(res)
         if (res.status===200) {
-          alert("You have been successfully signed in!")
+          alert("You have been successfully signed in!");
+          this.setState({loginState: true});
+          // this.context.router.push('/login');
         } else {
           this.setState({
             err: res.body.message
@@ -104,7 +108,21 @@ export default class SignUp extends React.Component {
   notifyFormError(data) {
     console.error('Form error:', data);
   }
+  // loginDisplay(){
+  //   this.setState({loginState: true});
+  // }
   render() {
+    if(this.state.loginState){
+      return(
+        <div  style={styles.signupStyle}>
+          <Grid>
+            <Row>
+                <Col xs={12} sm={12} md={12} lg={12}><Login /></Col>
+            </Row>
+          </Grid>
+        </div>
+      );
+    }
     return (
        <div className="autofill">
       <Grid>
@@ -217,7 +235,8 @@ export default class SignUp extends React.Component {
                                 type="submit"
                                 label="Sign Me Up!"
                                 primary={ true }
-                                disabled={ !this.state.canSubmit } />
+                                disabled={ !this.state.canSubmit }/>
+                                {/* // onClick={this.loginDisplay.bind(this)} */}
                   </Col>
                 </Row>
               </CardText>

@@ -98,19 +98,13 @@ export default class JeopardyClues extends React.Component{
     this.setState({openDialog:true});
     console.log("Hello! I am closing");
   };
-//<<<<<<< HEAD
 
-//||||||| merged common ancestors
-
-
-
-//=======
   handleSave = () => {
     this.setState({openDialog:false});
   };
 
 
->>>>>>> 47f85c7d74e9859a7e068934a3be2edcb1589435
+
   handleChange=(event)=>{
     value=1;
     this.setState({slideIndex:value})
@@ -416,19 +410,11 @@ export default class JeopardyClues extends React.Component{
           <div>
              <Card style={{height:100,width:"90%",margin:"auto"}}> <h4 style={{textAlign:"center",paddingTop:20}}>Trying To Figure Out What Kind Of Entity " {this.state.selectedSubject} " is... Select The Description Which Matches Best</h4>
               </Card>
-//<<<<<<< HEAD
 
-              { this.state.showImage ? <div style={{padding:20}}><center><img src= "http://res.cloudinary.com/deaxb0msww/image/upload/v1483013587/box_p8jmof.gif"/><div style={{color:'white'}}><p4>Loading....</p4></div></center></div> : null }
-              { this.state.showError ? <div style={{padding:'30%'}}><center><img src="http://demorg.in/ocd2.0/images/no-records1.png"/></center></div> : null }
-//||||||| merged common ancestors
-              
-              { this.state.showImage ? <div style={{padding:20}}><center><img src= "http://res.cloudinary.com/deaxb0msww/image/upload/v1483013587/box_p8jmof.gif"/><div style={{color:'white'}}><p4>Loading....</p4></div></center></div> : null }
-              { this.state.showError ? <div style={{padding:'30%'}}><center><img src="http://demorg.in/ocd2.0/images/no-records1.png"/></center></div> : null }
-//=======
 
               { this.state.showImage ? <div style={{padding:20}}><center><img src= "http://res.cloudinary.com/deaxb0msww/image/upload/v1483013587/box_p8jmof.gif"/><div style={{color:'#42f448'}}><p4>Loading....</p4></div></center></div> : null }
               { this.state.showError ? <div style={{padding:20}}><center><img src="http://res.cloudinary.com/deaxb0msww/image/upload/v1483043546/no-record-found_enguyy.png"/></center></div> : null }
-//>>>>>>> 47f85c7d74e9859a7e068934a3be2edcb1589435
+
               {this.state.pandqString.map(text=>
                 <List style={{margin:"0% 10% 0% 10%"}}>
                   <ListItem key={text.pString+" - "+text.qString} primaryText={text.pString+" - "+text.qString}  onClick={() => { this.handleSelectedSubjectContext(text.pNum,text.qNum,text.pString,text.qString) }} style={{backgroundColor:'#B3E5FC',margin:'5px',textAlign:'center',color:'#3F51B5'}}/></List>
