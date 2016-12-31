@@ -1,5 +1,5 @@
 import React from 'react';
-import Paper from 'material-ui/Paper';
+i7mport Paper from 'material-ui/Paper';
 import {Card, CardActions, CardHeader, CardMedia, CardTitle, CardText} from 'material-ui/Card';
 import CardChild from './../components/CardChild';
 import {Grid, Row, Col} from 'react-flexbox-grid';
@@ -54,19 +54,20 @@ export default class JeopardyView extends React.Component
    console.log("Testing Data : "+localStorage.token);
    socket.emit('joining',{userName: decode.name, userId: decode.sub});
   console.log("checking socket connection b reeeeeeeeeeeeee");
-   socket.on("data",function(data)
-   {
-    console.log("checking socket connection afterrrrrrrrrrr");
-     thisCopy.setState({playersId: data});
-     console.log("Checking players Id:",this.state.playersId);
-     console.log("checking socket connection");
+   // socket.on("data",function(data)
+   // {
+   //  console.log("checking socket connection afterrrrrrrrrrr");
+   //   thisCopy.setState({playersId: data});
+   //   console.log("Checking players Id:",this.state.playersId);
+   //   console.log("checking socket connection");
 
-     window.addEventListener('resize', this.handleResize.bind(this));
-   }.bind(this));
+   //   window.addEventListener('resize', this.handleResize.bind(this));
+   // }.bind(this));
 
-
+    
 
  }
+
  componentWillUnmount() {
   window.removeEventListener('resize', this.handleResize);
 }
@@ -101,29 +102,43 @@ var top=160;
 var height=[80,-35,-135,-235];
 var posLeft=[600,370,130,-110,-350,-590];
 var inc=0;
+var keyInc=0;
 var posL=600;
 var countLeft=0;
-for(var i=0;i<30;i++)
-{
-  if(count==6)
-  {
-    count=0;
-    top=height[inc];
-    inc++;
-    value+=value;
-    if(value==1600)
-    {
-      value=1000;
-    }
-    cards100.push(<br />);
+for (var rowindex=1; rowindex<=5;rowindex++){
+    for(var colindex=1; colindex<=6; colindex++){
+        if(count==6)
+        {
+          count=0;
+          top=height[inc];
+          inc++;
+          value+=value;
+          if(value==1600)
+          {
+            value=1000;
+          }
+          cards100.push(<br />);
+        }
+        keyInc++;
+        posL=posLeft[count];
+  
+          cards100.push(<CardChild points={value} row={rowindex} col={colindex} top={top} posL={posL} cardWidth={this.state.windowWidth/9} cardHeight={this.state.windowHeight/9} key={keyInc} index={count}> </CardChild>);
+  
+      count++;
   }
-  posL=posLeft[count];
-  cards100.push(<CardChild points={value} top={top} posL={posL} cardWidth={this.state.windowWidth/9} cardHeight={this.state.windowHeight/9} key={i} index={count}> </CardChild>);
-  count++;
 }
+
+  // for (var rowindex=0; rowindex<6;rowindex++){
+  //   for(var colindex=0; colindex<5; colindex++){
+  //      cards100.push(<CardChild points={value} row={rowindex} col={colindex} top={top} posL={posL} cardWidth={this.state.windowWidth/9} cardHeight={this.state.windowHeight/9} key={i} index={count}> </CardChild>);
+      
+  //   }
+  // }
+  
 
 
 return(
+
   <div className="Header" style={{divStyle}} >
   <Grid>
   <div className="Topics" style={divStyle}>
