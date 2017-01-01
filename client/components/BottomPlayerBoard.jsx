@@ -17,8 +17,8 @@ const faceIcon = <FontIcon className="muidocs-icon-action-face" />
  const style = {
   height: '50%',
   width: '80%',
-  marginTop:8,
-  backgroundColor:"darkgray"
+  marginTop:8
+  // backgroundColor:"darkgray"
 };
 var score = 50;
 var index=1;

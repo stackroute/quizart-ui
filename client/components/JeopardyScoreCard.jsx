@@ -86,7 +86,7 @@ export default class JeopardyScoreCard extends React.Component{
             </Row>
             <Row center="xs"  middle="xs">
           <Col>
-            <Link to="jeopardyBoard/">
+            <Link to="waitingForPlayers/">
             <RaisedButton
             label="REPLAY"
             primary={true}

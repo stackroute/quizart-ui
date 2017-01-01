@@ -84,7 +84,7 @@ constructor(props){
   }
   render(){
     return (
-      <Link to="jeopardyBoard/">
+      <Link to="waitingForPlayers/">
           <GridTile
           title={this.props.title}
           onClick={this.handleOpen}>
