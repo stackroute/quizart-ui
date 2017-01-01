@@ -64,29 +64,28 @@ export default class JeopardyClues extends React.Component{
   componentDidMount() {
     socket.on('finalClues',function(dataReceived){
       if(this.state.flag){
-      if(dataReceived.length!=0){
-        dataReceived.map(function(element){
-          temp=JSON.parse(element);
-          tempClueData.push(temp.clueData);
-        })
-        this.setState({jeopardyCluesData:tempClueData})
-        console.log("after array len"+this.state.jeopardyCluesData.length);
-      }
+        console.log('data for show more');
+        console.log(dataReceived);
+        if(dataReceived.length!=0){
+          dataReceived.map(function(element){
+            temp=JSON.parse(element);
+            tempClueData.push(temp.clueData);
+          })
+          this.setState({jeopardyCluesData:tempClueData})
+        }
       }
       else {
         if(dataReceived.length!=0){
           var data=JSON.parse(dataReceived);
           tempClueData.push(data.clueData),
           this.setState({jeopardyCluesData:tempClueData})
-          console.log("after array len"+this.state.jeopardyCluesData.length)
           if(this.state.jeopardyCluesData.length != 0)
           {
-            console.log('loaded');
             this.setState({showImage:false,showError:false});
             clearInterval(this.timerID);
           }
+        }
       }
-    }
     }.bind(this));
   }
 
@@ -100,10 +99,13 @@ export default class JeopardyClues extends React.Component{
   };
 
   handleSave = () => {
+    const data = {
+      searchId:this.state.searchId,
+      topic:this.state.topic,
+    };
+    socket.emit('sendSearchId',JSON.stringify(data));
     this.setState({openDialog:false});
   };
-
-
 
   handleChange=(event)=>{
     value=1;
@@ -137,12 +139,12 @@ export default class JeopardyClues extends React.Component{
           });
           this.setState({dataObj:tempClues});
         }
-         if(this.state.dataObj.length != 0)
-          {
-            console.log('loaded');
-            this.setState({showImage:false});
-            clearInterval(this.timerID);
-          }
+        if(this.state.dataObj.length != 0)
+        {
+          console.log('loaded');
+          this.setState({showImage:false});
+          clearInterval(this.timerID);
+        }
       }
       else{
         return false;
@@ -178,11 +180,11 @@ export default class JeopardyClues extends React.Component{
           this.setState({selectedSubjectMeaning:variableMeaningArray});
         }
         if(this.state.selectedSubjectMeaning.length != 0)
-          {
-            console.log('loaded');
-            this.setState({showImage:false});
-            clearInterval(this.timerID);
-          }
+        {
+          console.log('loaded');
+          this.setState({showImage:false});
+          clearInterval(this.timerID);
+        }
       }
       else{
         this.setState({
@@ -219,11 +221,11 @@ export default class JeopardyClues extends React.Component{
         }
         this.setState({pandqString:tempString});
         if(this.state.pandqString.length != 0)
-          {
-            console.log('loaded');
-            this.setState({showImage:false});
-            clearInterval(this.timerID);
-          }
+        {
+          console.log('loaded');
+          this.setState({showImage:false});
+          clearInterval(this.timerID);
+        }
       }
       else {
         return false;
@@ -259,7 +261,6 @@ export default class JeopardyClues extends React.Component{
           this.setState({searchId:res.body});
           this.setState({startLimit:0}),
           this.setState({endLimit:10});
-          console.log('sending data to socket');
           socket.emit('getData',JSON.stringify({
             searchId:this.state.searchId,
             startLimit:this.state.startLimit,
@@ -278,46 +279,14 @@ export default class JeopardyClues extends React.Component{
     end=this.state.endLimit+10;
     this.setState({startLimit:start});
     this.setState({endLimit:end});
+    console.log(this.state.searchId);
     socket.emit('getData',JSON.stringify({
       searchId:this.state.searchId,
       startLimit:start,
       endLimit:end
     }));
   }
-  postDataToServer=()=>{
-    alert("Your Clues Has been Generated");
-    var tempSubject=[];
-    Request.post(config.restUrl + '/sendCluesToServer')
-    .set('Content-type', 'application/json')
-    .send({
-      pIdForSubject:this.state.pIdForSubject,
-      qIDForSubject:this.state.qIDForSubject,
-      selectedSubjectDescription:this.state.selectedSubjectDescription,
-      topic:this.state.topic
-    })
-    .end((err, res) => {
-    });
-  };
 
-
-  showQuestions=()=>{
-    var names=[],clues=[];
-    Request.post(config.restUrl + '/storeCluesInJson')
-    .set('Content-type', 'application/json')
-    .end((err, res) => {
-      // if(res.status==200)
-      // {
-      //   res.body.results.records.map(function(obj){
-      //     obj._fields.forEach(function(value){
-      //       names.push(value.properties.name);
-      //       clues.push(value.properties.clue);
-      //     })
-      //   })
-      //   console.log(names);
-      //   console.log(clues);
-      // }
-    });
-  };
 
   _onChange(e, selected){
 
@@ -334,17 +303,14 @@ export default class JeopardyClues extends React.Component{
       <FlatButton
         label="Have a Preview"
         primary={true}
-        onClick={this.postDataToServer}
         onTouchTap={this.handleClose}
 
         />,
     ];
-      const actionbutton = [
+    const actionbutton = [
       <FlatButton
-        label="save"
+        label="Save The Clues"
         primary={true}
-        keyboardFocused={true}
-        onClick={this.postDataToServer}
         onTouchTap={this.handleSave}
         />,
     ];
@@ -380,8 +346,8 @@ export default class JeopardyClues extends React.Component{
           <div></div>
           <div style={{overflow:'hidden'}}>
             <Row center='xs'>
-            { this.state.showImage ? <div style={{padding:20}}><center><img src= "http://res.cloudinary.com/deaxb0msww/image/upload/v1483013587/box_p8jmof.gif"/><div style={{color:'#42f448'}}><p4>Loading....</p4></div></center></div> : null }
-            { this.state.showError ? <div style={{padding:20}}><center><img src="http://res.cloudinary.com/deaxb0msww/image/upload/v1483043546/no-record-found_enguyy.png"/></center></div> : null }
+              { this.state.showImage ? <div style={{padding:20}}><center><img src= "http://res.cloudinary.com/deaxb0msww/image/upload/v1483013587/box_p8jmof.gif"/><div style={{color:'#42f448'}}><p4>Loading....</p4></div></center></div> : null }
+              { this.state.showError ? <div style={{padding:20}}><center><img src="http://res.cloudinary.com/deaxb0msww/image/upload/v1483043546/no-record-found_enguyy.png"/></center></div> : null }
 
               {this.state.dataObj.map(element=>
                 <Card style={{margin:10}}>
@@ -398,17 +364,17 @@ export default class JeopardyClues extends React.Component{
           </div>
           <div>
             <Card style={{height:70,width:"90%",margin:"auto"}}> <h4 style={{textAlign:"center",paddingTop:20}}>Hey! Lemme Know What Did You Mean By "  {this.state.selectedSubject} "</h4> </Card>
-              { this.state.showImage ? <div style={{padding:20}}><center><img src= "http://res.cloudinary.com/deaxb0msww/image/upload/v1483013587/box_p8jmof.gif"/><div style={{color:'#42f448'}}><p4>Loading....</p4></div></center></div> : null }
-              { this.state.showError ? <div style={{padding:20}}><center><img src="http://res.cloudinary.com/deaxb0msww/image/upload/v1483043546/no-record-found_enguyy.png"/></center></div> : null }
-              <List style={{margin:"0% 10% 0% 10%"}}>
+            { this.state.showImage ? <div style={{padding:20}}><center><img src= "http://res.cloudinary.com/deaxb0msww/image/upload/v1483013587/box_p8jmof.gif"/><div style={{color:'#42f448'}}><p4>Loading....</p4></div></center></div> : null }
+            { this.state.showError ? <div style={{padding:20}}><center><img src="http://res.cloudinary.com/deaxb0msww/image/upload/v1483043546/no-record-found_enguyy.png"/></center></div> : null }
+            <List style={{margin:"0% 10% 0% 10%"}}>
               {this.state.selectedSubjectMeaning.map(data=>
                 <ListItem key={data.description} primaryText={data.label+"-"+data.description}
                   onClick={() => {this.handleSelectedSubjectMeaning(data.description,data.id)}} style={{backgroundColor:'#B3E5FC',margin:'5px',textAlign:'center',color:'#3F51B5'}}/> )} </List>
-              <RaisedButton label="Next" disabled={this.state.enableSubjectMeaning} secondary={true} onClick={this.handleSubjectContext} style={styles.buttonNext}/>
-          </div>
+                <RaisedButton label="Next" disabled={this.state.enableSubjectMeaning} secondary={true} onClick={this.handleSubjectContext} style={styles.buttonNext}/>
+              </div>
 
-          <div>
-             <Card style={{height:100,width:"90%",margin:"auto"}}> <h4 style={{textAlign:"center",paddingTop:20}}>Trying To Figure Out What Kind Of Entity " {this.state.selectedSubject} " is... Select The Description Which Matches Best</h4>
+              <div>
+                <Card style={{height:100,width:"90%",margin:"auto"}}> <h4 style={{textAlign:"center",paddingTop:20}}>Trying To Figure Out What Kind Of Entity " {this.state.selectedSubject} " is... Select The Description Which Matches Best</h4>
               </Card>
 
 
@@ -419,11 +385,11 @@ export default class JeopardyClues extends React.Component{
                 <List style={{margin:"0% 10% 0% 10%"}}>
                   <ListItem key={text.pString+" - "+text.qString} primaryText={text.pString+" - "+text.qString}  onClick={() => { this.handleSelectedSubjectContext(text.pNum,text.qNum,text.pString,text.qString) }} style={{backgroundColor:'#B3E5FC',margin:'5px',textAlign:'center',color:'#3F51B5'}}/></List>
                 )}
-              <RaisedButton label="Next" disabled={this.state.enableSelectedSubjectContext} secondary={true} onClick={this.handleListOfSubject} style={styles.buttonNext}/>
+                <RaisedButton label="Next" disabled={this.state.enableSelectedSubjectContext} secondary={true} onClick={this.handleListOfSubject} style={styles.buttonNext}/>
               </div>
               <div>
-              { this.state.showImage ? <div style={{padding:20}}><center><img src= "http://res.cloudinary.com/deaxb0msww/image/upload/v1483013587/box_p8jmof.gif"/><div style={{color:'#42f448'}}><p4>Loading....</p4></div></center></div> : null }
-               { this.state.showError ? <div style={{padding:20}}><center><img src="http://res.cloudinary.com/deaxb0msww/image/upload/v1483043546/no-record-found_enguyy.png"/></center></div> : null }
+                { this.state.showImage ? <div style={{padding:20}}><center><img src= "http://res.cloudinary.com/deaxb0msww/image/upload/v1483013587/box_p8jmof.gif"/><div style={{color:'#42f448'}}><p4>Loading....</p4></div></center></div> : null }
+                { this.state.showError ? <div style={{padding:20}}><center><img src="http://res.cloudinary.com/deaxb0msww/image/upload/v1483043546/no-record-found_enguyy.png"/></center></div> : null }
                 {this.state.jeopardyCluesData.map(element =>
                   <Row center='xs'>
                     <Paper style={styles.paper} zDepth={1}>
@@ -437,54 +403,52 @@ export default class JeopardyClues extends React.Component{
                             <br></br>
                             <p>{element.description}</p>
                             <a href={element.detailedDescription.url} target="_blank">wikipedia</a>
-                            <p style={{
-                                textAlign: 'justify'
-                              }}>{element.detailedDescription.articleBody}</p>
-                            </Col>
-                          </Row>
-                          <Row>
-                            <Col xs={12} sm={12} md={12} lg={12}>
-                              <List>
-                                {element.detailedDescription.articleBody.map(value=>
-                                  <ListItem style={styles.listStyle} primaryText={value} leftIcon={< ContentSend />}/>
-                                )}
-                              </List>
-                            </Col>
-                          </Row>
-                        </div>
-                      </Paper></Row>)}
-                      <Row center='xs'>
+                          </Col>
+                        </Row>
+                        <Row>
+                          <Col xs={12} sm={12} md={12} lg={12}>
+                            <List>
+                              {element.detailedDescription.articleBody.map(value=>
+                                <ListItem style={styles.listStyle} primaryText={value} leftIcon={< ContentSend />}/>
+                              )}
+                            </List>
+                          </Col>
+                        </Row>
+                      </div>
+                    </Paper></Row>)}
+                    <Row center='xs'>
                       <RaisedButton label="ShowMore" disabled={this.state.enableSelectTopic} primary={true} onClick={this.showMoreClues} style={{width:'80%'}}/>
                       <RaisedButton label="Select Topic" disabled={this.state.enableSelectTopic} secondary={true} style={{width:'50%',margin:20}} onClick={this.handleOpen}/>
-                      </Row>
-                      <Dialog
-                        title="Select Topic"
-                        actions={actions}
-                        modal={false}
-                        open={this.state.open}
-                        onRequestClose={this.handleClose}
-                        autoScrollBodyContent={false}
-                        >
-                        <RadioButtonGroup
-                          name="shipSpeed"
-                          ref={(c) => this._radio = c}
-                          onChange={this._onChange.bind(this)}>
-                          {radios}
-                        </RadioButtonGroup>
-                      </Dialog>
-                      <Dialog
-                        title="Summary"
-                        actions={actionbutton}
-                        modal={false}
-                        open={this.state.openDialog}
-                        onRequestClose={this.handleClose}>
-                        Subject :- {this.state.selectedSubject}<br/>
-                        Description :- {this.state.selectedSubjectDescription}<br/>
-                        Clues based on :- {this.state.clueString}
-                      </Dialog>
-                    </div>
-                  </SwipeableViews>
-                </div>
-              );
-            }
-          }
+                    </Row>
+                    <Dialog
+                      title="Select Topic"
+                      actions={actions}
+                      modal={false}
+                      open={this.state.open}
+                      onRequestClose={this.handleClose}
+                      autoScrollBodyContent={false}
+                      >
+                      <RadioButtonGroup
+                        name="shipSpeed"
+                        ref={(c) => this._radio = c}
+                        onChange={this._onChange.bind(this)}>
+                        {radios}
+                      </RadioButtonGroup>
+                    </Dialog>
+                    <Dialog
+                      title="Summary"
+                      actions={actionbutton}
+                      modal={false}
+                      open={this.state.openDialog}
+                      onRequestClose={this.handleClose}>
+                      <strong>Subject :-</strong> {this.state.selectedSubject}<br/>
+                    <strong>Description :-</strong> {this.state.selectedSubjectDescription}<br/>
+                  <strong>Similar Subjects Fetched based on :-</strong> {this.state.clueString}<br/>
+                  <strong>Topic:-</strong> {this.state.topic}
+                </Dialog>
+              </div>
+            </SwipeableViews>
+          </div>
+        );
+      }
+    }

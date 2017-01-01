@@ -8,10 +8,10 @@ const client = redis.createClient(redisPort, redisUrl);
 
 router.post('/generateSubject', function(req, res, next) {
   console.log("in question");
-  var pId=req.body.pIdForSubject;
+  var pID=req.body.pIdForSubject;
   var qID=req.body.qIDForSubject;
   var description=req.body.selectedSubjectDescription;
-  var searchId='DATALIST'+Math.floor((Math.random() * 1000) + 1);
+  var searchId='cluesGenOutputQueue_'+Math.floor((Math.random() * 10000) + 1);
   getSimilarSubjects(pID, qID, description, (err, similarSubject) => {
     if(err) { console.log('ERR:',err); return }
     const data = {
@@ -20,7 +20,7 @@ router.post('/generateSubject', function(req, res, next) {
       "description": description,
     };
     client.lpush("cluesGenInputWorkQueue", JSON.stringify(data), (error, reply) => {
-      console.log('Pushed');
+      console.log('Pushed In InputQueue'+data.subject);
     });
   });
   res.send(searchId);
