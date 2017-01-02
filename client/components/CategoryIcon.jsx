@@ -52,7 +52,7 @@ export default class CategoryIcon extends React.Component {
  		                   primary={true}
  		                   onTouchTap={this.handleClose}/>,
 
- 						 <Link to="jeopardyBoard/">
+ 						 <Link to="waitingForPlayers/">
  						 <FlatButton
  						   label="Risk Jeopardy"
  						   primary={true}

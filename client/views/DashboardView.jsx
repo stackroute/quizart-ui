@@ -3,6 +3,9 @@ import NavBar from '../components/NavBar';
 import MyChallenges from '../components/MyChallenges';
 import CategoriesDash from '../components/CategoriesDash';
 import MediaQuery from 'react-responsive';
+import RaisedButton from 'material-ui/RaisedButton';
+import {Grid, Row, Col} from 'react-flexbox-grid';
+import {Link} from 'react-router';
 
 export default class DashboardView extends React.Component {
   render() {
@@ -25,7 +28,15 @@ export default class DashboardView extends React.Component {
         <MediaQuery minDeviceWidth={1440}>
           <CategoriesDash limit={12} />
         </MediaQuery>
-
+        <Grid>
+          <Row xs="center">
+            <Link to = '/waitingForPlayers'>
+            <RaisedButton
+                label="Play Jeopardy!"
+                primary={ true }/>
+            </Link>
+          </Row>
+        </Grid>
         <MediaQuery minDeviceWidth={1} maxDeviceWidth={479}>
           <MyChallenges limit={3} />
         </MediaQuery>

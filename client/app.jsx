@@ -43,14 +43,14 @@ ReactDOM.render(
   <MuiThemeProvider>
     <ContextComponent>
     <Router history={hashHistory}>
-      <Route path="/"> 
+      <Route path="/">
         <IndexRoute component={DashboardView} onEnter={authCheck}/>
         <Route path="login" component={LoginView} onEnter={loginCheck} />
         <Route path="gamePlay" component={ChallengeGamePlayView} onEnter={authCheck}/>
         <Route path="createChallenge" component={CreateChallengeView} onEnter={authCheck} />
         <Route path="jeopardyGameBoard/:gameId" component={JeopardyView} onEnter={authCheck} />
         <Route path="jeopardyGameBoard" component={JeopardyView} onEnter={authCheck} />
-        <Route path="jeopardyBoard" component={WaitingForPlayerseView} onEnter={authCheck}/>
+        <Route path="waitingForPlayers" component={WaitingForPlayerseView} onEnter={authCheck}/>
         <Route path="morecategories" component={MoreJeopardyCategoriesView} onEnter={authCheck}/>
         <Route path="myChallenge" component={MyChallengeView} onEnter={authCheck}/>
         <Route path="allMyChallenges" component={MyChallengeView} onEnter={authCheck}/>

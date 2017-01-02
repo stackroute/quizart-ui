@@ -13,11 +13,13 @@ router.post('/signin',function(req,res){
   session
   .run( "CREATE (a:Person {username:{name}, email:{email},password:{pass}, role:{role}}) return a",{name:req.body.userName, email:req.body.email, pass:req.body.password, role:"user"} )
   .then( function( result ) {
+    console.log(result);
     console.log("user signed in");
     // session.close();
     // driver.close();
   })
   res.send("end");
+  console.log("after session ends");
 });
 
 module.exports = router;

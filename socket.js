@@ -28,26 +28,6 @@ function init(io)
    io.on('connection',function(socket){
     // **************  PROVISIONER ***********************
     console.log("Server connection established");
-    // socket.on('queue',function(data){
-    //   console.log('queued here:', data.token);
-    //   var jwtTokenAuth = jwt.verify(data.token, "Quizztack");
-    //   var gameId = "abc123";
-    //   jwt.verify(data.token, "Quizztack",function(err,token){
-    //     if(err){
-    //       console.log(err);
-    //       socket.emit('joinRequest',{
-    //         gameID: null
-    //       });
-    //     }else{
-    //       console.log("authenticated Token: ",jwtTokenAuth.name);
-    //       socket.emit('joinRequest',{
-    //         userTokenName: jwtTokenAuth.name,
-    //         gameID: gameId
-    //       });
-    //     }
-    //   });
-    // });
-
     socket.on('queue',function(data){
       console.log('queued here:', data.token);
       var jwtTokenAuth = jwt.verify(data.token, "Quizztack");
@@ -56,7 +36,6 @@ function init(io)
           console.log(err);
         }else{
           console.log("authenticated Token: ",jwtTokenAuth);
-
           //when authorized, push to provisioner
           if(!tempEmail.includes(jwtTokenAuth.sub)){
               user.push(jwtTokenAuth.name);
@@ -66,19 +45,33 @@ function init(io)
               };
               redisClient.lpush('provisionerInputQueue',JSON.stringify(userinfo), ()=> {
                 gameSubscriberClient.subscribe(jwtTokenAuth.sub+"_gameId");
-                console.log('jwt Token Auth email', jwtTokenAuth.sub);
+                // console.log('jwt Token Auth email', jwtTokenAuth.sub);
                 tempEmail.push(jwtTokenAuth.sub);
               });
+              if(user.length<4)
+                pubClient.publish('joined',jwtTokenAuth.sub);
           };
-
           // socket.emit('userID', jwtTokenAuth.name);
+        }
+        if(user.length<4){
+          subClient.subscribe('joined');
+          subClient.on('message', function(channel, msg) {
+              console.log("user subscribed:",user);
+              console.log("Channel subscribed:",channel);
+              console.log("msg subscribed:",msg);
+              socket.emit("data",user);
+                  console.log(channel);
+        });
+      }
+        else{
+          console.log("3 users already subscribed");
         }
       });
     });
-
     gameSubscriberClient.on('message', function(channel, message) {
       console.log("Game id is "+channel+ "and message is"+message);
-    })
+      socket.emit('game_id',channel);
+    });
 
       socket.on('joining', function(userData) {
         console.log('userData', userData);
@@ -135,7 +128,6 @@ function init(io)
                   console.log(quesNum);
                   console.log("PUB CLIENT: " + JSON.stringify(questions[quesNum]));
                 });
-
               });
           });
         subClient.on('message', function(channel, msg) {
