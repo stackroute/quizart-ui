@@ -1,5 +1,6 @@
 import React from 'react';
 import NavBar from '../components/NavBar';
+import ImageCarousel from '../components/Carousel';
 import MyChallenges from '../components/MyChallenges';
 import CategoriesDash from '../components/CategoriesDash';
 import MediaQuery from 'react-responsive';
@@ -12,22 +13,7 @@ export default class DashboardView extends React.Component {
     return (
       <div>
         <NavBar />
-
-        <MediaQuery minDeviceWidth={1} maxDeviceWidth={479}>
-          <CategoriesDash limit={3} />
-        </MediaQuery>
-        <MediaQuery minDeviceWidth={480} maxDeviceWidth={767}>
-          <CategoriesDash limit={3} />
-        </MediaQuery>
-        <MediaQuery minDeviceWidth={768} maxDeviceWidth={1023}>
-          <CategoriesDash limit={4} />
-        </MediaQuery>
-        <MediaQuery minDeviceWidth={1024} maxDeviceWidth={1439}>
-          <CategoriesDash limit={6} />
-        </MediaQuery>
-        <MediaQuery minDeviceWidth={1440}>
-          <CategoriesDash limit={12} />
-        </MediaQuery>
+            <img src="http://res.cloudinary.com/deaxb0msww/image/upload/v1483304321/21_nsnhj4.jpg"/>
         <Grid>
           <Row xs="center">
             <Link to = '/waitingForPlayers'>
@@ -37,21 +23,6 @@ export default class DashboardView extends React.Component {
             </Link>
           </Row>
         </Grid>
-        <MediaQuery minDeviceWidth={1} maxDeviceWidth={479}>
-          <MyChallenges limit={3} />
-        </MediaQuery>
-        <MediaQuery minDeviceWidth={480} maxDeviceWidth={767}>
-          <MyChallenges limit={3} />
-        </MediaQuery>
-        <MediaQuery minDeviceWidth={768} maxDeviceWidth={1023}>
-          <MyChallenges limit={5} />
-        </MediaQuery>
-        <MediaQuery minDeviceWidth={1024} maxDeviceWidth={1439}>
-          <MyChallenges limit={6} />
-        </MediaQuery>
-        <MediaQuery minDeviceWidth={1440}>
-          <MyChallenges limit={12} />
-        </MediaQuery>
       </div>
     );
   }
