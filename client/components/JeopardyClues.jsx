@@ -249,12 +249,9 @@ export default class JeopardyClues extends React.Component{
     Request.post(config.restUrl + '/generateSubject')
     .set('Content-type', 'application/json')
     .send({
-      // pIdForSubject:this.state.pIdForSubject,
-      // qIDForSubject:this.state.qIDForSubject,
-      // selectedSubjectDescription:this.state.selectedSubjectDescription,
-      pIdForSubject:'P106',
-      qIDForSubject:'Q12299841',
-      selectedSubjectDescription:'Cricketer'
+      pIdForSubject:this.state.pIdForSubject,
+      qIDForSubject:this.state.qIDForSubject,
+      selectedSubjectDescription:this.state.selectedSubjectDescription
     })
     .end((err, res) => {
       if (res.status===200) {

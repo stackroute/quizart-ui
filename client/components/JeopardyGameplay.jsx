@@ -105,9 +105,9 @@ componentWillUnmount() {
         this.state.topic.map((topics => {
             for(var i=0;i<topics.options.length;i++)
             {
-               
+
                 options.push(topics.options[i]);
-               
+
             }
             this.setState({options:options});
 
@@ -115,7 +115,7 @@ componentWillUnmount() {
      }
      this.setState({screen:true});
      this.setState({choice:options});
-     
+
 }
 render() {
     const screenData = this.state.screen ?
@@ -218,32 +218,32 @@ render() {
     }
     render() {
 
-        
+
         return (
           <div>
           <MediaQuery minDeviceWidth={1024} className="some-class">
             <img src="http://res.cloudinary.com/deaxb0msww/image/upload/v1482744812/timesup_emnvm8.png"
                     alt="Image Not Available" style={{height:'20%',width:'23%',marginTop:'-10px'}}/>
-            <div style={{fontSize:'3px'}}>Correct Answer: </div>  
+            <div style={{fontSize:'3px'}}>Correct Answer: </div>
            <script>{setTimeout(this.props.classChange,1000)}</script>
            </MediaQuery>
            <MediaQuery minDeviceWidth={768} maxDeviceWidth={1023}>
             <img src="http://res.cloudinary.com/deaxb0msww/image/upload/v1482744812/timesup_emnvm8.png"
                     alt="Image Not Available" style={{height:'20%',width:'23%',marginTop:'-10px'}}/>
-            <div style={{fontSize:'3px'}}>Correct Answer: </div>  
+            <div style={{fontSize:'3px'}}>Correct Answer: </div>
            <script>{setTimeout(this.props.classChange,1000)}</script>
            </MediaQuery>
            <MediaQuery minDeviceWidth={480} maxDeviceWidth={767}>
             <img src="http://res.cloudinary.com/deaxb0msww/image/upload/v1482744812/timesup_emnvm8.png"
                     alt="Image Not Available" style={{height:'30%',width:'30%',marginTop:'-10px'}}/>
-            <div style={{fontSize:'2px'}}>Correct Answer: </div> 
+            <div style={{fontSize:'2px'}}>Correct Answer: </div>
            <script>{setTimeout(this.props.classChange,1000)}</script>
            </MediaQuery>
           <MediaQuery minDeviceWidth={1} maxDeviceWidth={479}>
             <img src="http://res.cloudinary.com/deaxb0msww/image/upload/v1482744812/timesup_emnvm8.png"
                     alt="Image Not Available" style={{height:'30%',width:'30%',marginTop:'-10px'}}/>
-            <div style={{fontSize:'1.5px'}}>Correct Answer: </div> 
-           <script>{setTimeout(this.props.classChange,1000)}</script>  
+            <div style={{fontSize:'1.5px'}}>Correct Answer: </div>
+           <script>{setTimeout(this.props.classChange,1000)}</script>
            </MediaQuery>
             </div>
         );
@@ -255,32 +255,32 @@ class SorryImagesForNotAnswering extends React.Component{
         super(props);
     }
     render() {
-        
+
         return (
           <div>
           <MediaQuery minDeviceWidth={1024} className="some-class">
             <img src="http://res.cloudinary.com/deaxb0msww/image/upload/v1482744812/timesup_emnvm8.png"
                     alt="Image Not Available" style={{height:'10%',width:'15%',marginTop:'-10px'}}/>
-             
+
            <script>{setTimeout(this.props.classChange,1000)}</script>
            </MediaQuery>
            <MediaQuery minDeviceWidth={768} maxDeviceWidth={1023}>
             <img src="http://res.cloudinary.com/deaxb0msww/image/upload/v1482744812/timesup_emnvm8.png"
                     alt="Image Not Available" style={{height:'10%',width:'15%',marginTop:'-10px'}}/>
-            
+
            <script>{setTimeout(this.props.classChange,1000)}</script>
            </MediaQuery>
            <MediaQuery minDeviceWidth={480} maxDeviceWidth={767}>
             <img src="http://res.cloudinary.com/deaxb0msww/image/upload/v1482744812/timesup_emnvm8.png"
                     alt="Image Not Available" style={{height:'30%',width:'30%',marginTop:'-10px'}}/>
-            
+
            <script>{setTimeout(this.props.classChange,1000)}</script>
            </MediaQuery>
           <MediaQuery minDeviceWidth={1} maxDeviceWidth={479}>
             <img src="http://res.cloudinary.com/deaxb0msww/image/upload/v1482744812/timesup_emnvm8.png"
                     alt="Image Not Available" style={{height:'30%',width:'30%',marginTop:'-10px'}}/>
-           
-           <script>{setTimeout(this.props.classChange,1000)}</script>  
+
+           <script>{setTimeout(this.props.classChange,1000)}</script>
            </MediaQuery>
             </div>
         );
