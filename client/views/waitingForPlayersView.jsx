@@ -5,6 +5,23 @@ import {Link} from 'react-router';
 import BottomPlayerBoard from './../components/BottomPlayerBoard';
 import jwt from 'jwt-decode';
 
+var styles = {
+  imageStyle:{
+    position:'relative',
+    width:'100%',
+    height:'100%',
+    opacity:0.1,
+    margin:'auto'
+  },
+  gifStyle:{
+    position: 'absolute',
+    top:'150px',
+    right:'550px',
+    // opacity:0.7,
+    textAlign:'center',
+  }
+}
+
 export default class WaitingForPlayerseView extends React.Component {
   constructor(props)
   {
@@ -77,20 +94,13 @@ export default class WaitingForPlayerseView extends React.Component {
   }*/
 
   render() {
+    document.body.style.backgroundColor = "#00201F";
     return (
+      <div>
       <Grid>
+        <img src="./../images/map6.jpg" style={styles.imageStyle}/>
         <Row xs="center">
-          <img src = "./loader.gif"/>
-        </Row>
-        <Row xs="center">
-          <h2>Waiting For Opponents...</h2>
-        </Row>
-        <Row xs="center">
-          <Link to = '/jeopardyGameBoard'>
-          <RaisedButton
-              label="Play"
-              primary={ true }/>
-          </Link>
+        <img src="./../images/loading_bar.gif" style={styles.gifStyle}/>
         </Row>
         <Row center="xs">
         <Col >
@@ -101,6 +111,7 @@ export default class WaitingForPlayerseView extends React.Component {
          </Col>
         </Row>
       </Grid>
+    </div>
     );
   }
 }
