@@ -6,9 +6,6 @@ import BottomPlayerBoard from './../components/BottomPlayerBoard';
 import jwt from 'jwt-decode';
 import {Card, CardActions, CardHeader, CardMedia, CardTitle, CardText} from 'material-ui/Card';
 
-// let imgUrl= './../images/map7.jpg';
-
-
 export default class WaitingForPlayerseView extends React.Component {
   constructor(props)
   {
@@ -16,23 +13,10 @@ export default class WaitingForPlayerseView extends React.Component {
     this.state={
       playersId: [],
       view:'points',
-      // windowWidth: window.innerWidth,
-      // windowHeight: window.innerHeight,
-      p1_score:'',
-      p2_score:'',
-      p3_score:'',
       data:[]
     };
     this.startGame = this.startGame.bind(this);
   }
-
-  handleResize(event) {
-        this.setState({
-            windowWidth: window.innerWidth,
-            windowHeight: window.innerHeight
-        });
-    }
-
   static get contextTypes() {
     return {
       router: React.PropTypes.object.isRequired,
@@ -76,15 +60,7 @@ export default class WaitingForPlayerseView extends React.Component {
       </Card>
 
 
-        // <Row center="xs">
-        // <Col >
-        // <div style={{textAlign: "-webkit-center"}}>
-        //   players
-        //   <BottomPlayerBoard playersID={this.state.playersId} p1Score={this.state.p1_score} p2Score={this.state.p2_score} p3Score={this.state.p3_score}/>
-        //  </div>
-        //  </Col>
-        // </Row>
-    // </div>
+
     );
   }
 }

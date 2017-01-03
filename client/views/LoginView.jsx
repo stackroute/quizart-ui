@@ -3,7 +3,6 @@ import NavBar from '../components/NavBar';
 import Login from '../components/Login';
 import {Grid, Row, Col} from 'react-flexbox-grid';
 import MediaQuery from 'react-responsive';
-var Bouncefix = require('react-bouncefix');
 
 var styles = {
   imageStyle:{
@@ -22,7 +21,7 @@ var styles = {
     position: 'absolute',
     top:'30%',
     textAlign:'center',
-    width: '200%'
+    width: '100%'
   }
 };
 
@@ -32,7 +31,6 @@ export default class LoginView extends React.Component {
     return (
 
       <div>
-        <Bouncefix className="Bouncefix">
         <img src="./../images/gifnew.gif" style={styles.imageStyle} />
           <MediaQuery minDeviceWidth='1224px'>
             <div className="some-class">
@@ -56,7 +54,6 @@ export default class LoginView extends React.Component {
               </Grid>
             </div>
       </MediaQuery>
-      </Bouncefix>
       </div>
     );
   }

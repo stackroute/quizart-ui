@@ -126,7 +126,7 @@ export default class SignUp extends React.Component {
     return (
        <div className="autofill">
       <Grid>
-        <Col lgOffset={2} mdOffset={3} xs={6} sm={6} md={6} lg={8}>
+        <Col  xs={12} sm={12} md={6} lg={8}>
         <Card
               style={ styles.signupStyle }>
           <Row center="xs">
