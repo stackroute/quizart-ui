@@ -30,12 +30,17 @@ module.exports = function(socket) {
     client.subscribe(player+'_gameId');
     socket.subscriptions.add(player+'_gameId');
   }
-};
 
-function sendQueueRequestToProvisioner(player, callback) {
-  console.log('player:', player);
-  client.lpush('provisionerInputQueue', player, callback);
-}
+  function sendQueueRequestToProvisioner(player, callback) {
+    console.log('player:', player);
+    const client1 = client.duplicate();
+    client1.lpush('provisionerInputQueue', player, ()=> {
+     client1.quit();
+     callback(null);
+    });
+  }
+
+};
 
 function handleError(socket, err) {
   console.error('ERR:', err);

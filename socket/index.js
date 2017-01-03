@@ -1,11 +1,9 @@
 const async = require('async');
 
 const authorize = require('./services/authorize');
-
-const client = require('../getRedisClient');
-
 const bootstrapProvisioner = require('./bootstrapProvisioner');
 const bootstrapGameplay = require('./bootstrapGameplay');
+const client = require('../getRedisClient');
 
 module.exports = function(io) {
   console.log('Initializing Socket Server');
@@ -13,7 +11,7 @@ module.exports = function(io) {
     console.log('SOCKET: A client connected');
     socket.subscriptions = new Set();
     socket.listeners = new Set();
-
+    socket.isQueued= false;
     socket.on('authorize', (token) => {
       console.log('Authorizing');
       authorize(token, (err, claims) => {
@@ -39,4 +37,3 @@ module.exports = function(io) {
     });
   });
 };
-
