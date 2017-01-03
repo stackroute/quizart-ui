@@ -363,7 +363,7 @@ export default class JeopardyClues extends React.Component{
         <div style={{overflow:'hidden'}}>
           <Row center='xs'>
             { this.state.showImage ? <div style={{padding:20}}><center><img src= "http://res.cloudinary.com/deaxb0msww/image/upload/v1483013587/box_p8jmof.gif"/><div style={{color:'#42f448'}}><p4>Loading....</p4></div></center></div> : null }
-            { this.state.showError ? <div style={{padding:20}}><center><img src="http://res.cloudinary.com/deaxb0msww/image/upload/v1483043546/no-record-found_enguyy.png"/></center></div> : null }
+            { this.state.showError ? <div style={{padding:20}}><center><img src="http://res.cloudinary.com/deaxb0msww/image/upload/v1483045814/no-records1_dzjxaf.png"/></center></div> : null }
 
             {this.state.dataObj.map(element=>
               <Card style={{margin:10}}>
@@ -381,7 +381,7 @@ export default class JeopardyClues extends React.Component{
         <div>
           <Card style={{height:70,width:"90%",margin:"auto"}}> <h4 style={{textAlign:"center",paddingTop:20}}>Hey! Lemme Know What Did You Mean By "  {this.state.selectedSubject} "</h4> </Card>
           { this.state.showImage ? <div style={{padding:20}}><center><img src= "http://res.cloudinary.com/deaxb0msww/image/upload/v1483013587/box_p8jmof.gif"/><div style={{color:'#42f448'}}><p4>Loading....</p4></div></center></div> : null }
-          { this.state.showError ? <div style={{padding:20}}><center><img src="http://res.cloudinary.com/deaxb0msww/image/upload/v1483043546/no-record-found_enguyy.png"/></center></div> : null }
+          { this.state.showError ? <div style={{padding:20}}><center><img src="http://res.cloudinary.com/deaxb0msww/image/upload/v1483045814/no-records1_dzjxaf.png"/></center></div> : null }
           <List style={{margin:"0% 10% 0% 10%"}}>
             {this.state.selectedSubjectMeaning.map(data=>
               <ListItem key={data.description} primaryText={data.label+"-"+data.description}
@@ -395,7 +395,7 @@ export default class JeopardyClues extends React.Component{
 
 
             { this.state.showImage ? <div style={{padding:20}}><center><img src= "http://res.cloudinary.com/deaxb0msww/image/upload/v1483013587/box_p8jmof.gif"/><div style={{color:'#42f448'}}><p4>Loading....</p4></div></center></div> : null }
-            { this.state.showError ? <div style={{padding:20}}><center><img src="http://res.cloudinary.com/deaxb0msww/image/upload/v1483043546/no-record-found_enguyy.png"/></center></div> : null }
+            { this.state.showError ? <div style={{padding:20}}><center><img src="http://res.cloudinary.com/deaxb0msww/image/upload/v1483045814/no-records1_dzjxaf.png"/></center></div> : null }
 
             {this.state.pandqString.map(text=>
               <List style={{margin:"0% 10% 0% 10%"}}>
@@ -405,7 +405,7 @@ export default class JeopardyClues extends React.Component{
             </div>
             <div>
               { this.state.showImage ? <div style={{padding:20}}><center><img src= "http://res.cloudinary.com/deaxb0msww/image/upload/v1483013587/box_p8jmof.gif"/><div style={{color:'#42f448'}}><p4>Loading....</p4></div></center></div> : null }
-              { this.state.showError ? <div style={{padding:20}}><center><img src="http://res.cloudinary.com/deaxb0msww/image/upload/v1483043546/no-record-found_enguyy.png"/></center></div> : null }
+              { this.state.showError ? <div style={{padding:20}}><center><img src="http://res.cloudinary.com/deaxb0msww/image/upload/v1483045814/no-records1_dzjxaf.png"/></center></div> : null }
               {this.state.jeopardyCluesData.map(element =>
                 <Row center='xs'>
                   <Paper style={styles.paper} zDepth={1}>

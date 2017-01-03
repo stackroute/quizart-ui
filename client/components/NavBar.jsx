@@ -151,7 +151,7 @@ export default class NavBar extends React.Component {
 
   const rightMenus=(
       <div>
-    
+
 
       <IconMenu
             iconStyle={{color:white}}
@@ -187,7 +187,7 @@ export default class NavBar extends React.Component {
                 <List style={{hoverColor:'transparent'}}>
                   <ListItem key={1} onTouchTap={this.handleClose} style={{textAlign:'center'}}>{userDetailsInfo}</ListItem>
 
-                <ListItem key={9} onTouchTap={() => this.context.router.push('/createChallenge')}>
+                {/*<ListItem key={9} onTouchTap={() => this.context.router.push('/createChallenge')}>
                   Create Challenges
                 </ListItem>
               <Divider/>
@@ -201,7 +201,7 @@ export default class NavBar extends React.Component {
                     modal={true}
                     open={this.state.open} style={{backgroundColor:'black'}} bodyStyle={{color:'#3F51B5'}}>
                   </Dialog>
-                <ListItem key={12} onTouchTap={() => this.handleOpen(this)}>
+              <ListItem key={12} onTouchTap={() => this.handleOpen(this)}>
                   Play Challenge
                 </ListItem>
               <Divider/>
@@ -211,6 +211,11 @@ export default class NavBar extends React.Component {
               <Divider/>
                 <ListItem key={14} onTouchTap={() => this.context.router.push('/questionGenerator')}>
                   Question Generator
+                </ListItem>
+                <Divider/> */}
+
+                <ListItem key={14} onTouchTap={() => this.context.router.push('/waitingForPlayers')}>
+                  Jeopardy Challenge
                 </ListItem>
                 <Divider/>
                 {adminRights}
