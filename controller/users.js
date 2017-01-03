@@ -77,32 +77,42 @@ router.post('/login',function(req,res){
         if(username==users[i].userName){
           if(pwd==users[i].password){
             isValid=true;
-            console.log('Sign Key:', secret);
-            authenticateToken=jwt.sign({sub:users[i].id, name:users[i].name, email:users[i].userName, role:'admin'}, secret)
+            authenticateToken=jwt.sign({sub:users[i].userName, name:users[i].name, email:users[i].userName, role:'admin'}, secret)
           }
         }
       }
     }
     else {
+      console.log("in valid state");
       isValid = true;
       var nameOfUser =  results.records[0]._fields[0].properties.username;
       // console.log("user's name is ", nameOfUser)
       // console.log("Results here: ",);
       // console.log("Results here: ",JSON.stringify(results.records._fields[0]));
-      console.log('Sign Key:', secret);
       authenticateToken=jwt.sign({sub:username, name: nameOfUser, role:'user'}, secret)
     }
 
-    res.status(200).json({
-      message: authenticateToken,
-      error: false,
-      isValid: isValid
-    });
-    session.close();
-    driver.close();
+    if(isValid){
+      res.status(200).json({
+        message: authenticateToken,
+        error: false,
+        isValid: isValid
+      });
+    }
+
+    if(!isValid){
+      console.log("isinvalid user");
+      res.status(401).json({
+        message: "username/password incorrect",
+        error: true
+      });
+    }
+    // session.close();
+    // driver.close();
   })
   .catch(function(error){
     console.log(error);
+      console.log("invalid user");
     res.status(401).json({
       message: "username/password incorrect",
       error: true

@@ -21,7 +21,7 @@ import config from './../config.js';
 const errorMessages = {
   projectName: "Please enter only characters and number.",
   emailError: "Please enter a valid email",
-  numericError: "Please provide a password"
+  numericError: "Please provide a password",
 };
 const styles = {
   loginStyle: {
@@ -96,10 +96,16 @@ export default class Login extends React.Component {
           var token = res.body.message;
           console.log(jwt_decode(token));
           console.log(jwt_decode(token).role);
-          localStorage.setItem('token', JSON.stringify(token));
+          localStorage.setItem('token', token);
           this.context.router.push('/');
         }
-        } else {
+        }
+        else if(res.status===401){
+          err: res.body.message
+          console.log("incoorrect credentials");
+          this.setState({ err: 'Incorrect Username/Password.' });
+        }
+        else {
           this.setState({
             err: res.body.message
           });
@@ -109,6 +115,7 @@ export default class Login extends React.Component {
   }
   notifyFormError(data) {
     console.error('Form error:', data);
+    console.log("error ",err);
   }
   signupDisplay(){
     this.setState({signupState: true});

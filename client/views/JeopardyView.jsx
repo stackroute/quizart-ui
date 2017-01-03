@@ -86,6 +86,15 @@ export default class JView extends React.Component{
         questionData.push(msg);
         this.setState({topic: questionData});
     	}.bind(this));
+      socket.on("data",function(data)
+    {
+     console.log("checking socket connection afterrrrrrrrrrr");
+      thisCopy.setState({playersId: data});
+      console.log("Checking players Id:",this.state.playersId);
+      console.log("checking socket connection");
+
+      window.addEventListener('resize', this.handleResize.bind(this));
+    }.bind(this));
         console.log("component mounted in geopardyGamePlay Component called "+c+"times");
         c++;
     this.timerID = setInterval(() => this.tick(),8000);
@@ -173,18 +182,26 @@ export default class JView extends React.Component{
 		        { this.state.showBuzzer ?
 		                <div>
 		                    <MediaQuery maxDeviceWidth={767} className="some-class">
+													<Row center="xs">
 		                    <img src="http://res.cloudinary.com/deaxb0msww/image/upload/v1480404062/buzzer_p754xp.png"
 		                    alt="Image Not Available"
 		                    style={{height:'100px',width:'100px',cursor:'pointer'}}
 		                    onTouchTap = {this.changeState}/>
+												</Row>
+												<Row center="xs">
 		                    <TimerSpeed timeLimit={1000} blocks={[0,1,2,3,4,5,6,7]} />
+												</Row>
 		                    </MediaQuery>
 		                    <MediaQuery minDeviceWidth={768} className="some-class">
+														<Row center="xs">
 		                    <img src="http://res.cloudinary.com/deaxb0msww/image/upload/v1480404062/buzzer_p754xp.png"
 		                    alt="Image Not Available"
 		                    style={{height:'200px',width:'200px',marginTop:'15px',cursor:'pointer'}}
 		                    onTouchTap = {this.changeState}/>
+											</Row>
+												<Row center="xs">
 		                    <TimerSpeed timeLimit={1000} blocks={[0,1,2,3,4,5,6,7]} />
+											</Row>
 		                    </MediaQuery>
 		                </div> : null
 		        }
@@ -203,8 +220,6 @@ export default class JView extends React.Component{
 									<Col xs={2} sm={2} md={2} lg={2}>
 										<div>
 											<Paper
-											onClick={this.handleChange}
-          									value={0}
 											style={styles.paperStyle}>
 											{element1}
 											</Paper>
@@ -219,7 +234,10 @@ export default class JView extends React.Component{
 								<Row>
 									<Col xs={2} sm={2} md={2} lg={2}>
 									<div>
-										<Paper style={styles.paperStyle}>
+										<Paper
+                      onClick={this.handleChange}
+          						value={0}
+                      style={styles.paperStyle}>
 										{element}
 										</Paper>
 									</div>
@@ -233,33 +251,46 @@ export default class JView extends React.Component{
 									</Col>
 									<Col xs={2} sm={2} md={2} lg={2}>
 									<div>
-										<Paper style={styles.paperStyle}>
+										<Paper
+                      onClick={this.handleChange}
+          						value={0}
+                      style={styles.paperStyle}>
 										{element}
 										</Paper>
 									</div>
 									</Col>
 									<Col xs={2} sm={2} md={2} lg={2}>
 									<div>
-										<Paper style={styles.paperStyle}>
+										<Paper
+                      onClick={this.handleChange}
+          						value={0}
+                      style={styles.paperStyle}>
 										{element}
 										</Paper>
 									</div>
 									</Col>
 									<Col xs=	{2} sm={2} md={2} lg={2}>
 									<div>
-										<Paper style={styles.paperStyle}>
+										<Paper
+                      onClick={this.handleChange}
+          						value={0}
+                      style={styles.paperStyle}>
 										{element}
 										</Paper>
 									</div>
 									</Col>
 									<Col xs={2} sm={2} md={2} lg={2}>
 									<div>
-										<Paper style={styles.paperStyle}>
+										<Paper
+                      onClick={this.handleChange}
+          						value={0}
+                      style={styles.paperStyle}>
 										{element}
 										</Paper>
 									</div>
 									</Col>
 									</Row>
+
 								</div>
 								)};
 						</div>
@@ -335,6 +366,7 @@ export default class JView extends React.Component{
         >{i}</button>)}
         </Card>
         </MediaQuery>
+
         </div>
 
 						</SwipeableViews>
@@ -353,27 +385,43 @@ class TimeUpBuzzer extends React.Component{
         return (
           <div>
           <MediaQuery minDeviceWidth={1024} className="some-class">
+							<Row center="xs">
             <img src="http://res.cloudinary.com/deaxb0msww/image/upload/v1482744812/timesup_emnvm8.png"
                     alt="Image Not Available" style={{height:'20%',width:'23%',marginTop:'5px'}}/>
+									</Row>
+										<Row center="xs">
             <div style={{fontSize:'10px'}}>Correct Answer: </div>
+					</Row>
            <script>{setTimeout(this.props.classChange,1000)}</script>
            </MediaQuery>
            <MediaQuery minDeviceWidth={768} maxDeviceWidth={1023}>
+						 	<Row center="xs">
             <img src="http://res.cloudinary.com/deaxb0msww/image/upload/v1482744812/timesup_emnvm8.png"
                     alt="Image Not Available" style={{height:'20%',width:'23%',marginTop:'5px'}}/>
+									</Row>
+										<Row center="xs">
             <div style={{fontSize:'10px'}}>Correct Answer: </div>
+					</Row>
            <script>{setTimeout(this.props.classChange,1000)}</script>
            </MediaQuery>
            <MediaQuery minDeviceWidth={480} maxDeviceWidth={767}>
+						 	<Row center="xs">
             <img src="http://res.cloudinary.com/deaxb0msww/image/upload/v1482744812/timesup_emnvm8.png"
                     alt="Image Not Available" style={{height:'30%',width:'30%',marginTop:'5px'}}/>
+									</Row>
+										<Row center="xs">
             <div style={{fontSize:'10px'}}>Correct Answer: </div>
+					</Row>
            <script>{setTimeout(this.props.classChange,1000)}</script>
            </MediaQuery>
           <MediaQuery minDeviceWidth={1} maxDeviceWidth={479}>
+							<Row center="xs">
             <img src="http://res.cloudinary.com/deaxb0msww/image/upload/v1482744812/timesup_emnvm8.png"
                     alt="Image Not Available" style={{height:'30%',width:'30%',marginTop:'5x'}}/>
+							</Row>
+							<Row center="xs">
             <div style={{fontSize:'5px'}}>Correct Answer: </div>
+					</Row>
            <script>{setTimeout(this.props.classChange,1000)}</script>
            </MediaQuery>
             </div>
