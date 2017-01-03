@@ -16,10 +16,24 @@ router.post('/signin',function(req,res){
   .then( function( result ) {
     console.log(result);
     console.log("user signed in");
+    res.status(200).json({
+      message: "Successfully signed in!",
+      error: false
+    });
     // session.close();
     // driver.close();
   })
-  res.send("end");
+  .catch(function(error){
+    console.log(error);
+      console.log("sign up failed!");
+    res.status(401).json({
+      message: "Sign Up Failed. Try Again!",
+      error: true
+    });
+    // session.close();
+    // driver.close();
+  })
+  // res.send("end");
   console.log("after session ends");
 });
 

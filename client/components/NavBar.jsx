@@ -18,6 +18,7 @@ import NotificationsIcon from 'material-ui/svg-icons/social/notifications';
 import NotificationNavbar from './NotificationNavbar';
 import superagent from 'superagent';
 import jwt_decode from 'jwt-decode';
+import jwt from 'jwt-decode';
 
 import {
   blue300,
@@ -33,12 +34,17 @@ import {
 export default class NavBar extends React.Component {
   constructor(props) {
     super(props);
-    this.state = { isDrawerOpen: false };
+    // this.state = { isDrawerOpen: false };
       this.state = {
-        userDetailDrawer: []
+        isDrawerOpen: false,
+        userDetailDrawer: [],
+        open:false,
+        isAdmin: false,
+        nameUser: '',
+        letterAvatar:''
       };
-    this.state={open:false};
-    this.state = { isAdmin: false};
+    // this.state={open:false};
+    // this.state = { isAdmin: false};
   }
    handleOpen =() => {
    this.setState({open:true});
@@ -54,6 +60,12 @@ export default class NavBar extends React.Component {
 
  componentDidMount(){
    var thisSelf = this;
+   let decode = jwt(localStorage.token).name;
+   console.log(decode);
+   console.log(decode.charAt(0));
+   this.setState({nameUser: decode});
+   this.setState({letterAvatar:decode.charAt(0)});
+   console.log("nameUser:",this.state.nameUser);
    superagent
      .get('/userDetails')
      .end((err, res) => {
@@ -128,12 +140,19 @@ export default class NavBar extends React.Component {
       return (
 
           <List key={0} style={{hoverColor:'transparent'}}>
-              <ListItem key={1} onTouchTap={this.handleClose} style={{textAlign:'center'}}>{userDetails.userName}</ListItem>
+              <ListItem key={1} onTouchTap={this.handleClose} style={{textAlign:'center'}}>{this.state.nameUser}</ListItem>
               <Divider/>
               <ListItem key={2} onTouchTap={this.handleClose}> {
                 <div style={{textAlign:'center'}}>
-                  <img src={userDetails.avatarImage}
-                    style={{width:'100%'}}/>
+                  <Avatar
+                    color='white'
+                    backgroundColor={indigo500}
+                    size={180}
+                  >
+                  {this.state.letterAvatar}
+                  </Avatar>
+                  {/* <img src={userDetails.avatarImage}
+                    style={{width:'100%'}}/> */}
                   <br />
                   <span style={styles.rankStyle}>Rank: {userDetails.rank}</span>
                   <br />
