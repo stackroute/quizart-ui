@@ -1,10 +1,7 @@
 var express = require('express');
 var router = express.Router();
 const getSimilarSubjects = require('./getSimilarSubjects');
-const redis = require('redis');
-const redisUrl = process.env.REDIS_HOSTNAME || 'localhost';
-const redisPort = process.env.REDIS_PORT || 6379;
-const client = redis.createClient(redisPort, redisUrl);
+const client = require('../getRedisClient');
 
 router.post('/generateSubject', function(req, res, next) {
   console.log("in question");

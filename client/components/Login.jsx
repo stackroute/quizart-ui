@@ -136,7 +136,7 @@ export default class Login extends React.Component {
       <div className="autofill">
       <Grid>
         <Row center="xs">
-        <Col xsOffset={3} xs={6}>
+        <Col xs={12} sm={6} md={6} lg={6}>
         <Card
               style={ styles.loginStyle }>
           <Row center="xs">

@@ -73,7 +73,7 @@ export default class JView extends React.Component{
   		clearInterval(this.timerID);
 	}
 
-    componentDidMount() {
+    /*componentDidMount() {
     	// socket.on('clueSelected', this.clueSelected);
     	var c=0;
         var thisCopy = this;
@@ -98,7 +98,7 @@ export default class JView extends React.Component{
         console.log("component mounted in geopardyGamePlay Component called "+c+"times");
         c++;
     this.timerID = setInterval(() => this.tick(),8000);
-    }
+    }*/
 
 
     // clueSelected({row, col, question}) {

@@ -34,7 +34,7 @@ export default class CardChild extends React.Component
   }
 
 
-  componentDidMount()
+  /*componentDidMount()
   {
 
 
@@ -46,8 +46,8 @@ export default class CardChild extends React.Component
            thisCopy.setState({cardQues: msg});
            console.log("Checking Card's State:",this.state.cardQues);
 
-         }.bind(this));      
-  }
+         }.bind(this));
+  }*/
 
   // handleClick(row ,column)
   // {
@@ -70,7 +70,7 @@ export default class CardChild extends React.Component
   //   if(this.state.cName=='NscaledCard')
   //   {
   //     this.setState({cName:'ScaledCard'});
-  //     this.setState({content:<JeopardyGameplay classChange={this.classChange} points={this.props.points} 
+  //     this.setState({content:<JeopardyGameplay classChange={this.classChange} points={this.props.points}
   //       limit={1}/>});
   //   }
   //   else
@@ -88,7 +88,7 @@ export default class CardChild extends React.Component
   //   // socket.on("ques",function(msg)
   //   //     {
   //   //       console.log("Handle Click Event");
-  //   //       socket.emit('cardFlip', 
+  //   //       socket.emit('cardFlip',
   //   //         {msg: "Hello Controller!"}
   //   //         );
   //   //  });
@@ -146,7 +146,7 @@ export default class CardChild extends React.Component
       left :'44%',
       backgroundColor: '#0E0983',
     }
-      const jeopardyGameplay = this.state.isCardOpen ? 
+      const jeopardyGameplay = this.state.isCardOpen ?
         <JeopardyGameplay classChange={this.classChange} points={this.props.points} limit={1}/> :
         '*'
     return(

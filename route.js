@@ -8,20 +8,8 @@ var path = require('path');
 var config = require('./server/config');
 var userRoute = require('./controller/index.js');
 require('./server/db.js');
-var init  = require('./socket.js');
+var init  = require('./socket');
 init(io);
-
-
-// var generateClue= require('./server/clueGenerator/generateSubject');
-// generateClue(io);
-
-
-
-/*server.listen(8081, function() {
-	console.log('yes its listening');
-});
-*/
-
 
 if (process.env.NODE_ENV !== 'production') {
   const logger = require('morgan');

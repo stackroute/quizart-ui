@@ -3,7 +3,6 @@ import ReactDOM from 'react-dom';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import injectTapEventPlugin from 'react-tap-event-plugin';
 injectTapEventPlugin();
-import ContextComponent from './components/ContextComponent';
 import {Router, Route, hashHistory, IndexRoute} from 'react-router';
 import DashboardView from './views/DashboardView';
 import LoginView from './views/LoginView';
@@ -20,6 +19,7 @@ import JeopardyScoreCard from './components/JeopardyScoreCard';
 import JeopardyGameView from './views/JeopardyGameView';
 import QuestionGeneratorView from './views/QuestionGeneratorView';
 import JeopardyCluesAdmin from './views/JeopardyCluesAdmin';
+import LoggedInComponent from './components/LoggedInComponent';
 
 function authCheck(nextState, replace) {
     if(!localStorage.token){
@@ -41,11 +41,10 @@ function loginCheck(nextState, replace) {
 
 ReactDOM.render(
   <MuiThemeProvider>
-    <ContextComponent>
     <Router history={hashHistory}>
-      <Route path="/">
+      <Route path="/login" component={LoginView} onEnter={loginCheck} />
+      <Route path="/" component={LoggedInComponent}>
         <IndexRoute component={DashboardView} onEnter={authCheck}/>
-        <Route path="login" component={LoginView} onEnter={loginCheck} />
         <Route path="gamePlay" component={ChallengeGamePlayView} onEnter={authCheck}/>
         <Route path="createChallenge" component={CreateChallengeView} onEnter={authCheck} />
         <Route path="jeopardyGameBoard/:gameId" component={JeopardyView} onEnter={authCheck} />
@@ -62,6 +61,5 @@ ReactDOM.render(
         <Route path="jeopardyClues" component={JeopardyCluesAdmin} onEnter={authCheck}/>
       </Route>
     </Router>
-    </ContextComponent>
   </MuiThemeProvider>, document.getElementById('content')
 );
