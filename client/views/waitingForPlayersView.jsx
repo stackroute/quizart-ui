@@ -6,9 +6,6 @@ import BottomPlayerBoard from './../components/BottomPlayerBoard';
 import jwt from 'jwt-decode';
 import {Card, CardActions, CardHeader, CardMedia, CardTitle, CardText} from 'material-ui/Card';
 
-// let imgUrl= './../images/map7.jpg';
-
-
 export default class WaitingForPlayerseView extends React.Component {
   constructor(props)
   {
@@ -16,11 +13,6 @@ export default class WaitingForPlayerseView extends React.Component {
     this.state={
       playersId: [],
       view:'points',
-      windowWidth: window.innerWidth,
-      windowHeight: window.innerHeight,
-      p1_score:'',
-      p2_score:'',
-      p3_score:'',
       data:[]
     };
   }
@@ -29,12 +21,7 @@ export default class WaitingForPlayerseView extends React.Component {
       router: React.PropTypes.object.isRequired
     };
   }
-  handleResize(event) {
-        this.setState({
-            windowWidth: window.innerWidth,
-            windowHeight: window.innerHeight
-        });
-    }
+
 
   componentDidMount() {
     var socket = io();
@@ -45,14 +32,7 @@ export default class WaitingForPlayerseView extends React.Component {
       socket.emit('queue',{
       token: userToken
     });
-    // socket.on('joinRequest',function(data){
-    // console.log("gameId is ", data.gameID);
-    // var idForGame = data.gameID;
-    // socket.emit('joiningNow',{gameID: idForGame})
-    // });
-    // console.log("decoded token ",decode);
-    // // socket.emit('testMsg', 'testData');
-    // console.log("Testing Data : "+localStorage.token);
+
 
     socket.emit('joining',{email: decode.email, userId: decode.sub});
     socket.on('game_id',(data) => {
@@ -70,15 +50,10 @@ export default class WaitingForPlayerseView extends React.Component {
       console.log("Data from socket to waiting view:", data);
       // console.log("Checking players Id:",this.state.playersId);
       console.log("checking socket connection");
-      window.addEventListener('resize', this.handleResize.bind(this));
     }.bind(this));
     };
 
-  /*static get contextTypes() {
-    return {
-      socket: React.propTypes.object.isRequired
-    }
-  }*/
+
 
   render() {
     document.body.style.backgroundColor = "#00201F";
@@ -102,15 +77,7 @@ export default class WaitingForPlayerseView extends React.Component {
       </Card>
 
 
-        // <Row center="xs">
-        // <Col >
-        // <div style={{textAlign: "-webkit-center"}}>
-        //   players
-        //   <BottomPlayerBoard playersID={this.state.playersId} p1Score={this.state.p1_score} p2Score={this.state.p2_score} p3Score={this.state.p3_score}/>
-        //  </div>
-        //  </Col>
-        // </Row>
-    // </div>
+
     );
   }
 }
