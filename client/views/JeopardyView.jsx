@@ -86,6 +86,15 @@ export default class JView extends React.Component{
         questionData.push(msg);
         this.setState({topic: questionData});
     	}.bind(this));
+      socket.on("data",function(data)
+    {
+     console.log("checking socket connection afterrrrrrrrrrr");
+      thisCopy.setState({playersId: data});
+      console.log("Checking players Id:",this.state.playersId);
+      console.log("checking socket connection");
+
+      window.addEventListener('resize', this.handleResize.bind(this));
+    }.bind(this));
         console.log("component mounted in geopardyGamePlay Component called "+c+"times");
         c++;
     this.timerID = setInterval(() => this.tick(),8000);
@@ -203,8 +212,6 @@ export default class JView extends React.Component{
 									<Col xs={2} sm={2} md={2} lg={2}>
 										<div>
 											<Paper
-											onClick={this.handleChange}
-          									value={0}
 											style={styles.paperStyle}>
 											{element1}
 											</Paper>
@@ -219,7 +226,10 @@ export default class JView extends React.Component{
 								<Row>
 									<Col xs={2} sm={2} md={2} lg={2}>
 									<div>
-										<Paper style={styles.paperStyle}>
+										<Paper
+                      onClick={this.handleChange}
+          						value={0}
+                      style={styles.paperStyle}>
 										{element}
 										</Paper>
 									</div>
@@ -233,33 +243,46 @@ export default class JView extends React.Component{
 									</Col>
 									<Col xs={2} sm={2} md={2} lg={2}>
 									<div>
-										<Paper style={styles.paperStyle}>
+										<Paper
+                      onClick={this.handleChange}
+          						value={0}
+                      style={styles.paperStyle}>
 										{element}
 										</Paper>
 									</div>
 									</Col>
 									<Col xs={2} sm={2} md={2} lg={2}>
 									<div>
-										<Paper style={styles.paperStyle}>
+										<Paper
+                      onClick={this.handleChange}
+          						value={0}
+                      style={styles.paperStyle}>
 										{element}
 										</Paper>
 									</div>
 									</Col>
 									<Col xs=	{2} sm={2} md={2} lg={2}>
 									<div>
-										<Paper style={styles.paperStyle}>
+										<Paper
+                      onClick={this.handleChange}
+          						value={0}
+                      style={styles.paperStyle}>
 										{element}
 										</Paper>
 									</div>
 									</Col>
 									<Col xs={2} sm={2} md={2} lg={2}>
 									<div>
-										<Paper style={styles.paperStyle}>
+										<Paper
+                      onClick={this.handleChange}
+          						value={0}
+                      style={styles.paperStyle}>
 										{element}
 										</Paper>
 									</div>
 									</Col>
 									</Row>
+
 								</div>
 								)};
 						</div>
@@ -335,6 +358,7 @@ export default class JView extends React.Component{
         >{i}</button>)}
         </Card>
         </MediaQuery>
+
         </div>
 
 						</SwipeableViews>

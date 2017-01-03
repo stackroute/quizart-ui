@@ -4,7 +4,7 @@ import RaisedButton from 'material-ui/RaisedButton';
 import {Link} from 'react-router';
 import BottomPlayerBoard from './../components/BottomPlayerBoard';
 import jwt from 'jwt-decode';
-
+// var queuedUser = [];
 var styles = {
   imageStyle:{
     position:'relative',
@@ -53,7 +53,8 @@ export default class WaitingForPlayerseView extends React.Component {
     var socket = io();
     var thisCopy = this;
     let decode = jwt(localStorage.token);
-    var userToken = JSON.parse(localStorage.getItem('token'));
+    var userToken = localStorage.getItem('token');
+    console.log(userToken);
       console.log("socket on jeopardy view");
       socket.emit('queue',{
       token: userToken
@@ -79,6 +80,7 @@ export default class WaitingForPlayerseView extends React.Component {
     });
     socket.on("data",function(data)
     {
+      // queuedUser.push(data);
       thisCopy.setState({playersId: data});
       console.log("Data from socket to waiting view:", data);
       // console.log("Checking players Id:",this.state.playersId);
@@ -105,7 +107,7 @@ export default class WaitingForPlayerseView extends React.Component {
         <Row center="xs">
         <Col >
         <div style={{textAlign: "-webkit-center"}}>
-          players
+          <h2>Players: </h2>
           <BottomPlayerBoard playersID={this.state.playersId} p1Score={this.state.p1_score} p2Score={this.state.p2_score} p3Score={this.state.p3_score}/>
          </div>
          </Col>
