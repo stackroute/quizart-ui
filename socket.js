@@ -6,6 +6,7 @@ var pubClient = redis.createClient(process.env.REDIS_PORT, process.env.REDIS_HOS
 var subClient = redis.createClient(process.env.REDIS_PORT, process.env.REDIS_HOSTNAME);
 var playerQueue = redis.createClient(process.env.REDIS_PORT, process.env.REDIS_HOSTNAME);
 var pub = redis.createClient(process.env.REDIS_PORT, process.env.REDIS_HOSTNAME);
+var pubDelete = redis.createClient(process.env.REDIS_PORT, process.env.REDIS_HOSTNAME);
 var sub = redis.createClient(process.env.REDIS_PORT, process.env.REDIS_HOSTNAME);
 var redisClient = redis.createClient(process.env.REDIS_PORT, process.env.REDIS_HOSTNAME);
 var dataList=redis.createClient(process.env.REDIS_PORT, process.env.REDIS_HOSTNAME);
@@ -184,6 +185,11 @@ function init(io)
   });
   socket.on('sendSearchId',function(data){
     pub.publish('publishSearchId',data);
+  });
+
+  socket.on('sendSearchIdToDelete',function(data){
+    console.log(data);
+    pubDelete.publish('publishSearchIdToDelete',data);
   });
 });
 }
