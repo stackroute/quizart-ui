@@ -8,7 +8,7 @@ import DashboardView from './views/DashboardView';
 import LoginView from './views/LoginView';
 import ChallengeGamePlayView from './views/ChallengeGamePlayView';
 import CreateChallengeView from './views/CreateChallengeView';
-import JeopardyView from './views/JeopardyView';
+import JeopardyGameplayView from './views/JeopardyGameplayView';
 import WaitingForPlayerseView from './views/waitingForPlayersView';
 import MyChallengeView from './views/MyChallengeView';
 import AllMyChallenges from './components/AllMyChallenges';
@@ -47,8 +47,8 @@ ReactDOM.render(
         <IndexRoute component={DashboardView} onEnter={authCheck}/>
         <Route path="gamePlay" component={ChallengeGamePlayView} onEnter={authCheck}/>
         <Route path="createChallenge" component={CreateChallengeView} onEnter={authCheck} />
-        <Route path="jeopardyGameBoard/:gameId" component={JeopardyView} onEnter={authCheck} />
-        <Route path="jeopardyGameBoard" component={JeopardyView} onEnter={authCheck} />
+        <Route path="jeopardyGameBoard/:gameId" component={JeopardyGameplayView} onEnter={authCheck} />
+        {/*<Route path="jeopardyGameBoard" component={JeopardyView} onEnter={authCheck} />*/}
         <Route path="waitingForPlayers" component={WaitingForPlayerseView} onEnter={authCheck}/>
         <Route path="morecategories" component={MoreJeopardyCategoriesView} onEnter={authCheck}/>
         <Route path="myChallenge" component={MyChallengeView} onEnter={authCheck}/>
