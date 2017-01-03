@@ -94,10 +94,11 @@ export default class SignUp extends React.Component {
         console.log(err)
         console.log(res)
         if (res.status===200) {
-          alert("You have been successfully signed in!");
+          alert(res.body.message);
           this.setState({loginState: true});
           // this.context.router.push('/login');
         } else {
+          alert(res.body.message);
           this.setState({
             err: res.body.message
           });
