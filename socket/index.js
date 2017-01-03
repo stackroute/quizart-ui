@@ -3,12 +3,12 @@ const async = require('async');
 const authorize = require('./services/authorize');
 
 const client = require('../getRedisClient');
-
+    
 module.exports = function(io) {
   console.log('Initializing Socket Server');
-  const listeners = new Set();
-  const subscriptions = new Set();
   io.on('connection', (socket) => {
+    let listeners = new Set();
+    let subscriptions = new Set();
     let player;
     let isQueued = false;
     console.log('SOCKET: A client connected');
@@ -67,10 +67,15 @@ module.exports = function(io) {
 
 function sendQueueRequestToProvisioner(player, callback) {
   console.log('player:', player);
-  client.lpush('provisionerInputQueue', player, callback);
+    const client1 = client.duplicate();
+    // const redis = require('redis');
+    // const redisHost = process.env.REDIS_HOST || 'localhost';
+    // const redisPort = process.env.REDIS_PORT || 6379;
+    // const redisClient = redis.createClient(redisPort, redisHost);
+    client1.lpush('provisionerInputQueue', player, callback);
 }
 
-function handleError(socket, err) {
+function handleError(err) {
   console.error('ERR:', err);
   throw new Error();
 }
