@@ -151,25 +151,7 @@ export default class NavBar extends React.Component {
 
   const rightMenus=(
       <div>
-      <IconMenu
-            iconStyle={{color:white , margin: -29 }}
-            iconButtonElement={
-              <IconButton>
-              <Badge
-                badgeContent={4}
-                primary={true}
-                style={styles.iconStyle}
-                >
-                <NotificationsIcon style={styles.badgeStyle}/>
-              </Badge>
-            </IconButton>}
-            anchorOrigin={{horizontal: 'left', vertical: 'bottom'}}
-            targetOrigin={{horizontal: 'right', vertical: 'top'}}
-      >
-      <MenuItem style={{width:'500px', backgroundColor:'indigo500'}}>
-        <NotificationNavbar limit={3} />
-      </MenuItem>
-      </IconMenu>
+    
 
       <IconMenu
             iconStyle={{color:white}}

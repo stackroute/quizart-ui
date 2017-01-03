@@ -153,6 +153,8 @@ export default class SignUp extends React.Component {
                               textareaStyle={styles.textStyle}
                               hintStyle={styles.inputStyle}
                               floatingLabelText="User Name"
+                              floatingLabelStyle={styles.floatingLabelStyle}
+                              inputStyle={styles.inputStyle}
                               updateImmediately />
                   </Col>
                 </Row>
@@ -172,6 +174,8 @@ export default class SignUp extends React.Component {
                               textareaStyle={styles.textStyle}
                               hintStyle={styles.inputStyle}
                               floatingLabelText="Email"
+                              floatingLabelStyle={styles.floatingLabelStyle}
+                              inputStyle={styles.inputStyle}
                               updateImmediately />
                   </Col>
                 </Row>
@@ -192,6 +196,8 @@ export default class SignUp extends React.Component {
                               textareaStyle={styles.textStyle}
                               hintStyle={styles.inputStyle}
                               floatingLabelText="Password"
+                              floatingLabelStyle={styles.floatingLabelStyle}
+                              inputStyle={styles.inputStyle}
                               updateImmediately />
                   </Col>
                 </Row>
@@ -211,6 +217,8 @@ export default class SignUp extends React.Component {
                               textareaStyle={styles.textStyle}
                               hintStyle={styles.inputStyle}
                               floatingLabelText="Confirm Password"
+                              floatingLabelStyle={styles.floatingLabelStyle}
+                              inputStyle={styles.inputStyle}
                               updateImmediately
                               // onBlur = {this.confirmPassword} validationErrors={this.state.validationErrors}
                             />

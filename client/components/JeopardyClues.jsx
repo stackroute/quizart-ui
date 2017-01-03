@@ -56,7 +56,7 @@ var value=1,image=[],start,end,tempClueData=[],emptyArray=[],temp,flagTrue=true;
 export default class JeopardyClues extends React.Component{
   constructor(){
     super();
-    this.state={clueString:'',enableChoose:true,openDialog:false,flag:false,showError:false,enableSubjectMeaning:true,searchId:'',startLimit:'',endLimit:'',enableSelectedSubjectContext:false,enableSelectTopic:true,jeopardyCluesData:[],generatedSubjects:[],pandqString:[],pIdForSubject:'',qIdForSubject:'',topic:'',slideIndex: 0,dataObj:[],input: '',selectedSubject:'',selectedSubjectMeaning:[],subjectMeaning:'',qStringForSubject:''};
+    this.state={clueString:'',showMore:false,enableChoose:true,openDialog:false,flag:false,showError:false,enableSubjectMeaning:true,searchId:'',startLimit:'',endLimit:'',enableSelectedSubjectContext:true,enableSelectTopic:true,jeopardyCluesData:[],generatedSubjects:[],pandqString:[],pIdForSubject:'',qIdForSubject:'',topic:'',slideIndex: 0,dataObj:[],input: '',selectedSubject:'',selectedSubjectMeaning:[],subjectMeaning:'',qStringForSubject:''};
   }
   state = {
     open: false,
@@ -81,7 +81,7 @@ export default class JeopardyClues extends React.Component{
           this.setState({jeopardyCluesData:tempClueData})
           if(this.state.jeopardyCluesData.length != 0)
           {
-            this.setState({showImage:false,showError:false});
+            this.setState({showImage:false,showError:false,showMore:true});
             clearInterval(this.timerID);
           }
         }
@@ -97,14 +97,24 @@ export default class JeopardyClues extends React.Component{
     this.setState({openDialog:true});
     console.log("Hello! I am closing");
   };
+  handleBack=()=>{
+    console.log('in back');
+    const data = {
+      searchId:this.state.searchId,
+      workQueue:"cluesGenInputWorkQueue"
+    };
+    this.setState({openDialog: false,slideIndex:0});
+    socket.emit('sendSearchIdToDelete',JSON.stringify(data));
+  };
 
   handleSave = () => {
+      console.log('in save');
     const data = {
       searchId:this.state.searchId,
       topic:this.state.topic,
     };
+    this.setState({openDialog:false,slideIndex:0});
     socket.emit('sendSearchId',JSON.stringify(data));
-    this.setState({openDialog:false});
   };
 
   handleChange=(event)=>{
@@ -114,7 +124,8 @@ export default class JeopardyClues extends React.Component{
     this.setState({enableChoose:false});
   };
   handleClick=()=>{
-    this.setState({showError:false,showImage:false})
+    this.setState({showError:false,showImage:false,showMore:false})
+    clearInterval(this.timerID);
     this.timerID = setInterval(() => this.tick(),30000);
     this.setState({enableLoaderPage:true});
     this.setState({showImage:true});
@@ -251,7 +262,8 @@ export default class JeopardyClues extends React.Component{
     .send({
       pIdForSubject:this.state.pIdForSubject,
       qIDForSubject:this.state.qIDForSubject,
-      selectedSubjectDescription:this.state.selectedSubjectDescription
+      selectedSubjectDescription:this.state.selectedSubjectDescription,
+
     })
     .end((err, res) => {
       if (res.status===200) {
@@ -303,152 +315,156 @@ export default class JeopardyClues extends React.Component{
       <FlatButton
         label="Have a Preview"
         primary={true}
-        onTouchTap={this.handleClose}
+        onClick={this.handleClose}
 
         />,
     ];
-    const actionbutton = [
-      <FlatButton
-        label="Save The Clues"
-        primary={true}
-        onTouchTap={this.handleSave}
-        />,
-    ];
-    const radios = [];
-    const options = ["Sports","Music","Science","History","Politics","Movies"];
-    for (let i = 0; i < 6; i++) {
-      radios.push(
-        <RadioButton
-          key={i}
-          value={`value${i + 1}`}
-          label={options[i]}
-          />
-      );
-    }
-    let that=this;
-    return(
-      <div>
-        <center>
-          <Paper style={styles.paperStyle} zDepth={1} >
-            <center>
-              <TextField
-                style={styles.textFieldStyle}
-                onChange={this.handleChange}
-                floatingLabelText="Search Here"
-                />
-              <RaisedButton label="Search" primary={true} onClick={this.handleClick} style={{margin:'2%'}}/>
-            </center>
-          </Paper>
-        </center>
-        <SwipeableViews
-          index={this.state.slideIndex}
-          onChangeIndex={this.handleSlide} >
-          <div></div>
-          <div style={{overflow:'hidden'}}>
-            <Row center='xs'>
-              { this.state.showImage ? <div style={{padding:20}}><center><img src= "http://res.cloudinary.com/deaxb0msww/image/upload/v1483013587/box_p8jmof.gif"/><div style={{color:'#42f448'}}><p4>Loading....</p4></div></center></div> : null }
-              { this.state.showError ? <div style={{padding:20}}><center><img src="http://res.cloudinary.com/deaxb0msww/image/upload/v1483043546/no-record-found_enguyy.png"/></center></div> : null }
-
-              {this.state.dataObj.map(element=>
-                <Card style={{margin:10}}>
-                  <CardMedia
-                    overlay={<CardTitle title={element.result.name} subtitle={element.result.description}/>}>
-                    <img src={element.result.image.contentUrl} alt="image not Available" style={styles.imageStyle} />
-                  </CardMedia>
-                  <CardActions>
-                    <RaisedButton label="Choose" disabled={this.state.enableChoose} secondary={true} onTouchTap={() => this.handleSubject(element.result.name,element.result.description)}/>
-                  </CardActions>
-                </Card>
-              )}
-            </Row>
-          </div>
-          <div>
-            <Card style={{height:70,width:"90%",margin:"auto"}}> <h4 style={{textAlign:"center",paddingTop:20}}>Hey! Lemme Know What Did You Mean By "  {this.state.selectedSubject} "</h4> </Card>
+    const actionbutton = [<FlatButton
+      label="Back"
+      secondary={true}
+      onClick={this.handleBack}
+      />,
+    <FlatButton
+      label="Save The Clues"
+      primary={true}
+      onClick={this.handleSave}
+      />,
+  ];
+  const radios = [];
+  const options = ["Sports","Music","Science","History","Politics","Movies"];
+  for (let i = 0; i < 6; i++) {
+    radios.push(
+      <RadioButton
+        key={i}
+        value={`value${i + 1}`}
+        label={options[i]}
+        />
+    );
+  }
+  let that=this;
+  return(
+    <div>
+      <center>
+        <Paper style={styles.paperStyle} zDepth={1} >
+          <center>
+            <TextField
+              style={styles.textFieldStyle}
+              onChange={this.handleChange}
+              floatingLabelText="Search Here"
+              />
+            <RaisedButton label="Search" primary={true} onClick={this.handleClick} style={{margin:'2%'}}/>
+          </center>
+        </Paper>
+      </center>
+      <SwipeableViews
+        index={this.state.slideIndex}
+        onChangeIndex={this.handleSlide} >
+        <div></div>
+        <div style={{overflow:'hidden'}}>
+          <Row center='xs'>
             { this.state.showImage ? <div style={{padding:20}}><center><img src= "http://res.cloudinary.com/deaxb0msww/image/upload/v1483013587/box_p8jmof.gif"/><div style={{color:'#42f448'}}><p4>Loading....</p4></div></center></div> : null }
             { this.state.showError ? <div style={{padding:20}}><center><img src="http://res.cloudinary.com/deaxb0msww/image/upload/v1483043546/no-record-found_enguyy.png"/></center></div> : null }
-            <List style={{margin:"0% 10% 0% 10%"}}>
-              {this.state.selectedSubjectMeaning.map(data=>
-                <ListItem key={data.description} primaryText={data.label+"-"+data.description}
-                  onClick={() => {this.handleSelectedSubjectMeaning(data.description,data.id)}} style={{backgroundColor:'#B3E5FC',margin:'5px',textAlign:'center',color:'#3F51B5'}}/> )} </List>
-                <RaisedButton label="Next" disabled={this.state.enableSubjectMeaning} secondary={true} onClick={this.handleSubjectContext} style={styles.buttonNext}/>
-              </div>
 
-              <div>
-                <Card style={{height:100,width:"90%",margin:"auto"}}> <h4 style={{textAlign:"center",paddingTop:20}}>Trying To Figure Out What Kind Of Entity " {this.state.selectedSubject} " is... Select The Description Which Matches Best</h4>
+            {this.state.dataObj.map(element=>
+              <Card style={{margin:10}}>
+                <CardMedia
+                  overlay={<CardTitle title={element.result.name} subtitle={element.result.description}/>}>
+                  <img src={element.result.image.contentUrl} alt="image not Available" style={styles.imageStyle} />
+                </CardMedia>
+                <CardActions>
+                  <RaisedButton label="Choose" disabled={this.state.enableChoose} secondary={true} onTouchTap={() => this.handleSubject(element.result.name,element.result.description)}/>
+                </CardActions>
               </Card>
+            )}
+          </Row>
+        </div>
+        <div>
+          <Card style={{height:70,width:"90%",margin:"auto"}}> <h4 style={{textAlign:"center",paddingTop:20}}>Hey! Lemme Know What Did You Mean By "  {this.state.selectedSubject} "</h4> </Card>
+          { this.state.showImage ? <div style={{padding:20}}><center><img src= "http://res.cloudinary.com/deaxb0msww/image/upload/v1483013587/box_p8jmof.gif"/><div style={{color:'#42f448'}}><p4>Loading....</p4></div></center></div> : null }
+          { this.state.showError ? <div style={{padding:20}}><center><img src="http://res.cloudinary.com/deaxb0msww/image/upload/v1483043546/no-record-found_enguyy.png"/></center></div> : null }
+          <List style={{margin:"0% 10% 0% 10%"}}>
+            {this.state.selectedSubjectMeaning.map(data=>
+              <ListItem key={data.description} primaryText={data.label+"-"+data.description}
+                onClick={() => {this.handleSelectedSubjectMeaning(data.description,data.id)}} style={{backgroundColor:'#B3E5FC',margin:'5px',textAlign:'center',color:'#3F51B5'}}/> )} </List>
+              <RaisedButton label="Next" disabled={this.state.enableSubjectMeaning} secondary={true} onClick={this.handleSubjectContext} style={styles.buttonNext}/>
+            </div>
+
+            <div>
+              <Card style={{height:100,width:"90%",margin:"auto"}}> <h4 style={{textAlign:"center",paddingTop:20}}>Trying To Figure Out What Kind Of Entity " {this.state.selectedSubject} " is... Select The Description Which Matches Best</h4>
+            </Card>
 
 
+            { this.state.showImage ? <div style={{padding:20}}><center><img src= "http://res.cloudinary.com/deaxb0msww/image/upload/v1483013587/box_p8jmof.gif"/><div style={{color:'#42f448'}}><p4>Loading....</p4></div></center></div> : null }
+            { this.state.showError ? <div style={{padding:20}}><center><img src="http://res.cloudinary.com/deaxb0msww/image/upload/v1483043546/no-record-found_enguyy.png"/></center></div> : null }
+
+            {this.state.pandqString.map(text=>
+              <List style={{margin:"0% 10% 0% 10%"}}>
+                <ListItem key={text.pString+" - "+text.qString} primaryText={text.pString+" - "+text.qString}  onClick={() => { this.handleSelectedSubjectContext(text.pNum,text.qNum,text.pString,text.qString) }} style={{backgroundColor:'#B3E5FC',margin:'5px',textAlign:'center',color:'#3F51B5'}}/></List>
+              )}
+              <RaisedButton label="Next" disabled={this.state.enableSelectedSubjectContext} secondary={true} onClick={this.handleListOfSubject} style={styles.buttonNext}/>
+            </div>
+            <div>
               { this.state.showImage ? <div style={{padding:20}}><center><img src= "http://res.cloudinary.com/deaxb0msww/image/upload/v1483013587/box_p8jmof.gif"/><div style={{color:'#42f448'}}><p4>Loading....</p4></div></center></div> : null }
               { this.state.showError ? <div style={{padding:20}}><center><img src="http://res.cloudinary.com/deaxb0msww/image/upload/v1483043546/no-record-found_enguyy.png"/></center></div> : null }
-
-              {this.state.pandqString.map(text=>
-                <List style={{margin:"0% 10% 0% 10%"}}>
-                  <ListItem key={text.pString+" - "+text.qString} primaryText={text.pString+" - "+text.qString}  onClick={() => { this.handleSelectedSubjectContext(text.pNum,text.qNum,text.pString,text.qString) }} style={{backgroundColor:'#B3E5FC',margin:'5px',textAlign:'center',color:'#3F51B5'}}/></List>
-                )}
-                <RaisedButton label="Next" disabled={this.state.enableSelectedSubjectContext} secondary={true} onClick={this.handleListOfSubject} style={styles.buttonNext}/>
-              </div>
-              <div>
-                { this.state.showImage ? <div style={{padding:20}}><center><img src= "http://res.cloudinary.com/deaxb0msww/image/upload/v1483013587/box_p8jmof.gif"/><div style={{color:'#42f448'}}><p4>Loading....</p4></div></center></div> : null }
-                { this.state.showError ? <div style={{padding:20}}><center><img src="http://res.cloudinary.com/deaxb0msww/image/upload/v1483043546/no-record-found_enguyy.png"/></center></div> : null }
-                {this.state.jeopardyCluesData.map(element =>
+              {this.state.jeopardyCluesData.map(element =>
+                <Row center='xs'>
+                  <Paper style={styles.paper} zDepth={1}>
+                    <div>
+                      <Row>
+                        <Col xs={12} sm={12} md={6} lg={6}>
+                          <img src={element.image.contentUrl} alt="image not Available" style={styles.imageStyle}></img>
+                        </Col>
+                        <Col xs={12} sm={12} md={6} lg={6}>
+                          <h1>{element.name}</h1>
+                          <br></br>
+                          <p>{element.description}</p>
+                          <a href={element.detailedDescription.url} target="_blank">wikipedia</a>
+                        </Col>
+                      </Row>
+                      <Row>
+                        <Col xs={12} sm={12} md={12} lg={12}>
+                          <List>
+                            {element.detailedDescription.articleBody.map(value=>
+                              <ListItem style={styles.listStyle} primaryText={value} leftIcon={< ContentSend />}/>
+                            )}
+                          </List>
+                        </Col>
+                      </Row>
+                    </div>
+                  </Paper></Row>)}
                   <Row center='xs'>
-                    <Paper style={styles.paper} zDepth={1}>
-                      <div>
-                        <Row>
-                          <Col xs={12} sm={12} md={6} lg={6}>
-                            <img src={element.image.contentUrl} alt="image not Available" style={styles.imageStyle}></img>
-                          </Col>
-                          <Col xs={12} sm={12} md={6} lg={6}>
-                            <h1>{element.name}</h1>
-                            <br></br>
-                            <p>{element.description}</p>
-                            <a href={element.detailedDescription.url} target="_blank">wikipedia</a>
-                          </Col>
-                        </Row>
-                        <Row>
-                          <Col xs={12} sm={12} md={12} lg={12}>
-                            <List>
-                              {element.detailedDescription.articleBody.map(value=>
-                                <ListItem style={styles.listStyle} primaryText={value} leftIcon={< ContentSend />}/>
-                              )}
-                            </List>
-                          </Col>
-                        </Row>
-                      </div>
-                    </Paper></Row>)}
-                    <Row center='xs'>
-                      <RaisedButton label="ShowMore" disabled={this.state.enableSelectTopic} primary={true} onClick={this.showMoreClues} style={{width:'80%'}}/>
-                      <RaisedButton label="Select Topic" disabled={this.state.enableSelectTopic} secondary={true} style={{width:'50%',margin:20}} onClick={this.handleOpen}/>
-                    </Row>
-                    <Dialog
-                      title="Select Topic"
-                      actions={actions}
-                      modal={false}
-                      open={this.state.open}
-                      onRequestClose={this.handleClose}
-                      autoScrollBodyContent={false}
-                      >
-                      <RadioButtonGroup
-                        name="shipSpeed"
-                        ref={(c) => this._radio = c}
-                        onChange={this._onChange.bind(this)}>
-                        {radios}
-                      </RadioButtonGroup>
-                    </Dialog>
-                    <Dialog
-                      title="Summary"
-                      actions={actionbutton}
-                      modal={false}
-                      open={this.state.openDialog}
-                      onRequestClose={this.handleClose}>
-                      <strong>Subject :-</strong> {this.state.selectedSubject}<br/>
+                    { this.state.showMore ?<div><RaisedButton label="ShowMore" disabled={this.state.enableSelectTopic} primary={true} onClick={this.showMoreClues} style={{width:'80%'}}/>
+                  <RaisedButton label="Select Topic" disabled={this.state.enableSelectTopic} secondary={true} style={{width:'50%',margin:20}} onClick={this.handleOpen}/></div>:null}
+                  </Row>
+                  <Dialog
+                    title="Select Topic"
+                    actions={actions}
+                    modal={false}
+                    open={this.state.open}
+                    onRequestClose={this.handleClose}
+                    autoScrollBodyContent={false}
+                    >
+                    <RadioButtonGroup
+                      name="shipSpeed"
+                      ref={(c) => this._radio = c}
+                      onChange={this._onChange.bind(this)}>
+                      {radios}
+                    </RadioButtonGroup>
+                  </Dialog>
+                  <Dialog
+                    title="Summary"
+                    actions={actionbutton}
+                    modal={false}
+                    open={this.state.openDialog}
+                    onRequestClose={this.handleClose}>
+                    <strong>Subject :-</strong> {this.state.selectedSubject}<br/>
                     <strong>Description :-</strong> {this.state.selectedSubjectDescription}<br/>
-                  <strong>Similar Subjects Fetched based on :-</strong> {this.state.clueString}<br/>
-                  <strong>Topic:-</strong> {this.state.topic}
-                </Dialog>
+                    <strong>Similar Subjects Fetched based on :-</strong> {this.state.clueString}<br/>
+                    <strong>Topic:-</strong> {this.state.topic}
+                    </Dialog>
+                  </div>
+                </SwipeableViews>
               </div>
-            </SwipeableViews>
-          </div>
-        );
-      }
-    }
+            );
+          }
+        }
