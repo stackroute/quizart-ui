@@ -35,7 +35,6 @@
     "react-swipeable-views": "^0.8.0",
     "react-tap-event-plugin": "^2.0.1",
     "redis": "^2.6.3",
-    "redis-client": "^0.3.5",
     "request": "^2.79.0",
     "request-promise": "^4.1.1",
     "socket.io": "^1.7.2",
@@ -72,6 +71,7 @@
     "build": "NODE_ENV=production webpack --config ./webpack.config.js",
     "lint": "node node_modules/gulp/bin/gulp.js lint",
     "start": "node route.js",
+    "serve": "node serve.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {

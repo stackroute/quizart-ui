@@ -29,7 +29,7 @@ export default class JeopardyView extends React.Component
       windowHeight: window.innerHeight
     });
   }
-  componentWillMount() {
+  /*componentWillMount() {
     var socket = io();
     var userToken = JSON.parse(localStorage.getItem('token'));
     console.log("socket on jeopardy view");
@@ -43,7 +43,7 @@ export default class JeopardyView extends React.Component
       var idForGame = data.gameID;
       socket.emit('joiningNow',{gameID: idForGame})
     });
-  }
+  }*/
   componentDidMount() {
    var thisCopy = this;
    const socket = io();
@@ -64,7 +64,7 @@ export default class JeopardyView extends React.Component
    //   window.addEventListener('resize', this.handleResize.bind(this));
    // }.bind(this));
 
-    
+
 
  }
 
@@ -121,9 +121,9 @@ for (var rowindex=1; rowindex<=5;rowindex++){
         }
         keyInc++;
         posL=posLeft[count];
-  
+
           cards100.push(<CardChild points={value} row={rowindex} col={colindex} top={top} posL={posL} cardWidth={this.state.windowWidth/9} cardHeight={this.state.windowHeight/9} key={keyInc} index={count}> </CardChild>);
-  
+
       count++;
   }
 }
@@ -131,10 +131,10 @@ for (var rowindex=1; rowindex<=5;rowindex++){
   // for (var rowindex=0; rowindex<6;rowindex++){
   //   for(var colindex=0; colindex<5; colindex++){
   //      cards100.push(<CardChild points={value} row={rowindex} col={colindex} top={top} posL={posL} cardWidth={this.state.windowWidth/9} cardHeight={this.state.windowHeight/9} key={i} index={count}> </CardChild>);
-      
+
   //   }
   // }
-  
+
 
 
 return(

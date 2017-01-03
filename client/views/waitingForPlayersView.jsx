@@ -29,19 +29,16 @@ export default class WaitingForPlayerseView extends React.Component {
     this.state={
       playersId: [],
       view:'points',
-      windowWidth: window.innerWidth,
-      windowHeight: window.innerHeight,
+      // windowWidth: window.innerWidth,
+      // windowHeight: window.innerHeight,
       p1_score:'',
       p2_score:'',
       p3_score:'',
       data:[]
     };
+    this.startGame = this.startGame.bind(this);
   }
-  static get contextTypes() {
-    return {
-      router: React.PropTypes.object.isRequired
-    };
-  }
+
   handleResize(event) {
         this.setState({
             windowWidth: window.innerWidth,
@@ -49,49 +46,26 @@ export default class WaitingForPlayerseView extends React.Component {
         });
     }
 
-  componentDidMount() {
-    var socket = io();
-    var thisCopy = this;
-    let decode = jwt(localStorage.token);
-    var userToken = JSON.parse(localStorage.getItem('token'));
-      console.log("socket on jeopardy view");
-      socket.emit('queue',{
-      token: userToken
-    });
-    // socket.on('joinRequest',function(data){
-    // console.log("gameId is ", data.gameID);
-    // var idForGame = data.gameID;
-    // socket.emit('joiningNow',{gameID: idForGame})
-    // });
-    // console.log("decoded token ",decode);
-    // // socket.emit('testMsg', 'testData');
-    // console.log("Testing Data : "+localStorage.token);
-
-    socket.emit('joining',{email: decode.email, userId: decode.sub});
-    socket.on('game_id',(data) => {
-      console.log("emitted data of players queued");
-      console.log('gameId',data);
-      // if(data.gameId){
-        console.log("to redirect from here");
-        thisCopy.context.router.push('/jeopardyGameBoard/'+data);
-        // thisCopy.context.router.push('/');
-      // }
-    });
-    socket.on("data",function(data)
-    {
-      thisCopy.setState({playersId: data});
-      console.log("Data from socket to waiting view:", data);
-      // console.log("Checking players Id:",this.state.playersId);
-      console.log("checking socket connection");
-      window.addEventListener('resize', this.handleResize.bind(this));
-    }.bind(this));
-    };
-
-  /*static get contextTypes() {
+  static get contextTypes() {
     return {
-      socket: React.propTypes.object.isRequired
+      router: React.PropTypes.object.isRequired,
+      socket: React.PropTypes.object.isRequired
     }
-  }*/
+  }
+
+  componentDidMount() {
+    this.context.socket.on('startGame', this.startGame);
+    this.context.socket.emit('queue');
+  }
+
+  startGame(gameId) {
+    console.log('gameId', gameId);
+    this.context.router.push('/jeopardyGameBoard/'+gameId);
+  }
+
+  componentWillUnmount() {
+    this.context.socket.removeListener('startGame', this.startGame);
+  }
 
   render() {
     document.body.style.backgroundColor = "#00201F";
@@ -99,7 +73,7 @@ export default class WaitingForPlayerseView extends React.Component {
       <div>
       <Grid>
         <img src="./../images/map6.jpg" style={styles.imageStyle}/>
-        <Row xs="center">
+        <Row center="xs">
         <img src="./../images/loading_bar.gif" style={styles.gifStyle}/>
         </Row>
         <Row center="xs">

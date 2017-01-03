@@ -30,7 +30,7 @@ export default class JeopardyGameplay extends React.Component {
         this.changeState=this.changeState.bind(this);
         this.handleOnClick = this.handleOnClick.bind(this);
     }
-    componentDidMount()
+    /*componentDidMount()
     {
         var c=0;
         var thisCopy = this;
@@ -46,7 +46,7 @@ export default class JeopardyGameplay extends React.Component {
         console.log("component mounted in geopardyGamePlay Component called "+c+"times");
         c++;
     this.timerID = setInterval(() => this.tick(),8000);
-    }
+    }*/
 /*--- if the buzzer is not pressed before time up----------*/
 tick() {
   console.log('timeout from tick');

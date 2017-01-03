@@ -4,7 +4,7 @@ var jwt = require('jsonwebtoken');
 var authenticateToken = "";
 var neo4j = require('neo4j-driver').v1;
 var driver = neo4j.driver(process.env.NEO4j_DRIVER, neo4j.auth.basic("neo4j", "password"));
-
+const secret = process.env.JWT_SECRET || 'athuhaeuuica';
 
 global.users=[
   {
@@ -77,7 +77,8 @@ router.post('/login',function(req,res){
         if(username==users[i].userName){
           if(pwd==users[i].password){
             isValid=true;
-            authenticateToken=jwt.sign({sub:users[i].id, name:users[i].name, email:users[i].userName, role:'admin'}, "Quizztack")
+            console.log('Sign Key:', secret);
+            authenticateToken=jwt.sign({sub:users[i].id, name:users[i].name, email:users[i].userName, role:'admin'}, secret)
           }
         }
       }
@@ -88,7 +89,8 @@ router.post('/login',function(req,res){
       // console.log("user's name is ", nameOfUser)
       // console.log("Results here: ",);
       // console.log("Results here: ",JSON.stringify(results.records._fields[0]));
-      authenticateToken=jwt.sign({sub:username, name: nameOfUser, role:'user'}, "Quizztack")
+      console.log('Sign Key:', secret);
+      authenticateToken=jwt.sign({sub:username, name: nameOfUser, role:'user'}, secret)
     }
 
     res.status(200).json({
