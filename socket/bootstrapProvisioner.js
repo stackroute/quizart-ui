@@ -1,13 +1,14 @@
 const client = require('../getRedisClient');
+const async = require('async');
 
-module.exports = function() {
+module.exports = function(socket) {
   socket.on('queue', () => {
-    if(isQueued) { return; }
+    if(socket.isQueued) { return; }
     async.series([
       subscribeToReceiveGameId.bind(null, socket.player, socket),
       sendQueueRequestToProvisioner.bind(null, socket.player)
     ], (err) => {
-      if(err) { handleError(err); return; }
+      if(err) { handleError(socket, err); return; }
     });
   });
 
@@ -19,14 +20,24 @@ module.exports = function() {
         socket.listeners.delete(listener);
         client.unsubscribe(player+'_gameId');
         socket.subscriptions.delete(player+'_gameId');
-        isQueued = false;
+        socket.isQueued = false;
         socket.emit('startGame', gameId);
       }
     }
     client.addListener('message', listener);
     socket.listeners.add(listener);
-    isQueued = true;
+    socket.isQueued = true;
     client.subscribe(player+'_gameId');
     socket.subscriptions.add(player+'_gameId');
   }
 };
+
+function sendQueueRequestToProvisioner(player, callback) {
+  console.log('player:', player);
+  client.lpush('provisionerInputQueue', player, callback);
+}
+
+function handleError(socket, err) {
+  console.error('ERR:', err);
+  throw new Error();
+}

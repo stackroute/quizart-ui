@@ -4,12 +4,15 @@ const authorize = require('./services/authorize');
 
 const client = require('../getRedisClient');
 
+const bootstrapProvisioner = require('./bootstrapProvisioner');
+const bootstrapGameplay = require('./bootstrapGameplay');
+
 module.exports = function(io) {
   console.log('Initializing Socket Server');
   io.on('connection', (socket) => {
     console.log('SOCKET: A client connected');
-    socket.subscriptions = [];
-    socket.listeners = [];
+    socket.subscriptions = new Set();
+    socket.listeners = new Set();
 
     socket.on('authorize', (token) => {
       console.log('Authorizing');
@@ -37,12 +40,3 @@ module.exports = function(io) {
   });
 };
 
-function sendQueueRequestToProvisioner(player, callback) {
-  console.log('player:', player);
-  client.lpush('provisionerInputQueue', player, callback);
-}
-
-function handleError(socket, err) {
-  console.error('ERR:', err);
-  throw new Error();
-}
