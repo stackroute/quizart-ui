@@ -20,6 +20,7 @@ module.exports = function(io) {
         player = claims.sub;
         console.log('authorized:', player);
         socket.emit('authorized');
+        require('./clues')(socket);
       });
     });
 
