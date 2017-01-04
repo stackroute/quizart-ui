@@ -15,8 +15,6 @@ import {RadioButton, RadioButtonGroup} from 'material-ui/RadioButton';
 import config from './../config.js';
 import ContentSend from 'material-ui/svg-icons/content/send';
 
-var socket = io(config.restUrl);
-
 const styles={
   paperStyle:{
     height: '100%',
@@ -56,16 +54,19 @@ var value=1,image=[],start,end,tempClueData=[],emptyArray=[],temp,flagTrue=true;
 export default class JeopardyClues extends React.Component{
   constructor(){
     super();
-    this.state={clueString:'',showMore:false,enableChoose:true,openDialog:false,flag:false,showError:false,enableSubjectMeaning:true,searchId:'',startLimit:'',endLimit:'',enableSelectedSubjectContext:true,enableSelectTopic:true,jeopardyCluesData:[],generatedSubjects:[],pandqString:[],pIdForSubject:'',qIdForSubject:'',topic:'',slideIndex: 0,dataObj:[],input: '',selectedSubject:'',selectedSubjectMeaning:[],subjectMeaning:'',qStringForSubject:''};
+    const socket = io(config.restUrl);
+    this.state={clueString:'',showMore:false,open: false,enableChoose:true,openDialog:false,flag:false,showError:false,enableSubjectMeaning:true,searchId:'',startLimit:'',endLimit:'',enableSelectedSubjectContext:true,enableSelectTopic:true,jeopardyCluesData:[],generatedSubjects:[],pandqString:[],pIdForSubject:'',qIdForSubject:'',topic:'',slideIndex: 0,dataObj:[],input: '',selectedSubject:'',selectedSubjectMeaning:[],subjectMeaning:'',qStringForSubject:''};
   }
-  state = {
-    open: false,
-  };
+  static get contextTypes() {
+    return {
+      socket: React.PropTypes.object
+    }
+  }
+
   componentDidMount() {
-    socket.on('finalClues',function(dataReceived){
+    this.context.socket.on('finalClues',function(dataReceived){
+      console.log(dataReceived);
       if(this.state.flag){
-        console.log('data for show more');
-        console.log(dataReceived);
         if(dataReceived.length!=0){
           dataReceived.map(function(element){
             temp=JSON.parse(element);
@@ -98,23 +99,21 @@ export default class JeopardyClues extends React.Component{
     console.log("Hello! I am closing");
   };
   handleBack=()=>{
-    console.log('in back');
     const data = {
       searchId:this.state.searchId,
       workQueue:"cluesGenInputWorkQueue"
     };
     this.setState({openDialog: false,slideIndex:0});
-    socket.emit('sendSearchIdToDelete',JSON.stringify(data));
+      this.context.socket.emit('sendSearchIdToDelete',JSON.stringify(data));
   };
 
   handleSave = () => {
-      console.log('in save');
     const data = {
       searchId:this.state.searchId,
       topic:this.state.topic,
     };
     this.setState({openDialog:false,slideIndex:0});
-    socket.emit('sendSearchId',JSON.stringify(data));
+      this.context.socket.emit('sendSearchId',JSON.stringify(data));
   };
 
   handleChange=(event)=>{
@@ -273,7 +272,8 @@ export default class JeopardyClues extends React.Component{
           this.setState({searchId:res.body});
           this.setState({startLimit:0}),
           this.setState({endLimit:10});
-          socket.emit('getData',JSON.stringify({
+          console.log('in list of subjects');
+            this.context.socket.emit('getData',JSON.stringify({
             searchId:this.state.searchId,
             startLimit:this.state.startLimit,
             endLimit:this.state.endLimit
@@ -286,13 +286,12 @@ export default class JeopardyClues extends React.Component{
     this.setState({flag:flagTrue});
     this.setState({jeopardyCluesData:emptyArray});
     console.log("next array length"+this.state.jeopardyCluesData.length);
-    console.log('in show');
     start=this.state.endLimit+1;
     end=this.state.endLimit+10;
     this.setState({startLimit:start});
     this.setState({endLimit:end});
     console.log(this.state.searchId);
-    socket.emit('getData',JSON.stringify({
+      this.context.socket.emit('getData',JSON.stringify({
       searchId:this.state.searchId,
       startLimit:start,
       endLimit:end

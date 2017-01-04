@@ -8,6 +8,7 @@ const client = require('../getRedisClient');
 module.exports = function(io) {
   console.log('Initializing Socket Server');
   io.on('connection', (socket) => {
+    var clues = require('./clues.js')(socket);
     console.log('SOCKET: A client connected');
     socket.subscriptions = new Set();
     socket.listeners = new Set();
