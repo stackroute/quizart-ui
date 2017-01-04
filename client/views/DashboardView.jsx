@@ -9,14 +9,15 @@ import {Grid, Row, Col} from 'react-flexbox-grid';
 import {Link} from 'react-router';
 import {Card, CardActions, CardHeader, CardMedia, CardTitle, CardText} from 'material-ui/Card';
 
-// let imgUrl= 'http://res.cloudinary.com/deaxb0msww/image/upload/v1483423520/Dashboard_qugmli.jpg';
+const styles={
+  imageStyle:{
+        opacity:0.7,
+  }
+};
 
 export default class DashboardView extends React.Component {
   render() {
       document.body.style.backgroundColor = "#0D111C";
-    // document.body.style.backgroundColor = "#00201F";
-    // document.body.style.backgroundImage = 'url(' + imgUrl + ')';
-    // document.body.style.backgroundSize = 'cover';
     return (
 
       <div>
@@ -28,30 +29,29 @@ export default class DashboardView extends React.Component {
                 <Row center='xs'>
                   <Col xs={6} sm={6} md={6} lg={6}>
                 <Link to = '/waitingForPlayers'><RaisedButton
-                  backgroundColor="#FFFF33"
+                  backgroundColor="#42C299"
                   label="Play Jeopardy!"
+                  labelColor="white"
+                  buttonStyle={{height:'60px', width:'200px', borderRadius:'10px'}}
                   />
                 </Link>
               </Col>
               </Row>}
-              overlayContainerStyle={{bottom:'45%'}}
+              overlayContainerStyle={{bottom:'25%'}}
               overlayContentStyle={{backgroundColor: 'rgba(0,0,0,0)'}}
 
             >
-                  <img src="http://res.cloudinary.com/deaxb0msww/image/upload/v1483423520/Dashboard_qugmli.jpg"/>
-              </CardMedia>
+            <MediaQuery minDeviceWidth='1224px'>
+         <div className="some-class">
+           <img src="http://res.cloudinary.com/deaxb0msww/image/upload/v1483453570/Dboard_jtxczc.jpg" style={styles.imageStyle}/>
+         </div>
+         </MediaQuery>
+         <MediaQuery maxDeviceWidth='1224px' className="some-class">
+         <img src="http://res.cloudinary.com/deaxb0msww/image/upload/v1483463322/DboardRes_l4vzyw.jpg" style={styles.imageStyle}/>
+         </MediaQuery>
+            </CardMedia>
 
         </Card>
-
-        {/* <Grid>
-          <Row xs="center">
-            <Link to = '/waitingForPlayers'>
-            <RaisedButton
-                label="Play Jeopardy!"
-                primary={ true }/>
-            </Link>
-          </Row>
-        </Grid> */}
       </div>
     );
   }

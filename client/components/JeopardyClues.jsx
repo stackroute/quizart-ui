@@ -55,13 +55,8 @@ export default class JeopardyClues extends React.Component{
   constructor(){
     super();
     const socket = io(config.restUrl);
-    this.state={clueString:'',showMore:false,enableChoose:true,openDialog:false,flag:false,showError:false,enableSubjectMeaning:true,searchId:'',startLimit:'',endLimit:'',enableSelectedSubjectContext:true,enableSelectTopic:true,jeopardyCluesData:[],generatedSubjects:[],pandqString:[],pIdForSubject:'',qIdForSubject:'',topic:'',slideIndex: 0,dataObj:[],input: '',selectedSubject:'',selectedSubjectMeaning:[],subjectMeaning:'',qStringForSubject:''};
+    this.state={clueString:'',showMore:false,open: false,enableChoose:true,openDialog:false,flag:false,showError:false,enableSubjectMeaning:true,searchId:'',startLimit:'',endLimit:'',enableSelectedSubjectContext:true,enableSelectTopic:true,jeopardyCluesData:[],generatedSubjects:[],pandqString:[],pIdForSubject:'',qIdForSubject:'',topic:'',slideIndex: 0,dataObj:[],input: '',selectedSubject:'',selectedSubjectMeaning:[],subjectMeaning:'',qStringForSubject:''};
   }
-  state = {
-    open: false,
-  };
-
-
   static get contextTypes() {
     return {
       socket: React.PropTypes.object
@@ -70,6 +65,7 @@ export default class JeopardyClues extends React.Component{
 
   componentDidMount() {
     this.context.socket.on('finalClues',function(dataReceived){
+      console.log(dataReceived);
       if(this.state.flag){
         if(dataReceived.length!=0){
           dataReceived.map(function(element){
@@ -276,6 +272,7 @@ export default class JeopardyClues extends React.Component{
           this.setState({searchId:res.body});
           this.setState({startLimit:0}),
           this.setState({endLimit:10});
+          console.log('in list of subjects');
             this.context.socket.emit('getData',JSON.stringify({
             searchId:this.state.searchId,
             startLimit:this.state.startLimit,

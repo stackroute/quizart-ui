@@ -12,7 +12,7 @@ module.exports = function(socket) {
     var endLimit=data.endLimit;
     let count =startLimit;
     client.lrange(searchId,startLimit,endLimit,function(err,list){
-        if(list.length==0)
+         if(list.length==0)
         {
         sub.subscribe('publishList');
         sub.on('message',function(channel,clues){
@@ -43,5 +43,4 @@ module.exports = function(socket) {
   socket.on('sendSearchIdToDelete',function(data){
     pubDelete.publish('publishSearchIdToDelete',data);
   });
-
 }
