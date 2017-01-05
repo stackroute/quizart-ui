@@ -54,14 +54,18 @@ export default class JeopardyGameplay extends React.Component {
         </Row>
       );
     });
-
+    //
     const borderScore = this.state.cue ? '3px' : '0px';
     console.log("border for cue:",borderScore);
-    console.log("cue is -----",this.state.cue);
-    const userScores = this.state.scores ? this.state.scores.map(function(playerScore){
+    const cue = this.state.cue;
+    // console.log("cue is -----",this.state.cue);
+    const userScores = this.state.cue ? this.state.scores.map(function(playerScore){
+      let borderScore = cue === playerScore.player ? '#FFFF66' : '#FFFFFF';
+      console.log("border for cue:",borderScore);
+      console.log("hello from scores!");
       return(
         <Col>
-        <Paper style={{width:'200px', margin:'3px', borderWidth:borderScore, borderColor:'#FFFF66',borderStyle:'solid' }}>
+        <Paper style={{width:'200px', margin:'3px',  backgroundColor:borderScore }}>
           <Row center='xs'>{playerScore.player}</Row>
           <Row center='xs'><Avatar size={90} color='#000000' style={{fontSize:'28px'}}> {playerScore.score} </Avatar></Row>
       </Paper>
