@@ -50,7 +50,7 @@ const styles={
     textAlign: 'justify'
   }
 };
-var value=1,image=[],start,end,tempClueData=[],emptyArray=[],temp,flagTrue=true;
+var value=1,image=[],start,end,emptyArray=[],temp,flagTrue=true;
 export default class JeopardyClues extends React.Component{
   constructor(){
     super();
@@ -64,6 +64,7 @@ export default class JeopardyClues extends React.Component{
   }
 
   componentDidMount() {
+    let tempClueData=[];
     this.context.socket.on('finalClues',function(dataReceived){
       console.log(dataReceived);
       if(this.state.flag){
@@ -123,7 +124,7 @@ export default class JeopardyClues extends React.Component{
     this.setState({enableChoose:false});
   };
   handleClick=()=>{
-    this.setState({showError:false,showImage:false,showMore:false})
+    this.setState({showError:false,showImage:false,showMore:false,jeopardyCluesData:[],dataObj:[],selectedSubjectMeaning:[],selectedSubjectDescription:'',selectedSubject:[],pandqString:[]})
     clearInterval(this.timerID);
     this.timerID = setInterval(() => this.tick(),30000);
     this.setState({enableLoaderPage:true});
@@ -250,6 +251,7 @@ export default class JeopardyClues extends React.Component{
     this.setState({enableSelectedSubjectContext:false});
   }
   handleListOfSubject=()=>{
+    console.log(this.state.selectedSubject);
     this.setState({showError:false,showImage:false})
     this.timerID = setInterval(() => this.tick(),30000);
     var tempSubject=[];
@@ -262,7 +264,7 @@ export default class JeopardyClues extends React.Component{
       pIdForSubject:this.state.pIdForSubject,
       qIDForSubject:this.state.qIDForSubject,
       selectedSubjectDescription:this.state.selectedSubjectDescription,
-
+      selectedSubject:this.state.selectedSubject
     })
     .end((err, res) => {
       if (res.status===200) {
