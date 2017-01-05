@@ -8,6 +8,9 @@ import MediaQuery from 'react-responsive';
 import {Card, CardActions, CardHeader, CardMedia, CardTitle, CardText} from 'material-ui/Card';
 
 const styles={
+  cardStyle:{
+    overflow:'hidden'
+  },
   imageDesktopStyle:{
       opacity:0.5
   },
@@ -52,7 +55,7 @@ export default class WaitingForPlayerseView extends React.Component {
     document.body.style.backgroundColor = "#00201F";
     return (
       <div>
-      <Card>
+      <Card style={styles.cardStyle}>
         <CardMedia
 
             overlay={

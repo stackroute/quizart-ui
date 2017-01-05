@@ -43,8 +43,6 @@ export default class NavBar extends React.Component {
         nameUser: '',
         letterAvatar:''
       };
-    // this.state={open:false};
-    // this.state = { isAdmin: false};
   }
    handleOpen =() => {
    this.setState({open:true});
@@ -66,13 +64,6 @@ export default class NavBar extends React.Component {
    this.setState({nameUser: decode});
    this.setState({letterAvatar:decode.charAt(0)});
    console.log("nameUser:",this.state.nameUser);
-   superagent
-     .get('/userDetails')
-     .end((err, res) => {
-       console.log(res.body.message);
-       thisSelf.setState({userDetailDrawer: res.body.message});
-     });
-
  }
 
   handleDrawerOpen() {
@@ -135,35 +126,29 @@ export default class NavBar extends React.Component {
     :
               console.log("user");
 
-
-    const userDetailsInfo = this.state.userDetailDrawer ? this.state.userDetailDrawer.map((userDetails) => {
-      return (
-
-          <List key={0} style={{hoverColor:'transparent'}}>
-              <ListItem key={1} onTouchTap={this.handleClose} style={{textAlign:'center'}}>{this.state.nameUser}</ListItem>
-              <Divider/>
-              <ListItem key={2} onTouchTap={this.handleClose}> {
-                <div style={{textAlign:'center'}}>
-                  <Avatar
-                    color='white'
-                    backgroundColor={indigo500}
-                    size={180}
-                  >
-                  {this.state.letterAvatar}
-                  </Avatar>
-                  {/* <img src={userDetails.avatarImage}
-                    style={{width:'100%'}}/> */}
-                  <br />
-                  <span style={styles.rankStyle}>Rank: {userDetails.rank}</span>
-                  <br />
-                  <Avatar src = {userDetails.flags}/>
-                  </div>
-                }
-              </ListItem>
-              <Divider/>
-          </List>
-      );
-    }):null;
+    //
+    // const userDetailsInfo = this.state.userDetailDrawer ? this.state.userDetailDrawer.map((userDetails) => {
+    //   return (
+    //
+    //       <List key={0} style={{hoverColor:'transparent'}}>
+    //           <ListItem key={1} onTouchTap={this.handleClose} style={{textAlign:'center'}}>{this.state.nameUser}</ListItem>
+    //           <Divider/>
+    //           <ListItem key={2} onTouchTap={this.handleClose}> {
+    //             <div style={{textAlign:'center'}}>
+    //               <Avatar
+    //                 color='white'
+    //                 backgroundColor={indigo500}
+    //                 size={180}
+    //               >
+    //               {this.state.letterAvatar}
+    //               </Avatar>
+    //               </div>
+    //             }
+    //           </ListItem>
+    //           <Divider/>
+    //       </List>
+    //   );
+    // }):null;
     // return (
     //   {userDetailsInfo}
     // );
@@ -204,41 +189,26 @@ export default class NavBar extends React.Component {
                 docked={false}
                 onRequestChange={this.handleDrawerClose.bind(this)} >
                 <List style={{hoverColor:'transparent'}}>
-                  <ListItem key={1} onTouchTap={this.handleClose} style={{textAlign:'center'}}>{userDetailsInfo}</ListItem>
-
-                {/*<ListItem key={9} onTouchTap={() => this.context.router.push('/createChallenge')}>
-                  Create Challenges
+                <ListItem key={1} onTouchTap={this.handleClose} style={{textAlign:'center'}}>{this.state.nameUser}</ListItem>
+                <Divider/>
+                <ListItem key={2} onTouchTap={this.handleClose}> {
+                  <div style={{textAlign:'center'}}>
+                    <Avatar
+                      color='white'
+                      backgroundColor={indigo500}
+                      size={180}
+                    >
+                    {this.state.letterAvatar}
+                    </Avatar>
+                    </div>
+                  }
                 </ListItem>
-              <Divider/>
-                <ListItem key={10} onTouchTap={() => this.context.router.push('/myChallenge')}>
-                  My Challenges
-                </ListItem>
-              <Divider/>
-                  <Dialog
-                    title={"On clicking on Start Challenge you will start to play Challenge"}
-                    actions={actions}
-                    modal={true}
-                    open={this.state.open} style={{backgroundColor:'black'}} bodyStyle={{color:'#3F51B5'}}>
-                  </Dialog>
-              <ListItem key={12} onTouchTap={() => this.handleOpen(this)}>
-                  Play Challenge
-                </ListItem>
-              <Divider/>
-                <ListItem key={13} onTouchTap={() => this.context.router.push('/myGames')}>
-                  My Games
-                </ListItem>
-              <Divider/>
-                <ListItem key={14} onTouchTap={() => this.context.router.push('/questionGenerator')}>
-                  Question Generator
-                </ListItem>
-                <Divider/> */}
-
+                <Divider/>
                 <ListItem key={14} onTouchTap={() => this.context.router.push('/waitingForPlayers')}>
                   Jeopardy Challenge
                 </ListItem>
                 <Divider/>
                 {adminRights}
-                {/* <ListItem key={15}>{adminRights}</ListItem> */}
             </List>
           </Drawer>
       </div>
