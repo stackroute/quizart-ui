@@ -39,9 +39,10 @@ export default class JeopardyGameplay extends React.Component {
       const rowComponent = Array(6).fill().map((_, col) => {
         // const tileColor = this.state.questions[col][row].opened ? '#FFFFFF' : '#673AB7';
         const tileContent = row === 0 ? this.state.categories[col] : (row ) * 200;
+        const bgColor = this.getCardDisable(row -1, col) ? '#673AB7': 'grey' ;
         return (
           <Col xs={2} key={col}>
-            <Paper zDepth={2} style={{padding: '3vh', cursor: 'pointer', backgroundColor:'#673AB7', color:'#FFFFFF'}}
+            <Paper zDepth={2} style={{padding: '3vh', cursor: 'pointer', backgroundColor:bgColor, color:'#FFFFFF'}}
               onTouchTap={this.handleQuestionClicked.bind(this, row - 1, col)}>
               {tileContent}
             </Paper>
@@ -101,13 +102,13 @@ export default class JeopardyGameplay extends React.Component {
           index={ this.getSwipeableViewIndex() }
         >
           <Paper style={{width:'100%', backgroundColor: '#000000', overflow:'hidden'}}>
-            {tiles }
+            {tiles}
             <Row center='xs' style={{backgroundColor:indigo700, marginTop:'20px'}}>{userScores}</Row>
           </Paper>
           <Paper style={{width:'100%', height:'100%', backgroundColor: indigo700, color: '#FFFFFF', overflow:'hidden'}}>
-            <Row center ='xs' style={{marginTop:'2px'}}>
-              <Col> Category: {category} </Col>
-              <Col> * Clue Point: {point}</Col>
+            <Row style={{marginTop:'2px', marginLeft:'2px'}}>
+              <Col xs={2}> Category: {category} </Col>
+              <Col xsOffset={8} xs={2} > Clue Point: {point}</Col>
            </Row>
           <Row center='xs' style={{marginTop:'40px', marginLeft:'5px', marginRight:'5px', fontSize:'20px', lineHeight:'30px', textAlign:'justify'}}> <Col xs={12} sm ={12} md={12} lg={12}  > {this.getCurrQuestion()} </Col> </Row>
           <Row center='xs' style={{marginTop:'70px'}}> <Col xs={12} sm ={12} md={12} lg={12} > {buzzer} </Col> </Row>
@@ -138,6 +139,14 @@ export default class JeopardyGameplay extends React.Component {
       return (this.state.currQuestion && this.state.cue);
     }
 
+ getCardDisable(row, col) {
+   const questions = this.state.questions;
+   return !(questions
+    && questions[col]
+    && questions[col][row]
+    && questions[col][row].opened)
+  }
+
   shouldDisplayBuzzer() {
     return this.state.currQuestion && !this.state.cue;
   }
@@ -163,7 +172,6 @@ export default class JeopardyGameplay extends React.Component {
 
   /* Need to transpose the array, by switching row and col values. */
   handleQuestionClicked(row, col, event) {
-    event.target.style.backgroundColor='grey';
     if(!event.target.disabled)
     this.context.socket.emit('pickQuestion', {row: row, col: col});
     event.target.disabled=true;
