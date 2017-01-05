@@ -1,8 +1,9 @@
 import React from 'react';
 import {Grid, Row, Col} from 'react-flexbox-grid';
 import Paper from 'material-ui/Paper';
-
+import {indigo700} from './../../node_modules/material-ui/styles/colors';
 import SwipeableViews from 'react-swipeable-views';
+import Avatar from 'material-ui/Avatar';
 
 var count;
 export default class JeopardyGameplay extends React.Component {
@@ -54,20 +55,25 @@ export default class JeopardyGameplay extends React.Component {
       );
     });
 
-
+    const borderScore = this.state.cue ? '3px' : '0px';
+    console.log("border for cue:",borderScore);
+    console.log("cue is -----",this.state.cue);
     const userScores = this.state.scores ? this.state.scores.map(function(playerScore){
       return(
-        <Paper>
-        <Row center='xs'> <Col>{playerScore.player}</Col>  <Col>{playerScore.score}</Col> </Row>
+        <Col>
+        <Paper style={{width:'200px', margin:'3px', borderWidth:borderScore, borderColor:'#FFFF66',borderStyle:'solid' }}>
+          <Row center='xs'>{playerScore.player}</Row>
+          <Row center='xs'><Avatar size={90} color='#000000' style={{fontSize:'28px'}}> {playerScore.score} </Avatar></Row>
       </Paper>
+    </Col>
       );
     }):null;
 
     const options = this.shouldDisplayOptions() ? <span> {this.state.currQuestion.options.map(function (option) {
       return(
-        <Paper key={option} style = {{padding: '2vh', cursor: 'pointer'}}
+        <Paper key={option} zDepth={3} style = {{padding: '3vh', cursor: 'pointer', backgroundColor: '#80DEEA', margin:'2px'}}
           onTouchTap = {this.handleAnswer.bind(this, option)}>
-          {option}
+          Who is {option} ?
         </Paper>
       );
     }.bind(this)) }</span> : null
@@ -90,18 +96,19 @@ export default class JeopardyGameplay extends React.Component {
         <SwipeableViews
           index={ this.getSwipeableViewIndex() }
         >
-          <Paper>
-            {tiles}
+          <Paper style={{width:'100%', backgroundColor: '#000000', overflow:'hidden'}}>
+            {tiles }
+            <Row center='xs' style={{backgroundColor:indigo700, marginTop:'20px'}}>{userScores}</Row>
           </Paper>
-          <Paper>
-            <Row center ='xs' style={{marginTop:'40px'}}>
+          <Paper style={{width:'100%', height:'100%', backgroundColor: indigo700, color: '#FFFFFF', overflow:'hidden'}}>
+            <Row center ='xs' style={{marginTop:'2px'}}>
               <Col> Category: {category} </Col>
               <Col> * Clue Point: {point}</Col>
            </Row>
-          <Row style={{marginTop:'60px'}}> <Col xs={12} sm ={12} md={12} lg={12}  > {this.getCurrQuestion()} </Col> </Row>
-          <Row center='xs' style={{marginTop:'100px'}}> <Col xs={12} sm ={12} md={12} lg={12} > {buzzer} </Col> </Row>
-          <Row center='xs' style={{marginTop:'100px'}}> <Col xs={12} sm ={12} md={12} lg={12} >  {options} </Col> </Row>
-{userScores}
+          <Row center='xs' style={{marginTop:'40px', marginLeft:'5px', marginRight:'5px', fontSize:'20px', lineHeight:'30px', textAlign:'justify'}}> <Col xs={12} sm ={12} md={12} lg={12}  > {this.getCurrQuestion()} </Col> </Row>
+          <Row center='xs' style={{marginTop:'70px'}}> <Col xs={12} sm ={12} md={12} lg={12} > {buzzer} </Col> </Row>
+          <Row center='xs' style={{marginTop:'70px'}}> <Col xs={12} sm ={12} md={12} lg={12} >  {options} </Col> </Row>
+          <Row center='xs'>{userScores}</Row>
           </Paper>
         </SwipeableViews>
       </Grid>
