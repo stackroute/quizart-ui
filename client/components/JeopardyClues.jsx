@@ -64,30 +64,30 @@ export default class JeopardyClues extends React.Component{
   }
 
   componentDidMount() {
-    let tempClueData=[];
     this.context.socket.on('finalClues',function(dataReceived){
       console.log(dataReceived);
+      const tempClueData = this.state.jeopardyCluesData;
       if(this.state.flag){
         if(dataReceived.length!=0){
-          dataReceived.map(function(element){
+          dataReceived.forEach(function(element){
             temp=JSON.parse(element);
             tempClueData.push(temp.clueData);
           })
-          this.setState({jeopardyCluesData:tempClueData})
         }
       }
       else {
         if(dataReceived.length!=0){
           var data=JSON.parse(dataReceived);
-          tempClueData.push(data.clueData),
-          this.setState({jeopardyCluesData:tempClueData})
-          if(this.state.jeopardyCluesData.length != 0)
-          {
-            this.setState({showImage:false,showError:false,showMore:true});
-            clearInterval(this.timerID);
-          }
+          tempClueData.push(data.clueData);
         }
       }
+
+      const showMoreInfo = this.state.jeopardyCluesData.length > 0;
+      const showImage = !showMoreInfo;
+      const showError = !showMoreInfo;
+
+      this.setState({jeopardyCluesData:tempClueData, showImage: showImage, showError: showError, showMore: showMoreInfo});
+      if(showMoreInfo) { this.clearInterval(timerId); }
     }.bind(this));
   }
 
@@ -119,12 +119,13 @@ export default class JeopardyClues extends React.Component{
 
   handleChange=(event)=>{
     value=1;
+    this.setState({showError:false,showImage:false,showMore:false,flag:false,jeopardyCluesData:[],dataObj:[],selectedSubjectMeaning:[],selectedSubjectDescription:'',selectedSubject:[],pandqString:[]})
     this.setState({slideIndex:value})
     this.setState({input: event.target.value});
     this.setState({enableChoose:false});
   };
   handleClick=()=>{
-    this.setState({showError:false,showImage:false,showMore:false,jeopardyCluesData:[],dataObj:[],selectedSubjectMeaning:[],selectedSubjectDescription:'',selectedSubject:[],pandqString:[]})
+    this.setState({showError:false,showImage:false,showMore:false,flag:false,jeopardyCluesData:[],dataObj:[],selectedSubjectMeaning:[],selectedSubjectDescription:'',selectedSubject:[],pandqString:[]})
     clearInterval(this.timerID);
     this.timerID = setInterval(() => this.tick(),30000);
     this.setState({enableLoaderPage:true});
@@ -286,7 +287,6 @@ export default class JeopardyClues extends React.Component{
   }
   showMoreClues=()=>{
     this.setState({flag:flagTrue});
-    this.setState({jeopardyCluesData:emptyArray});
     console.log("next array length"+this.state.jeopardyCluesData.length);
     start=this.state.endLimit+1;
     end=this.state.endLimit+10;

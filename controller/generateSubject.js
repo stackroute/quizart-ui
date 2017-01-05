@@ -14,6 +14,7 @@ router.post('/generateSubject', function(req, res, next) {
   let searchId='cluesGenOutputQueue_'+Math.floor((Math.random() * 10000) + 1);
   console.log('Search ID', searchId);
   client1.rpush("cluesGenInputWorkQueue", JSON.stringify({"searchId": searchId, "subject": selectedSubject, "description": description}), (error, reply) => {
+    if(error) { console.log('RPUSH ERROR:', error); return; }
     console.log('RPushed In InputQueue'+selectedSubject);
   });
 
@@ -25,8 +26,9 @@ router.post('/generateSubject', function(req, res, next) {
       "description": description,
     };
 
-    client.lpush("cluesGenInputWorkQueue", JSON.stringify(data), (error, reply) => {
-      // console.log('Pushed In InputQueue'+data.subject);
+    client1.lpush("cluesGenInputWorkQueue", JSON.stringify(data), (error, reply) => {
+      if(error) { console.log('LPUSH ERROR:', error); }
+      console.log('LPushed In InputQueue'+data.subject);
     });
   });
   res.send(searchId);
