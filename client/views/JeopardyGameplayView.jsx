@@ -18,7 +18,8 @@ export default class JeopardyGameplay extends React.Component {
       cue: false,
       row: false,
       col: false,
-      countQues: 0
+      countQues: 0,
+      completed: false
     };
   }
 
@@ -35,6 +36,19 @@ export default class JeopardyGameplay extends React.Component {
 
   render() {
 
+    // const winner = this.state.completed ? alert()
+    const winner = (this.state.scores && this.state.scores instanceof Array ? this.state.scores : []).sort((a,b) => {
+      if(a.score < b.score) {
+        return 1;
+      } else if(a.score > b.score) {
+        return -1;
+      } else {
+        return 0;
+      }
+    })[0];
+    if(this.state.completed) {
+      alert(winner.player, 'won');
+    }
     const tiles = Array(6).fill().map((_, row) => {
       const rowComponent = Array(6).fill().map((_, col) => {
         // const tileColor = this.state.questions[col][row].opened ? '#FFFFFF' : '#673AB7';
@@ -57,13 +71,10 @@ export default class JeopardyGameplay extends React.Component {
     });
     //
     const borderScore = this.state.cue ? '3px' : '0px';
-    console.log("border for cue:",borderScore);
     const cue = this.state.cue;
     // console.log("cue is -----",this.state.cue);
     const userScores = this.state.cue ? this.state.scores.map(function(playerScore){
       let borderScore = cue === playerScore.player ? '#FFFF66' : '#FFFFFF';
-      console.log("border for cue:",borderScore);
-      console.log("hello from scores!");
       return(
         <Col>
         <Paper style={{width:'200px', margin:'3px',  backgroundColor:borderScore }}>
@@ -95,7 +106,6 @@ export default class JeopardyGameplay extends React.Component {
     const category = this.state.categories[this.state.col];
     const point = (this.state.row+1)*200;
     const isOpened = this.state.currQuestion.opened ? true : false;
-    console.log(isOpened);
     return (
       <Grid>
         <SwipeableViews
@@ -131,9 +141,6 @@ export default class JeopardyGameplay extends React.Component {
       count = this.state.countQues + 1;
       this.setState({countQues:count});
       console.log(this.state.countQues);
-      if(this.state.countQues===29){
-        alert("Game Over!");
-      }
   }
   shouldDisplayOptions () {
       return (this.state.currQuestion && this.state.cue);
@@ -172,6 +179,8 @@ export default class JeopardyGameplay extends React.Component {
 
   /* Need to transpose the array, by switching row and col values. */
   handleQuestionClicked(row, col, event) {
+    console.log('question clicked:', row, col);
+    if(this.state.cue !== JSON.parse(atob(localStorage.token.split('.')[1])).email) { return; }
     if(!event.target.disabled)
     this.context.socket.emit('pickQuestion', {row: row, col: col});
     event.target.disabled=true;
