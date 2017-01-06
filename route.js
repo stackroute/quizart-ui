@@ -7,7 +7,6 @@ var jwt = require('jsonwebtoken');
 var path = require('path');
 var config = require('./server/config');
 var userRoute = require('./controller/index.js');
-require('./server/db.js');
 var init  = require('./socket');
 init(io);
 

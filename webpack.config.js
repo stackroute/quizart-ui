@@ -1,9 +1,5 @@
 const path = require('path');
 
-// const jsonServer = require('json-server');
-// const router = jsonServer.router('test/db.json');
-// const middleware = jsonServer.defaults();
-
 module.exports = {
   devtool: 'inline-source-map',
   entry: {
